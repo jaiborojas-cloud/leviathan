@@ -1,0 +1,194 @@
+Trabaja en este repositorio del proyecto Leviathan / RIPG. La tarea es incorporar y organizar su documentación científica, reconstruir el estado actual de los experimentos y preparar la continuidad del proyecto.
+
+Por ahora, NO ejecutes experimentos, entrenamientos ni auditorías geométricas. No modifiques implementaciones científicas ni resultados originales.
+
+OBJETIVO
+
+Crear documentación coherente y trazable que explique:
+- qué investiga RIPG;
+- sus definiciones y axiomas;
+- qué pruebas se realizaron y qué permiten concluir;
+- el estado actual verificado;
+- las limitaciones y problemas abiertos;
+- los siguientes experimentos y las vertientes conceptuales futuras.
+
+Trabajaremos en un solo repositorio. Los archivos voluminosos —ZIP, checkpoints y arrays diagnósticos— deben quedar fuera del historial de Git. Versionar código, protocolos, manifests, hashes, reportes y documentación.
+
+PRIMER PASO: INVENTARIO
+
+1. Lee las instrucciones existentes del repositorio, incluido AGENTS.md.
+2. Examina los archivos y cambios locales sin sobrescribir trabajo existente.
+3. Localiza documentos originales, protocolos, cierres, progress.md, manifests y reportes.
+4. Identifica qué información está disponible y qué falta.
+5. No supongas acceso a conversaciones anteriores ni a la Biblioteca de ChatGPT. Si faltan archivos, prepara la estructura y solicita una lista concreta y agrupada de los documentos necesarios.
+6. No inventes archivos, referencias, hashes, resultados o fechas.
+
+FUENTES PRIORITARIAS A LOCALIZAR
+
+Los nombres siguientes son pistas de búsqueda, no garantía de que estén presentes ni de que sean la versión vigente:
+
+- Leviathan_RIPG_estado_investigacion_2026-09-23.md
+- RIPG_contexto_vigente_axioma.md
+- Cierres y reportes de E9, E11, E12, E13 y E14.
+- Cierres E15-B6, E15-B7, E15-B8, E15-C1 y E15-C1-A2.
+- Leviathan_RIPG_E15-T1_diseno_topologia_local.md
+- Leviathan_RIPG_E15-T1-A_cierre_y_T1-B_inicio.md
+- Leviathan_RIPG_E15-T1-B_cierre.md
+- Leviathan_RIPG_E15-T2_diseno_validacion_externa.md
+- Leviathan_RIPG_T2-A0_preregistro.md
+- Leviathan_RIPG_roadmap.md
+- PROMPT_nuevo_chat_Leviathan.md
+- T2_A/progress.md, protocol.json, cohort_manifest.csv,
+  task_log.csv, manifest.csv, visits.csv y outcomes.csv.
+- Reportes de diagnóstico del paso 139 y del límite del dominio.
+- Cualquier cierre documental o avance posterior del caso
+  split8_j5_true/update25.
+
+Busca también documentos sobre próximos experimentos, líneas abiertas,
+composicionalidad, coarse-graining perspectival y extensión a dimensión mayor
+que dos. No asumas que el roadmap operativo contiene todas estas vertientes.
+
+CONTEXTO ORIENTATIVO, SUJETO A VERIFICACIÓN
+
+RIPG estudia la geometría inducida por familias de perspectivas sobre redes
+neuronales. Una perspectiva P define un funcional S_P sobre el espacio de
+parámetros; su relevancia se representa mediante omega_P = d_theta S_P.
+Debe distinguirse el espacio del modelo del espacio de perspectivas.
+
+El marco incluye Fisher, su kernel, admisibilidad perspectival y
+B = d_P omega. Distinguir la construcción ideal con pseudoinversa de la
+implementación regularizada G_rho. Recuperar de las fuentes sus convenciones
+exactas; no tratarlas como idénticas sin justificación.
+
+Resultados históricos que deben verificarse:
+- C1-A permanece INCONCLUSIVE.
+- C1-A2 identificó GEOMETRIC_NONINJECTIVITY en split0/true/j1 y j3.
+- T1-B encontró una correlación descriptiva de aproximadamente 0.9549
+  entre C_A y condición de Dexp a radio común en 38 estados true admisibles.
+  Esto es EXPECTED_GEOMETRIC_CONTROL, no validación predictiva prospectiva.
+- T2-A tiene 800 basales sellados según el último contexto disponible.
+  El progreso de visitas futuras puede haber cambiado en otra sesión.
+- El caso split8_j5_true/update25 presentó indicios de terminación del
+  dominio original. Una frontera de dominio no equivale a conjugado,
+  cut locus ni autointersección.
+- No presentar estimaciones numéricas convergentes como certificados
+  rigurosos ni convertir un outcome desconocido en negativo.
+
+El estado actual debe reconstruirse desde los archivos más recientes y sus
+dependencias verificadas, no desde este resumen ni sólo desde fechas de archivo.
+
+ESTRUCTURA PROPUESTA
+
+Adáptala a lo existente sin crear duplicados innecesarios:
+
+README.md
+AGENTS.md
+docs/
+  foundations/
+    overview.md
+    mathematical-framework.md
+    admissibility-axiom.md
+  research-status.md
+  experiment-index.md
+  roadmap.md
+  research-directions.md
+  source-catalog.md
+  decisions/
+  handoff/
+  archive/
+experiments/
+  E15/
+  T1/
+  T2_A/
+    README.md
+    protocols/
+    reports/
+    manifests/
+
+CONTENIDO REQUERIDO
+
+README.md:
+- Objetivo y alcance del proyecto.
+- Explicación breve de perspectiva, relevancia y geometría inducida.
+- Estado verificado, con fecha de corte.
+- Qué está demostrado, observado, inconcluso o pendiente.
+- Navegación hacia teoría, experimentos y roadmap.
+- Cómo localizar y verificar los datos externos.
+- No incluir comandos de ejecución que no estén comprobados.
+
+docs/research-status.md:
+- Síntesis científica actual con fuentes concretas.
+- Separar validación instrumental, controles esperados, hallazgos
+  exploratorios e hipótesis predictivas.
+- Limitaciones, fallos y preguntas abiertas.
+- Distinguir experimentos concluidos, pausados e incompletos.
+
+docs/experiment-index.md:
+- Tabla por etapa con objetivo, población, método, resultado,
+  clasificación de evidencia, artefactos y siguiente paso.
+- No rellenar etapas sin documentación: marcar información faltante.
+
+docs/roadmap.md:
+- Próximos pasos operativos, dependencias, bloqueos y criterios de cierre.
+- Reflejar avances posteriores si están documentados.
+- No marcar como pendiente algo que ya fue cerrado en otra sesión.
+
+docs/research-directions.md:
+- Vertientes conceptuales y propuestas de experimentos futuros.
+- Distinguir propuestas originales recuperadas de sugerencias nuevas.
+- Para cada línea: pregunta, motivación, datos necesarios, prueba falsable,
+  riesgos de interpretación y condiciones para abrirla.
+- No convertir propuestas en protocolos congelados.
+- En dimensión mayor que dos, distinguir curvatura de la rebanada,
+  curvatura ambiente y contribuciones extrínsecas; no trasladar conclusiones
+  sobre conjugados o corte sin justificar sus condiciones.
+
+docs/source-catalog.md:
+- Inventario de fuentes con ruta, procedencia, fecha/versión disponible
+  y SHA-256 cuando se tengan los bytes.
+- Indicar qué documentos sustentan cada resumen.
+- Registrar contradicciones y fuentes faltantes.
+
+docs/archive/:
+- Conservar documentos históricos originales sin reescribirlos.
+- Los resúmenes nuevos deben enlazarlos mediante rutas relativas.
+
+AGENTS.md:
+- No reiniciar auditorías cerradas salvo fallo de integridad.
+- No alterar protocolos, semillas, radios, métricas, tolerancias,
+  umbrales ni reglas congeladas.
+- No reemplazar estados fallidos ni excluirlos retrospectivamente.
+- No convertir supervivientes en evidencia confirmatoria.
+- No usar los mismos datos para descubrir y confirmar una hipótesis.
+- Preservar resultados desconocidos como desconocidos.
+- Guardar avances documentales incrementalmente.
+- Separar análisis exploratorio de resultados oficiales.
+- No ejecutar nuevos experimentos por una solicitud documental.
+
+REGLAS DE EDICIÓN
+
+- Escribir en español claro y conservar identificadores técnicos.
+- Usar enlaces relativos dentro del repositorio.
+- Evitar enlaces temporales sandbox como referencias permanentes.
+- No incorporar grandes ZIP ni checkpoints a Git.
+- No borrar ni mover datos existentes sin necesidad.
+- Mantener versiones históricas y registrar correcciones explícitamente.
+- Ante contradicciones, documentarlas; no resolverlas por intuición.
+- No afirmar acceso ni verificaciones que no se hayan realizado.
+- No publicar ni hacer push automáticamente.
+
+VALIDACIÓN Y ENTREGA
+
+Revisa enlaces internos, consistencia de cifras y correspondencia entre
+afirmaciones y fuentes. Usa comprobaciones documentales; no ejecutes
+experimentos para llenar huecos.
+
+Al terminar informa:
+1. Archivos creados o modificados.
+2. Estado científico que pudo verificarse.
+3. Documentos o datos faltantes.
+4. Contradicciones pendientes.
+5. Próximo paso documental concreto.
+
+Avanza con toda la información disponible. Si falta material imprescindible,
+deja un inventario útil y solicita los archivos exactos en una sola lista.
