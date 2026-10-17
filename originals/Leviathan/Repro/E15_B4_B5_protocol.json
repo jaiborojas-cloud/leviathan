@@ -1,0 +1,80 @@
+{
+  "dataset": "sklearn.datasets.load_wine",
+  "architecture": [
+    13,
+    64,
+    32,
+    3
+  ],
+  "activation": "ReLU",
+  "optimizer": "Adam",
+  "learning_rate": 0.006,
+  "batch_size": 64,
+  "max_steps": 20000,
+  "check_every_steps": 25,
+  "capacity_threshold_accuracy": 0.99,
+  "split_seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007
+  ],
+  "init_seeds_B5": [
+    2000
+  ],
+  "random_label_seed_formula": "3000 + 10*split_index + init_index",
+  "batch_seed_formula": "4000 + 10*split_index + init_index",
+  "split": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15,
+    "stratified": true
+  },
+  "standardization": "StandardScaler fit on train only",
+  "perspective_features": [
+    "alcohol",
+    "malic_acid"
+  ],
+  "perspective_feature_indices": [
+    0,
+    1
+  ],
+  "fisher_panel": "validation set",
+  "identifiable_logits": "class 2 reference; z0'=z0-z2, z1'=z1-z2, z2'=0",
+  "block_sizes": {
+    "L1": 896,
+    "L2": 2080,
+    "L3_reduced": 66,
+    "total": 3042
+  },
+  "rho": 0.0001,
+  "H": "I",
+  "target_intrinsic_area": 0.02,
+  "B4_base_mesh": {
+    "angular": 128,
+    "radial": 64,
+    "rk4_steps": 256
+  },
+  "B5_base_mesh": {
+    "angular": 64,
+    "radial": 32,
+    "rk4_steps": 128
+  },
+  "B5_uniform_child_refinement_equivalent": {
+    "angular": 128,
+    "radial": 64
+  },
+  "adaptive_selection": {
+    "round1": "top 1% base triangles by |E_child4 - E_parent|",
+    "round2": "top 25% selected child triangles by local energy discrepancy",
+    "round3_B4_split6": "top 25% selected grandchildren by local energy discrepancy"
+  },
+  "integrand": "K(P)^2 * sqrt(det(G_full(P)))",
+  "common_domain_rule": "For mechanistic comparisons, all coalitions evaluated over same D_0.02 defined by full metric of state",
+  "convergence_internal_threshold_pct": 0.5,
+  "B6_problem": "Internal adaptive convergence is insufficient; split6 true differed ~39% across base meshes 128x64 vs 64x32."
+}

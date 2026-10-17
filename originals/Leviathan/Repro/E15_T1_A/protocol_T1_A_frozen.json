@@ -1,0 +1,115 @@
+{
+  "version": "T1-A-1",
+  "purpose": "descriptive full panel; no confirmatory inference",
+  "population": {
+    "splits": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "initializations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "regimes": [
+      "true",
+      "random"
+    ]
+  },
+  "center": [
+    0,
+    0
+  ],
+  "rho": 0.0001,
+  "target_area": 0.02,
+  "domain": "each exact C1 nominal radius, no extension or shrinking of C1",
+  "nominal": "reuse independently hashed C1 calibration; A2 for two failed C1 domains",
+  "geometry": "unchanged A2 geometry.py and exact saved M/f; verify reconstruction from each checkpoint",
+  "DOP853": {
+    "rtol": 2e-10,
+    "atol": 2e-12
+  },
+  "level1": {
+    "boundary_rays": [
+      512,
+      1024
+    ],
+    "jacobi_angles": [
+      256,
+      512
+    ],
+    "phases_cells": [
+      0,
+      0.5
+    ],
+    "radial_boundary_samples": 128,
+    "radial_jacobi_samples": 512
+  },
+  "candidate_gate": {
+    "any_boundary_intersection": true,
+    "any_jacobi_positive_root_or_sign_change": true,
+    "min_abs_intrinsic_det_below": 0.05,
+    "max_intrinsic_condition_above": 100,
+    "numerical_exception_or_resolution_inconsistency": true
+  },
+  "level2": {
+    "boundary_rays": [
+      2048,
+      4096,
+      8192
+    ],
+    "jacobi_angles": [
+      1024
+    ],
+    "phases_cells": [
+      0,
+      0.5
+    ],
+    "RK4_steps": [
+      128,
+      256,
+      512
+    ],
+    "RK4_rays": 2048
+  },
+  "level3": {
+    "boundary_rays": [
+      16384
+    ],
+    "phases_cells": [
+      0,
+      0.5
+    ],
+    "trigger": "inconsistent event presence across level2 phases/resolutions or first onset spread >1e-4 R, or no stable Jacobi evidence despite persistent boundary crossing"
+  },
+  "stability": {
+    "onset_relative_to_R": 0.0001,
+    "conjugate_relative_to_R": 0.0001,
+    "area_relative": 0.005
+  },
+  "area": {
+    "rule": "degree5 Dunavant 32 and 64 rings, 8192 rays for positives; use min first conjugate / first crossing; censored at nominal for no events",
+    "no_global_certificate": true
+  },
+  "classification": {
+    "positive": "stable boundary event and/or stable conjugate zero with sign change before R under refinement; SPD valid; contradictory evidence INCONCLUSIVE",
+    "injective": "no sampled loss and stable screening; observational only",
+    "numerical_failure": "coarse anomaly disappears consistently under refinement attributable to discretization",
+    "inconclusive": "exceptions or unresolved inconsistency"
+  },
+  "reuse": "10 A2 states reuse complete verified stronger resolution phase and RK4 evidence; no rerun required",
+  "rinj": "only numerical upper bound from positive events; no certified lower bound fabricated",
+  "cut_locus": "persistent collisions without detected conjugate => probable only; independent distance minimization deferred T1-B",
+  "budget": "finite predefined matrix, no replacements; exceptions documented; cap at level3; nominal radius only",
+  "persistence": "atomic state result; immutable per-state diagnostic ZIP before progress commit; small batches at most 4; stop on upload failure",
+  "analysis": "regime x split descriptive counts; initialization counts; censored area separate; Spearman and Pearson with available C1 metrics, no imputation; no p values",
+  "continuation": "more than known 2 positive states => open T1-B; only known2 => specific case series, not population T1-B"
+}

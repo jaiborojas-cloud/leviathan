@@ -1,0 +1,23 @@
+{
+ "version":"E15-C1-A2-v1",
+ "scope":"Diagnostic audit only; C1 numerical protocol, estimands, checkpoints and outcomes immutable",
+ "states":"Wine split0, init0..4, true/random; same instrument for all ten",
+ "radius":"exact nominal radius saved by C1, including diagnostic radius for rejected states; never recalibrate at higher resolution",
+ "boundary_rays":[2048,4096,8192,16384],
+ "phases_in_angular_cells":[0,0.5],
+ "DOP853":{"rtol":2e-10,"atol":2e-12},
+ "RK4":{"rays":2048,"phases_in_angular_cells":[0,0.5],"steps":[64,128,256,512]},
+ "boundary_onset":"Each DOP853 resolution/phase: 128 equally spaced positive radii up to nominal R; first nonsimple boundary bracket refined 28 bisections; no extrapolation beyond nominal R; absence gives censored observation, not global proof",
+ "jacobi":"Exact Gaussian curvature along exact geodesic: j''+K*j=0,j(0)=0,j'(0)=1. Intrinsic Dexp singular values are 1 and abs(j/r); signed determinant j/r. Solve augmented geodesic/Jacobi system with inherited DOP853 tolerances. Flat and unit-sphere analytic controls required.",
+ "jacobi_rays":[256,512,1024],
+ "jacobi_phases_in_angular_cells":[0,0.5],
+ "jacobi_radial_samples":513,
+ "jacobi_root":"first positive sign-changing zero per sampled angle via dense solution and Brent xtol1e-12; minimize first zero over the bracket around each lowest sampled angle with bounded angular search xatol1e-8; no claimed lower bound on global injectivity from finite angular samples",
+ "jacobi_crosscheck":"Compare signed j/r against angular centered differences of geodesics at finest boundary mesh on 65 radii; metric signed area determinant divided by r; angular differences are diagnostics only",
+ "area_embed":"First boundary-loss radius from continuous radial family; degree5 exact-metric area quadrature at lower simple bracket, 32 and64 rings, on 8192 and16384 boundaries. At no loss by R report right-censored A_embed at least area at R numerically; never change C1 A=0.02",
+ "topology":"All nonadjacent intersecting segment pairs using spatial index; endpoint touches retained; segment indices, interpolated angles and coordinates; signed chart area, polygonized face areas, face winding numbers and origin winding; chart areas explicitly not intrinsic areas",
+ "classification":{"GEOMETRIC_NONINJECTIVITY":"Persistent transverse crossing at both phases for 8192 and16384 and RK4 256/512, crossing-position relative change <1e-3 of boundary diameter; plus stable negative Jacobi determinant or sign-changing zero before R (conjugate-minimum relative change <1e-3 between512 and1024 angular grids). Numerical evidence, not rigorous interval certification.","NUMERICAL_FAILURE":"Crossing disappears at all finest phases and RK4 levels with no convergent Jacobi loss, or identified and demonstrated implementation error; must diagnose before correcting C1","INCONCLUSIVE":"Otherwise or incomplete numerical matrix; no threshold retuning"},
+ "bounds":"r_inj <= any numerically established conjugate radius or same-radius two-ray collision. Report numerical upper estimates separately from certified bounds; global equality and cut locus not asserted.",
+ "workers":6,"threads_per_worker":1,
+ "cost_policy":"Checkpoint every run. Numerical exceptions and infeasible16384 runs retained as missing and classification conservative; no replacement states."
+}

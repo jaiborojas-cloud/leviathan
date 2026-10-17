@@ -1,0 +1,52 @@
+{
+  "status": "FROZEN_BEFORE_RUN",
+  "implementation": "gmpy2 MPFR, fixed169 binary bits (mpmath50 precision), round nearest; all rays; reuse J.T M; pivoted 2x2 elimination; float64 RHS output",
+  "unchanged": "M,f, geometry, initial state, DOP853, rtol2e-10,atol2e-12,scientific thresholds",
+  "tests": [
+    "2048 point accelerations against saved MP80",
+    "11 fixed V1 single-ray integrations against fresh MP120",
+    "one full2048-ray DOP853 step and513 dense samples against persisted MP80",
+    "3 repeated full-step timings for candidate; comparison to historical113.530567934s MP50 explicitly nonconcurrent"
+  ],
+  "integration_tests": [
+    {
+      "start_stored_step": 0,
+      "rays": [
+        0,
+        512,
+        1024,
+        1536,
+        1777
+      ],
+      "delta_r": 0.06
+    },
+    {
+      "start_stored_step": 512,
+      "rays": [
+        1777,
+        1773,
+        1776
+      ],
+      "delta_r": 1e-06
+    },
+    {
+      "start_stored_step": 512,
+      "rays": [
+        1777,
+        1773,
+        1776
+      ],
+      "delta_r": 1e-05
+    }
+  ],
+  "accuracy_gate": "every component max abs(candidate-reference)/(2e-12+2e-10*abs(reference))<=1; same accepted full-step t; all tests required",
+  "efficiency_gate": "median full-step wall time <113.530567934s; historical comparison only, no whole-visit claim",
+  "failure": "retain outputs, no altered precision or thresholds; candidate not adopted",
+  "scope": "local instrumental validation only, production512 untouched; full origin replay/calibration/Jacobi/topology pending",
+  "source_sha256": "b3d4a804dfa02197d235a9b00d0a98759fc8b5608446a7cc552b883478e6f63e",
+  "reference_sha256": {
+    "precision50_point_reference.npz": "c1861b731863f35ebfdbfc5f2d37c9ba87ab9e0210a2bd41c8acb644178a0367",
+    "precision80_bundle_step.npz": "8e8de46e4573a23f64514ee4651136ae1775af7f5e7fc7e62e9e1bce5b8bfa69",
+    "precision50_validation_results.json": "f2021c3a6d7225860c1cae019cf2a5a8b5801c54a55a91e5c7a873c4bd6b8a0a"
+  }
+}

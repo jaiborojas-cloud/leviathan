@@ -1,0 +1,1 @@
+Auditoria terminada. Estructura algebraica del borde certificada sobre datos exactos almacenados.2048 rayos evaluados contra8 caras;41 nuevas direcciones desde origen;3 controles266bits. Minimo local≈0.07447421006513 enindice1775.39798. Certificacion global angular INCONCLUSIVE: falta integracion validada e intervalos angulares. Produccion PAUSED139; no outcomes.

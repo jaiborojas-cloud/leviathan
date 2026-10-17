@@ -1,0 +1,19 @@
+{
+  "id": "ACCELERATION_MP50_V2",
+  "status": "FROZEN_BEFORE_V2_RESULTS",
+  "candidate": "same geodesic acceleration in mpmath50 digits for every evaluated ray, then cast RHS to float64; cached exact M and f per precision",
+  "no_adaptive_precision_threshold": true,
+  "official_production_unchanged": true,
+  "references": [
+    80,
+    120
+  ],
+  "point_validation": "all2048 rays at official snapshot512 against80digits;120digits at fixed rays0,256,512,768,1024,1280,1536,1768,1773,1776,1777,1778,1784,1792",
+  "point_gate": "component absolute error <= 2e-12 + 2e-10*abs(reference); diagnostic equivalence, not new scientific endpoint",
+  "trajectory_regression": "same11 isolated integrations as V1, against80/120 digits",
+  "full_bundle_test": "one DOP853 accepted step from official snapshot512 state, all2048 rays, same initial trial h_abs and same rtol2e-10/atol2e-12; candidate50 vs reference80; compare accepted t and dense output513 points on common accepted interval, count nfev and cost",
+  "full_bundle_gate": "both solvers running/finished without failure; accepted t equal; all dense values within2e-12+2e-10*abs(reference80)",
+  "operational_budget": "max1 accepted step in full-bundle test, not full nominal calibration",
+  "decision": "any failed gate=>NOT_VALIDATED_FOR_PRODUCTION; all pass=>VALIDATED_FOR_TESTED_LOCAL_SCOPE_ONLY; full nominal disk, Jacobi,topology and replay from origin remain prerequisites for production",
+  "no_posthoc_changes": true
+}

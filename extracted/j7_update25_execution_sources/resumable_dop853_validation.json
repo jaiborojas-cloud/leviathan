@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "dense_max_absolute_error": 0.0,
+  "checks": {
+    "t_bitwise": true,
+    "y_bitwise": true,
+    "dense_513_bitwise": true,
+    "nfev_identical": true,
+    "pauses_exercised": true
+  },
+  "pauses": 1,
+  "nfev": 32,
+  "reference": "unchanged Geometry.rays -> scipy.solve_ivp DOP853",
+  "state": "baseline split8_j5_true/update5",
+  "r": 0.09,
+  "rays": 2048,
+  "rtol": 2e-10,
+  "atol": 2e-12,
+  "cloudpickle": "3.1.2",
+  "script_sha256": {
+    "resumable_dop853.py": "93aca7430d76e51ab82078864a63a3d15f5b32d84842b429ae6b5a70229ce1f3",
+    "validate_resumable_dop853.py": "8d074344048380ebaf08a52983d8be442859417a1b76a32cb6c0280a9ca9116b"
+  }
+}

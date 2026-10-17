@@ -1,0 +1,611 @@
+{
+  "n": 80,
+  "counts": {
+    "true": {
+      "INJECTIVE_AT_NOMINAL_RADIUS": 38,
+      "GEOMETRIC_NONINJECTIVITY": 2
+    },
+    "random": {
+      "INJECTIVE_AT_NOMINAL_RADIUS": 40
+    }
+  },
+  "by_split": {
+    "true": {
+      "0": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 3,
+        "GEOMETRIC_NONINJECTIVITY": 2
+      },
+      "1": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "2": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "3": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "4": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "5": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "6": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "7": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      }
+    },
+    "random": {
+      "0": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "1": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "2": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "3": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "4": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "5": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "6": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      },
+      "7": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 5
+      }
+    }
+  },
+  "by_init": {
+    "true": {
+      "0": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "1": {
+        "GEOMETRIC_NONINJECTIVITY": 1,
+        "INJECTIVE_AT_NOMINAL_RADIUS": 7
+      },
+      "2": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "3": {
+        "GEOMETRIC_NONINJECTIVITY": 1,
+        "INJECTIVE_AT_NOMINAL_RADIUS": 7
+      },
+      "4": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      }
+    },
+    "random": {
+      "0": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "1": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "2": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "3": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      },
+      "4": {
+        "INJECTIVE_AT_NOMINAL_RADIUS": 8
+      }
+    }
+  },
+  "distributions": {
+    "true": {
+      "r_conj_detected": {
+        "n": 2,
+        "min": 0.07596208350278867,
+        "q25": 0.0760650317487306,
+        "median": 0.07616797999467254,
+        "q75": 0.07627092824061446,
+        "max": 0.07637387648655639
+      },
+      "r_inj_numerical_upper": {
+        "n": 2,
+        "min": 0.07596208350278867,
+        "q25": 0.0760650317487306,
+        "median": 0.07616797999467254,
+        "q75": 0.07627092824061446,
+        "max": 0.07637387648655639
+      },
+      "A_embed_event_estimates": {
+        "n": 2,
+        "min": 0.015420776835210977,
+        "q25": 0.01580133364771696,
+        "median": 0.016181890460222944,
+        "q75": 0.016562447272728927,
+        "max": 0.01694300408523491
+      },
+      "A_embed_ratio_event_estimates": {
+        "n": 2,
+        "min": 0.7710388417605488,
+        "q25": 0.790066682385848,
+        "median": 0.8090945230111471,
+        "q75": 0.8281223636364463,
+        "max": 0.8471502042617455
+      },
+      "area_right_censored_count": 38,
+      "unknown_area_count": 0,
+      "censoring_note": "Observed to nominal A=0.02; no mathematical certificate or maximum beyond nominal."
+    },
+    "random": {
+      "r_conj_detected": {
+        "n": 0
+      },
+      "r_inj_numerical_upper": {
+        "n": 0
+      },
+      "A_embed_event_estimates": {
+        "n": 0
+      },
+      "A_embed_ratio_event_estimates": {
+        "n": 0
+      },
+      "area_right_censored_count": 40,
+      "unknown_area_count": 0,
+      "censoring_note": "Observed to nominal A=0.02; no mathematical certificate or maximum beyond nominal."
+    }
+  },
+  "correlations": [
+    {
+      "regime": "true",
+      "metric": "C_A",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": -0.6623262939052413,
+      "pearson": -0.36529085047038257,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "C_A",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": 0.9717693401903927,
+      "pearson": 0.5289011200456705,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "C_A",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "C_A",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_1pct",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": -0.6520407046722836,
+      "pearson": -0.2784694639562027,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_1pct",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": 0.708939708939709,
+      "pearson": 0.32715185741136277,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_1pct",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_1pct",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_01pct",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": -0.6397855345223766,
+      "pearson": -0.006370121205514611,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_01pct",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": 0.6863989495568443,
+      "pearson": 0.17750683512654578,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_01pct",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "lambda_01pct",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "R_eff",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": 0.6702046175730386,
+      "pearson": 0.4286089231972677,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "R_eff",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": -0.7222890907101434,
+      "pearson": -0.3541435108722449,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "R_eff",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "R_eff",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "frac50",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": 0.6614509246088193,
+      "pearson": 0.3995595378755939,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "frac50",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": -0.7187876135244556,
+      "pearson": -0.33106547342926507,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "frac50",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "frac50",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "frac90",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 38,
+      "spearman": 0.6426304847357479,
+      "pearson": 0.43286842755074756,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "frac90",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 38,
+      "spearman": -0.7185687712003501,
+      "pearson": -0.3850426271053747,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "true",
+      "metric": "frac90",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "true",
+      "metric": "frac90",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "C_A",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": 0.6317073170731708,
+      "pearson": -0.6682805444547739,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "C_A",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": 0.9996247654784242,
+      "pearson": 0.9998953795482144,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "C_A",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "C_A",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_1pct",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": -0.052908067542213895,
+      "pearson": -0.2152886042129171,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_1pct",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": 0.2666041275797374,
+      "pearson": 0.21893202131344433,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_1pct",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_1pct",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_01pct",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": -0.052908067542213895,
+      "pearson": -0.2141810635557297,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_01pct",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": 0.2666041275797374,
+      "pearson": 0.21845438297448097,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_01pct",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "lambda_01pct",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "R_eff",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": 0.05347091932457786,
+      "pearson": 0.13543132592057847,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "R_eff",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": -0.2660412757973734,
+      "pearson": -0.16507049682015515,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "R_eff",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "R_eff",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "frac50",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": 0.05347091932457786,
+      "pearson": 0.23391300822876726,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "frac50",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": -0.2660412757973734,
+      "pearson": -0.22701824125100178,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "frac50",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "frac50",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "frac90",
+      "outcome": "min_abs_det_Dexp_common512",
+      "n": 40,
+      "spearman": 0.05572232645403378,
+      "pearson": 0.23361199556218332,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "frac90",
+      "outcome": "max_Dexp_condition_common512",
+      "n": 40,
+      "spearman": -0.2636022514071295,
+      "pearson": -0.22464904799283936,
+      "note": "Descriptive pooled states, hierarchical dependence; no p values"
+    },
+    {
+      "regime": "random",
+      "metric": "frac90",
+      "outcome": "r_conj",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    },
+    {
+      "regime": "random",
+      "metric": "frac90",
+      "outcome": "A_embed",
+      "n": 0,
+      "spearman": null,
+      "pearson": null,
+      "note": "Not estimable: unavailable pairs, censoring or insufficient variation"
+    }
+  ],
+  "limitations": [
+    "No confirmatory inference; no causal interpretation",
+    "Conjugate and A_embed event distributions conditional on detected events. Censored values are not maxima.",
+    "No certified lower bounds r_inj; upper bounds numerical only",
+    "C_A and concentration missing in invalid C1 domains; no imputation or repaired domain estimands",
+    "Splits share Wine samples and are not independent datasets"
+  ],
+  "positive_states": [
+    "split0_j1_true",
+    "split0_j3_true"
+  ],
+  "cut_locus_probable": [],
+  "new_cpu_seconds": 972.137007834,
+  "new_state_wall_seconds_sum": 972.365267198,
+  "gate": "COMPLETE",
+  "T1_B": "SPECIFIC_CASE_SERIES_ONLY"
+}

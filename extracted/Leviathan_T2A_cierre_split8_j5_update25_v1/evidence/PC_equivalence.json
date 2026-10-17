@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "manifest_sha256": "53ff6ed20fb0de2a63d0805c4eabc7120ba59fd7fdc3b29dcbd9da25f1095a7f",
+  "environment": {
+    "python": "3.12.10",
+    "system": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "bits": 64,
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "gmpy2": "2.3.2",
+      "shapely": "2.1.2"
+    },
+    "mpfr": "MPFR 4.2.2",
+    "gmp": "GMP 6.3.0"
+  },
+  "tests": [
+    {
+      "repeat": 1,
+      "wall_seconds": 17.205913299999793,
+      "accepted_t": 0.07343424714366341,
+      "same_t": true,
+      "same_nfev": true,
+      "endpoint_scaled_error": 1.1076753130586658e-06,
+      "dense513_scaled_error": 2.0010131440685315e-06,
+      "pass": true
+    },
+    {
+      "repeat": 2,
+      "wall_seconds": 17.326583700000356,
+      "accepted_t": 0.07343424714366341,
+      "same_t": true,
+      "same_nfev": true,
+      "endpoint_scaled_error": 1.1076753130586658e-06,
+      "dense513_scaled_error": 2.0010131440685315e-06,
+      "pass": true
+    }
+  ],
+  "median_seconds": 17.266248500000074,
+  "science": "portabilidad local solamente; no valida el dominio completo",
+  "time_utc": "2026-10-15T21:03:50Z"
+}

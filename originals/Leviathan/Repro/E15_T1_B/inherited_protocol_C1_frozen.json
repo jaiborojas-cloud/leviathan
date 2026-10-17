@@ -1,0 +1,76 @@
+{
+  "version": "E15-C1-v1",
+  "frozen_at": "2026-09-24T20:55:45.373595+00:00",
+  "numerical_protocol": "protocol_frozen_B7_B8.json unchanged",
+  "panel": {
+    "splits": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "initializations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "regimes": [
+      "true",
+      "random"
+    ]
+  },
+  "training": {
+    "split_seed": "1000+s",
+    "init_seed": "2000+j",
+    "batch_seed": "4000+10*s+j",
+    "label_seed": "3000+10*s+j",
+    "random_labels": "numpy.default_rng(label_seed).permutation(y_train)",
+    "algorithm": "original core.train_branch unchanged; Adam 0.006, batch64, max20000, first checkpoint every25 with target accuracy>=.99",
+    "pairing": "identical initialization and minibatch stream prefix; same maximum budget and stopping criterion, realized stopping steps can differ",
+    "j0_replay_gate": "same stopping steps and accuracies, maximum absolute parameter error <=1e-12; exact equality recorded"
+  },
+  "reuse": "j0: verified B8 six-source results, not B4/B5 estimates",
+  "area_gate": "abs(calibrated_area/0.02-1)<=1e-6, exactly as B8; centroid-sum errors reported separately, not a new relaxed or tightened gate",
+  "primary_unit": "split; descriptive repeated train/test partitions share Wine examples, so independent-replicate interpretation is conditional on fixed dataset",
+  "split_aggregate": "median of the five signed true-minus-random contrasts",
+  "directions": {
+    "C_A": 1,
+    "lambda_1pct": 1,
+    "lambda_01pct": 1,
+    "frac50": -1,
+    "frac90": -1,
+    "R_eff": -1,
+    "H_phi": -1,
+    "s3": -1
+  },
+  "sign_test": "exact two-sided binomial sign test on 8 split medians; exact zeros omitted; report effective n; six spatial p-values also Holm-adjusted as fixed family",
+  "bootstrap": {
+    "method": "BCa",
+    "statistic": "median of split medians",
+    "confidence": 0.95,
+    "resamples": 100000,
+    "seed": 150150,
+    "unit": "split only",
+    "tie_handling": "scipy BCa default; nonfinite/degenerate CI => unavailable, do not substitute another CI method"
+  },
+  "heterogeneity": [
+    "within-split IQR/range/SD of five contrasts",
+    "between-split IQR/range/SD of eight medians",
+    "direction counts and medians separately by init index",
+    "two-way additive decomposition of 8x5 signed contrasts; residual labeled interaction-plus-unreplicated-error, no separable inferential interaction test"
+  ],
+  "magnitude_independence": "normalized spatial estimands are invariant to multiplicative K scaling analytically; empirical rank correlations with log C_A within regime and split-level contrasts descriptive; no causal/statistical independence inferred from normalization",
+  "exclusions": "exclude whole pair if either state fails any inherited gate or training replay/eligibility; no replacement seeds",
+  "failure_policy": "Any excluded pair prevents confirmatory PASS of full 40-pair panel; label families INCONCLUSIVE, retain descriptive valid pairs and incomplete-split flags; no survivor-only confirmation",
+  "family_decision": "With all 40 valid pairs: metric PASS if all 8 split medians have expected strict sign and exact two-sided p<0.05; otherwise FAIL for that directional criterion, never proof of null; report Holm across six spatial metrics. Magnitude=C_A, localization=all five normalized metrics. A failed/unavailable BCa is reported, not a posthoc new gate.",
+  "depth": "C1-B separate: original seven nonempty coalitions, full-state D0.02 and full metric area measure; v(empty)=0, Shapley of coalition C_A, absolute shares, H_phi=sum shares^2, s3=share of output. No central-point or singleton substitute. Assess runtime after C1-A; if complete 7-field x80 x6 evaluation is infeasible, retain C1-B pending/INCONCLUSIVE and do not claim depth survived.",
+  "continuation": "C2 only if C1 numerical gates and directional evidence robust; do not claim completed joint mechanism if depth remains unresolved. No external-task replication in this run.",
+  "workers": 6,
+  "threads_per_worker": 1
+}

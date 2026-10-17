@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "new_neural_states": 0,
+  "checks": [
+    "800 distinct future initializations and streams;160splits",
+    "rstar exact;time fixed",
+    "tie handling",
+    "single-positive AP",
+    "information gate",
+    "synthetic null-like FAIL",
+    "synthetic strong-separation PASS",
+    "exact event probability consistency"
+  ],
+  "not_power_validation": "Synthetic checks validate logic only; no empirical performance claim."
+}

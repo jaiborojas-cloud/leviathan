@@ -1,0 +1,766 @@
+{
+  "states": 80,
+  "checkpoints": 80,
+  "unique_states": 80,
+  "missing": [],
+  "state_archives_persisted": 80,
+  "task_arrays": 780,
+  "historical_temporary_files_excluded_from_science": [
+    "states/split1_j1_random/jacobi/n512_phase0.tmp.npz",
+    "states/split1_j2_random/jacobi/n512_phase0.tmp.npz",
+    "states/split1_j3_random/jacobi/n512_phase0.tmp.npz",
+    "states/split1_j4_random/jacobi/n512_phase0.tmp.npz",
+    "states/split1_j4_true/jacobi/n512_phase1.tmp.npz",
+    "states/split2_j0_true/jacobi/n256_phase0.tmp.npz",
+    "states/split2_j0_true/jacobi/n512_phase1.tmp.npz",
+    "states/split2_j2_true/jacobi/n256_phase0.tmp.npz",
+    "states/split3_j1_random/jacobi/n256_phase1.tmp.npz",
+    "states/split3_j2_random/jacobi/n256_phase1.tmp.npz",
+    "states/split4_j4_random/jacobi/n512_phase0.tmp.npz",
+    "states/split5_j2_true/jacobi/n256_phase0.tmp.npz",
+    "states/split6_j1_random/jacobi/n512_phase0.tmp.npz",
+    "states/split6_j2_random/jacobi/n512_phase0.tmp.npz",
+    "states/split7_j0_random/jacobi/n256_phase1.tmp.npz",
+    "states/split7_j2_random/jacobi/n512_phase0.tmp.npz"
+  ],
+  "protocol_sha256": "6081c1e2517ddf2ff02457b361894bd508889aec13e8fd37b0a9e9a45a02fc6c",
+  "script_sha256": {
+    "audit.py": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+    "make_report.py": "8428559638143865561ecb26358348e35e129b6cb29a64d46da91bcc496a4d6b",
+    "persist.py": "2a262a253dca82462390b7b76819e59080d90a1a327515a267d4065380bb1910",
+    "final_audit.py": "0142a6183da9c8a9ea601ef61757aa88f7341f4b31928c1cc0d47944bc3a3267",
+    "setup.py": "40cbb144996247f7ff276d31eb0761b4349df9cf3027e763b8b70e4168e95098",
+    "run_map_postprocess.py": "1f796cdaf8832e2298d1e1490f8a7c81f942b026201e1087a1ffc193ec85da38",
+    "geometry.py": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "finalize_progress.py": "5279f522ea2f9ea8f325b8d9fddcab2a1ca0ad5f588bc00bcd10f9ead0e316b4",
+    "recover_postprocessing.py": "6ac0d1d2d6616a3888ecede3c12d6897ea6d713424e25987a01c3995bda0e678",
+    "verify_inputs.py": "1962080f0f41ffc8d6031d73dabaf25bd4c877823865cd0c5e51046278b01f4f",
+    "run_map.py": "eb2d9f93f39c0a1076ff5f4939ffc05045d24c14c331ae85b039bd80effcb034",
+    "analyze_map.py": "366059e533844bd897c7a18fd5985a1110d5e01f26d196a52df9f7657fa059cc",
+    "reconstruct.py": "28c9fe9f1fc7fcd91021c3d3a91292bc181aa72441ccd8be461b6f711dd52285",
+    "hierarchical_descriptive.py": "d5dc015d97a767cf72f7ffa9bf9ca58b78a793221bf847c6208b2fe33f1e151a"
+  },
+  "states_audit": [
+    {
+      "state": "split0_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "b8061eaee55023f3554ce084e503866188b11145fe16026805029a13f651f8a7",
+      "checkpoint_sha256": "11c4c1ddad8fbaab195da652599a3fd9d66b8fb2ec62d09bd3dcd88fbf8d2c4d",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "26bc9f3a3119f3cd35b81fa70d559e8f24804fc8f2f5b0b89c660daabd6a0a6a",
+      "checkpoint_sha256": "9ee635f67c36c43f81a07a9a5333c38d09daad5c920e381e0e048481ed6dc640",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "5199b057d410328da664b99d581616a369b1ac537bc45c40cbd42a4b53bcf625",
+      "checkpoint_sha256": "9539233659f5b69e8eee6512e7bf677ef6a71d4b4321937d2ad5068aa7ea1b3f",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j1_true",
+      "classification": "GEOMETRIC_NONINJECTIVITY",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "bb2dce6f2ff3623d66084ac63b1368d05e0397ec269e9700e85b77a3bfeec1af",
+      "checkpoint_sha256": "571af527646aeaee31233af9b616c2e337954ed62353b98bd43922ab7b624e01",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "eef1d44c2e19afa756357f49034450415523c1773b9e72f4978c3758f73516a6",
+      "checkpoint_sha256": "07d5fd533f6bc3d5443d27b42047713208a85d3009b4c5e77e36f33be152b74b",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "9fb906ce8e86ff417b3904321e484f43cbb8ee1f812266e6f588e34a23bf1318",
+      "checkpoint_sha256": "3f4ee19852b875ddeeb8081f42fe2a1b66e33f01ea201c88d8dcd2d8eddc7dcd",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "2255092e943c882c91b69ed55c07fa205669e0fc50905759f2a2d0d32a9e7863",
+      "checkpoint_sha256": "f022717873e30f13f182ea82b582a87b709e0d13c2f7125ab7186f004fe116a3",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j3_true",
+      "classification": "GEOMETRIC_NONINJECTIVITY",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "d05d96537082999776aa533b622056e2b2f0d9cac2d9a1a25c23329c3557a110",
+      "checkpoint_sha256": "d99b765f5eb9c4f7f416488511b6eeaaad70a314d6bd0699a9beb3f64d59d37a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "6303d0551ca25d9ca6feab3ab070cacfcf9a586706eb488911444549ce5a8717",
+      "checkpoint_sha256": "8864d5d8b5f29bef3d5213868e0e24b081fb16891aa6c6cf0075a62440724bb4",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split0_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 22,
+      "zip_sha256": "be1b7b2a54fefb5b58c372ea441afeb8a25818e28dcd6c6ca5db2db8cf54903d",
+      "checkpoint_sha256": "672227b248d92300cf39b71d8e36a98286b3b1ed022bb26af2374721a09a8ca4",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "add8982e217cffe8f8b427535810e761972e878a7563b27cfb968f807d152a9a",
+      "checkpoint_sha256": "89fb31826a938f3e52a7a80a1a2bb703fb7e705703a5bdd968c9fd81e68e2d68",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "0b85d11df6842bf8162a3eac5ba435717f21fe6526f2b87d96c73324107db4bd",
+      "checkpoint_sha256": "4e50f6d480319e15a9c9bc0227e7cb3ef95881ecb53c13c8c2cad84f3d6fb8b3",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "89f7806692d3719d802df105028889852c8d78b7017193727b56041232283ad0",
+      "checkpoint_sha256": "da3bcd8960a3ab09f94c12747c0bea80c86e0d02969181ee2b590d705411c118",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "701c1324def6bb59960a1ccf648cfbe2699b8e361e099e217cfa96f3a0713fed",
+      "checkpoint_sha256": "304c5373ae52e06d9d65403ff5fe9e9bf44c79079699f4b9d9b1f90e89aa6458",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "e0facd8745e2f3c0d4fae74d454fe792a33b7a23e7e054e8ca95bac348e6f9eb",
+      "checkpoint_sha256": "1426610375bd19a029ee9551284d4ef8e007a89720b24979ab3a9b2331e662c0",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b2ce9abf416c8767d47f10c58b04ddbdda6b313c693586d7fc45f00d60c3ecb4",
+      "checkpoint_sha256": "ec9879f3a3d109cece37df13f12ffd3e41b4aef26e2a42cbdb1bd758070eda7c",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "7a491065f4982d88004538faeea16ad244610dc00b50a8bef529f85d233d6e5c",
+      "checkpoint_sha256": "0162875aa2e2e0aac40db45afd1696140181f0a5deac3d05220b1e12b75081c2",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "fa81eed13d283be234e2b57c38615c1ef6b930c57375b316aff99f6a47a5a5c7",
+      "checkpoint_sha256": "50c31871119e9524628126cfee53bd59ea9b7e1f8527b70b96ca0b8146cd91d6",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "32599dab3733a8651e53822ef86d03bd0903632b1e8cfcdc1820fdb79c629241",
+      "checkpoint_sha256": "d41e381d97971eb09acf4ee226caac3b5ffbcbf3aa6c6474ed32e571adeeb14c",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split1_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "adcba48d21fb99cb546de0f3590c1305003bd9a5e7769268fb2982f4edb0d6b7",
+      "checkpoint_sha256": "3f1d928844ee053f7ff60d1dc6689d89cf5dd17f496d1c76754a08661c9b0c98",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b6fd4ee2ff0cc9786f708ea510ae2a143d65524eed1f5b1c28df91e103625ec1",
+      "checkpoint_sha256": "973c6be58bdb65aed7ced7afdd2dd32de0ca05090d249ac96873f6c6c218a96c",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "d6da0b1500ed9b587272d6bc347143ddeddbd8658e1a4cd56a96d96ddbbdc6b4",
+      "checkpoint_sha256": "8c3761600ae055bbeadc25800ae4f7e97056dde0a8d7b9622a1d94760352635d",
+      "persistent_version": 1,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "4a392b01df71a7360a799454d484d431ff4c5449d5bf5688a44be8c119f29785",
+      "checkpoint_sha256": "2cdfe83b015a2e6c934d56ec4fd724ac05cfd701c79affdbe114bd073c48afea",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "347a79f215abce7f91f4c5ba6eb4403cf12c24b58894e1add739a0b6c2dfb0cd",
+      "checkpoint_sha256": "b5bb6376b3a702fb7a54e0d8698a0053f5255e68efb281acee6182dc416d5c9f",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "606616fd83f08be956b65edb5cf47249334f04ac084dfb65238f98dc18c468e5",
+      "checkpoint_sha256": "3c0780c847c922db51264f405c7b1a02fdd8869ffbc44fbf013300cd1b6e165a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b0403a05a48a881f3dc89eed9f6a78185a7170c35b194260208dda5e7e1dcb89",
+      "checkpoint_sha256": "2a5e97831bc8cb328359e86f471f79a2e9128fd0d98be8709d8a595470190fa0",
+      "persistent_version": 1,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b622639251a004509616379aee893ff87f6548952ed608cef15a81ac42cb00e6",
+      "checkpoint_sha256": "8c7ce1161c1f6633d2fac99cc7070110dbf0dfe5b8cb342c514ce8423bb63e23",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "c4f20f7fea972d88e937cd2d9ec854d78207f81cec36807ab57bacd61cf1073a",
+      "checkpoint_sha256": "a931cc9be97a2929d870b8efa269019958ef32d0c87a1c08bc33d4ec250dc437",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "97da1432ce148f4fcf57903c19347b7fd77331b9e72b6aed595d6e3a2d0c877a",
+      "checkpoint_sha256": "3252e26421b335c70788f06aeccb1ecfbc70d5aa07765d6675ae2f57aa226175",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split2_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "d61cafb8fccb1190341b02b44b44bfd3722ac9075da62fe0412dd2579b465a7d",
+      "checkpoint_sha256": "afd73c7f61ce48e9150e9acb08bedcf4e4e3997cc6c982f0a99176047ba3d743",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "c3d1198896a029e2f78578e08175e63fafe744f2e4979d0a873668df5f165ad3",
+      "checkpoint_sha256": "8f082821478194f84685cb37043667ee080738258103f3d6c7ba274adc45461c",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "396c3ff1b4a74d99f12e0f66014f11d87c9ccbf44d7bed700a66126bf738d088",
+      "checkpoint_sha256": "ae10bca639a80643e400164a57083fb33fb22ec196f9616a82a4bbccd708c99a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "bb888a1ae7a43b57ceea01d6e341507bb4cae6fdf40f33b36f649a00524b0773",
+      "checkpoint_sha256": "cf0da197984eb91573fdcc03f54f0725076e37ed0d377fdeea9e1985a344bb0a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "31a0c84e397756b4d670117ff94db6bbb303cf7c06ae57b3c057d6f93752f35e",
+      "checkpoint_sha256": "72be451dfc196601137278f42dcec44a4aae5779cdf07b25649ab36eb94782a0",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "4cca3dcafb86035e5cac00913ce07d528a1ddb107725829fa76bdee07b803c53",
+      "checkpoint_sha256": "8c4dfa19df49d44b7eb261fb4789283f5a9b698164d813ddb14eff823d0a26de",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "7e45921c1ed96801dbc46aee78ed5122ebeab4f83e16b53ad5c78dd88d333fa0",
+      "checkpoint_sha256": "ae5b6fe5e3af70ceea99192a1c4748723eea387302ea9414ec308daa566262b7",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "d800fbfaefc0c3d7dbc0ff9370c2a9dc7a114aad0d266c5f43289ab29255a9ec",
+      "checkpoint_sha256": "0412c30c8135c789830f7570431b1c2de0ec43ff49af6cc0fc77d950f0c99227",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "af0fe06a28b947b19752fb140a46acdc7fd84a006d16337bd53b5e012311b17c",
+      "checkpoint_sha256": "5306a245e77e0b87fe03bffca6105cf3e028ff21c86dd98d8e054ea7de4c2b9b",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b5af3f874e97da9a746aba59816b44f287e623f130ebb2ba84a6b2ee96691a46",
+      "checkpoint_sha256": "cb9f5ccd6346825f75b9b1d25b2b1db8cc54c22f1cb7b903c840cd7b802e4106",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split3_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "cad6b83e4b9b196ae056257936d3bd69c850ef9c39fe5eb49324740cb3882557",
+      "checkpoint_sha256": "6462f778721a5535a17eafd1f34edbbd74263d644d5906d3b06bf31bb2068035",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "5234ec0846c18ee0c12eb6fa1a8aa5aceeef242a3d55a6447f339c55f6c6a315",
+      "checkpoint_sha256": "ab9e25833172a1d37e344baac3c5b77f5b218bcaf88848cac41f376cc20e0354",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "d7d2de7fb719895a90cb67cf29ee19c8255583d763b3e6c76662a1585963fcca",
+      "checkpoint_sha256": "8453a3d14088579329eca4509b6429541c9137fd097447c8c221ab1af7f72d9c",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "25dbc8c8891b1748517cd4676007a614ad1e17777e001a0d8e71746f711c949a",
+      "checkpoint_sha256": "177ac8efd1ed0de9544a6116bfe0a502d510b2edb281d930e5d743d65223ae26",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "ccf0426a796c8f50c0a472b9dc1bc272ccf65aeb94e176467fa114929c779517",
+      "checkpoint_sha256": "6672ae04131b69590cc052fe02ef609987933bcbe1340825cc84bd1df5cba2e2",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "15264dc38e27fa2abdc38d454fddd8aac6b47993a9c2abe855192c172ab66a83",
+      "checkpoint_sha256": "f60d89692378215778b4faf364863f7a3147114c8a01c40011f096e562cfcba3",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b0c76574c65957181b698702a425603c2ba1829c495399dc431f92103e710ab0",
+      "checkpoint_sha256": "84b9bf44a50260e5c74a196fb10ed83357b16f450348e1d89da433afee0527b0",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b063c17d94337f6ed8a8d1c763bf75f9afa2222004f604e596b7a1ae8f5ab04d",
+      "checkpoint_sha256": "a7bf5e28448e2cec5ee47fe91a1b5e5e588d51a8d40fde551a5b937728476b28",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "3c02334d13eb09cbba0da4da116718e4d698d48334dd6e0c6751550012da18d1",
+      "checkpoint_sha256": "dfcfdeb27cdb312c83f54696839759229df34090efa15e006bb1872a3a08801f",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "6cbf466897d04f5daa112d3abb33b96020d64d698f2219361d8a9687458a2539",
+      "checkpoint_sha256": "f09c7d48d302fd61bf8b174d0a6188f6e748051b7bcec73def099b1d20020e59",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split4_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b497984a374359935ef83f8be47f1622c0fda64ea7c21f209533098332b80099",
+      "checkpoint_sha256": "35f23363821c86a991c050873aef4b915f14972c97bcbd4e23fcad2a64223c3d",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "47ebd462145b665a193a94542b93d6597b1a889ea25bc0425227ac250861266e",
+      "checkpoint_sha256": "118e4d75d75a25d3f276946098c3d3f7ee037b7c04df977745321bd74fcfc295",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "6e7cacab60debf711c775d3a47ae755fa5ca3684d45cc8538204e41bb45e5330",
+      "checkpoint_sha256": "cbac77c796486b1ea232923b0a966248a0defe18eeb8219602bf4867059adc9a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "fb0daaf02e510e58a94a614eb690d6dafd92d45ad9f0c6daa776b5bd5c2ce1ef",
+      "checkpoint_sha256": "35600ed0467777c9e3f67419ac1484312989ccb07926d2cc8091fcfcb7612ceb",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "cdb87c0863dd638c445be8023bd2dfe29d98833b7bb1d8dc5b4b2f3f9a623024",
+      "checkpoint_sha256": "5d028c2c295d72e90f097ab0f31110ab7c81d62e744c7c4be4dda3148042035d",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "fbd9cb7e2b32f3ce7744c1a86ff8f9ccf785d73ab07e85151434b45e8a354bb2",
+      "checkpoint_sha256": "3e5fbf8dc308ce4b65b044d8a6bd0d0e5f41acb2b8ca17fc38d0a0a58843fa23",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "7a3a5febe208ecff36b74b954be8d6fe1276117452e61bdf8ff1d6617db33716",
+      "checkpoint_sha256": "37323ef7b8dbf40d3766bd15d40b5e02365c7501ef4d7630e1f6ef46bfa84146",
+      "persistent_version": 1,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "fda4cf3478046f7a00bafa5a0bf3670179362c14cbfd89d241de9054ecd464f8",
+      "checkpoint_sha256": "3cc02390427d3d5503c8d3fb5e0880808ad43a67a30deffca1861f4d3474c953",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "81feb2923c5bba2c84d22a0f2b9ee29d8986297aa47770af793711aae691a55a",
+      "checkpoint_sha256": "1028507a30feae84ae684d97814fbaac40a209fe4873169a2007c66ed49a1914",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "ceca8a942e1cb1bb1a69c26c06645b277fba16e6852316e8d3b23b1ecdffeef0",
+      "checkpoint_sha256": "26592647eb5021c0833d71616c57ce267654464fa98accafd5c6da68f4bf7a46",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split5_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "68c15184c4f958c528a12db8a54c1f926e175a2efd0259c55fa3f1088683d0ff",
+      "checkpoint_sha256": "b529396cceddc927bcef6e3cdcae566f28c8198cef60140469e69620780fab80",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "22ec7e8fa1dda08804b1dc709e8f99f02ecf34fd3a77009ad6198d6c268525e0",
+      "checkpoint_sha256": "c679ec2f396050e9da498f9a0de05bbcad4eea6b04284008e6984442ed89ba13",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "22dcc228ad330b976283d698b286dff40085062a9548b646ad53805bef8182c2",
+      "checkpoint_sha256": "d733c85ea2f3937aacb0fa230632f6e41f35867a7c42ac50e2737e30315de1c9",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "883dc98d3125de20a7ddc25b164d3b55f33cf92ff1c5f7bc706d036010bf0bf0",
+      "checkpoint_sha256": "a2cb3037ec7b20c8b0ad4eaec0c50a3d1ee6f6e637e058fc804dc983eed411a2",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "8750aeee1a1800d77b5d677c43ac696b0de1b6b031614f9a2eafba2195e62c8c",
+      "checkpoint_sha256": "c437a85415d95e808799fb80bf4a2f723c1a1dbaeeaaf5de4ec56c730df5346b",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "c982d08d77eea3c3212a620e7ff836ecbd4f4c6917e2b21808ab358ad7e3c8ea",
+      "checkpoint_sha256": "de7dcb26c0dd6700de9d1a6e7de065d7fe0cedd735a4195c7291fb24ca897926",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "85564c9f4f464aacbb3abd5a4159d7ef0d0d298ab60391f76525a8b6e404824a",
+      "checkpoint_sha256": "a02ea5d7d19a347416072034810c8d28e51297e1cd0c656c94fc47b81abfdb4a",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "3fca4da2eae4eb83940b8623469f13bcd02e1c5caa8e32a1449f36806b2f5da8",
+      "checkpoint_sha256": "4586416f744729142100cd92043dde21ee58e973b0d735c3f86e9715a62afdd0",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "01ef3494c2367caab8c437bc136c2751bcf5a747b8c18a32c34df17b5917778a",
+      "checkpoint_sha256": "06810c41fadeb8f841b6584a4a4f9ff338f30e8e830e63ec6912fb9c1605b6df",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "1a0611d5a7fe9f77bb026c006edf0b6674a0a22a25680b845dee8d35f7ac9499",
+      "checkpoint_sha256": "7d961ebf85f1bfe1fb6a9aba6d93167659d78997f0811cc7f24b8f8e198c2258",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split6_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "a22b5fae17c42b826806053da02a15505b1b54920b65c31535a0d0b37c1b112d",
+      "checkpoint_sha256": "2f15c42a53d2a630f33fdae1849cd016ffee32c1e11ecb904e79f5686c1e326e",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j0_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "ea9e1911a28e8745b6739d18692b6733dfcea38e7bc9c528cc3e80c6097b2a16",
+      "checkpoint_sha256": "e8271aef102cedb8e19e0cff6ad55783d39435fef59827110fe1b2e94934bf64",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j0_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "95321bb3d42dfa20ff7e71e561b77ce500e707b5d841e8366811e2f5e4338035",
+      "checkpoint_sha256": "c6a1f630acdfcbf5eafe9560c8aff640778445fe88b9c5e55966396315ef7d33",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j1_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "f5daf38ec574a77e35ea11ca05cf8d42862790ff45bfe3be45b0112d1fcb1672",
+      "checkpoint_sha256": "0a3e14b268adcd83e1fc835e8854d61980b5820c974a824c28f9608978a213a9",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j1_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "34f1ce366d7a90ceaf011d72b7c273300a8e662f3b1fe09fcf4b00a798b68fb8",
+      "checkpoint_sha256": "904100080d64b826426da8213abca18a1303161e9641144f048be9927523b4e5",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j2_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "e89b1b40555d4e8421f1ed0feea81e475e2914a000c71eb7809f49628bc5d5bf",
+      "checkpoint_sha256": "cebfb3a2954610fd77ebe3efb451ccf7976972f6d0522fbaab90c4fe1c0e9617",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j2_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "e9898e62c76df1212c5b5c69ecc003f93f2d6927eeca02f50a4bd441efe2a280",
+      "checkpoint_sha256": "9683e61c116f71e01bfeb37a982dfbab41b851a22dc809e16490a6725d616079",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j3_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "e659b76983390982f112d2d14e19384610ac1cdeacdb864d23dcaf8c4898ff3e",
+      "checkpoint_sha256": "595f01bf6270ab0cbd097f37eaaf891ca429826c2e5531e62069feb5bd06510f",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j3_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "356211c01ee74d251f4c7fda0cd5de067bde635297ab863ea51d4ddac55a01bd",
+      "checkpoint_sha256": "4dd726a09d37c0812854445dcc3001ef9394859151ec2f0d2bdd16335f6b033b",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j4_random",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "cec716200279e25e70bf80968aed4c1fcd579fc9c7f77f7470062bd000d7ab02",
+      "checkpoint_sha256": "4fe9da03e6f633400d95e164fd72db47c9d906562c5cd7adb876e0f72207cc8e",
+      "persistent_version": 0,
+      "status": "PASS"
+    },
+    {
+      "state": "split7_j4_true",
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "final_task_arrays_verified": 8,
+      "zip_sha256": "b21a2d6b4d0dfaad41657ea7d23ae4f1e5782fb67156cc9a60914ff5ab61d64f",
+      "checkpoint_sha256": "9bad5a2febd5ec5986e7d164645e770bb7a52ca1618aaa0e00cc1383e3f53ac2",
+      "persistent_version": 0,
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS"
+}

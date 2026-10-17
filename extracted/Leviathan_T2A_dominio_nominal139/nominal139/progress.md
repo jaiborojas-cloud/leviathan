@@ -1,0 +1,1 @@
+Diagnóstico de dominio nominal terminado. Área estimada antes del borde0.01871467<0.02. Certificación nominal INCONCLUSIVE; no nuevo outcome. Producción pausada139; no continuar140 hasta revisión de dominio. Fuentes, resultados y límites en DOMINIO_NOMINAL.md.

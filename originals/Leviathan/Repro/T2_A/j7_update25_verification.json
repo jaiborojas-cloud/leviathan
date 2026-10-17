@@ -1,0 +1,58 @@
+{
+  "status": "PAUSED_RECOVERABLE",
+  "trajectory": "split8_j7_true",
+  "update": 25,
+  "accepted_steps": 128,
+  "next_accounting_step": 129,
+  "integrated_radius": 0.07455427617348324,
+  "nominal_radius": null,
+  "classification": null,
+  "Y": null,
+  "new_closed_visits": 0,
+  "closed_visits_total": 1,
+  "complete_horizons": 0,
+  "snapshots_verified": [
+    {
+      "file": "ode_t025_split8_j7_true_f59408fcaa8eb0ab3c23_step_00000032.zip",
+      "sha256": "fd81706ba18007069d745c604f0fab88b561fca91fd7c0eea0dfd5185e9f6773",
+      "crc": "PASS",
+      "steps": 32,
+      "radius": 0.07033513014451559
+    },
+    {
+      "file": "ode_t025_split8_j7_true_f59408fcaa8eb0ab3c23_step_00000064.zip",
+      "sha256": "4a542faa46d9d058adbf87910a58256c4d1a15a0f35425815618c6ecbed38b5c",
+      "crc": "PASS",
+      "steps": 64,
+      "radius": 0.07272804127048813
+    },
+    {
+      "file": "ode_t025_split8_j7_true_f59408fcaa8eb0ab3c23_step_00000096.zip",
+      "sha256": "3accc1c7e93ac1c7772075184a97f892d8bcc1d99375abd62526e917a18e0eff",
+      "crc": "PASS",
+      "steps": 96,
+      "radius": 0.07369537794834337
+    },
+    {
+      "file": "ode_t025_split8_j7_true_f59408fcaa8eb0ab3c23_step_00000128.zip",
+      "sha256": "5e9e138b557c41f302fe4457e5372ab71f726881de25032f7c4734ce19bc7b10",
+      "crc": "PASS",
+      "steps": 128,
+      "radius": 0.07455427617348324
+    }
+  ],
+  "checkpoint_sha256": "0964f117a969fbca9a4ee4607c5b1d6cce92583252695f1a45c565d66905a89c",
+  "field_sha256": "874828d03451db09735ac68358c9979feda9b6929ca0241261148373806afb47",
+  "seal_files_verified": 6,
+  "unchanged_tables": {
+    "visits.csv": "de9063f45a4b7d2ea976b0f30d0b01d2030b56df0cf685275ec8e72c270a50d4",
+    "outcomes.csv": "64f4bb537a8bfe979494ea1c03f18a96c22f029ab0346bd75a4df3fdfbc910b9",
+    "cohort_manifest.csv": "25afe9dd9dd233fbcfab1d72b945821b55134a1987e8ec6bc85c1cb416b811c2",
+    "incident_register.csv": "99b264006b9acb320c5c8d5b93405c6e854c098af9d669d2ba31facbb7cc4afc"
+  },
+  "integration_cpu_seconds": 102.118039246,
+  "integration_wall_seconds": 102.27393404299983,
+  "j5_status": "HELD_PAUSED139_INCONCLUSIVE",
+  "next_task": "split8_j7_true/update25: resume accepted step129 from snapshot128; not j8 yet",
+  "caveat": "A computational pause alone is not NUMERICAL_FAILURE, INCONCLUSIVE classification, domain failure or topological evidence. No transfer of j5 boundary findings to j7."
+}

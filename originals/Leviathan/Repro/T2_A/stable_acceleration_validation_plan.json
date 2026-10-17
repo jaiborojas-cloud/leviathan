@@ -1,0 +1,63 @@
+{
+  "status": "FROZEN_BEFORE_THIS_VALIDATION_RUN",
+  "candidate": "same metric and acceleration, compute -solve(G,J.T @ M @ H[v,v]); no explicit inverse/Gamma contraction",
+  "official_state": "unchanged step512, no production integration",
+  "point_samples": {
+    "stored_steps": [
+      0,
+      32,
+      128,
+      512
+    ],
+    "rays": [
+      0,
+      256,
+      512,
+      768,
+      1024,
+      1280,
+      1536,
+      1792,
+      1777,
+      1773,
+      1776
+    ]
+  },
+  "reference": "same stored float64 M,f,P,v; evaluate RHS in mpmath80 and120 digits, round only final acceleration to float64",
+  "integration_tests": [
+    {
+      "start_stored_step": 0,
+      "rays": [
+        0,
+        512,
+        1024,
+        1536,
+        1777
+      ],
+      "delta_r": 0.06
+    },
+    {
+      "start_stored_step": 512,
+      "rays": [
+        1777,
+        1773,
+        1776
+      ],
+      "delta_r": 1e-06
+    },
+    {
+      "start_stored_step": 512,
+      "rays": [
+        1777,
+        1773,
+        1776
+      ],
+      "delta_r": 1e-05
+    }
+  ],
+  "integration": "isolated rays, same DOP853 rtol2e-10 atol2e-12; dense comparison on513 points; reference80 RHS versus120 RHS convergence",
+  "reference_gate": "max component difference/(2e-12+2e-10*abs(reference120)) <=1 for reference80 vs120",
+  "candidate_gate": "same conservative component scale <=1 against reference120 for every integration test; point RHS errors reported separately, not an outcome criterion",
+  "limitations": "validation on discovered difficult points and same model only; no prospective confirmation or proof of global correctness",
+  "decision": "any integration failure or candidate scale>1: NOT_VALIDATED_FOR_PRODUCTION; all pass: LOCAL_VALIDATION_ONLY, full bundle/area/Jacobi/topology remain required; never auto replace scientific implementation"
+}

@@ -1,0 +1,53 @@
+{
+  "completed_persisted": [
+    "split8_j6_true/t25"
+  ],
+  "partial": [
+    {
+      "trajectory": "split8_j5_true",
+      "step": 25,
+      "status": "PARTIAL_NOT_CLASSIFIED",
+      "archive": "partial_t025_split8_j5_true_checkpoint_snapshot.zip",
+      "sha256": "9970f03618264059921462821f8b611e8a0008293e2ecf5db388ef99c0a4749e",
+      "checkpoint.pt_sha256": "40c6a7cc6dc2ed3457f8050babbb178af1f4d535daa2de937a2feea22a4cb4d5",
+      "state.npz_sha256": "6713246b106c517b0d887d8cc3c61026d6a21d68e745f653ec682dcbe139e19c"
+    },
+    {
+      "trajectory": "split8_j7_true",
+      "step": 25,
+      "status": "PARTIAL_NOT_CLASSIFIED",
+      "archive": "partial_t025_split8_j7_true_checkpoint_snapshot.zip",
+      "sha256": "ec8dea0723a790dd3c5e32c9a8f39c15f8cbcf7a45f017d5e71447166ba6b6e2",
+      "checkpoint.pt_sha256": "0964f117a969fbca9a4ee4607c5b1d6cce92583252695f1a45c565d66905a89c",
+      "state.npz_sha256": "874828d03451db09735ac68358c9979feda9b6929ca0241261148373806afb47"
+    },
+    {
+      "trajectory": "split8_j8_true",
+      "step": 25,
+      "status": "PARTIAL_NOT_CLASSIFIED",
+      "archive": "partial_t025_split8_j8_true_checkpoint_snapshot.zip",
+      "sha256": "3d424204a82e225350a0034efb0bbe41ebe37d6d5ea568551f1643f58e7c6bac",
+      "checkpoint.pt_sha256": "feffd89c4fdcf85b5df603a7d781fd012c0d289a66941f439c3fe1f878aacbe5",
+      "state.npz_sha256": "496edfc09a094451a4b51db4ff259c2bf0da7868ecbafbcdfa0873f8424001c9"
+    }
+  ],
+  "instruction": "Extract partial checkpoint snapshots to restore model/Adam/RNG and exact geometry field; no visit_complete marker. Resume pending geometry unchanged. No classification inferred. Scientific workers continue; checkpoint snapshots contain only immutable completed reconstruction artifacts.",
+  "status": "RUNNING_GEOMETRY_NOT_COMPLETED",
+  "completed_visits": [
+    {
+      "trajectory": "split8_j6_true",
+      "step": 25,
+      "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+      "checkpoint_sha256": "6ab0417104c390c7df425165a63e999bba0b8558c10aede9b0d3d43c659e95a6",
+      "field_sha256": "a3b21f27af84283b524d05b6517df151083b9ede1d96df4c1d36816c5829e916",
+      "nominal_radius": 0.07883553716312919,
+      "r_conj": null,
+      "A_embed": 0.020000000000000007,
+      "status": "VISIT_EVALUATED",
+      "cpu_seconds": 67.142738769,
+      "wall_seconds": 67.15969755899994
+    }
+  ],
+  "completed_zip_sha256": "71788db681dfc650edf8bd92bed2640b870f62639e332cd0e733663fd86abc9d",
+  "no_final_negative_outcomes_assigned": true
+}

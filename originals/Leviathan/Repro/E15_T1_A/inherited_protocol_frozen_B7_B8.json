@@ -1,0 +1,159 @@
+{
+  "status": "execution protocol fixed before multi-source estimates",
+  "primary_state": "split6_j0_true",
+  "checkpoint_sha256": "d733c85ea2f3937aacb0fa230632f6e41f35867a7c42ac50e2737e30315de1c9",
+  "sources": [
+    [
+      64,
+      32,
+      0
+    ],
+    [
+      64,
+      32,
+      0.04908738521234052
+    ],
+    [
+      96,
+      48,
+      0
+    ],
+    [
+      96,
+      48,
+      0.032724923474893676
+    ],
+    [
+      128,
+      64,
+      0
+    ],
+    [
+      128,
+      64,
+      0.02454369260617026
+    ]
+  ],
+  "domain": "One common radius, calibrated on a dense reference geodesic disk; audit boundary angular resolution and ODE separately. Source polygons approximate the same disk. If they disagree, use one common dense polygon and global spatial triangulation.",
+  "target_area": 0.02,
+  "ode": {
+    "method": "DOP853",
+    "rtol": 2e-10,
+    "atol": 2e-12
+  },
+  "C_A": "sqrt(integral(K^2 dA)/integral(dA))",
+  "historical_comparison": "Reconstruct documented RK4 and restricted descendant selection; not byte-identical replay, because the original full driver is absent.",
+  "global_refinement": "At each iteration compare centroid parent against four centroid children for EVERY active parent; refine parents accounting for 80% of summed local normalized error. No restriction to descendants of initially selected cells.",
+  "internal_energy_error_target": 0.0005,
+  "internal_C_change_target": 0.0005,
+  "stable_rounds": 2,
+  "max_rounds": 18,
+  "max_candidate_cells": 1200000,
+  "primary_cross_source_relative_range": 0.005,
+  "concentration_cross_source": {
+    "lambda_1pct_absolute_range": 0.005,
+    "lambda_01pct_absolute_range": 0.005,
+    "frac50_absolute_range": 1e-05,
+    "frac90_absolute_range": 1e-05,
+    "R_eff_relative_range": 0.005
+  },
+  "concentration_measure": "Area-weighted: order cells by K^2, use intrinsic-area quantiles and fractional-cell interpolation. R_eff=(integral K^2 dA)^2/(area*integral K^4 dA).",
+  "legacy_cell_metrics": "Descriptive only. Not invariant under nonuniform subdivision. Not directly comparable to the area-weighted estimands.",
+  "inference_scope": "Numerical audit of supplied checkpoint; not population inference or causal evidence.",
+  "stage": "E15-B7 then conditional E15-B8",
+  "boundary_rays": 2048,
+  "area_calibration": "B6 DOP853 dense rays, degree-5 area7 on 32 radial rings; Brent root xtol=1e-13; abs(A/0.02-1)<=1e-6",
+  "mesh": "same fixed boundary polygon, varying interior seeds, scipy Delaunay; exact polygon coverage checks as B6",
+  "mandatory_cases": [
+    [
+      5,
+      "true"
+    ],
+    [
+      6,
+      "random"
+    ]
+  ],
+  "B8_cases": [
+    [
+      0,
+      "true"
+    ],
+    [
+      0,
+      "random"
+    ],
+    [
+      1,
+      "true"
+    ],
+    [
+      1,
+      "random"
+    ],
+    [
+      2,
+      "true"
+    ],
+    [
+      2,
+      "random"
+    ],
+    [
+      3,
+      "true"
+    ],
+    [
+      3,
+      "random"
+    ],
+    [
+      4,
+      "true"
+    ],
+    [
+      4,
+      "random"
+    ],
+    [
+      5,
+      "true"
+    ],
+    [
+      5,
+      "random"
+    ],
+    [
+      6,
+      "true"
+    ],
+    [
+      6,
+      "random"
+    ],
+    [
+      7,
+      "true"
+    ],
+    [
+      7,
+      "random"
+    ]
+  ],
+  "no_retraining": true,
+  "internal_concentration_change": 0.001,
+  "classification": {
+    "PASS": "All six sources internally converged, valid common domain, no numerical exception; C_A relative range <0.005 and original B6 concentration gates all pass",
+    "FAIL": "Six valid internally converged sources but one or more frozen cross-source gates fails",
+    "INCONCLUSIVE": "Missing source, exception, invalid geometry/domain, or internal convergence not achieved at frozen stopping limits"
+  },
+  "reuse_policy": "B7 cases reused in B8. B6 split6 true six-source 2048 results may be reused explicitly; representative 8192 result never mixed into the 2048 population.",
+  "frozen_at": "2026-09-24T20:32:22.855388+00:00",
+  "code_hashes": {
+    "geometry.py": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "adaptive.py": "a3e4e8f99a42f17f9d3c94b00ebb3ab097e20db34f6d255116dca39abe53c175",
+    "execute.py": "99b899504fb762b66b923de96499cf80f6a432813f845d0d01235bfa2fca0df8"
+  },
+  "calibration_bracket": "upper=0.09; if area<0.02 expand by factor 1.25, maximum 12 brackets, before Brent root; no retuning of tolerances",
+  "B8_primary": "Fresh execution of split6 true at 2048, six sources; retain B6 as reference only"
+}
