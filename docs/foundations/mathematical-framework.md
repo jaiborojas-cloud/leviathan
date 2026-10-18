@@ -1,13 +1,13 @@
-# Marco matemático recuperable
+# Marco matemático
 
-Fuente primaria disponible: [Perspectivas.ipynb](../../Perspectivas.ipynb), con índices de celda desde cero.
+Fuentes: [contexto y axioma](../archive/import-2026-10-17/originals/RIPG_contexto_vigente_axioma.md), [estado de investigación](../archive/import-2026-10-17/originals/Leviathan_RIPG_estado_investigacion_2026-09-23.md) y [regularización E11-J](../archive/import-2026-10-17/originals/E11J_regularizacion_explicita_y_estado_RIPG.md).
 
-- Celdas 26–38: dL′ = J⁻ᵀdL, g′ = J⁻ᵀgJ⁻¹ y v = −g⁻¹dL; el control busca v′ = Jv.
-- Celda 41: la equivalencia discreta se plantea para una transformación lineal con J constante. No extenderla sin justificación a cambios no lineales.
-- Celdas 65–79: Fisher se compara entre cartas y se regulariza mediante F + λG, transformando también G. Usar λI independientemente en cada carta no es la misma construcción covariante.
-- Celdas 138–143: relevancias de scores por autodiferenciación y comparación angular mediante una métrica inversa regularizada.
-- Celdas 153–159: Fisher categórica y comparación angular entre cartas con regularización transformada.
+El espacio del modelo M tiene parámetros θ; el espacio de perspectivas tiene coordenadas P. Un funcional SP induce ωP = dθSP. Fisher describe la geometría estadística del modelo; la elección de SP determina qué relevancia se compara.
 
-El contexto solicitado introduce ω_P = d_θS_P y B = d_Pω. Esta última derivada corresponde a la variación en perspectivas, diferente de d_θω_P. Falta la fuente para fijar dominios, suavidad, convenciones de índices y signo de B.
+La variación B = dPω induce una geometría entre perspectivas. En el cociente admisible se expresa h = B F⁺ Bᵀ bajo las condiciones de la fuente. Distinguir dPω de dθω y de la derivada covariante respecto de una conexión.
 
-La construcción ideal con pseudoinversa y kernel de Fisher debe distinguirse de la implementación regularizada denominada G_rho en el contexto. No se ha recuperado una definición verificable de G_rho ni una equivalencia con F + λG del notebook. No identificar estas notaciones por intuición. Véase [admisibilidad](admissibility-axiom.md).
+E11-J introduce una referencia positiva H y regularización F + ρ λmax(F,H) H; H debe transportarse al cambiar carta. Fijar H=I en una carta no autoriza reutilizar I como tensor invariable en cualquier carta. Los protocolos posteriores fijan la implementación específica Gρ; no se presume equivalencia automática con el pseudoinverso ideal.
+
+La construcción operativa 2D no determina un espacio ambiente canónico en dimensiones mayores. Las propuestas deben declarar familia, inmersión y contribuciones extrínsecas. Véase [vertientes](../research-directions.md).
+
+Los controles históricos del notebook se conservan en la [revisión previa](../archive/review-before-import/docs/foundations/mathematical-framework.md).

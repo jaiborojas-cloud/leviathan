@@ -1,14 +1,14 @@
-# Roadmap documental
+# Roadmap operativo
 
-Este plan organiza la recuperación de fuentes; no declara reabiertos trabajos históricos ni autoriza ejecución.
+Fuente operativa: [progreso T2-A](archive/import-2026-10-17/originals/Leviathan/Repro/T2_A/progress.md) y [avance j7](archive/import-2026-10-17/originals/Leviathan/Repro/T2_A/j7_update25_avance.md). Las vertientes conceptuales están en [research-directions.md](research-directions.md).
 
-| Acción | Dependencia / bloqueo | Criterio de cierre |
-| --- | --- | --- |
-| Recuperar fundamentos vigentes | Documentos fundacionales ausentes | Convenciones y axioma con fuente, versión y hash |
-| Reconstruir E9–E15 y T1 | Cierres y reportes ausentes | Tabla de resultados y dependencias, discrepancias explícitas |
-| Reconstruir T2-A | Progress, protocolo, cohortes, visitas y outcomes ausentes | Conciliación por identificador y reglas del protocolo; desconocidos conservados |
-| Aclarar paso 139 y update25 | Diagnósticos y avances posteriores ausentes | Estado del dominio separado de conjugados/corte; último cierre trazable |
-| Resolver procedencia del notebook | Definición ausente y salidas E6 discrepantes | Fuente histórica/versionada que explique dependencias, sin reejecutar auditorías |
-| Recuperar líneas futuras | Roadmap y propuestas originales ausentes | Propuestas atribuidas y diferenciadas de sugerencias nuevas |
+1. **Completado documentalmente:** registrar j5/update25 como no resuelto; mantener outcome desconocido y cohorte intacta. No confundir este cierre con resolver la geometría.
+2. **Próxima tarea científica declarada, no ejecutada aquí:** recuperar j7/update25 desde snapshot128 y continuar paso129 bajo protocolo congelado. Verificar checkpoint y dependencias; no repetir j6 ni reactivar j5 con un lanzador genérico.
+3. Completar calibración y compuertas topológicas antes de declarar visita completa. Mantener fallos y desconocidos en la cohorte.
+4. Auditar validez de dominios históricos como línea instrumental separada; conservar etiquetas e historial de revisiones.
+5. Continuar la certificación rigurosa de frontera y resolver su tratamiento en un protocolo futuro; no parchear el evento principal T2-A.
+6. Formular validación externa de hipótesis nuevas sólo con diseño prospectivo y datos nuevos.
 
-Consultar la [lista agrupada de fuentes](handoff/missing-sources.md). Al recibirlas, cotejar integridad y dependencias antes de actualizar estados; no usar sólo fechas de archivo. Un hito ya cerrado documentalmente debe registrarse como tal, sin reiniciarlo.
+## Trabajo documental pendiente
+
+Recuperar dependencia E8 y procedencia E6, cierres autónomos E9/E14 y respaldo accesible de artefactos externos. La remesa permanece como snapshot: futuras importaciones tendrán fecha propia, sin sobrescribir esta evidencia.

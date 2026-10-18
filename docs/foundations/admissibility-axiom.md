@@ -1,5 +1,9 @@
-# Admisibilidad perspectival: fuente pendiente
+# Axioma de admisibilidad perspectival
 
-Se requieren `RIPG_contexto_vigente_axioma.md` y el estado fundacional vigente; véase el [catálogo](../source-catalog.md). No hay un axioma formal completo recuperado del checkout.
+Fuente: [contexto del 23 de septiembre](../archive/import-2026-10-17/originals/RIPG_contexto_vigente_axioma.md), sección «Axioma de admisibilidad perspectival tras E9-G».
 
-Antes de formularlo como regla oficial, recuperar la relación exacta entre ω_P y kernel de Fisher, el espacio cociente o dominio elegido, las condiciones de rango y la construcción con pseudoinversa. Registrar por separado la regularización G_rho, sus parámetros, tolerancias y alcance. No sustituir el axioma ideal por una condición numérica regularizada ni proponer umbrales nuevos como si fueran históricos.
+Sea Kθ = ker Fθ. Se exige ωP = dθSP ∈ Kθ°: la relevancia anula las direcciones del kernel. Para la geometría entre perspectivas, B = dP dθS también debe satisfacer BKθ = 0.
+
+La construcción desciende al cociente identificable TθM/Kθ. En coordenadas compatibles, h = B F⁺ Bᵀ. Las condiciones de admisibilidad y el significado del pseudoinverso son esenciales; una regularización euclídea no se identifica automáticamente con esta geometría del cociente.
+
+La implementación regularizada y sus convenciones se documentan en los protocolos por etapa; no sustituir este axioma por un umbral numérico nuevo.
