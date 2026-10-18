@@ -18,3 +18,7 @@ La [revisión estática E1–E8](archive/review-before-import/docs/experiment-in
 | T2-A0/A | Diseño prospectivo congelado y seguimiento incompleto | [Índice T2-A](../experiments/T2_A/README.md) |
 
 Consultar los protocolos originales para poblaciones y tolerancias; esta tabla no sustituye sus diseños.
+
+## Fichas de cierre
+
+[Selección mínima por experimento: README, conclusión y evidencia](../experiments/README.md).
