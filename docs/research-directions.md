@@ -1,12 +1,17 @@
 # Vertientes de investigación
 
-No se han recuperado propuestas originales versionadas. Los temas siguientes proceden de la [solicitud](archive/solicitud-documental.txt); las pruebas sugeridas aquí son **sugerencias documentales nuevas**, no protocolos congelados ni experimentos autorizados.
+Fuente histórica recuperada: [RIPG_mapa_rutas_investigacion.docx](archive/import-2026-10-17/originals/RIPG_mapa_rutas_investigacion.docx); [transcripción textual](archive/import-2026-10-17/RUTAS_INVESTIGACION_texto_extraido.md). Su referencia a468/800 basales está superada; conservar propuestas sin tomar su estado operacional como vigente.
 
-| Línea | Pregunta y motivación | Datos necesarios | Prueba falsable sugerida | Riesgo y condición de apertura |
-| --- | --- | --- | --- | --- |
-| Composicionalidad | ¿Cómo se relacionan perspectivas compuestas y sus relevancias? | Definición original de composición, funcionales y dominios | Contrastar una identidad de composición explícita frente a contraejemplos preregistrados | Confundir composición con suma; abrir sólo tras recuperar definiciones |
-| Coarse-graining perspectival | ¿Qué estructura se conserva al agrupar perspectivas? | Mapa de agrupación, métrica y criterio de equivalencia | Evaluar una ley de preservación declarada y su error fuera de datos exploratorios | Dependencia de escala y pérdida de información; abrir con mapa y criterio fijados |
-| Dimensión mayor que dos | ¿Qué observaciones 2D se extienden al espacio de mayor dimensión? | Métrica ambiente, inmersión, conexión y componentes extrínsecas | Contrastar relaciones explícitas entre curvaturas de rebanada y ambiente | Distinguir curvatura seccional/ambiente de curvatura de rebanada y contribuciones extrínsecas; no trasladar conjugados o corte sin hipótesis justificadas |
-| Validación externa T2 | ¿Existe capacidad predictiva prospectiva? | Prerregistro, cohortes, outcomes y reglas de censura/congelación | Contrastar hipótesis preregistrada en datos de confirmación independientes | Reutilizar descubrimiento para confirmar o imputar desconocidos como negativos; abrir según cierre documentado de T2 |
+| Línea histórica | Pregunta | Condición para abrirla |
+|---|---|---|
+| Validación prospectiva | ¿La señal temprana anticipa el evento futuro? | Protocolo T2-A0 y compuertas intactos |
+| Conjugados en P₂ | ¿Se certifica focalización mediante signo y Jacobi? | Control de error e implementación independiente |
+| Maxwell/corte | ¿La colisión del frente precede al conjugado? | Cobertura global y control de discretización |
+| Robustez en P₂ | ¿Qué depende de activación o representación? | Diseño nuevo, sin ajustar umbrales retrospectivamente |
+| Canonicidad y dimensión mayor | ¿Qué depende de la familia perspectival Φ? | Definir métrica ambiente y separar términos extrínsecos |
+| Tomografía Grassmanniana | ¿Cómo varía la geometría entre planos? | Familia Φ fijada; justificar relaciones locales/globales |
+| Composicionalidad/coarse-graining | ¿Qué estructura cambia al agrupar perspectivas? | Mapas y observables definidos antes de medir |
+| PINNs/Boltzmann | ¿Se recuperan restricciones físicas conocidas? | Controles falsables y dominio externo |
+| Teoría de aproximación | ¿La dimensión efectiva describe complejidad? | Definición operacional y validación independiente |
 
-El [roadmap operativo](roadmap.md) no agota estas vertientes. Primero recuperar las propuestas históricas y sus dependencias; registrar cualquier diferencia con estas sugerencias sin reescribir los originales.
+Son propuestas exploratorias, no experimentos autorizados ni teoremas establecidos. Los pesos del documento son prioridades sugeridas, no probabilidades. En dimensión mayor que dos, una igualdad local de curvaturas en P₀ no basta para trasladar conjugados o corte a lo largo de toda una geodésica.

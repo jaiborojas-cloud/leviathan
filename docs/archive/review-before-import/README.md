@@ -1,0 +1,18 @@
+# Leviathan / RIPG
+
+RIPG investiga la geometría inducida por familias de perspectivas sobre redes neuronales. Como orientación proporcionada por el solicitante, una perspectiva P define un funcional S_P sobre parámetros θ y su relevancia es ω_P = d_θ S_P. El espacio del modelo y el de perspectivas deben distinguirse. Las convenciones del marco completo aún requieren sus fuentes originales.
+
+**Corte documental: 2026-10-16 (America/Mexico_City).** El checkout base contiene un notebook con código y salidas históricas parciales de E1–E8. Se verificaron sus bytes y estructura mediante lectura estática; no se verificó el estado científico posterior. No hay una demostración general recuperada. Los controles y observaciones numéricas almacenados no constituyen certificaciones rigurosas ni validación predictiva prospectiva.
+
+- [Fundamentos y alcance](docs/foundations/overview.md), [marco matemático](docs/foundations/mathematical-framework.md) y [admisibilidad](docs/foundations/admissibility-axiom.md).
+- [Estado y limitaciones](docs/research-status.md), [índice experimental](docs/experiment-index.md).
+- [Roadmap documental](docs/roadmap.md) y [vertientes futuras](docs/research-directions.md).
+- [Catálogo de fuentes y hashes](docs/source-catalog.md), [material pendiente](docs/handoff/missing-sources.md).
+
+E1–E5 incluyen controles instrumentales definidos en código; su cierre no está documentado aquí. E6–E8 contienen observaciones almacenadas, con limitaciones de procedencia y dependencias. E9–E15 y T2-A carecen de fuentes locales: su estado permanece desconocido en esta reconstrucción.
+
+## Datos externos
+
+No se dispone de ubicación verificable, manifiesto ni hashes de los datos externos. Para incorporarlos documentalmente, entregar los archivos enumerados en el [handoff](docs/handoff/missing-sources.md). Registrar ubicación estable, versión, población, dependencias, tamaño y SHA-256; cotejar los bytes con el manifiesto antes de interpretar resultados. Un hash identifica bytes, no demuestra validez científica. No subir ZIP, checkpoints ni arrays a Git. [T2-A](experiments/T2_A/README.md) describe las carencias específicas.
+
+El [README original](docs/archive/README.original.md) se conserva byte por byte. No se incluyen comandos experimentales sin comprobar.
