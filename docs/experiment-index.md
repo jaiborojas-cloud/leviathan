@@ -1,29 +1,20 @@
-# Índice de experimentos
+# Índice experimental
 
-Inventario estático; no declara cierres ausentes. Todos los rangos remiten al [notebook original](../Perspectivas.ipynb), índices desde cero. Véanse [estado](research-status.md) y [catálogo](source-catalog.md).
+## Etapas iniciales
 
-| Etapa | Objetivo | Población | Método | Resultado documental | Evidencia | Artefactos / celdas | Siguiente paso |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| E1 PEGD | Gradientes y reparametrización | Red 1→2→3→1, ejemplo sintético | Backprop, diferencias finitas, autograd | Código; cierre no recuperado | Control instrumental previsto | 1–25 | Recuperar salidas/cierre |
-| E2 MCUI | Covariancia de actualización | Parámetros del ejemplo E1 | Métrica transformada, v′=Jv | Código; cierre no recuperado | Control esperado | 26–40 | Recuperar cierre |
-| E3 FTI | Invariancia de trayectorias | Ejemplo con J lineal constante | GD euclídeo frente a métrico | Código; cierre no recuperado | Control esperado | 41–64 | Recuperar cierre |
-| E4 IMG | Fisher y natural gradient | Ejemplo del notebook | Fisher entre cartas, F+λG | Código; cierre no recuperado | Control instrumental previsto | 65–82 | Recuperar cierre |
-| E5 PTC | Consistencia de transporte | Plano y esfera de control | Transporte y holonomía | Código; cierre no recuperado | Control instrumental previsto | 83–101 | Recuperar cierre |
-| E6 NPH | Holonomía neuronal | Rebanada bidimensional | Fisher inducida, conexión y curvatura | Salidas históricas; discrepancia entre resúmenes | Observación numérica exploratoria | 102–133 | Aclarar procedencia de salidas |
-| E7/E7b PRI | Geometría de relevancias | Red 2→4→2; 22 parámetros | Scores, Fisher categórica y comparación entre cartas | PASS almacenados en celda 159 | Control esperado; no prospectivo | 134–159 | Recuperar cierre versionado |
-| E8 | Relevancia y transporte local | Rebanada 2D, 8 entradas X_metric | Derivadas, transporte, circulación | Salidas históricas; función ausente | Exploratorio; reproducción no establecida | 160–176 | Recuperar definición/dependencias |
-| E9 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E11 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E12 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E13 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E14 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E15-B6 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E15-B7 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E15-B8 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E15-C1 / C1-A | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| E15-C1-A2 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| T1-A | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| T1-B | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
-| T2-A / T2-A0 | Información faltante | No verificada | Protocolo ausente | Estado no verificable | Contexto orientativo sin corroborar | No localizados | Recuperar fuentes del handoff |
+La [revisión estática E1–E8](archive/review-before-import/docs/experiment-index.md) conserva población, método y referencias por celda del [notebook](../Perspectivas.ipynb). Sus limitaciones no se resuelven mediante esta organización.
 
-La numeración no acredita que otras etapas existan o hayan sido cerradas. No se infieren resultados de sus identificadores.
+## Fuentes posteriores recuperadas
+
+| Etapa | Alcance documental | Fuente |
+|---|---|---|
+| E9/E10 | Síntesis y axioma; cierre autónomo E9 pendiente | [Contexto](archive/import-2026-10-17/originals/RIPG_contexto_vigente_axioma.md) |
+| E11 | Cierre y paso al campo perspectival | [Cierre](archive/import-2026-10-17/originals/Cierre_E11_RIPG_y_apertura_E12.md) |
+| E12 | Campo, conexión, curvatura y holonomía como control | [Cierre](archive/import-2026-10-17/originals/E12E_holonomia_control_derivado_y_cierre_E12.md) |
+| E13 | Normalización intrínseca y fallo instrumental que motiva E14 | [Cierre](archive/import-2026-10-17/originals/E13_cierre_y_punto_de_partida_E14.md) |
+| E14 | Cierre primario autónomo pendiente | [Faltantes](handoff/missing-sources.md) |
+| E15-B6/B7/B8/C1/A2 | Auditorías y cierres, C1-A INCONCLUSIVE | [Índice E15](../experiments/E15/README.md) |
+| T1-A/B | Panel histórico y análisis descriptivo a radio común | [Índice T1](../experiments/T1/README.md) |
+| T2-A0/A | Diseño prospectivo congelado y seguimiento incompleto | [Índice T2-A](../experiments/T2_A/README.md) |
+
+Consultar los protocolos originales para poblaciones y tolerancias; esta tabla no sustituye sus diseños.

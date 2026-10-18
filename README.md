@@ -1,18 +1,39 @@
 # Leviathan / RIPG
 
-RIPG investiga la geometría inducida por familias de perspectivas sobre redes neuronales. Como orientación proporcionada por el solicitante, una perspectiva P define un funcional S_P sobre parámetros θ y su relevancia es ω_P = d_θ S_P. El espacio del modelo y el de perspectivas deben distinguirse. Las convenciones del marco completo aún requieren sus fuentes originales.
+Investigación sobre la geometría inducida por familias de perspectivas en redes neuronales. Una perspectiva P define un funcional S_P sobre los parámetros del modelo; su relevancia es el covector ω_P = d_θS_P. La métrica del modelo y la geometría entre perspectivas cumplen papeles distintos.
 
-**Corte documental: 2026-10-16 (America/Mexico_City).** El checkout base contiene un notebook con código y salidas históricas parciales de E1–E8. Se verificaron sus bytes y estructura mediante lectura estática; no se verificó el estado científico posterior. No hay una demostración general recuperada. Los controles y observaciones numéricas almacenados no constituyen certificaciones rigurosas ni validación predictiva prospectiva.
+## Estado documentado
 
-- [Fundamentos y alcance](docs/foundations/overview.md), [marco matemático](docs/foundations/mathematical-framework.md) y [admisibilidad](docs/foundations/admissibility-axiom.md).
-- [Estado y limitaciones](docs/research-status.md), [índice experimental](docs/experiment-index.md).
-- [Roadmap documental](docs/roadmap.md) y [vertientes futuras](docs/research-directions.md).
-- [Catálogo de fuentes y hashes](docs/source-catalog.md), [material pendiente](docs/handoff/missing-sources.md).
+Corte de fuentes: 17 de octubre de 2026, 03:46 UTC. Esta organización no ejecuta experimentos.
 
-E1–E5 incluyen controles instrumentales definidos en código; su cierre no está documentado aquí. E6–E8 contienen observaciones almacenadas, con limitaciones de procedencia y dependencias. E9–E15 y T2-A carecen de fuentes locales: su estado permanece desconocido en esta reconstrucción.
+- **C1-A: INCONCLUSIVE**. La auditoría C1-A2 documenta dos casos GEOMETRIC_NONINJECTIVITY.
+- **T1-A/T1-B:** mapa histórico y análisis descriptivos; la correlación a radio común es control geométrico esperado, no validación predictiva nueva.
+- **T2-A:** 800 basales sellados, 1/8000 visitas cerradas y 0/800 horizontes completos. J5/update25 sigue sin resolución geométrica; j7/update25 está pausado en el paso128.
 
-## Datos externos
+Fuentes y límites en el [estado científico](docs/research-status.md).
 
-No se dispone de ubicación verificable, manifiesto ni hashes de los datos externos. Para incorporarlos documentalmente, entregar los archivos enumerados en el [handoff](docs/handoff/missing-sources.md). Registrar ubicación estable, versión, población, dependencias, tamaño y SHA-256; cotejar los bytes con el manifiesto antes de interpretar resultados. Un hash identifica bytes, no demuestra validez científica. No subir ZIP, checkpoints ni arrays a Git. [T2-A](experiments/T2_A/README.md) describe las carencias específicas.
+## Navegación
 
-El [README original](docs/archive/README.original.md) se conserva byte por byte. No se incluyen comandos experimentales sin comprobar.
+| Contenido | Entrada |
+|---|---|
+| Fundamentos y axioma | [Marco matemático](docs/foundations/mathematical-framework.md) |
+| Etapas y resultados | [Índice experimental](docs/experiment-index.md) |
+| Próximos pasos | [Roadmap](docs/roadmap.md) |
+| Vertientes conceptuales | [Rutas de investigación](docs/research-directions.md) |
+| Procedencia e integridad | [Catálogo](docs/source-catalog.md) |
+| Fuentes pendientes | [Faltantes](docs/handoff/missing-sources.md) |
+| Reglas para agentes | [AGENTS.md](AGENTS.md) |
+
+## Organización
+
+`docs/` contiene síntesis actuales; `docs/archive/` conserva fuentes e importaciones históricas; `experiments/` ofrece accesos por etapa; `tools/` contiene utilidades documentales. [Perspectivas.ipynb](Perspectivas.ipynb) se conserva como notebook histórico sin reejecutar.
+
+Los ZIP, checkpoints y arrays pesados quedan fuera de Git. Las referencias externas son autenticadas y requieren respaldo independiente para colaboradores; no equivalen a un dataset público.
+
+## Verificación documental
+
+```sh
+python tools/verify_archive.py
+```
+
+Comprueba los hashes de los 398 archivos de la remesa. No entrena modelos ni calcula outcomes. Véase la [decisión de organización y reparación CRLF](docs/decisions/0002-document-organization.md).
