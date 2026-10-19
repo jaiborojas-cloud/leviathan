@@ -90,3 +90,13 @@ transportadas por C. Congelar el nuevo método antes de ejecutarlo; usar un
 identificador/corrida nuevos, conservar este INCONCLUSIVE y separar diagnóstico
 post hoc de cualquier validación futura. No está justificado saltar a un estudio
 predictivo mientras esa compuerta instrumental siga sin resolución.
+
+## Incidencia de verificación y corrección
+
+El primer verificador exigía igualdad byte a byte incluso de la duración medida
+en la fila `tiempo` de checks.csv. Falló por esa única fila; las otras 1614
+coincidieron exactamente en una réplica diagnóstica. Se preservan el código
+fallido en el commit `472040d` y [las diferencias observadas](results/verification_v1_diagnostic.json).
+Se corrigió sólo el verificador: cinco tablas/reportes se comparan byte a byte,
+1614 checks se comparan exactamente y la duración se valida contra el presupuesto,
+sin exigir los mismos segundos. No se modificaron salidas ni criterios científicos.

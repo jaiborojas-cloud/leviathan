@@ -79,3 +79,16 @@ y la primera implementación del verificador en el commit previo a corregirla.
 La corrección propuesta compara las filas científicas byte/equivalencia exacta
 y valida estado/umbral del tiempo por separado, sin exigir idéntica duración.
 No hay cambio en código experimental, protocolo, tablas u outcomes originales.
+
+## Verificación completada y revisión previa a publicación
+
+El verificador corregido reprodujo cinco tablas/reportes byte a byte y 1614
+checks exactamente; duración contrastada aparte contra 120 s. Versión fallida
+del verificador conservada en `472040d`. Congelación d05f31b y sus hashes
+intactos. Todos los hashes de E16 original siguen coincidiendo. Archivo histórico:
+398/398; fuentes de cierres: 34/34. Diff y enlaces revisados: sólo E16/B y tres
+entradas de navegación. Ningún archivo T2-A modificado ni script suyo ejecutado.
+
+No hay nueva confirmación de rango ni ampliación a entrenamiento. La primera
+fase instrumental queda entregable con conclusión INCONCLUSIVE para rango.
+Próximo paso operacional: publicar rama/PR dependiente de #5, sin merge.

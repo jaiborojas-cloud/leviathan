@@ -30,12 +30,21 @@ def main():
         out=Path(tmp)/'replica'
         subprocess.run([sys.executable,str(ROOT/'scripts/run.py'),'--output',str(out)],check=True)
         subprocess.run([sys.executable,str(ROOT/'scripts/summarize.py'),str(out),'--output',str(out/'descriptive.json')],check=True)
-        for name in ['checks.csv','spectra.csv','kernel.csv','panel_sensitivity.csv','summary.json','descriptive.json']:
+        for name in ['spectra.csv','kernel.csv','panel_sensitivity.csv','summary.json','descriptive.json']:
             assert (out/name).read_bytes()==(ROOT/'results/run_v1'/name).read_bytes(),name
+        original=list(csv.DictReader((ROOT/'results/run_v1/checks.csv').open()))
+        replica=list(csv.DictReader((out/'checks.csv').open()))
+        assert len(original)==len(replica)==1615
+        for a,b in zip(original,replica):
+            if a['check']=='tiempo':
+                assert b['check']=='tiempo' and a['status']==b['status']=='PASS'
+                assert a['tolerance']==b['tolerance']=='120'
+                assert 0<float(b['abs_error'])<=120
+            else:assert a==b,(a['config'],a['check'])
     changed=subprocess.check_output(['git','diff','21b7b2a','--name-only'],cwd=REPO,text=True).splitlines()
     allowed={'docs/experiment-index.md','docs/roadmap.md','experiments/README.md'}
     assert all(p.startswith('experiments/E16/B/') or p in allowed for p in changed),changed
-    print('PASS: congelación, hashes, enlaces, reproducción de seis tablas/reportes y alcance sin T2-A ni cambios a E16-A')
+    print('PASS: congelación, hashes, enlaces, reproducción de cinco tablas/reportes y 1614 checks, tiempo validado aparte y alcance sin T2-A ni cambios a E16-A')
 
 
 if __name__=='__main__':main()
