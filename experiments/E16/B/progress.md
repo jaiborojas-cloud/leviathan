@@ -92,3 +92,12 @@ entradas de navegación. Ningún archivo T2-A modificado ni script suyo ejecutad
 No hay nueva confirmación de rango ni ampliación a entrenamiento. La primera
 fase instrumental queda entregable con conclusión INCONCLUSIVE para rango.
 Próximo paso operacional: publicar rama/PR dependiente de #5, sin merge.
+
+## Entrega publicada
+
+Rama `research/e16-b-instrumentacion` subida. [PR #7](https://github.com/jaiborojas-cloud/leviathan/pull/7)
+abierto sobre `research/e16-composicionalidad`, dependiente del PR #5.
+Sin merge ni auto-merge. Cambiar base a main después de integrar #5.
+La fase está completa con identidades PASS y rango INCONCLUSIVE. No hay más
+cálculos pendientes bajo este protocolo; la precisión de rango requiere otro
+diseño congelado y conservará íntegros estos outcomes.
