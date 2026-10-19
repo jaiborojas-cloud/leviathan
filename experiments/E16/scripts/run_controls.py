@@ -19,7 +19,7 @@ T = sp.Matrix(sp.symbols('t1 t2'))
 P = sp.Matrix(sp.symbols('x y'))
 C = sp.diag(2, 3)
 A = sp.Matrix([[1, 1], [0, 1]])
-REVISION = 'v1'
+REVISION = 'v2'
 
 
 def omega(s, t=T):
@@ -43,6 +43,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--progress', action='store_true')
     args = parser.parse_args()
+    args.output = args.output.resolve()
     args.output.mkdir(parents=True, exist_ok=False)
     started = time.perf_counter()
     rows, spectra, groups = [], [], []
