@@ -31,3 +31,7 @@ T2-A0 es un [prerregistro](../docs/archive/import-2026-10-17/originals/Leviathan
 [E16 — Composicionalidad y coarse-graining perspectival](E16/README.md):
 EXPECTED_GEOMETRIC_CONTROL; [conclusión](E16/CONCLUSION.md). Diseño congelado,
 código y resultados pequeños propios, sin ejecutar ni modificar T2-A.
+
+[E16-B — Instrumentación en red sintética sin entrenamiento](E16/B/README.md):
+identidades PASS, validación independiente del rango INCONCLUSIVE; diseño
+congelado, 81 configuraciones conservadas y cero pasos de entrenamiento.

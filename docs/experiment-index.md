@@ -28,3 +28,9 @@ Consultar los protocolos originales para poblaciones y tolerancias; esta tabla n
 [E16](../experiments/E16/README.md): cartas, subfamilias, descenso de métricas y
 composición escalar. Primera fase analítica EXPECTED_GEOMETRIC_CONTROL;
 [conclusión y fallos conservados](../experiments/E16/CONCLUSION.md). No continúa E15/T2.
+
+## E16-B — Red sintética sin entrenamiento
+
+[E16-B](../experiments/E16/B/README.md): identidades y derivadas PASS; validación
+independiente del rango INCONCLUSIVE en 81 configuraciones. Estado, scripts y
+resultados nuevos separados de T2-A y de los controles analíticos E16.
