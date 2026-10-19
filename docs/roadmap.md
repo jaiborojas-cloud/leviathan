@@ -28,3 +28,11 @@ La [red sintética sin entrenamiento](../experiments/E16/B/CONCLUSION.md) pasó
 controles de cadena, cartas, admisibilidad y descenso. La validación independiente
 del rango quedó INCONCLUSIVE; conservar ese resultado y diseñar un protocolo
 nuevo de mayor precisión antes de entrenamiento o predicción. No modifica T2-A.
+
+### E16-C: precisión instrumental resuelta en puntos fijados
+
+[Alta precisión y FD de cuarto orden](../experiments/E16/C/CONCLUSION.md)
+validaron numéricamente el rango en 99 configuraciones. E16-B conserva su estado
+original. Una pregunta posterior de reorganización geométrica requiere estados
+y paneles nuevos y un diseño propio; el rango 2 observado no prueba emergencia
+ni motiva por sí solo un estudio predictivo. Sin entrenamiento ni cambios a T2-A.
