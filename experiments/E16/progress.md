@@ -72,3 +72,11 @@ esta rama y PR contra main, sin merge.
 La revisión de whitespace detectó los CRLF estándar de csv.DictWriter. Se declara
 `whitespace=cr-at-eol` sólo para CSV de E16 en .gitattributes, conservando todos
 los bytes originales de resultados y su reproducción; sin normalizar históricos.
+
+## Entrega publicada
+
+Rama `research/e16-composicionalidad` subida con historial de congelación y
+corridas conservado. [PR #5](https://github.com/jaiborojas-cloud/leviathan/pull/5)
+abierto contra main, sin fusionar y sin activar auto-merge. La primera fase
+está completa; pendiente sólo revisión humana del PR. El avance ajeno de main
+se mantiene fuera del diff de esta línea.
