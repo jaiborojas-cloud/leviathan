@@ -12,3 +12,12 @@ Fuente operativa: [progreso T2-A](archive/import-2026-10-17/originals/Leviathan/
 ## Trabajo documental pendiente
 
 Recuperar dependencia E8 y procedencia E6, cierres autónomos E9/E14 y respaldo accesible de artefactos externos. La remesa permanece como snapshot: futuras importaciones tendrán fecha propia, sin sobrescribir esta evidencia.
+
+## Línea independiente de composicionalidad
+
+[E16](../experiments/E16/README.md) completó los controles analíticos pequeños
+(122/122 PASS en v3, con fallos previos conservados y fe de erratas). No altera
+los estados ni el protocolo de T2-A. Antes de una red real, congelar el
+[diseño instrumental candidato](../experiments/E16/NEXT_PHASE.md) en artefactos
+independientes: admisibilidad, derivadas, cartas y criterio de rango estable.
+Sin validación predictiva ni ampliación automática.

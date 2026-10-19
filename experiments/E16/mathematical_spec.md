@@ -85,7 +85,7 @@ B_macro=[[θ²p²,θ¹p²],[θ²p¹,θ¹p¹]], rango 1 para θ,p no nulos;
 Σ Ψ_l B_l omite los términos fuera de diagonal.
 Contraejemplo a monotonía respecto de la suma: S₁=θ¹p¹+θ²p², S₂=−S₁+θ¹.
 La suma tiene B=0. Ψ=(s₁²+s₂²)/2 tiene, en θ=(1,2), p=(1,1),
-B=[[11,3],[6,7]], determinante 59, rango 2; la no linealidad restaura variación.
+B=[[6,2],[2,9]], determinante 50, rango 2; la no linealidad restaura variación.
 No es una comparación con el tensor de la familia conjunta apilada ni prueba de emergencia.
 
 ## Caso degenerado y cambio de coordenadas del modelo
@@ -102,3 +102,5 @@ Control A=[[1,1],[0,1]]; los pseudoinversos como matrices difieren, pero las
 contracciones admisibles coinciden. Para S_bad=θ²p¹ se viola el axioma:
 h ingenua pasa de 0 a 1/8 con esa carta. Se registra como contraejemplo esperado,
 no como fallo del marco ni geometría válida.
+
+Referencia cuadrática corregida tras run_v2: [fe de erratas](ERRATA_v2.md).

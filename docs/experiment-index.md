@@ -22,3 +22,9 @@ Consultar los protocolos originales para poblaciones y tolerancias; esta tabla n
 ## Fichas de cierre
 
 [Selección mínima por experimento: README, conclusión y evidencia](../experiments/README.md).
+
+## Línea independiente: E16
+
+[E16](../experiments/E16/README.md): cartas, subfamilias, descenso de métricas y
+composición escalar. Primera fase analítica EXPECTED_GEOMETRIC_CONTROL;
+[conclusión y fallos conservados](../experiments/E16/CONCLUSION.md). No continúa E15/T2.

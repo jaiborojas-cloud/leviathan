@@ -37,3 +37,8 @@ python tools/verify_archive.py
 ```
 
 Comprueba los hashes de los 398 archivos de la remesa. No entrena modelos ni calcula outcomes. Véase la [decisión de organización y reparación CRLF](docs/decisions/0002-document-organization.md).
+
+## Línea independiente E16
+
+[Composicionalidad y coarse-graining perspectival](experiments/E16/README.md):
+controles analíticos pequeños; EXPECTED_GEOMETRIC_CONTROL. Sin cambios en T2-A.

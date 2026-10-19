@@ -7,6 +7,8 @@ import json
 import os
 from pathlib import Path
 import platform
+import resource
+from datetime import datetime, timezone
 import sys
 import time
 
@@ -19,7 +21,7 @@ T = sp.Matrix(sp.symbols('t1 t2'))
 P = sp.Matrix(sp.symbols('x y'))
 C = sp.diag(2, 3)
 A = sp.Matrix([[1, 1], [0, 1]])
-REVISION = 'v2'
+REVISION = 'v3'
 
 
 def omega(s, t=T):
@@ -47,7 +49,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=False)
     started = time.perf_counter()
     rows, spectra, groups = [], [], []
-    env = dict(python=sys.version, numpy=np.__version__, sympy=sp.__version__,
+    env = dict(started_utc=datetime.now(timezone.utc).isoformat(), python=sys.version, numpy=np.__version__, sympy=sp.__version__,
                platform=platform.platform(), float_epsilon=np.finfo(float).eps,
                threads={k: os.environ.get(k) for k in ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS')},
                revision=REVISION, script_sha256=digest(Path(__file__)),
@@ -215,6 +217,7 @@ def main():
         for r,s in enumerate([s1,s2]):
             chain += hes[l,r].subs(sub)*sp.Matrix([sp.diff(s,p) for p in P])*ws[l].T
     chain += trunc
+    exact('omega_macro', omega(macro), s2*omega(s1)+s1*omega(s2))
     exact('cadena_completa', mixed(macro), chain)
     exact('B_producto', mixed(macro).subs(point), sp.Matrix([[2,1],[2,1]]))
     truth('cadena_truncada_falla', np.max(np.abs(arr((mixed(macro)-trunc).subs(point)))) > .1)
@@ -222,7 +225,7 @@ def main():
     a = base; b = -base+t1
     sm = a+b
     nonlinear = (a*a+b*b)/2
-    expected = sp.Matrix([[11,3],[6,7]])
+    expected = sp.Matrix([[6,2],[2,9]])  # ERRATA_v2.md; frozen original retained
     exact('B_cuadratica_manual', mixed(nonlinear).subs(point), expected)
     rank('suma', mixed(sm).subs(point), C, 0)
     rank('cuadratica', mixed(nonlinear).subs(point), C, 2)
@@ -264,6 +267,7 @@ def main():
     status = 'PASS' if all(r['status']=='PASS' for r in rows) else 'FAIL'
     (args.output/'summary.json').write_text(json.dumps(dict(status=status, checks=len(rows),
                                                        failures=[r for r in rows if r['status']!='PASS']),indent=2)+'\n')
+    (args.output/'resources.json').write_text(json.dumps(dict(elapsed_seconds=time.perf_counter()-started, max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss), indent=2)+'\n')
     print(status, len(rows))
     return 0 if status == 'PASS' else 1
 
