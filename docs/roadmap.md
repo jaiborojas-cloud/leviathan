@@ -21,3 +21,10 @@ los estados ni el protocolo de T2-A. Antes de una red real, congelar el
 [diseño instrumental candidato](../experiments/E16/NEXT_PHASE.md) en artefactos
 independientes: admisibilidad, derivadas, cartas y criterio de rango estable.
 Sin validación predictiva ni ampliación automática.
+
+### E16-B: resolver precisión de rango antes de ampliar
+
+La [red sintética sin entrenamiento](../experiments/E16/B/CONCLUSION.md) pasó
+controles de cadena, cartas, admisibilidad y descenso. La validación independiente
+del rango quedó INCONCLUSIVE; conservar ese resultado y diseñar un protocolo
+nuevo de mayor precisión antes de entrenamiento o predicción. No modifica T2-A.
