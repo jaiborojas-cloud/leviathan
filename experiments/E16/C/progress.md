@@ -59,3 +59,11 @@ controles inconclusos bajo el nuevo método. Sin entrenamiento o ampliación.
 
 Pendiente únicamente publicación de la rama y PR sobre
 research/e16-composicionalidad (#5), que ya contiene la integración de B (#7).
+
+## Entrega publicada
+
+[PR #9](https://github.com/jaiborojas-cloud/leviathan/pull/9) abierto sobre
+research/e16-composicionalidad (#5), rama research/e16-c-precision-rango subida.
+Sin merge ni auto-merge. Tras integrar #5, cambiar base a main antes de fusionar C.
+La fase queda completa: precisión instrumental PASS_NUMERICAL en puntos fijados;
+A/B conservan sus estados y hashes. No hay cálculos pendientes bajo este diseño.
