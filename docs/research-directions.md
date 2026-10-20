@@ -15,3 +15,10 @@ Fuente histórica recuperada: [RIPG_mapa_rutas_investigacion.docx](archive/impor
 | Teoría de aproximación | ¿La dimensión efectiva describe complejidad? | Definición operacional y validación independiente |
 
 Son propuestas exploratorias, no experimentos autorizados ni teoremas establecidos. Los pesos del documento son prioridades sugeridas, no probabilidades. En dimensión mayor que dos, una igualdad local de curvaturas en P₀ no basta para trasladar conjugados o corte a lo largo de toda una geodésica.
+
+## Apertura independiente E16
+
+La propuesta G histórica se operacionalizó en [E16](../experiments/E16/README.md),
+separando cartas, subfamilias, agregación y composición escalar. Los controles
+analíticos delimitan las condiciones de rango y descenso; no demuestran
+emergencia ni ventaja predictiva. [Conclusión](../experiments/E16/CONCLUSION.md).

@@ -25,3 +25,13 @@ T2-A0 es un [prerregistro](../docs/archive/import-2026-10-17/originals/Leviathan
 ## Integridad
 
 [closed_sources.csv](closed_sources.csv) registra ruta, bytes y SHA-256 de cada fuente seleccionada tal como está en este commit. Es un inventario nuevo y no reemplaza los manifests históricos. Verificación documental: `python tools/verify_closed_sources.py`. No requiere checkpoints ni ejecuta geometría.
+
+## Línea independiente analítica
+
+[E16 — Composicionalidad y coarse-graining perspectival](E16/README.md):
+EXPECTED_GEOMETRIC_CONTROL; [conclusión](E16/CONCLUSION.md). Diseño congelado,
+código y resultados pequeños propios, sin ejecutar ni modificar T2-A.
+
+[E16-B — Instrumentación en red sintética sin entrenamiento](E16/B/README.md):
+identidades PASS, validación independiente del rango INCONCLUSIVE; diseño
+congelado, 81 configuraciones conservadas y cero pasos de entrenamiento.
