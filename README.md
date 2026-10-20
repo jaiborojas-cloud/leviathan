@@ -42,6 +42,18 @@ regularizada es un estimando distinto, con referencia y escala explícitas.
 Los capítulos explican cuándo el tensor es SPD, cómo se transforma y qué
 condiciones requiere un descenso a variables agregadas.
 
+## Evidencia, decisiones y continuidad
+
+La [guía de evidencia RIPG](docs/research-notes/README.md) complementa la teoría:
+[afirmaciones y fuentes](docs/research-notes/claims-and-evidence.md),
+[decisiones matemáticas](docs/research-notes/mathematical-decisions.md),
+[resultados negativos](docs/research-notes/negative-results.md),
+[atlas de ejemplos](docs/research-notes/example-atlas.md),
+[reproducción](docs/research-notes/reproduction-guide.md) y
+[preguntas abiertas](docs/research-notes/open-questions.md).
+Las notas específicas nuevas de T2-A están en
+[codex](experiments/T2_A/codex/README.md); no modifican el directorio `claude`.
+
 ## Investigación y evidencia
 
 El marco distingue identidades matemáticas, controles numéricos, hallazgos
