@@ -36,3 +36,10 @@ los controles congelados y no observó cambios de rango entre las composiciones.
 La siguiente fase necesita una pregunta geométrica distinta y diseño propio;
 [pasos propuestos](../experiments/E16/D/NEXT_PHASE.md), sin entrenamiento automático.
 Se conservan los estados científicos anteriores y T2-A no se modifica.
+
+## E16-F — Integración antes de geodésicas
+
+[Conclusión](../experiments/E16/F/CONCLUSION.md): validación parcial de longitudes,
+239/324; estado global INCONCLUSIVE. Antes de minimizar caminos, hace falta un
+protocolo nuevo para integración cerca de mínimos de rapidez y positividad global.
+No se cambian los criterios de F ni se confirma sobre sus supervivientes.

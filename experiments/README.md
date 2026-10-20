@@ -39,3 +39,9 @@ congelado, 81 configuraciones conservadas y cero pasos de entrenamiento.
 [E16-D — Réplica instrumental en configuraciones nuevas](E16/D/README.md):
 396/396 rangos PASS_NUMERICAL, 216/216 negativos detectados y ausencia de cambios
 de rango entre composiciones en esta muestra sintética sin entrenamiento.
+
+## E16-F — Longitudes de caminos prefijados
+
+[README](E16/F/README.md) · [conclusión](E16/F/CONCLUSION.md) ·
+[evidencia](E16/F/results/run_v1/summary.json). Estado global INCONCLUSIVE:
+239 longitudes validadas y 85 inconclusas; sin entrenamiento ni geodésicas.
