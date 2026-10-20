@@ -78,3 +78,10 @@ antes de afirmar geodésicas o distancias mínimas. No se modifica T2-A.
 inconclusos por refinamiento, dispersión entre reinicios o gradiente de integración.
 Antes de ampliar familias, un protocolo nuevo debe controlar esas fuentes de error.
 Los dos candidatos de frontera no se identifican con geodésicas libres.
+
+## E16-K — Gradiente contrastado; un refinamiento pendiente
+
+[Conclusión](../experiments/E16/K/CONCLUSION.md): primitiva diferenciada y mallas
+anidadas resuelven dos casos bajo K. h00/0/cuadrática no alcanza el acuerdo
+8→16 fijado; necesita otro diseño, sin relajar criterios ni reinterpretar J/K.
+No se certifican geodésicas o mínimos globales.

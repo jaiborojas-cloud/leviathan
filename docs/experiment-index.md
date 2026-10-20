@@ -80,3 +80,10 @@ Búsqueda de un punto intermedio acotado, sin certificado de mínimo global.
 y controles de gradiente. Estado global INCONCLUSIVE: 24/27 casos pasan, tres
 no. 22 interiores estables discretamente (incluyen nueve controles), dos
 limitados por frontera y tres no resueltos; no se certifican geodésicas.
+
+## E16-K — Diagnóstico de gradiente y mallas anidadas
+
+[E16-K](../experiments/E16/K/README.md): dos de los tres casos difíciles J pasan
+el protocolo nuevo; uno sigue inconcluso por refinamiento. Los 85 reinicios
+validan gradiente y SPD, con acuerdo en 15 resoluciones. K global INCONCLUSIVE;
+J conserva sus resultados históricos.
