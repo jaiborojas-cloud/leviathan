@@ -1,0 +1,27 @@
+{
+  "case": "split8_j5_true",
+  "status": "PAUSED_PENDING_REVIEW",
+  "reason": "PAUSED_LOW_RADIAL_PROGRESS",
+  "wall_seconds_session": 25.329066400001466,
+  "extra_budget": false,
+  "attempt_cap": 250,
+  "time_cap_s": 120.0,
+  "visit_cap_s": 900.0,
+  "last_checkpoint": {
+    "archive": "step_00000050.zip",
+    "sha256": "ff4e1d273e3ce64b44a6d3474ed8a301dc64db1c405a1aeb129e91ab9148b1b1",
+    "t": 0.07217254011594085,
+    "attempts": 74,
+    "rejected": 24,
+    "alarm_count": 8
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "cpus": 24
+  },
+  "note": "Si el estado es PAUSED_PENDING_REVIEW: pausa operacional, no es FAIL, ni INCONCLUSIVE, ni evidencia topologica. Sin clasificacion ni outcome."
+}
