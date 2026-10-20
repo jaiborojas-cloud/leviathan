@@ -1,0 +1,55 @@
+{
+  "base_commit": "7ed3e35d4d54f0ff06687851ef980b199e05fedc",
+  "H_data_sha256": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+  "D_method_sha256": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+  "G_method_sha256": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+  "states": [
+    "h00",
+    "h01",
+    "h02"
+  ],
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "compositions": [
+    "sum",
+    "product",
+    "quadratic"
+  ],
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "xatol": [
+    1e-08,
+    1e-09
+  ],
+  "maxiter": 100,
+  "selection_absolute_scaled_margin": "1e-10",
+  "improvement_relative_threshold": "1e-8",
+  "stability_tolerance": "1e-8",
+  "nonworse_tolerance": "1e-12",
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "budget_seconds": 180,
+  "memory_target_mib": 512
+}
