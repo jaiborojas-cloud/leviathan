@@ -1,0 +1,47 @@
+{
+  "case": "split8_j9_true",
+  "status": "VISIT_EVALUATED",
+  "reason": null,
+  "extra_budget": true,
+  "caps": {
+    "attempts": 250,
+    "time_s": 120.0,
+    "visit_s": 900.0
+  },
+  "wall_seconds_session": 164.64055909999297,
+  "cpu_seconds_session": 161.046875,
+  "instrumentacion": {
+    "integraciones": 67,
+    "intentos_total": 2696,
+    "rechazos_total": 546,
+    "max_alarma": 47,
+    "pausadas": []
+  },
+  "sin_cubrir": [],
+  "ultima_integracion_lanzada": {
+    "kind": "rays",
+    "t_end": 0.0774199594518684,
+    "n_state": 32768,
+    "spent_other_integrations_s": 506.59028429993486
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "cpus": 24
+  },
+  "resultado_visita": {
+    "trajectory": "split8_j9_true",
+    "step": 25,
+    "classification": "GEOMETRIC_NONINJECTIVITY",
+    "checkpoint_sha256": "f886bbcf241011fc2d688307560eef7f819e5d520dcbffdb30a9e3dc50bfaeb8",
+    "field_sha256": "172391f11bbaa63c94cd80e1b66b25db610b1213f0faeee411be40845d0d95b2",
+    "nominal_radius": 0.08010248601223713,
+    "r_conj": 0.0774199594518684,
+    "A_embed": 0.01870266538445483,
+    "status": "VISIT_EVALUATED"
+  },
+  "note": "Si el estado es PAUSED_PENDING_REVIEW: pausa operacional, no es FAIL, ni INCONCLUSIVE, ni evidencia topologica. Sin clasificacion ni outcome."
+}
