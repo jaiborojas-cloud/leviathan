@@ -42,15 +42,8 @@ entrenamiento; 396/396 decisiones PASS_NUMERICAL y 216/216 negativos detectados.
 La suma, producto y cuadrática dieron rango 2 en los 324 casos principales.
 No reescribe B/C ni establece una ventaja predictiva.
 
-## E16-F — Longitudes de caminos
+## E16-E — Distancias y anisotropía
 
-[E16-F](../experiments/E16/F/README.md): 324 longitudes de tres segmentos fijados
-bajo suma, producto y cuadrática. 239 PASS_NUMERICAL y 85 INCONCLUSIVE por
-integración y/o comprobación global de positividad. No son distancias geodésicas.
-
-## E16-G — Resolución numérica diagnóstica
-
-[E16-G](../experiments/E16/G/README.md): 324/324 longitudes y 216/216 pares
-validados con primitiva/cuadratura localizada y cotas Bernstein subdivididas.
-Resuelve bajo G los 85 inconclusos F, sin alterar F. No es confirmación
-independiente ni certificado intervalar.
+[E16-E](../experiments/E16/E/README.md): 216 comparaciones exploratorias respecto
+a la suma. El rango 2 coexiste con cambios de escala y forma; 10 176 controles
+numéricos pasan. Distancia entre tensores SPD, no geodésicas entre perspectivas.
