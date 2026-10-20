@@ -42,6 +42,12 @@ entrenamiento; 396/396 decisiones PASS_NUMERICAL y 216/216 negativos detectados.
 La suma, producto y cuadrática dieron rango 2 en los 324 casos principales.
 No reescribe B/C ni establece una ventaja predictiva.
 
+## E16-E — Distancias y anisotropía
+
+[E16-E](../experiments/E16/E/README.md): 216 comparaciones exploratorias respecto
+a la suma. El rango 2 coexiste con cambios de escala y forma; 10 176 controles
+numéricos pasan. Distancia entre tensores SPD, no geodésicas entre perspectivas.
+
 ## E16-F — Longitudes de caminos
 
 [E16-F](../experiments/E16/F/README.md): 324 longitudes de tres segmentos fijados

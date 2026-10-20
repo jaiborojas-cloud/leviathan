@@ -40,6 +40,12 @@ congelado, 81 configuraciones conservadas y cero pasos de entrenamiento.
 396/396 rangos PASS_NUMERICAL, 216/216 negativos detectados y ausencia de cambios
 de rango entre composiciones en esta muestra sintética sin entrenamiento.
 
+## E16-E — Distancias y anisotropía relativa
+
+[README](E16/E/README.md) · [conclusión](E16/E/CONCLUSION.md) ·
+[evidencia](E16/E/results/run_v1/summary.json). Exploratorio sobre datos D:
+216 comparaciones SPD con cambios de forma, sin entrenamiento.
+
 ## E16-F — Longitudes de caminos prefijados
 
 [README](E16/F/README.md) · [conclusión](E16/F/CONCLUSION.md) ·

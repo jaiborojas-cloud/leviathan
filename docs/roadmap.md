@@ -37,6 +37,13 @@ La siguiente fase necesita una pregunta geométrica distinta y diseño propio;
 [pasos propuestos](../experiments/E16/D/NEXT_PHASE.md), sin entrenamiento automático.
 Se conservan los estados científicos anteriores y T2-A no se modifica.
 
+## E16-E — Geometría tras conservar rango
+
+[Resultado exploratorio](../experiments/E16/E/CONCLUSION.md): distancia SPD, escala
+y anisotropía relativa en los datos D. Las 216 comparaciones presentan cambio
+de forma. Pendiente un diseño separado para longitudes de caminos y, después,
+distancias geodésicas; no se infieren desde observables puntuales.
+
 ## E16-F — Integración antes de geodésicas
 
 [Conclusión](../experiments/E16/F/CONCLUSION.md): validación parcial de longitudes,
