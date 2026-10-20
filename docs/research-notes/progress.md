@@ -29,3 +29,9 @@ compendio teórico intactos. Árbol claude protegido:
 No se ejecutó ciencia, ni se generaron/modificaron outcomes, protocolos o datos.
 El único contenido nuevo de experiments está en T2_A/codex. Pendiente: revisión
 final del diff y publicación de PR dependiente del compendio de teoría.
+
+Entrega publicada: [PR #13](https://github.com/jaiborojas-cloud/leviathan/pull/13),
+rama docs/evidencia-y-decisiones-ripg, dependiente de #12. Sin merge ni auto-merge.
+Revisión del diff completada: sólo documentación y archivos nuevos en codex.
+La tarea documental está completa; las preguntas abiertas registradas no se
+presentan como experimentos autorizados ni resultados pendientes de esta entrega.
