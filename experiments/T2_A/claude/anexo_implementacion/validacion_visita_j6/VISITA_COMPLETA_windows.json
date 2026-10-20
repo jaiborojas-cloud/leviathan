@@ -1,0 +1,47 @@
+{
+  "case": "split8_j6_true",
+  "status": "VISIT_EVALUATED",
+  "reason": null,
+  "extra_budget": false,
+  "caps": {
+    "attempts": 250,
+    "time_s": 120.0,
+    "visit_s": 900.0
+  },
+  "wall_seconds_session": 55.04915040000196,
+  "cpu_seconds_session": 54.21875,
+  "instrumentacion": {
+    "integraciones": 9,
+    "intentos_total": 187,
+    "rechazos_total": 40,
+    "max_alarma": 0,
+    "pausadas": []
+  },
+  "sin_cubrir": [],
+  "ultima_integracion_lanzada": {
+    "kind": "jacobi",
+    "t_end": 0.0788355371631218,
+    "n_state": 3072,
+    "spent_other_integrations_s": 22.93929260000732
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "cpus": 24
+  },
+  "resultado_visita": {
+    "trajectory": "split8_j6_true",
+    "step": 25,
+    "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+    "checkpoint_sha256": "503b43c1e8701f4fc6db3c243034aa7203f0c854eebabe7297cae94d3bd2594d",
+    "field_sha256": "97130aeb1fc3c51222879700c43002c2efdcddda9707723000b0297dfd78d671",
+    "nominal_radius": 0.0788355371631218,
+    "r_conj": null,
+    "A_embed": 0.02,
+    "status": "VISIT_EVALUATED"
+  },
+  "note": "Si el estado es PAUSED_PENDING_REVIEW: pausa operacional, no es FAIL, ni INCONCLUSIVE, ni evidencia topologica. Sin clasificacion ni outcome."
+}

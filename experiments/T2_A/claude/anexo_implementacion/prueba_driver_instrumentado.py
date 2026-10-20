@@ -48,6 +48,15 @@ with tempfile.TemporaryDirectory() as td:
     except R.IntegrationPaused: again = False
     check("2d el presupuesto adicional no se puede usar dos veces", again)
 
+# 2e. (corregido 2026-10-20) una integracion TERMINADA con extra_budget se puede volver a pedir (misma firma) sin aserto
+f = osc(3.0)
+with tempfile.TemporaryDirectory() as td:
+    r1 = R.Driver(td, 'toy2e', extra_budget=True)(f, (0, 5), y0, 'DOP853', 2e-10, 2e-12, True)
+    try:
+        r2 = R.Driver(td, 'toy2e', extra_budget=True)(f, (0, 5), y0, 'DOP853', 2e-10, 2e-12, True); again_ok = np.array_equal(r1.y, r2.y)
+    except AssertionError: again_ok = False
+    check("2e integracion terminada con extra_budget se devuelve identica al volver a pedirla", again_ok)
+
 # 3. alarma de progreso radial (EDO rapida: pasos < 1e-4)
 f = osc(1.0e5)
 with tempfile.TemporaryDirectory() as td:

@@ -23,3 +23,6 @@
 ## Anexo 1 (2026-10-19 22:04): regeneración de estados de update 25
 
 `anexo_implementacion/regenerar_estados_u25.py` (SHA-256 09fad2817a0b845b6bb339b5aaf45e80087dc4538cefb158afb7b1a7df076c60) se ejecutó en Windows (python 3.12.10, numpy 2.3.5, torch 2.14.1+cpu). Resultado transcrito de la terminal del usuario: **20 PASS, 0 no PASS** en la puerta del prefijo de A0 (max|Δθ| ≤ 1e-12; máximo observado 3.44×10⁻¹⁵ en split10_j19_true). Las copias de j5 y j6 reproducen los SHA-256 ya usados (845c2251…, 0e3fbfd3…). Detalle en `estados_u25/regeneracion_u25.csv` y `.log`. Los 20 estados (`state_025_regen_<traj>.npz`) están en `D:\RIPG_DATA\T2_A\expediente\estados_u25\` y no se versionan aquí; sus SHA-256 constan en el CSV. Son copias regeneradas desde semillas; sin clasificación ni outcomes.
+
+## Anexo 2 (2026-10-20): cambio de hash del driver
+El driver `resumable_dop853_instrumentado.py` listado en la apertura (SHA-256 285a9120…62d1) se corrigió el 2026-10-20 por una incidencia detectada en split8_j9 (ver `visitas/INCIDENCIA_driver_split8_j9_2026-10-20.md`); nuevo SHA-256 `9579e41191193b8d079d6ab1c9d50f6a6e06bda9638cb235f2198c4035aa905f`. La corrección no cambia topes, alarma ni reglas del anexo v1.0; solo afecta a visitas con `--extra-budget`. Las 16 visitas evaluadas sin ese flag se corrieron con el driver anterior.

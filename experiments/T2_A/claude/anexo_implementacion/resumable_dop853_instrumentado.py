@@ -71,7 +71,8 @@ class Driver:
         # contadores del anexo (persistentes)
         if 'attempts' not in b:
             b.update(attempts=0, alarm_count=0, extra_used=False, counters_from_zero=bool(metas), last_reason=None)
-        if self.extra_budget:
+        if self.extra_budget and solver.status == 'running':
+            # Una integracion ya TERMINADA que se vuelve a pedir (misma firma) se devuelve tal cual, tambien con el flag.
             assert not b['extra_used'], "presupuesto adicional ya usado en esta integracion"
             b['extra_used'] = True; b['extra_since_attempts'] = b['attempts']
             b['extra_since_steps'] = len(b['interpolants']); b['extra_since_wall'] = b['wall_seconds']
