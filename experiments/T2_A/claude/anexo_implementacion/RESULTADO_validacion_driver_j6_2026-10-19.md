@@ -10,3 +10,9 @@ Script: `validacion_driver_j6.py` (SHA-256 a10774107d87a2f6c3893b669aac4723b0574
 RESULTADO GLOBAL: PASS. Pruebas con EDO de juguete (`prueba_driver_instrumentado.py`): PASS en contenedor y en Windows.
 
 Alcance: valida el contador y el reproducido de la solución en un caso sano. No prueba el comportamiento en un caso cercano a frontera (j5), no integra el driver al flujo de visitas ni valida los umbrales. Exploratorio; no clasifica ni asigna outcomes.
+
+## Sesión de visita instrumentada, Windows (2026-10-19 ≈21:55)
+
+`sesion_visita_instrumentada.py` (SHA-256 9a8e2cc5cd98014746ad6b7046fa897b935d7fc6ef1ca46c8f06c84321796fc9), caso split8_j6_true, copia regenerada del estado, python 3.12.10, scipy 1.18.1, AMD64 Family 23 Model 113. Salida transcrita de la terminal del usuario: `CALIBRATION_COMPLETE`, 19 pasos aceptados, 24 intentos, 5 rechazos, contador de alarma 0, 36.8 s de pared, radio 0.07883553716312264, área 0.020000000000000007.
+
+El radio coincide con el obtenido en el contenedor (Linux, python 3.13) y difiere en 6.5×10⁻¹⁵ del registrado en la corrida original (0.07883553716312919), dentro de xtol 1e-13 de brentq; hardware y versiones de la corrida original no están registrados. Alcance: solo la calibración (rayos); no cubre audit.py ni el predictor. Exploratorio; no clasifica ni asigna outcomes.
