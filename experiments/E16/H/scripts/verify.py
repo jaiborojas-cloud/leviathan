@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Verifica sorteos sin selección, método intacto y reproducción E16-H."""
+import argparse
 import ast
 import csv
 import hashlib
@@ -20,7 +21,7 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def git(*args):return subprocess.check_output(['git',*args],cwd=REPO)
 def functions(p):return {n.name:ast.dump(n,include_attributes=False) for n in ast.parse(p.read_text()).body if isinstance(n,ast.FunctionDef)}
 
-def main():
+def main(reproduce=True):
     cfg=json.loads((ROOT/'config.json').read_text());data=json.loads((ROOT/'data.json').read_text())
     for name in ['freeze_manifest.csv','manifest.csv']:
         for row in csv.DictReader((ROOT/name).open()):
@@ -28,7 +29,10 @@ def main():
     for name in ['config.json','data.json','DESIGN_FROZEN.md','freeze_manifest.csv']:
         assert git('show',f'3c96c95:experiments/E16/H/{name}')==(ROOT/name).read_bytes(),name
     allowed={'docs/experiment-index.md','docs/roadmap.md','experiments/README.md'}
-    changed=git('diff','--name-only',cfg['base_commit'],'--').decode().splitlines()
+    scope_base=json.loads((ROOT/'integration.json').read_text())['upstream_scope_base']
+    subprocess.run(['git','merge-base','--is-ancestor',cfg['base_commit'],scope_base],cwd=REPO,check=True)
+    assert not git('diff',cfg['base_commit'],scope_base,'--','experiments/E16/G','experiments/E16/F','experiments/T2_A')
+    changed=git('diff','--name-only',scope_base,'--').decode().splitlines()
     assert all(p.startswith('experiments/E16/H/') or p in allowed for p in changed),changed
     assert not git('diff',cfg['base_commit'],'--','experiments/T2_A','experiments/E16/G','experiments/E16/F')
     def draw(seed,shape,low,high):return np.round(np.random.Generator(np.random.PCG64(seed)).uniform(low,high,shape),6).tolist()
@@ -56,6 +60,10 @@ def main():
     assert s['status']=='PASS_NUMERICAL' and s['lengths']==324 and s['paired']==216
     assert s['counts']=={'PASS_NUMERICAL':324,'FAIL':0,'INCONCLUSIVE':0}
     assert s['check_counts']=={'PASS':13102,'FAIL':0,'INCONCLUSIVE':0}
+    assert json.loads((result/'resources.json').read_text())['within_budget']
+    if not reproduce:
+        print('PASS_INTEGRITY: sorteos, fuentes, AST, adaptación, congelación y alcance tras integrar actualización remota. No se ejecutó experimento.')
+        return
     with tempfile.TemporaryDirectory(prefix='e16h-') as temp:
         env=os.environ.copy();env.update(OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1')
         subprocess.run([sys.executable,str(ROOT/'scripts/run.py'),'--out',temp],env=env,check=True,timeout=cfg['budget_seconds'])
@@ -65,4 +73,6 @@ def main():
     assert json.loads((result/'resources.json').read_text())['within_budget']
     print('PASS_REPRODUCTION: sorteos sin selección, novedad frente a D, 14 funciones G idénticas, adaptación exacta y cinco salidas reproducidas; evidencia previa intacta.')
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--integrity-only',action='store_true')
+    main(reproduce=not parser.parse_args().integrity_only)

@@ -14,3 +14,10 @@
    con D; 14 funciones compartidas idénticas por AST y adaptación reconstruida.
    Cinco salidas científicas idénticas byte a byte; repetición de 19,86 s.
    La repetición no cuenta como muestra nueva. Fuentes previas intactas.
+7. Durante la publicación, G remoto avanzó a `48bedaec` e incorporó E. Se integró
+   en `52ae72c` resolviendo sólo los tres índices: se retienen las entradas E/F/G/H.
+   `integration.json` fija esa base remota para comprobar el alcance propio de H;
+   la base y los archivos del diseño científico congelado no se cambian.
+8. Tras esa integración, se verifican integridad y alcance sin repetir mediciones:
+   `verify.py --integrity-only`. Fuentes G/F/T2-A coinciden también entre la base
+   original y la remota; método, datos, resultados y protocolo H permanecen iguales.

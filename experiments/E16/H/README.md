@@ -48,3 +48,13 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/H/scripts/run.py
 
 El programa importa el método analítico D con hash fijo y ρ verificado; no ejecuta
 corridas previas ni escribe en sus directorios. T2-A y evidencia A–G intactas.
+
+Para comprobar sólo integridad y alcance sin repetir mediciones:
+
+```sh
+python experiments/E16/H/scripts/verify.py --integrity-only
+```
+
+La base de integración remota está fijada en [integration.json](integration.json);
+no sustituye la congelación científica. Los tres índices conservan las entradas
+E/F/G/H tras resolver su actualización concurrente.
