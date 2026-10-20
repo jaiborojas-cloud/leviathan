@@ -43,3 +43,10 @@ Se conservan los estados científicos anteriores y T2-A no se modifica.
 239/324; estado global INCONCLUSIVE. Antes de minimizar caminos, hace falta un
 protocolo nuevo para integración cerca de mínimos de rapidez y positividad global.
 No se cambian los criterios de F ni se confirma sobre sus supervivientes.
+
+## E16-G — Resolución diagnóstica de F
+
+[Conclusión](../experiments/E16/G/CONCLUSION.md): se validan todos los casos F
+con un protocolo nuevo congelado, sin excluir ni reemplazar. F conserva su
+estado original. Pendientes transferencia a configuraciones independientes
+y certificación mediante intervalos; todavía no se calculan geodésicas.

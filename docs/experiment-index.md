@@ -47,3 +47,10 @@ No reescribe B/C ni establece una ventaja predictiva.
 [E16-F](../experiments/E16/F/README.md): 324 longitudes de tres segmentos fijados
 bajo suma, producto y cuadrática. 239 PASS_NUMERICAL y 85 INCONCLUSIVE por
 integración y/o comprobación global de positividad. No son distancias geodésicas.
+
+## E16-G — Resolución numérica diagnóstica
+
+[E16-G](../experiments/E16/G/README.md): 324/324 longitudes y 216/216 pares
+validados con primitiva/cuadratura localizada y cotas Bernstein subdivididas.
+Resuelve bajo G los 85 inconclusos F, sin alterar F. No es confirmación
+independiente ni certificado intervalar.
