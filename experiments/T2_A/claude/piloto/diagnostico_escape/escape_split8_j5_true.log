@@ -1,0 +1,19 @@
+caso split8_j5_true  nt=2048  paro: PSTOP  pasos=109  t_final=0.07401889443490796  tiempo=90.2s
+t* extrapolado (polo simple, ultimos pasos): mediana np.float64(0.0746506280700904)  rango [np.float64(0.07456117759551004), np.float64(0.07478405843321437)]  (solo orientativo)
+rayos con mayor |p| al final: indice (angulo rad, |p|): 1776 (5.4487, 152.8), 1777 (5.4518, 152.7), 1775 (5.4456, 152.5), 1778 (5.4548, 152.3), 1774 (5.4426, 152.0), 1779 (5.4579, 151.7), 1773 (5.4395, 151.1), 1780 (5.4610, 150.8), 1772 (5.4364, 150.0), 1781 (5.4640, 149.6), 1771 (5.4334, 148.6), 1782 (5.4671, 148.1)
+rayos con |p|>3: 747 de 2048; indices 0..2047  (contiguos: False)
+rayos con |p|>10: 102 de 2048; indices 1725..1826  (contiguos: True)
+rayos con |p|>30: 79 de 2048; indices 1739..1817  (contiguos: True)
+max|p| de los rayos fuera del grupo principal (mediana |p| de todos):  2.4269110589511227
+
+  umbral|p|    paso        t          A(t) nt   A(t) nt/2   A(t) nr/2
+      2.0       14 0.0409701039  0.00539848  0.00539846  0.00539848
+      5.0       31 0.0686481616  0.01570419  0.01570420  0.01570419
+     10.0       37 0.0710027616  0.01687961  0.01687966  0.01687961
+     20.0       45 0.0719960181  0.01739202  0.01739210  0.01739201
+     40.0       58 0.0724031116  0.01760494  0.01760503  0.01760488
+    150.0      109 0.0740188944  0.01846694  0.01846715  0.01846722
+
+A(t) con rejilla gruesa (nt/4, nr=32): maximo 0.018469 en t=0.07401889; NO alcanza 0.02 antes del paro
+
+Nota: no es una clasificacion; el estado de la visita sigue siendo PAUSED_PENDING_REVIEW.

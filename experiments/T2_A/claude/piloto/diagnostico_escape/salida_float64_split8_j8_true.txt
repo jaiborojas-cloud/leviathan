@@ -1,0 +1,27 @@
+caso split8_j8_true  nt=2048  paro: PSTOP  pasos=217  t_final=0.08610381610257199  tiempo=194.6s
+t* extrapolado (polo simple, ultimos pasos): mediana np.float64(0.08637748841321616)  rango [np.float64(0.08589681958521606), np.float64(0.0877234540966106)]  (solo orientativo)
+rayos con mayor |p| al final: indice (angulo rad, |p|): 1822 (5.5898, 151.5), 1821 (5.5868, 151.4), 1823 (5.5929, 151.4), 1820 (5.5837, 151.3), 1824 (5.5960, 151.3), 1819 (5.5806, 151.1), 1825 (5.5990, 151.0), 1818 (5.5776, 150.7), 1826 (5.6021, 150.7), 1817 (5.5745, 150.3), 1827 (5.6052, 150.3), 1816 (5.5714, 149.8)
+rayos con |p|>3: 1218 de 2048; indices 0..2047  (contiguos: False)
+rayos con |p|>10: 299 de 2048; indices 933..1905  (contiguos: False)
+rayos con |p|>30: 199 de 2048; indices 943..1896  (contiguos: False)
+max|p| de los rayos fuera del grupo principal (mediana |p| de todos):  3.5136613605969655
+
+  umbral|p|    paso        t          A(t) nt   A(t) nt/2   A(t) nr/2
+      2.0       21 0.0465874235  0.00684412  0.00684410  0.00684412
+      5.0       40 0.0721789454  0.01652072  0.01652073  0.01652072
+     10.0       53 0.0782622413  0.01954286  0.01954297  0.01954286
+     20.0       75 0.0803421160  0.02065370  0.02065401  0.02065371
+     40.0       99 0.0814532144  0.02126356  0.02126397  0.02126352
+    150.0      217 0.0861038161  0.02393521  0.02393555  0.02393500
+
+A(t) con rejilla gruesa (nt/4, nr=32): maximo 0.023938 en t=0.08610382; alcanza 0.02 en t~0.07923118
+
+Nota: no es una clasificacion; el estado de la visita sigue siendo PAUSED_PENDING_REVIEW.
+
+comparacion con MPFR (mpfr_split8_j8_true.csv, 326 pasos): t en que max|p| cruza cada umbral
+  |p|>=  2.0  MPFR t=0.04658742325932915  float64 t=0.04658742350451333  diff=2.452e-10
+  |p|>=  5.0  MPFR t=0.07217894529002113  float64 t=0.0721789453558732  diff=6.585e-11
+  |p|>= 10.0  MPFR t=0.07826224122139394  float64 t=0.07826224127074798  diff=4.935e-11
+  |p|>= 20.0  MPFR t=0.08034211597785412  float64 t=0.08034211598556852  diff=7.714e-12
+  |p|>= 40.0  MPFR t=0.08145321445033397  float64 t=0.0814532143847142  diff=-6.562e-11
+  |p|>=150.0  MPFR t=0.0861038420326101  float64 t=0.08610381610257199  diff=-2.593e-08
