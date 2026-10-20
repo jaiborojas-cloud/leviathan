@@ -28,3 +28,12 @@ CSV y logs en `margen\` (no versionados): `medicion_rechazos_j6.csv` `8d5a186d�
 - **Hipótesis, sin probar:** en float64 el paso está limitado por el ruido de redondeo en el estimador de error cuando cond(G) es muy grande, no por la geometría. Es compatible con la diferencia de paso, pero no se ha probado (haría falta la misma integración a mayor precisión con estado idéntico, o inspeccionar el estimador de error).
 - Limitaciones: una sola medición por caso; la copia regenerada de j5 difiere de `state.npz` de la otra corrida en max|ΔM| = 1.3e-12; el nominal de j5 update 25 no se conoce; el tope de 180 s no es un criterio científico.
 - Para el anexo: el tiempo por paso no discrimina entre un caso sano y uno cercano a la frontera; el tamaño de paso aceptado (≈1e-3–4e-3 en j6 frente a ≈5e-8 en j5) y el número de pasos sí cambian órdenes de magnitud. Los rechazos por sí solos no. No se proponen aquí umbrales.
+
+## Adenda: MPFR en j6 y comparación float64/MPFR (2026-10-19)
+
+Salida literal de la terminal del usuario. `scripts/medicion_mpfr_j6.py` (SHA `e1638568…f066`), aceleración MPFR de 169 bits del instrumento (`fast_mpfr_acceleration.py`, `b3d4a804…478e6f63e`), j6/update25, 2048 rayos, radio nominal 0.07883553716312919.
+
+- MPFR: 16 pasos aceptados, 21 intentos, 5 rechazos, 12.000 rhs por intento, nfev 302, paso mínimo 7.70315009666454×10⁻⁴, 15.5 s de mediana por paso (máx. 28.4 s), 308.6 s en total. CSV `12bf3c08…b1b8`, log `baaa2d69…661c`.
+- float64 frente a MPFR en j6 (CSV de ambos): mismos intentos por paso (21 = 21); |Δt| ≤ 1.1×10⁻⁷; cociente de dt entre 0.99998 y 1.00002 salvo el último paso; MPFR cuesta 50 veces más (306.6 s frente a 6.1 s).
+- j5: float64 y MPFR **coinciden** en la meseta de paso aceptado ≈ 3.2×10⁻⁵ en r ∈ [0.0725, 0.0743); divergen para r ≳ 0.0743. En float64, la meseta se alcanza tras ≈ 61 pasos y 29.3 s (117 pasos y 50.6 s hasta r < 0.0743).
+- **Corrección:** la afirmación de arriba de que float64 avanza 200–400 veces menos que MPFR «a ese mismo radio» solo vale para r ≳ 0.0744 (4.6×10⁻⁸ frente a 10⁻⁵). En r ∈ [0.0725, 0.0743) los dos coinciden. Por eso el paso aceptado en la meseta distingue j5 de j6 en ambos regímenes, y la hipótesis del redondeo solo explicaría el colapso final.
