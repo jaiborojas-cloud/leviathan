@@ -1,0 +1,96 @@
+{
+  "base_commit": "f172d1ea3a1149214a7db70d1a189d990d629de8",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "J/results/run_v1/cases.csv": "954617931ca12d1ff574997aa81c5111aec54cbd9c99bae9fd45cd7d1b212ad1"
+  },
+  "cases": [
+    "h00/0/quadratic",
+    "h01/1/product",
+    "h01/1/quadratic",
+    "h00/0/sum",
+    "h01/1/sum"
+  ],
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "segments": [
+    4,
+    8,
+    16
+  ],
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "starts": [
+    [
+      0,
+      1
+    ],
+    [
+      0.1,
+      1
+    ],
+    [
+      -0.1,
+      1
+    ],
+    [
+      0.1,
+      2
+    ],
+    [
+      -0.1,
+      2
+    ]
+  ],
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-14,
+    "gtol": 1e-09,
+    "maxiter": 600,
+    "maxfun": 10000,
+    "maxls": 40
+  },
+  "selection_margin": "1e-12",
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "embedding_tolerance": "1e-12",
+  "objective_tolerance": "1e-10",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_tolerance": "1e-5",
+  "mp_fd_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "mp_fd_agreement_tolerance": "1e-20",
+  "branch_length_tolerance": "1e-5",
+  "refinement_4_8_tolerance": "5e-3",
+  "refinement_8_16_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "hessian_negative_tolerance": "1e-5",
+  "boundary_tolerance": "1e-6",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "budget_seconds": 300,
+  "memory_target_mib": 512
+}
