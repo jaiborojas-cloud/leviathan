@@ -21,3 +21,7 @@
 8. Tras esa integración, se verifican integridad y alcance sin repetir mediciones:
    `verify.py --integrity-only`. Fuentes G/F/T2-A coinciden también entre la base
    original y la remota; método, datos, resultados y protocolo H permanecen iguales.
+9. Publicación dirigida a main: G se había fusionado en una rama intermedia,
+   pero aún no estaba en main. El PR incorpora G sin cambios científicos y H.
+   Se comprobó el diff de tres puntos contra main: sólo G/H y los tres índices,
+   sin archivos T2-A. No se incorporan ni revierten cambios de otras líneas.
