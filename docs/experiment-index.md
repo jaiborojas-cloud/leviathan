@@ -22,3 +22,48 @@ Consultar los protocolos originales para poblaciones y tolerancias; esta tabla n
 ## Fichas de cierre
 
 [Selección mínima por experimento: README, conclusión y evidencia](../experiments/README.md).
+
+## Línea independiente: E16
+
+[E16](../experiments/E16/README.md): cartas, subfamilias, descenso de métricas y
+composición escalar. Primera fase analítica EXPECTED_GEOMETRIC_CONTROL;
+[conclusión y fallos conservados](../experiments/E16/CONCLUSION.md). No continúa E15/T2.
+
+## E16-B — Red sintética sin entrenamiento
+
+[E16-B](../experiments/E16/B/README.md): identidades y derivadas PASS; validación
+independiente del rango INCONCLUSIVE en 81 configuraciones. Estado, scripts y
+resultados nuevos separados de T2-A y de los controles analíticos E16.
+
+## E16-D — Réplica instrumental prospectiva
+
+[E16-D](../experiments/E16/D/README.md): pesos, entradas y puntos nuevos sin
+entrenamiento; 396/396 decisiones PASS_NUMERICAL y 216/216 negativos detectados.
+La suma, producto y cuadrática dieron rango 2 en los 324 casos principales.
+No reescribe B/C ni establece una ventaja predictiva.
+
+## E16-E — Distancias y anisotropía
+
+[E16-E](../experiments/E16/E/README.md): 216 comparaciones exploratorias respecto
+a la suma. El rango 2 coexiste con cambios de escala y forma; 10 176 controles
+numéricos pasan. Distancia entre tensores SPD, no geodésicas entre perspectivas.
+
+## E16-F — Longitudes de caminos
+
+[E16-F](../experiments/E16/F/README.md): 324 longitudes de tres segmentos fijados
+bajo suma, producto y cuadrática. 239 PASS_NUMERICAL y 85 INCONCLUSIVE por
+integración y/o comprobación global de positividad. No son distancias geodésicas.
+
+## E16-G — Resolución numérica diagnóstica
+
+[E16-G](../experiments/E16/G/README.md): 324/324 longitudes y 216/216 pares
+validados con primitiva/cuadratura localizada y cotas Bernstein subdivididas.
+Resuelve bajo G los 85 inconclusos F, sin alterar F. No es confirmación
+independiente ni certificado intervalar.
+
+## E16-H — Transferencia prospectiva del instrumento
+
+[E16-H](../experiments/E16/H/README.md): pesos, entradas y perspectivas nuevos,
+sin selección ni entrenamiento. 324/324 longitudes y 216/216 pares pasan con
+el método y tolerancias G intactos. Evidencia de transferencia dentro de la
+familia sintética, no de capacidad predictiva ni geodésicas.
