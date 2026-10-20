@@ -1,6 +1,6 @@
 # Anexo operativo de E1 — versión 1.1 (BORRADOR 3, no vigente, no congelado)
 
-**Estado:** borrador 1 del 2026-10-19 ≈23:40; borrador 2 del 2026-10-20 ≈11:50 (se añaden T4 y T5); **borrador 3 del 2026-10-20 ≈12:30**: incorpora la revisión recibida a las 11:39 (cuatro correcciones, secciones 2.1–2.3 y 4). **No está en vigor.** El anexo v1.0 congelado (SHA-256 `a7cb20d87f0c96b1962ccc56da15d0df23338c908659f3c469c12d5d93d84085`) rige todo hasta que este borrador se congele con hash y E1 lo cite en una versión nueva.
+**Estado:** borrador 1 del 2026-10-19 ≈23:40; borrador 2 del 2026-10-20 ≈11:50 (se añaden T4 y T5); **borrador 3 del 2026-10-20 ≈12:30**: incorpora la revisión recibida a las 11:39 como recomendación (cuatro correcciones, secciones 2.1–2.3 y 4). **No está en vigor.** El anexo v1.0 congelado (SHA-256 `a7cb20d87f0c96b1962ccc56da15d0df23338c908659f3c469c12d5d93d84085`) rige todo hasta que este borrador se congele con hash y E1 lo cite en una versión nueva.
 **Naturaleza:** presupuesto y manejo **operativos**, no evidencia científica. No clasifica por sí mismo, no asigna Y.
 
 ## 1. Alcance y motivación (declarados para que no se confundan)
@@ -47,13 +47,14 @@ Sin cambio: tope de intentos, alarma de progreso, presupuesto adicional, revisi�
 - T4–T5: tres positivos, todos del split 8 y con el escape por un sector similar (≈ 5.45–5.6 rad en el ángulo normalizado de cada estado); no hay base para generalizar. El diagnóstico se hizo en el contenedor (float64) y falta repetirlo en el equipo del responsable.
 - Requiere cambios en `visita_completa_instrumentada.py` y en el flujo de calibración; se implementarán y validarán **después** de congelar, repitiendo j6 (15/15 PASS) y j17 (sin cambios), más un ensayo de T4 sobre j8.
 
-## 4. Decisiones del responsable
-Posición recibida del responsable el 2026-10-20 ≈11:39, **sujeta a confirmación al congelar**:
-- **D1 — T1/T2:** aprobar **provisionalmente** max(120 s, 0.04 s × n_rayos) por integración float64 y 900/3600 s por visita según entrada al refinamiento. Son presupuestos operacionales informados por j17, **no valores validados poblacionalmente**.
-- **D2 — T4:** aprobar el desarrollo, corrigiendo antes de congelar las dos afirmaciones matemáticas (patrón compatible con escape, no crecimiento «no acotado» demostrado; sin asumir monotonía del área poligonal). Hecho en este borrador (2.1). Los umbrales siguen sin fijar hasta contar con datos.
-- **D3 — T5:** aprobar el nombre como **diagnóstico adicional**; fortalecer la certificación de escape (2.2, incluida la no independencia float64/MPFR) y **conservar las disposiciones originales mientras E2 no resuelva su tratamiento** (j5, j7 y j8 siguen `PAUSED_PENDING_REVIEW`; T5 no los reclasifica hoy).
-- **D4 — j8:** autorizar su **reevaluación retrospectiva después de congelar y validar T4**, conservando el intento original y todas las auditorías posteriores (nada se descarta ni se sobrescribe).
-- Además: corregir la contabilidad antes de congelar (2.3); queda pendiente validar el candidato sobre j6 y j17.
+## 4. Decisiones pendientes del responsable
+Recomendación recibida el 2026-10-20 ≈11:39 (revisión; **aún no adoptada como decisión del responsable**, que la confirma o modifica antes de congelar):
+- **D1 — T1/T2:** se recomienda aprobar **provisionalmente** max(120 s, 0.04 s × n_rayos) por integración float64 y 900/3600 s por visita según entrada al refinamiento. Son presupuestos operacionales informados por j17, **no valores validados poblacionalmente**.
+- **D2 — T4:** se recomienda aprobar el desarrollo, corrigiendo antes de congelar las dos afirmaciones matemáticas (patrón compatible con escape, no crecimiento «no acotado» demostrado; sin asumir monotonía del área poligonal). Hecho en este borrador (2.1). Los umbrales siguen sin fijar hasta contar con datos.
+- **D3 — T5:** se recomienda aprobar el nombre como **diagnóstico adicional**; fortalecer la certificación de escape (2.2, incluida la no independencia float64/MPFR) y **conservar las disposiciones originales mientras E2 no resuelva su tratamiento** (j5, j7 y j8 siguen `PAUSED_PENDING_REVIEW`; T5 no los reclasifica hoy).
+- **D4 — j8:** se recomienda autorizar su **reevaluación retrospectiva después de congelar y validar T4**, conservando el intento original y todas las auditorías posteriores (nada se descarta ni se sobrescribe).
+- Además, se recomienda corregir la contabilidad antes de congelar (2.3); queda pendiente validar el candidato sobre j6 y j17.
+- Estado: **D1–D4 pendientes de decisión del responsable.**
 
 ## 5. Para congelar
 SHA-256 del anexo final → nueva versión de E1 que lo cite → SHA-256 → manifiesto y commit de congelación (orden de sellado de v1.0).
