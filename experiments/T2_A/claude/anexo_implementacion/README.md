@@ -8,3 +8,9 @@
 
 Ejecución (PowerShell, desde esta carpeta):
 `& "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Scripts\python.exe" -I ".\prueba_driver_instrumentado.py"`
+
+## Sesión de visita instrumentada (punto 1: integración al flujo)
+
+- `sesion_visita_instrumentada.py`: calibración del radio nominal de una visita con el driver instrumentado (montaje como `margen/run_calibrate.py`: geometría sin auditoría, `geometry.solve_ivp` sustituido por el driver; sin persistencia ni manifiestos). Aplica el tope de visita de 900 s sumando el tiempo guardado de las integraciones terminadas. Si pausa, escribe `REVISION_PENDIENTE.json` (`PAUSED_PENDING_REVIEW`, sin clasificación ni outcome) y termina.
+- Prueba en el contenedor (Linux, python 3.13.16, scipy 1.18.1; `core` sustituido por un stub vacío, sin torch): j6/update25 completa en 24 intentos (5 rechazos), radio 0.07883553716312264 (registrado 0.07883553716312919, diferencia 6.5e-15, dentro de xtol 1e-13 de brentq); con `--attempt-cap 10` pausa con `PAUSED_ATTEMPT_CAP` y `REVISION_PENDIENTE.json`; `--extra-budget` suma +10 intentos continuando contadores; un segundo `--extra-budget` se rechaza.
+- **No cubre** las integraciones de Jacobi de `audit.py` ni el predictor (siguen con su `solve_ivp` original), y no escribe manifiestos ni `persist`: es la pieza de calibración, no la visita completa. Pendiente: validarla en Windows con el entorno real y decidir si `audit.solve_ivp` también se envuelve.
