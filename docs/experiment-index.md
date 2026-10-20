@@ -67,3 +67,9 @@ independiente ni certificado intervalar.
 sin selección ni entrenamiento. 324/324 longitudes y 216/216 pares pasan con
 el método y tolerancias G intactos. Evidencia de transferencia dentro de la
 familia sintética, no de capacidad predictiva ni geodésicas.
+
+## E16-I — Caminos quebrados acotados
+
+[E16-I](../experiments/E16/I/README.md): 27 casos validados; 18/18 caminos
+no lineales más cortos que sus rectas, nueve controles de suma sin mejora.
+Búsqueda de un punto intermedio acotado, sin certificado de mínimo global.

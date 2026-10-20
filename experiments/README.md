@@ -63,3 +63,10 @@ de rango entre composiciones en esta muestra sintética sin entrenamiento.
 [README](E16/H/README.md) · [conclusión](E16/H/CONCLUSION.md) ·
 [evidencia](E16/H/results/run_v1/summary.json). PASS_NUMERICAL: 324 longitudes
 nuevas y 216 pares, sin selección, entrenamiento ni cambios al método G.
+
+## E16-I — Búsqueda acotada de caminos
+
+[README](E16/I/README.md) · [conclusión](E16/I/CONCLUSION.md) ·
+[evidencia](E16/I/results/run_v1/summary.json). 27 casos PASS_NUMERICAL y
+18 mejoras no lineales; nueve controles con suma conservan la recta. No se
+certifican geodésicas ni mínimos globales.

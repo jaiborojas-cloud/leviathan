@@ -64,3 +64,10 @@ y certificación mediante intervalos; todavía no se calculan geodésicas.
 prospectiva en 324 longitudes nuevas, sin ajustes al método G. Sigue pendiente
 fijar un problema geodésico acotado con controles que distingan mejora de camino
 y mínimo global. No se infiere una ley universal ni certificación intervalar.
+
+## E16-I — Mejora de caminos sin identificar geodésicas
+
+[Conclusión](../experiments/E16/I/CONCLUSION.md): se encuentran 18 mejoras
+no lineales en una familia acotada; un caso alcanza frontera. Una fase posterior
+necesita fijar enriquecimiento/discretización y controles de estacionariedad
+antes de afirmar geodésicas o distancias mínimas. No se modifica T2-A.
