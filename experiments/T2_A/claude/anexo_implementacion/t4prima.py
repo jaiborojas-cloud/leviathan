@@ -49,19 +49,36 @@ def calibrate_t4prima(g, n, d, make_driver, area7, triangles, saved, check_every
             raise EarlyStop()
 
     drv = make_driver(check_every, check)
-    finished = False
-    try:
-        drv(rhs, (0.0, upper), y0, "DOP853", 2e-10, 2e-12, True)
-        finished = True
-    except EarlyStop:
-        pass
-    # IntegrationPaused (BaseException) se propaga al llamador: la visita queda PAUSED_PENDING_REVIEW
     root = Path(drv.root)
-    meta = None
+    # Reanudacion determinista: si ya hay checkpoints de una corrida anterior, el punto de parada es el PRIMER checkpoint (en orden de paso)
+    # cuya area ya alcanza 0.02. Sin esto, una reanudacion que parte de un checkpoint ya satisfecho no vuelve a evaluar el area hasta el
+    # siguiente checkpoint, integra de mas y la cota de brentq (y con ella el radio y la firma de las integraciones de rayos) cambia.
+    stop_ck = None
     for dd in sorted(root.iterdir()):
-        ms = sorted(dd.glob("step_*.json"))
-        if ms:
-            meta = json.loads(ms[-1].read_text()); zp = dd / meta["archive"]
+        for jp in sorted(dd.glob("step_*.json")):
+            mt = json.loads(jp.read_text())
+            try:
+                check(dd / mt["archive"], jp, mt)
+            except EarlyStop:
+                stop_ck = (dd / mt["archive"], mt); break
+        if stop_ck:
+            break
+    finished = False
+    if stop_ck is None:
+        try:
+            drv(rhs, (0.0, upper), y0, "DOP853", 2e-10, 2e-12, True)
+            finished = True
+        except EarlyStop:
+            pass
+        # IntegrationPaused (BaseException) se propaga al llamador: la visita queda PAUSED_PENDING_REVIEW
+    meta = None
+    if stop_ck:
+        zp, meta = stop_ck
+    else:
+        for dd in sorted(root.iterdir()):
+            ms = sorted(dd.glob("step_*.json"))
+            if ms:
+                meta = json.loads(ms[-1].read_text()); zp = dd / meta["archive"]
     b = _load(zp); sol = OdeSolution(b["ts"], b["interpolants"]); t_reach = float(b["ts"][-1]); A_reach = area_of(sol, t_reach)
     if A_reach < 0.02:
         raise AreaNotReached(f"T4': la integracion llego a t={t_reach} con area {A_reach} < 0.02 (finished={finished})")
