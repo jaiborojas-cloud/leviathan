@@ -70,3 +70,9 @@ nuevas y 216 pares, sin selección, entrenamiento ni cambios al método G.
 [evidencia](E16/I/results/run_v1/summary.json). 27 casos PASS_NUMERICAL y
 18 mejoras no lineales; nueve controles con suma conservan la recta. No se
 certifican geodésicas ni mínimos globales.
+
+## E16-J — Refinamiento de caminos
+
+[README](E16/J/README.md) · [conclusión](E16/J/CONCLUSION.md) ·
+[evidencia](E16/J/results/run_v1/summary.json). Global INCONCLUSIVE: 24 casos
+validados y tres inconclusos; 81 resoluciones, sin geodésicas certificadas.
