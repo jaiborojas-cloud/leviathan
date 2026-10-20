@@ -1,0 +1,42 @@
+--- C/scripts/run.py@4fd7eb5
++++ D/scripts/run.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""E16-C: referencia explícita, autodiff y FD4 con error transportado."""
++"""E16-D: réplica prospectiva del método C en configuraciones nuevas."""
+ import argparse
+ import csv
+ from datetime import datetime, timezone
+@@ -162,7 +162,7 @@
+          'platform':platform.platform(),'dps':[80,120],'fd_steps':CFG['fd_steps'],
+          'threads':{v:os.environ.get(v) for v in ['OPENBLAS_NUM_THREADS','OMP_NUM_THREADS']},
+          'script_sha256':sha(Path(__file__)),'config_sha256':sha(ROOT/'config.json'),
+-         'design_sha256':sha(ROOT/'DESIGN_FROZEN.md'),'training_steps':0,'seed':None}
++         'design_sha256':sha(ROOT/'DESIGN_FROZEN.md'),'training_steps':0,'seeds':CFG['seeds'],'replication_of_C_commit':'4fd7eb5790a7161731e22c238f29138cd66425ac'}
+     (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ 
+     def table(name,rows):
+@@ -270,9 +270,11 @@
+                             if reference_rank>i:robust &= bool(s-error>tau)
+                             else:robust &= bool(s+error<tau)
+                     current=[r['status'] for r in checks if r['config']==key]
+-                    if known_bad or (different and not ambiguous):status='FAIL'
+-                    elif ambiguous or not robust or 'INCONCLUSIVE' in current:status='INCONCLUSIVE'
+-                    elif 'FAIL' in current:status='FAIL'
++                    # Prioridades congeladas D: falta de precisión no es refutación de rango.
++                    if 'FAIL' in current:status='FAIL'
++                    elif ambiguous or 'INCONCLUSIVE' in current:status='INCONCLUSIVE'
++                    elif known_bad or different:status='FAIL'
++                    elif not robust:status='INCONCLUSIVE'
+                     else:status='PASS_NUMERICAL'
+                     check('decision_rango',0 if status=='PASS_NUMERICAL' else 1,0,
+                           status='PASS' if status=='PASS_NUMERICAL' else status)
+@@ -307,7 +309,7 @@
+             'max_FD4_error_0.002':fmt(max(mp.mpf(r['FD4_error_0.002']) for r in ranks)),
+             'max_FD4_error_0.001':fmt(max(mp.mpf(r['FD4_error_0.001']) for r in ranks)),
+             'max_precision_difference':fmt(max(mp.mpf(r['precision_80_120']) for r in ranks)),
+-            'prior_E16_B_status_unchanged':'INCONCLUSIVE','rigorous_certificate':False,'training_steps':0}
++            'prior_E16_B_status_unchanged':'INCONCLUSIVE','prior_E16_C_status_unchanged':'PASS_NUMERICAL','rigorous_certificate':False,'training_steps':0}
+     (out/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
+     (out/'resources.json').write_text(json.dumps({'elapsed_seconds':elapsed,'budget_seconds':120,
+         'budget_pass':elapsed<=120,'max_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},indent=2)+'\n')

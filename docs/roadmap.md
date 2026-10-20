@@ -28,3 +28,11 @@ La [red sintética sin entrenamiento](../experiments/E16/B/CONCLUSION.md) pasó
 controles de cadena, cartas, admisibilidad y descenso. La validación independiente
 del rango quedó INCONCLUSIVE; conservar ese resultado y diseñar un protocolo
 nuevo de mayor precisión antes de entrenamiento o predicción. No modifica T2-A.
+
+### E16-D: réplica instrumental y límite de la pregunta de rango
+
+La [réplica en configuraciones nuevas](../experiments/E16/D/CONCLUSION.md) pasó
+los controles congelados y no observó cambios de rango entre las composiciones.
+La siguiente fase necesita una pregunta geométrica distinta y diseño propio;
+[pasos propuestos](../experiments/E16/D/NEXT_PHASE.md), sin entrenamiento automático.
+Se conservan los estados científicos anteriores y T2-A no se modifica.

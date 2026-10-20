@@ -34,3 +34,10 @@ composición escalar. Primera fase analítica EXPECTED_GEOMETRIC_CONTROL;
 [E16-B](../experiments/E16/B/README.md): identidades y derivadas PASS; validación
 independiente del rango INCONCLUSIVE en 81 configuraciones. Estado, scripts y
 resultados nuevos separados de T2-A y de los controles analíticos E16.
+
+## E16-D — Réplica instrumental prospectiva
+
+[E16-D](../experiments/E16/D/README.md): pesos, entradas y puntos nuevos sin
+entrenamiento; 396/396 decisiones PASS_NUMERICAL y 216/216 negativos detectados.
+La suma, producto y cuadrática dieron rango 2 en los 324 casos principales.
+No reescribe B/C ni establece una ventaja predictiva.
