@@ -47,14 +47,14 @@ Sin cambio: tope de intentos, alarma de progreso, presupuesto adicional, revisi�
 - T4–T5: tres positivos, todos del split 8 y con el escape por un sector similar (≈ 5.45–5.6 rad en el ángulo normalizado de cada estado); no hay base para generalizar. El diagnóstico se hizo en el contenedor (float64) y falta repetirlo en el equipo del responsable.
 - Requiere cambios en `visita_completa_instrumentada.py` y en el flujo de calibración; se implementarán y validarán **después** de congelar, repitiendo j6 (15/15 PASS) y j17 (sin cambios), más un ensayo de T4 sobre j8.
 
-## 4. Decisiones pendientes del responsable
-Recomendación recibida el 2026-10-20 ≈11:39 (revisión; **aún no adoptada como decisión del responsable**, que la confirma o modifica antes de congelar):
-- **D1 — T1/T2:** se recomienda aprobar **provisionalmente** max(120 s, 0.04 s × n_rayos) por integración float64 y 900/3600 s por visita según entrada al refinamiento. Son presupuestos operacionales informados por j17, **no valores validados poblacionalmente**.
-- **D2 — T4:** se recomienda aprobar el desarrollo, corrigiendo antes de congelar las dos afirmaciones matemáticas (patrón compatible con escape, no crecimiento «no acotado» demostrado; sin asumir monotonía del área poligonal). Hecho en este borrador (2.1). Los umbrales siguen sin fijar hasta contar con datos.
-- **D3 — T5:** se recomienda aprobar el nombre como **diagnóstico adicional**; fortalecer la certificación de escape (2.2, incluida la no independencia float64/MPFR) y **conservar las disposiciones originales mientras E2 no resuelva su tratamiento** (j5, j7 y j8 siguen `PAUSED_PENDING_REVIEW`; T5 no los reclasifica hoy).
-- **D4 — j8:** se recomienda autorizar su **reevaluación retrospectiva después de congelar y validar T4**, conservando el intento original y todas las auditorías posteriores (nada se descarta ni se sobrescribe).
-- Además, se recomienda corregir la contabilidad antes de congelar (2.3); queda pendiente validar el candidato sobre j6 y j17.
-- Estado: **D1–D4 pendientes de decisión del responsable.**
+## 4. Decisiones del responsable
+Recomendación de la revisión recibida el 2026-10-20 ≈11:39; **adoptada por el responsable el 2026-10-20 ≈12:12** («acepta las recomendaciones recibidas»), en los términos siguientes:
+- **D1 — T1/T2:** **aprobado provisionalmente**: max(120 s, 0.04 s × n_rayos) por integración float64 y 900/3600 s por visita según entrada al refinamiento. Son presupuestos operacionales informados por j17, **no valores validados poblacionalmente**.
+- **D2 — T4:** **aprobado el desarrollo**, corrigiendo antes de congelar las dos afirmaciones matemáticas (patrón compatible con escape, no crecimiento «no acotado» demostrado; sin asumir monotonía del área poligonal). Hecho en este borrador (2.1). Los umbrales siguen sin fijar hasta contar con datos.
+- **D3 — T5:** **aprobado el nombre** como **diagnóstico adicional**; fortalecer la certificación de escape (2.2, incluida la no independencia float64/MPFR) y **conservar las disposiciones originales mientras E2 no resuelva su tratamiento** (j5, j7 y j8 siguen `PAUSED_PENDING_REVIEW`; T5 no los reclasifica hoy).
+- **D4 — j8:** **autorizada su** **reevaluación retrospectiva después de congelar y validar T4**, conservando el intento original y todas las auditorías posteriores (nada se descarta ni se sobrescribe).
+- Además: contabilidad corregida (2.3) y **validada** sobre j6 (15/15) y j17 (idéntico bit a bit) el 2026-10-20.
+- Estado: **D1–D4 adoptadas.** Pendiente antes de congelar la parte de T4: implementación, umbrales fijados con datos (sin mirar X ni resultados) y hasheados, ensayo sobre j8 y confirmación de no disparo en las visitas ya evaluadas. La certificación de T5 para j5 y j7 sigue sin cumplirse (falta cota superior verificable del área). Hasta que E2 resuelva el tratamiento de T5 se conservan las disposiciones originales (j5, j7 y j8 siguen `PAUSED_PENDING_REVIEW`).
 
 ## 5. Para congelar
 SHA-256 del anexo final → nueva versión de E1 que lo cite → SHA-256 → manifiesto y commit de congelación (orden de sellado de v1.0).
