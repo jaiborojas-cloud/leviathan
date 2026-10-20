@@ -117,3 +117,11 @@ Pendiente sólo publicar PR científico separado del PR #16 de imagen, sin merge
 La revisión de estilo identificó un espacio de contexto válido en el patch
 unificado de procedencia. Se declara whitespace sólo para archivos .patch en D,
 conservando su formato aplicable, sin cambiar código ni resultados científicos.
+
+## Entrega publicada
+
+[PR #17](https://github.com/jaiborojas-cloud/leviathan/pull/17) abierto contra main,
+rama research/e16-d-replica-instrumental subida; sin merge ni auto-merge.
+La imagen original está integrada al README en el [PR #16](https://github.com/jaiborojas-cloud/leviathan/pull/16)
+separado. E16-D está completo bajo su protocolo; no hay cálculos pendientes ni
+expansión automática de la muestra, entrenamiento o seguimiento T2-A.
