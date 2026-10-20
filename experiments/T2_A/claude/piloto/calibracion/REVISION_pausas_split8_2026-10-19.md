@@ -49,7 +49,11 @@ Decisión pendiente del responsable sobre el resultado (completar):
 
 | Visita | Decisión | Fecha | Motivo |
 |---|---|---|---|
-| split8_j5_true | | | |
-| split8_j7_true | | | |
-| split8_j8_true | | | |
-| split8_j9_true | | | |
+| split8_j5_true | Mantener pausado | 2026-10-19 22:40 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas). Gastar el único presupuesto adicional no resolvería nada (431 pasos tras la alarma sin terminar) |
+| split8_j7_true | Mantener pausado | 2026-10-19 22:40 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas). Ídem (416 pasos tras la alarma sin terminar) |
+| split8_j8_true | Mantener pausado | 2026-10-19 22:40 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas). Ídem (352 pasos tras la alarma sin terminar) |
+| split8_j9_true | Reanudar con el presupuesto adicional del anexo (+128 pasos, +250 intentos, +120 s por integración; sin reiniciar contadores) | 2026-10-19 22:40 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas). Única visita donde la medición indica que cabe en el presupuesto (40 pasos y 46 intentos tras la alarma hasta 0.09) |
+
+El estado de j5, j7 y j8 se queda como está (`PAUSED_PENDING_REVIEW`). La reanudación de j9 queda condicionada a las condiciones del anexo 3.3: checkpoint verificado por hash, mismas versiones y tolerancias, decisión registrada (esta) y presupuesto adicional aún sin usar.
+
+Aviso de procedimiento: `sesion_visita_instrumentada.py --extra-budget` aplica el flag a toda la sesión. Si, tras completar la integración a 0.09, la calibración necesitara otra integración (cota ampliada), esa nueva integración correría también con topes duplicados. Se informará si ocurre; el archivo `REVISION_PENDIENTE.json` previo queda en la carpeta como registro de la pausa, y el resultado de la reanudación se escribe en `SESION_COMPLETA.json` o en un nuevo `REVISION_PENDIENTE.json`.
