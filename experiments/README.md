@@ -76,3 +76,9 @@ certifican geodésicas ni mínimos globales.
 [README](E16/J/README.md) · [conclusión](E16/J/CONCLUSION.md) ·
 [evidencia](E16/J/results/run_v1/summary.json). Global INCONCLUSIVE: 24 casos
 validados y tres inconclusos; 81 resoluciones, sin geodésicas certificadas.
+
+## E16-K — Resolución diagnóstica parcial de J
+
+[README](E16/K/README.md) · [conclusión](E16/K/CONCLUSION.md) ·
+[evidencia](E16/K/results/run_v1/summary.json). Global INCONCLUSIVE: dos casos
+difíciles resueltos, dos controles válidos y un caso de refinamiento pendiente.
