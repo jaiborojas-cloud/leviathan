@@ -19,3 +19,7 @@
 - Toda pausa sigue el procedimiento de revisión del anexo (3.3); el revisor es el responsable del protocolo.
 
 **Siguiente paso operativo:** preparar y validar la regeneración de estados update 25 (con puerta del prefijo) para las visitas del orden de cohorte, empezando por las que ya tienen registros; luego la calibración con la sesión instrumentada; luego la auditoría con el mismo mecanismo.
+
+## Anexo 1 (2026-10-19 22:04): regeneración de estados de update 25
+
+`anexo_implementacion/regenerar_estados_u25.py` (SHA-256 09fad2817a0b845b6bb339b5aaf45e80087dc4538cefb158afb7b1a7df076c60) se ejecutó en Windows (python 3.12.10, numpy 2.3.5, torch 2.14.1+cpu). Resultado transcrito de la terminal del usuario: **20 PASS, 0 no PASS** en la puerta del prefijo de A0 (max|Δθ| ≤ 1e-12; máximo observado 3.44×10⁻¹⁵ en split10_j19_true). Las copias de j5 y j6 reproducen los SHA-256 ya usados (845c2251…, 0e3fbfd3…). Detalle en `estados_u25/regeneracion_u25.csv` y `.log`. Los 20 estados (`state_025_regen_<traj>.npz`) están en `D:\RIPG_DATA\T2_A\expediente\estados_u25\` y no se versionan aquí; sus SHA-256 constan en el CSV. Son copias regeneradas desde semillas; sin clasificación ni outcomes.
