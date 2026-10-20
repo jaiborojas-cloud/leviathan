@@ -29,3 +29,27 @@ Nota técnica: el SHA-256 del paquete de checkpoint de j5 difiere del de la prue
 | split8_j9_true | Mantener pausado y abrir diagnóstico separado | 2026-10-19 22:23 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas): medir el tamaño de paso aceptado por paso, solo lectura, antes de gastar el presupuesto adicional |
 
 El diagnóstico no consume presupuesto adicional, no reanuda los checkpoints pausados y no clasifica ni asigna Y.
+
+## Resultado del diagnóstico separado (2026-10-19 22:27–22:37, Windows, solo lectura)
+
+`anexo_implementacion/diagnostico_split8.py` (SHA-256 5b2dcda47d2ed0325865fc1c5f85c2108819a78fca4dee1f5abbad1567426aef), float64, DOP853 rtol 2e-10 atol 2e-12, 2048 rayos, hasta r = 0.09 o 180 s por visita. Datos en `../diagnostico_split8/`. La alarma de progreso, aplicada a estos pasos, cae exactamente donde pausó la calibración (pasos 50, 47, 67 y 84; mismos intentos 74, 73, 88, 105).
+
+| Visita | Resultado de la medición | Pasos / intentos | t alcanzado | dt mín / mediano / últimos 20 | Pasos tras la alarma | Intentos tras la alarma |
+|---|---|---|---|---|---|---|
+| split8_j5_true | tope de 180 s | 481 / 523 | 0.074439 | 4.41e-08 / 1.75e-07 / 4.60e-08 | 431 | 449 |
+| split8_j7_true | tope de 180 s | 463 / 513 | 0.074629 | 4.64e-08 / 1.74e-07 / 4.96e-08 | 416 | 440 |
+| split8_j8_true | tope de 180 s | 419 / 529 | 0.087386 | 1.75e-07 / 2.51e-05 / 1.83e-07 | 352 | 441 |
+| split8_j9_true | **completa hasta 0.09** | 124 / 151 | 0.090000 | 1.03e-05 / 5.26e-04 / 2.08e-05 | 40 | 46 |
+
+Lectura (descriptiva, sin clasificación): j5 y j7 muestran la misma meseta de paso ≈ 5×10⁻⁸ a r ≈ 0.0744–0.0746; j8 llega más lejos (0.0874) con paso ≈ 2×10⁻⁷; j9 baja a ≈ 10⁻⁵ pero **completa** la integración hasta 0.09 en 51 s. La alarma disparó en j9 aunque la integración terminó: es sensible pero no específica en este caso. La medición no distingue frontera de redondeo en float64 (hipótesis declarada pendiente).
+
+Presupuesto adicional del anexo (+128 pasos, +250 intentos, +120 s): j5, j7 y j8 necesitaron 350–430 pasos y ≈ 440 intentos tras la alarma sin terminar → el presupuesto adicional no alcanzaría; j9 necesitó 40 pasos y 46 intentos → cabría con holgura. Que la integración llegue a 0.09 no garantiza que la calibración termine (queda por comprobar que el área alcance 0.02 o que sea necesario ampliar la cota).
+
+Decisión pendiente del responsable sobre el resultado (completar):
+
+| Visita | Decisión | Fecha | Motivo |
+|---|---|---|---|
+| split8_j5_true | | | |
+| split8_j7_true | | | |
+| split8_j8_true | | | |
+| split8_j9_true | | | |
