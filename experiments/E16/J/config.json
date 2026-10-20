@@ -1,0 +1,80 @@
+{
+  "base_commit": "0687654ce4969d22fc15bafdb19b3240c8f361d0",
+  "H_data_sha256": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+  "D_method_sha256": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+  "G_method_sha256": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+  "I_cases_sha256": "949ea89fb920b2cbcfc44e11d64e76835117a7cbc7ce3677eb78586ddc933531",
+  "states": [
+    "h00",
+    "h01",
+    "h02"
+  ],
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "compositions": [
+    "sum",
+    "product",
+    "quadratic"
+  ],
+  "interior_nodes": [
+    2,
+    4,
+    8
+  ],
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "initial_amplitudes": [
+    0,
+    0.1,
+    -0.1
+  ],
+  "objective_order": 32,
+  "gradient_order": 64,
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-13,
+    "gtol": 1e-08,
+    "maxiter": 300,
+    "maxfun": 5000,
+    "maxls": 30
+  },
+  "selection_margin": "1e-12",
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "identity_tolerance": "1e-40",
+  "objective_tolerance": "1e-8",
+  "gradient_tolerance": "1e-5",
+  "gradient_agreement_tolerance": "1e-6",
+  "fd_steps": [
+    1e-06,
+    5e-07
+  ],
+  "fd_tolerance": "1e-5",
+  "start_stability_tolerance": "1e-5",
+  "refinement_2_4_tolerance": "5e-3",
+  "refinement_4_8_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "budget_seconds": 300,
+  "memory_target_mib": 512
+}
