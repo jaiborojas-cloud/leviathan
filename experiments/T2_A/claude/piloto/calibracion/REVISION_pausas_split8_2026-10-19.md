@@ -23,7 +23,9 @@ Nota técnica: el SHA-256 del paquete de checkpoint de j5 difiere del de la prue
 
 | Visita | Decisión (reanudar / mantener pausado / diagnóstico separado) | Fecha | Motivo |
 |---|---|---|---|
-| split8_j5_true | | | |
-| split8_j7_true | | | |
-| split8_j8_true | | | |
-| split8_j9_true | | | |
+| split8_j5_true | Mantener pausado y abrir diagnóstico separado | 2026-10-19 22:23 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas): medir el tamaño de paso aceptado por paso, solo lectura, antes de gastar el presupuesto adicional |
+| split8_j7_true | Mantener pausado y abrir diagnóstico separado | 2026-10-19 22:23 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas): medir el tamaño de paso aceptado por paso, solo lectura, antes de gastar el presupuesto adicional |
+| split8_j8_true | Mantener pausado y abrir diagnóstico separado | 2026-10-19 22:23 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas): medir el tamaño de paso aceptado por paso, solo lectura, antes de gastar el presupuesto adicional |
+| split8_j9_true | Mantener pausado y abrir diagnóstico separado | 2026-10-19 22:23 (America/Mexico_City) | Decisión del responsable (Jaibo Rojas): medir el tamaño de paso aceptado por paso, solo lectura, antes de gastar el presupuesto adicional |
+
+El diagnóstico no consume presupuesto adicional, no reanuda los checkpoints pausados y no clasifica ni asigna Y.
