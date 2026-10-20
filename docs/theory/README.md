@@ -56,3 +56,10 @@ Para una consulta rápida: [fundamentos existentes](../foundations/overview.md),
 [índice experimental](../experiment-index.md), [rutas abiertas](../research-directions.md).
 No se reemplazan ni se reescriben fuentes primarias. Los hashes de las fuentes
 consultadas se guardan en `source_manifest.csv`.
+
+## Evidencia e historia de las formulaciones
+
+Consultar el [mapa de afirmaciones](../research-notes/claims-and-evidence.md) y la
+[historia de decisiones matemáticas](../research-notes/mathematical-decisions.md).
+La [guía complementaria](../research-notes/README.md) añade resultados negativos,
+contraejemplos, reproducción y preguntas abiertas, sin ejecutar ciencia nueva.
