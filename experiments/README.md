@@ -35,3 +35,7 @@ código y resultados pequeños propios, sin ejecutar ni modificar T2-A.
 [E16-B — Instrumentación en red sintética sin entrenamiento](E16/B/README.md):
 identidades PASS, validación independiente del rango INCONCLUSIVE; diseño
 congelado, 81 configuraciones conservadas y cero pasos de entrenamiento.
+
+[E16-D — Réplica instrumental en configuraciones nuevas](E16/D/README.md):
+396/396 rangos PASS_NUMERICAL, 216/216 negativos detectados y ausencia de cambios
+de rango entre composiciones en esta muestra sintética sin entrenamiento.
