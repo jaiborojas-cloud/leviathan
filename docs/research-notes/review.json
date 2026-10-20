@@ -1,0 +1,60 @@
+{
+  "kind": "documentation_only",
+  "review_date_client": "2026-10-19",
+  "reviewed_at_utc": "2026-10-20T04:37:35.138740+00:00",
+  "base_commit": "f640620b308c4be72119412bdf2c8ecddf961061",
+  "markdown_files_checked": 13,
+  "local_links_checked": 144,
+  "math_delimiters": "PASS",
+  "sources_hashed": 50,
+  "source_manifest": "source_manifest.csv",
+  "claims": 20,
+  "decisions": 9,
+  "negative_records": 9,
+  "atlas_table_examples": 11,
+  "open_questions": 9,
+  "protected_directory": "experiments/T2_A/claude",
+  "protected_tree_sha": "6f1f958de8197361521715cde40c6191f9be1b49",
+  "protected_diff_empty": true,
+  "prior_manifests_verified": {
+    "experiments/E16/manifest.csv": 30,
+    "experiments/E16/B/manifest.csv": 23,
+    "docs/theory/source_manifest.csv": 34
+  },
+  "external_fixed_sources": [
+    {
+      "commit": "4fd7eb5790a7161731e22c238f29138cd66425ac",
+      "path": "experiments/E16/C/CONCLUSION.md",
+      "sha256": "d45f64c34cd9d846da3e30c9aec5fb6b1a61b729bcfdf8a715b138b72eb64d56",
+      "access": "git_object_only",
+      "imported_or_executed": false
+    },
+    {
+      "commit": "4fd7eb5790a7161731e22c238f29138cd66425ac",
+      "path": "experiments/E16/C/DESIGN_FROZEN.md",
+      "sha256": "9f770d2e969a10def3958d5137a63175142d2ca6aef51d8d9f4830a8665876c6",
+      "access": "git_object_only",
+      "imported_or_executed": false
+    },
+    {
+      "commit": "4fd7eb5790a7161731e22c238f29138cd66425ac",
+      "path": "experiments/E16/C/results/run_v1/summary.json",
+      "sha256": "bea9572567b8df46b261ca7d16a667e421687a309cca4b0ae268895c7af5caa5",
+      "access": "git_object_only",
+      "imported_or_executed": false
+    }
+  ],
+  "experiment_execution": false,
+  "outcomes_generated_or_modified": false,
+  "protocols_modified": false,
+  "allowed_changes": [
+    "README.md",
+    "docs/theory/README.md",
+    "docs/research-notes/",
+    "experiments/T2_A/codex/"
+  ],
+  "archive_verification": "398/398 PASS",
+  "closed_sources_verification": "34/34 PASS",
+  "pull_request": "https://github.com/jaiborojas-cloud/leviathan/pull/13",
+  "depends_on_pr": 12
+}
