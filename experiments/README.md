@@ -51,3 +51,9 @@ de rango entre composiciones en esta muestra sintética sin entrenamiento.
 [README](E16/G/README.md) · [conclusión](E16/G/CONCLUSION.md) ·
 [evidencia](E16/G/results/run_v1/summary.json). PASS_NUMERICAL diagnóstico:
 324/324 longitudes, incluidos los 85 inconclusos F. Sin cambiar F ni T2-A.
+
+## E16-H — Transferencia prospectiva
+
+[README](E16/H/README.md) · [conclusión](E16/H/CONCLUSION.md) ·
+[evidencia](E16/H/results/run_v1/summary.json). PASS_NUMERICAL: 324 longitudes
+nuevas y 216 pares, sin selección, entrenamiento ni cambios al método G.

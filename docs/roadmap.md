@@ -50,3 +50,10 @@ No se cambian los criterios de F ni se confirma sobre sus supervivientes.
 con un protocolo nuevo congelado, sin excluir ni reemplazar. F conserva su
 estado original. Pendientes transferencia a configuraciones independientes
 y certificación mediante intervalos; todavía no se calculan geodésicas.
+
+## E16-H — Método transferido a configuraciones nuevas
+
+[Conclusión](../experiments/E16/H/CONCLUSION.md): se satisface la prueba instrumental
+prospectiva en 324 longitudes nuevas, sin ajustes al método G. Sigue pendiente
+fijar un problema geodésico acotado con controles que distingan mejora de camino
+y mínimo global. No se infiere una ley universal ni certificación intervalar.

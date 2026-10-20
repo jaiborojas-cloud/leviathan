@@ -54,3 +54,10 @@ integración y/o comprobación global de positividad. No son distancias geodési
 validados con primitiva/cuadratura localizada y cotas Bernstein subdivididas.
 Resuelve bajo G los 85 inconclusos F, sin alterar F. No es confirmación
 independiente ni certificado intervalar.
+
+## E16-H — Transferencia prospectiva del instrumento
+
+[E16-H](../experiments/E16/H/README.md): pesos, entradas y perspectivas nuevos,
+sin selección ni entrenamiento. 324/324 longitudes y 216/216 pares pasan con
+el método y tolerancias G intactos. Evidencia de transferencia dentro de la
+familia sintética, no de capacidad predictiva ni geodésicas.
