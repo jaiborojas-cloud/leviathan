@@ -1,5 +1,11 @@
 # Leviathan / RIPG
 
+<p align="center">
+  <img src="Mathematical-Leviathan-Rising.png" width="560" alt="Leviatán emergiendo del mar, trazado con mallas geométricas y nodos luminosos.">
+</p>
+
+<p align="center"><em>Mathematical Leviathan Rising</em></p>
+
 Investigación sobre la **geometría de perspectivas inducida por relevancias**
 en modelos y redes neuronales. Una perspectiva define qué se evalúa mediante
 un funcional escalar; su relevancia es un covector sobre los parámetros. La
