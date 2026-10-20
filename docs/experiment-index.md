@@ -73,3 +73,10 @@ familia sintética, no de capacidad predictiva ni geodésicas.
 [E16-I](../experiments/E16/I/README.md): 27 casos validados; 18/18 caminos
 no lineales más cortos que sus rectas, nueve controles de suma sin mejora.
 Búsqueda de un punto intermedio acotado, sin certificado de mínimo global.
+
+## E16-J — Refinamiento y estacionariedad discreta
+
+[E16-J](../experiments/E16/J/README.md): 2/4/8 puntos interiores, tres reinicios
+y controles de gradiente. Estado global INCONCLUSIVE: 24/27 casos pasan, tres
+no. 22 interiores estables discretamente (incluyen nueve controles), dos
+limitados por frontera y tres no resueltos; no se certifican geodésicas.

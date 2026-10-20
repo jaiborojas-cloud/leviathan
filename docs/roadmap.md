@@ -71,3 +71,10 @@ y mínimo global. No se infiere una ley universal ni certificación intervalar.
 no lineales en una familia acotada; un caso alcanza frontera. Una fase posterior
 necesita fijar enriquecimiento/discretización y controles de estacionariedad
 antes de afirmar geodésicas o distancias mínimas. No se modifica T2-A.
+
+## E16-J — Estabilidad discreta parcial
+
+[Conclusión](../experiments/E16/J/CONCLUSION.md): se preservan tres casos
+inconclusos por refinamiento, dispersión entre reinicios o gradiente de integración.
+Antes de ampliar familias, un protocolo nuevo debe controlar esas fuentes de error.
+Los dos candidatos de frontera no se identifican con geodésicas libres.
