@@ -2,6 +2,7 @@
 
 - `resumable_dop853_instrumentado.py`: copia modificada de `sources/resumable_dop853.py` (el original no se toca) con contador de intentos, topes de intentos y tiempo, alarma de progreso radial y presupuesto adicional, según `E1/ANEXO_OPERATIVO_E1_v1.0_CONGELADO.md`.
 - `prueba_driver_instrumentado.py`: pruebas con EDO de juguete (sin geometría ni torch). Resultado en el contenedor (scipy 1.18.1, numpy 2.5.3): PASS en las 8 comprobaciones.
+- `validacion_driver_j6.py`: validación sobre j6/update25 (usa la geometría; se ejecuta en Windows).
 - Estado: **NO validado sobre la geometría real** y **no integrado** al flujo productivo de visitas. Hay que ejecutar las pruebas en Windows y comprobar que, en j6/update25, el driver reproduce 21 intentos y la misma solución que el instrumento original, antes de abrir el piloto.
 - Limitaciones: el tope de 900 s por visita lo aplica el llamador; la prueba 1b no ejerce rechazos (rechazados = 0 en el juguete), así que la cuenta de rechazos aún no tiene verificación independiente con rechazos; checkpoints previos sin contadores arrancan en 0.
 
