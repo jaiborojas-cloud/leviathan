@@ -10,7 +10,7 @@ Antes, desactivar la suspensión (el muestreo de K en mpmath puede tardar):
 powercfg /change standby-timeout-ac 0
 powercfg /change hibernate-timeout-ac 0
 ```
-Descargar `certificar_t5.py` del repositorio y verificar su hash contra el manifiesto (la línea vigente, v3). Comprobar también que el venv tiene mpmath:
+Descargar `certificar_t5.py` del repositorio y verificar su hash contra el manifiesto (la línea vigente, v4). Comprobar también que el venv tiene mpmath:
 ```powershell
 New-Item -ItemType Directory -Force "D:\RIPG_DATA\T2_A\expediente\certificacion_t5" | Out-Null
 Invoke-WebRequest "https://raw.githubusercontent.com/jaiborojas-cloud/leviathan/claude/t2a-certificacion-t5/experiments/T2_A/claude/piloto/certificacion_t5/certificar_t5.py" -OutFile "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py"
@@ -19,7 +19,7 @@ Get-FileHash "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py" -A
 ```
 Correr (lee los tres estados de `estados_u25`, verifica sus hashes y escribe solo en la carpeta de salida nueva):
 ```powershell
-& "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Scripts\python.exe" -I "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py" --out "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\salida_v3_2026-10-21" *>&1 | Tee-Object -FilePath "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\salida_v3_2026-10-21.log"
+& "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Scripts\python.exe" -I "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py" --out "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\salida_v4_2026-10-21" *>&1 | Tee-Object -FilePath "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\salida_v4_2026-10-21.log"
 ```
 Requiere `mpmath` en el venv. Si falta, se instala con el `pip` del mismo venv. Si se interrumpe, se relanza el mismo comando: los casos con `resultado.json` completo no se recalculan.
 

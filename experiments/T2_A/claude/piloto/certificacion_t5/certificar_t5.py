@@ -1,4 +1,4 @@
-"""certificar_t5.py (v3: + entrega anticipada a la carta de cara si la carta P se vuelve singular; v2: cara por direccion de avance) - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
+"""certificar_t5.py (v4: fallo de carta de cara por rayo = problema, no error; v3: + entrega anticipada a la carta de cara si la carta P se vuelve singular; v2: cara por direccion de avance) - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
 
 Diagnostico adicional de T5 (anexo E1 v1.1, 2.2/D3). No reclasifica, no asigna Y, no toca carpetas del piloto ni A = 0.02.
 Por caso (j5, j7 y el control j8) escribe <out>/<caso>/resultado.json, rayos.csv y log; al final <out>/RESUMEN.json con V1/V2 y
@@ -158,7 +158,10 @@ class Cara:
             return None, "db/dr >= 0 en el arranque: no se puede parametrizar por b"
         def rhs(bb, y):
             aa = self.acc(y[0], bb, y[2:]); return [y[2] / y[3], 1 / y[3], aa[0] / y[3], aa[1] / y[3]]
-        sol = solve_ivp(rhs, (b, 0.0), [a, r, V[0], V[1]], method="DOP853", rtol=RTOL * factor, atol=ATOL * factor, dense_output=True)
+        try:
+            sol = solve_ivp(rhs, (b, 0.0), [a, r, V[0], V[1]], method="DOP853", rtol=RTOL * factor, atol=ATOL * factor, dense_output=True)
+        except Exception as e:   # v4: fallo por rayo (p. ej. desborde si el rayo no se dirige a una arista)
+            return None, f"excepcion en la carta de cara: {e!r}"
         return (sol if sol.success else None), (None if sol.success else sol.message)
 
     def limite(self, sol):
@@ -312,7 +315,10 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
         lims = {}
         for fac in (1.0, 0.01):
             sol, err = cara.integrar(a, r_d, b, V, fac)
-            lims[str(fac)] = cara.limite(sol) if sol is not None else dict(error=err)
+            try:
+                lims[str(fac)] = cara.limite(sol) if sol is not None else dict(error=err)
+            except Exception as e:   # v4
+                lims[str(fac)] = dict(error=f"excepcion en el limite: {e!r}")
             if fac == 1.0 and sol is not None and kd is not None:   # solapamiento extra: r de la carta de cara frente al haz cuando el rayo llega a |p| = 150
                 kk = next((k for k in range(kd, len(ts)) if np.linalg.norm(ys[k].reshape(2, NT, 2)[0, d]) >= P_FACE), None)
                 if kk is not None:
@@ -339,7 +345,12 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
     def entregar(rays, ycur, tcur, act):
         n = len(act); pv = ycur.reshape(2, n, 2)
         for q in rays:
-            c = act.tolist().index(q); P, v = pv[0, c], pv[1, c]; cara = Cara(M, f, P, v); a, b, V = cara.coords(P, v)
+            c = act.tolist().index(q); P, v = pv[0, c], pv[1, c]
+            try:
+                cara = Cara(M, f, P, v); a, b, V = cara.coords(P, v)
+            except Exception as e:   # v4
+                err = f"excepcion al construir la carta de cara: {e!r}"
+                problemas.append(f"rayo {q}: {err}"); cara_rayo[int(q)] = dict(r_entrega=tcur, error=err); continue
             sol, err = cara.integrar(a, tcur, b, V)
             if sol is None:
                 problemas.append(f"rayo {q}: {err}"); cara_rayo[int(q)] = dict(r_entrega=tcur, error=err); continue
@@ -390,6 +401,8 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
         cr = cara_rayo.get(int(q))
         if cr and "r_salida" in cr:
             return min(T_plus, cr["r_salida"])
+        if cr and "error" in cr:   # v4: sin carta valida tras la entrega: el muestreo de ese rayo se trunca en r_entrega
+            return min(T_plus, cr["r_entrega"])
         return t_fin_P
     def posicion(q, r):
         cr = cara_rayo.get(int(q))
@@ -426,7 +439,7 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
             else:
                 buf["Pm"].append(np.array(ps[1])); buf["idx_m"].append(q)
             vaciar()
-        comunes = [int(q) for q in rays if not (cara_rayo.get(int(q), {}).get("sol") is not None and rb_fun(q) > cara_rayo[int(q)]["r_entrega"])]
+        comunes = [int(q) for q in rays if int(q) not in cara_rayo]   # v4: todo rayo entregado (con o sin carta valida) se muestrea aparte
         cset = set(comunes)
         if comunes:
             rbs = {rb_fun(q) for q in comunes}

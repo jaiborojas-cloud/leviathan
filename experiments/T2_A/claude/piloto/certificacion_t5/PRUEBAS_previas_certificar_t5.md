@@ -38,3 +38,9 @@ La prueba de j6 es una falsación con curvatura real sobre un tramo ≈ 8 veces 
 - **Prueba forzada en la sintética de 3 componentes:** con `LinAlgError` inyectado en la continuación cuando |p| > 120, se detectó la singularidad al iniciar, 1113 rayos pasaron a la carta de cara, hubo 0 problemas y el muestreo de 513 puntos terminó (18 921 puntos en carta de cara). Script de la prueba: `forzar_singular.py`, fuera del repositorio.
 - **No se ejecutó la v3 sobre j5, j7 ni j8 antes de registrar su hash.**
 - SHA-256 v3: `7e2fc5b6f3e112657bbcc21fef15f223d90c64959edc395550c81d88edf5c8b5`.
+
+## 7. v4 (2026-10-21 ≈16:56), tras la corrida 3; última versión (opción B del responsable)
+- **Cambio único:** cualquier excepción al construir o integrar la carta de cara de un rayo, o al calcular el límite del rayo designado, se registra como **problema de ese rayo**. Su muestreo de K se trunca en el punto de entrega. El caso sigue y, con algún problema, queda «no certificado».
+- **Prueba forzada en la sintética de 3 componentes:** singularidad inyectada en la continuación más desborde forzado en la carta de cara de 3 rayos entregados. Se registraron 3 problemas (rayos 574–576, `OverflowError`), el caso terminó sin errores, U y V1 se calcularon igual que en las pruebas anteriores (U = 0.00012274; V1 OK) y el veredicto fue «no certificada» por esos 3 problemas.
+- **No se ejecutó la v4 sobre j5, j7 ni j8 antes de registrar su hash.**
+- SHA-256 v4: `9e0c12a2a3d2fde95bf04cd729e2e7df5a237fc757ca8ee82d40dd7935b90b7d`.
