@@ -10,9 +10,12 @@ Antes, desactivar la suspensión (el muestreo de K en mpmath puede tardar):
 powercfg /change standby-timeout-ac 0
 powercfg /change hibernate-timeout-ac 0
 ```
-Copiar `certificar_t5.py` a `D:\RIPG_DATA\T2_A\expediente\certificacion_t5\` y verificar su hash contra el manifiesto:
+Descargar `certificar_t5.py` del repositorio y verificar su hash contra el manifiesto (`AFC23C71…B268`). Comprobar también que el venv tiene mpmath:
 ```powershell
+New-Item -ItemType Directory -Force "D:\RIPG_DATA\T2_A\expediente\certificacion_t5" | Out-Null
+Invoke-WebRequest "https://raw.githubusercontent.com/jaiborojas-cloud/leviathan/claude/t2a-certificacion-t5/experiments/T2_A/claude/piloto/certificacion_t5/certificar_t5.py" -OutFile "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py"
 Get-FileHash "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5.py" -Algorithm SHA256
+& "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Scripts\python.exe" -I -c "import mpmath, shapely; print(mpmath.__version__)"
 ```
 Correr (lee los tres estados de `estados_u25`, verifica sus hashes y escribe solo en la carpeta de salida nueva):
 ```powershell
