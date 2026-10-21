@@ -66,7 +66,8 @@ def main():
     ap.add_argument("--extra-budget", action="store_true", help="SOLO tras decision registrada del responsable")
     ap.add_argument("--time-cap", type=float, default=120.0)
     ap.add_argument("--attempt-cap", type=int, default=250)
-    ap.add_argument("--visit-cap", type=float, default=900.0)
+    ap.add_argument("--visit-cap", type=float, default=900.0, help="T2: tope de visita hasta que entre a la etapa de refinamiento")
+    ap.add_argument("--visit-cap-refinamiento", type=float, default=3600.0, help="T2: tope de visita desde que entra a refinamiento (no baja el tope si --visit-cap es mayor)")
     ap.add_argument("--forzar-t4prima", action="store_true", help="SOLO validacion: calibra con T4' sin intentar bg.calibrate")
     ap.add_argument("--prueba-sin-torch", default=None, help="SOLO pruebas del contenedor: npz de estado; checkpoint ficticio")
     a = ap.parse_args()
@@ -122,6 +123,20 @@ def main():
     modo_calibracion, pausa_v10 = "V1.0", None
     old_g, old_a = geometry.solve_ivp, audit.solve_ivp
     geometry.solve_ivp, audit.solve_ivp = rays, jac
+    # T2 (anexo v1.1): el tope de visita sube a --visit-cap-refinamiento cuando la visita ENTRA a la etapa de refinamiento. 'Entrar' = la primera llamada de
+    # topological_map.result a una tarea de refinamiento (boundary n>=2048, jacobi n>=1024, rk4), que solo ocurre si su propia condicion `candidate` es verdadera.
+    # No se reimplementa `candidate`: se observa cuando topological_map lo usa.
+    REFINE = dict(entrada=None)
+    def _entrar(kind, n):
+        if REFINE["entrada"] is None:
+            REFINE["entrada"] = f"{kind} n={n}"
+            for dr in (rays, jac):
+                dr.visit_cap_s = max(dr.visit_cap_s, a.visit_cap_refinamiento)
+            print(f"T2: la visita entra a refinamiento ({REFINE['entrada']}); tope de visita {rays.visit_cap_s:g} s", flush=True)
+    _ob, _oj, _or = topological_map.boundary, topological_map.jacobi, topological_map.rk
+    topological_map.boundary = lambda case, n, ph: (_entrar("boundary", n) if n >= 2048 else None, _ob(case, n, ph))[1]
+    topological_map.jacobi = lambda case, n, ph: (_entrar("jacobi", n) if n >= 1024 else None, _oj(case, n, ph))[1]
+    topological_map.rk = lambda case, steps, ph: (_entrar("rk4", steps), _or(case, steps, ph))[1]
     status, reason, out = "VISIT_EVALUATED", None, {}
     try:
         try:
@@ -147,6 +162,7 @@ def main():
         status, reason = "ERROR_DE_EJECUCION", traceback.format_exc()[-800:]
     finally:
         geometry.solve_ivp, audit.solve_ivp = old_g, old_a
+        topological_map.boundary, topological_map.jacobi, topological_map.rk = _ob, _oj, _or
     metas = []
     for rt in ROOTS:
         for p in sorted(Path(rt).rglob("step_*.json")):
@@ -163,7 +179,7 @@ def main():
                    max_alarma=max([m.get("alarm_count", 0) for m in last_by_dir.values()] or [0]),
                    pausadas=[k for k, m in last_by_dir.items() if m.get("status") != "finished" and not k.startswith("rays_t4p/")],
                    detenidas_por_area_t4p=[k for k in last_by_dir if k.startswith("rays_t4p/")])
-    rec = dict(case=case, status=status, reason=reason, extra_budget=a.extra_budget, caps=dict(attempts=a.attempt_cap, time_s=a.time_cap, visit_s=a.visit_cap),
+    rec = dict(case=case, status=status, reason=reason, extra_budget=a.extra_budget, caps=dict(attempts=a.attempt_cap, time_s=a.time_cap, visit_s=a.visit_cap, visit_s_refinamiento=a.visit_cap_refinamiento, entro_a_refinamiento=REFINE["entrada"]),
                wall_seconds_session=time.perf_counter() - t0, cpu_seconds_session=time.process_time() - c0,
                instrumentacion=resumen, sin_cubrir=SIN_CUBRIR, ultima_integracion_lanzada=LAST,
                environment=dict(python=platform.python_version(), numpy=np.__version__, scipy=scipy.__version__, platform=platform.platform(),
