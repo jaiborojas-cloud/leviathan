@@ -85,3 +85,11 @@ Los dos candidatos de frontera no se identifican con geodésicas libres.
 anidadas resuelven dos casos bajo K. h00/0/cuadrática no alcanza el acuerdo
 8→16 fijado; necesita otro diseño, sin relajar criterios ni reinterpretar J/K.
 No se certifican geodésicas o mínimos globales.
+
+## E16-L — Forma aún sin acuerdo
+
+[Conclusión](../experiments/E16/L/CONCLUSION.md): el refinamiento de longitud
+ya cumple el criterio original, pero las poligonales difieren entre mallas y
+aparecen salidas estacionarias distintas en M32. Antes de refinar uniformemente
+otra vez, corresponde diseñar seguimiento de ramas y diagnóstico localizado de
+forma. K/L conservan sus resultados, sin modificar T2-A.
