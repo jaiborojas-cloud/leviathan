@@ -87,3 +87,10 @@ limitados por frontera y tres no resueltos; no se certifican geodésicas.
 el protocolo nuevo; uno sigue inconcluso por refinamiento. Los 85 reinicios
 validan gradiente y SPD, con acuerdo en 15 resoluciones. K global INCONCLUSIVE;
 J conserva sus resultados históricos.
+
+## E16-L — Longitud y forma del caso pendiente
+
+[E16-L](../experiments/E16/L/README.md): mallas anidadas 16/32/64. La longitud
+cumple el umbral 0,001, pero la forma y los reinicios M32 no alcanzan el acuerdo
+fijado. Global INCONCLUSIVE; 36 reinicios validan gradiente y SPD. Se conserva
+figura de caminos y diferencias por nodo, sin certificar geodésicas.

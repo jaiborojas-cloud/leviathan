@@ -82,3 +82,9 @@ validados y tres inconclusos; 81 resoluciones, sin geodésicas certificadas.
 [README](E16/K/README.md) · [conclusión](E16/K/CONCLUSION.md) ·
 [evidencia](E16/K/results/run_v1/summary.json). Global INCONCLUSIVE: dos casos
 difíciles resueltos, dos controles válidos y un caso de refinamiento pendiente.
+
+## E16-L — Refinamiento del camino completo
+
+[README](E16/L/README.md) · [conclusión](E16/L/CONCLUSION.md) ·
+[evidencia](E16/L/results/run_v1/summary.json). Longitud validada por refinamiento,
+forma sin acuerdo; global INCONCLUSIVE. Incluye figura y 36 reinicios conservados.
