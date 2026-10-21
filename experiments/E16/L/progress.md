@@ -18,3 +18,7 @@
    congelación y alcance verificados; K no se reetiqueta.
 7. Figura inspeccionada; sintaxis, enlaces relativos, manifests y `git diff --check`
    comprobados. Publicación contra main con J/K ya presentes, sin cambios T2-A.
+8. La comprobación final detectó espacios al final de líneas del SVG generado
+   por Matplotlib. Se normaliza su salida en el script de figura; no cambia
+   geometría, código experimental, protocolo ni salidas científicas. Tras la
+   corrección, `git diff --check` del cambio completo pasa.

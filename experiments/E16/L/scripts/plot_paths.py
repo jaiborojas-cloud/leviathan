@@ -39,6 +39,8 @@ def main(out,preview=None):
     axes[0].set_ylabel('Desplazamiento normal / cuerda (s)')
     fig.suptitle('E16-L · h00/0/cuadrática: longitud estable, forma sin acuerdo',fontsize=12)
     out.parent.mkdir(parents=True,exist_ok=True);fig.savefig(out,metadata={'Date':None})
+    if out.suffix.lower()=='.svg':
+        out.write_text('\n'.join(line.rstrip() for line in out.read_text().splitlines())+'\n')
     if preview:fig.savefig(preview,dpi=140)
     plt.close(fig)
 
