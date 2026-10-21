@@ -1,0 +1,80 @@
+{
+  "base_commit": "84d08a97a464552088eb461b7dd3a9dbfdfa86e1",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "K/scripts/run.py": "d7315babc6ecc98c21bc6ea9127c39855ea15c3df2527bc9c6dc63705791a5b5",
+    "L/config.json": "9fb9044ce0ec9baaebdb021133e7004cc8c3e11c59f7cd424151a5ed5a747f87",
+    "L/results/run_v1/searches.csv": "494212d9facb19b1e4a6173bee4d2ca1764016bb9c20bfce8fbdb4f2bc80af81",
+    "L/results/run_v1/vertices.csv": "217bfd9e3da65a0a480ff09a91fecfa4c5af17391ac60daad350761c12e4add1"
+  },
+  "groups_sha256": "ec40838a0aa715382f0608348482c284e1a615116df36cf2cbcc979d6f334e8e",
+  "segments": [
+    32,
+    64,
+    128
+  ],
+  "initial_segments": 32,
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "group_length_tolerance": "1e-5",
+  "group_shape_tolerance": "1e-3",
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-14,
+    "gtol": 1e-09,
+    "maxiter": 4800,
+    "maxfun": 80000,
+    "maxls": 40
+  },
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "control_tolerance": "1e-12",
+  "embedding_tolerance": "1e-12",
+  "objective_tolerance": "1e-10",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_tolerance": "1e-5",
+  "mp_fd_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "mp_fd_agreement_tolerance": "1e-20",
+  "length_refinement_tolerance": "1e-3",
+  "shape_refinement_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "tail_cutoffs": [
+    0.75,
+    0.9,
+    0.95
+  ],
+  "localization_cutoff": 0.9,
+  "localization_min_mass": 0.5,
+  "localization_max_outside_ratio": 0.25,
+  "budget_seconds": 300,
+  "memory_target_mib": 512
+}
