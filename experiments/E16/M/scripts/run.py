@@ -2,6 +2,7 @@
 """E16-M: linajes de inicialización y cambio de forma, no ramas certificadas."""
 import argparse
 import csv
+from decimal import Decimal
 import hashlib
 import importlib.util
 import json
@@ -44,6 +45,15 @@ def tail_statistics(t,delta,cut):
             'max_inside':float(np.max(np.abs(y[inside]))),'max_outside':float(np.max(np.abs(y[outside]))),
             'outside_ratio':float(np.max(np.abs(y[outside])))/peak if peak>0 else 0.}
 
+def archived_reference(value,text):
+    """Distancia al intervalo de redondeo de una referencia de 40 cifras."""
+    center=mp.mpf(text)
+    if center==0:raise ValueError('archived positive length required')
+    quantum=mp.mpf(10)**(Decimal(text).adjusted()+1-40)
+    radius=quantum/2
+    distance=max(mp.mpf(0),abs(value-center)-radius)/max(1,abs(value),abs(center))
+    return distance,center,quantum,radius
+
 def main(out):
     start=time.monotonic();out.mkdir(parents=True,exist_ok=True)
     for p,h in CFG['sources'].items():assert sha(ROOT.parent/p)==h,p
@@ -52,13 +62,13 @@ def main(out):
     data=json.loads((ROOT.parent/'H/data.json').read_text());d=load('d_m',ROOT.parent/'D/scripts/run.py');g=load('g_m',ROOT.parent/'G/scripts/run.py');k=load('k_m',ROOT.parent/'K/scripts/run.py')
     source_searches=list(csv.DictReader((ROOT.parent/'L/results/run_v1/searches.csv').open()))
     source_vertices=list(csv.DictReader((ROOT.parent/'L/results/run_v1/vertices.csv').open()))
-    checks=[];trajectories=[];vertices=[];gradients=[];segments=[];transitions=[];shape_nodes=[];localization=[];cross=[];lineages=[];saved={}
+    checks=[];trajectories=[];vertices=[];gradients=[];segments=[];transitions=[];shape_nodes=[];localization=[];cross=[];lineages=[];references=[];saved={}
     dump(out/'summary.json',{'status':'INCOMPLETE'})
     def check(name,e,tol,category='identity'):
         ok=bool(mp.isfinite(e) and abs(e)<=mp.mpf(tol))
         checks.append({'name':name,'category':category,'error':fmt(e),'status':'PASS' if ok else ('FAIL' if category=='identity' else 'INCONCLUSIVE')})
     def checkpoint():
-        for name,rr in [('checks',checks),('trajectories',trajectories),('vertices',vertices),('gradients',gradients),('segments',segments),('transitions',transitions),('shape_nodes',shape_nodes),('localization',localization),('cross_candidates',cross),('lineages',lineages)]:table(out/(name+'.csv'),rr)
+        for name,rr in [('checks',checks),('trajectories',trajectories),('vertices',vertices),('gradients',gradients),('segments',segments),('transitions',transitions),('shape_nodes',shape_nodes),('localization',localization),('cross_candidates',cross),('lineages',lineages),('source_reference_intervals',references)]:table(out/(name+'.csv'),rr)
         if time.monotonic()-start>CFG['budget_seconds']:
             dump(out/'summary.json',{'status':'INCONCLUSIVE','reason':'time_budget','completed_lineages':len(lineages)})
             raise TimeoutError('time budget; partial evidence preserved')
@@ -81,6 +91,12 @@ def main(out):
     check('control/triangle_mass',abs(diag['total_mass']-.05),CFG['control_tolerance'])
     check('control/triangle_tail',abs(diag['tail_fraction']-1),CFG['control_tolerance'])
     check('control/crossing',abs(integral_abs(np.array([0.,1.]),np.array([-.5,.5]))-.25),CFG['control_tolerance'])
+    with mp.workdps(120):
+        center=mp.mpf('1.25');quantum=mp.mpf('1e-39')
+        inside=archived_reference(center+quantum/4,'1.25')[0]
+        outside=archived_reference(center+2*quantum,'1.25')[0]
+        check('control/archive_inside',inside,CFG['precision_tolerance'])
+        check('control/archive_outside_detected',int(outside>mp.mpf(CFG['precision_tolerance']))-1,CFG['control_tolerance'])
     prepared={};rules={}
     for digits in CFG['precision']:
         with mp.workdps(digits):
@@ -170,7 +186,12 @@ def main(out):
             check(f'{lin}/{m}/bounds',max(0,float(np.max(np.abs(s)))-.25),CFG['identity_tolerance'])
             value,valid=validate(lin,m,s,ia,ib,kind)
             with mp.workdps(120):
-                if m==32:check(f'{lin}/source_reference',err(value,mp.mpf(source['length_mp'])),CFG['precision_tolerance'],'precision')
+                if m==32:
+                    reference_error,center,quantum,radius=archived_reference(value,source['length_mp'])
+                    check(f'{lin}/source_reference',reference_error,CFG['precision_tolerance'],'precision')
+                    references.append({'lineage':lin,'source_text':source['length_mp'],'computed_90digits':mp.nstr(value,90),
+                                       'quantum':fmt(quantum),'rounding_radius':fmt(radius),'scalar_error':fmt(err(value,center)),
+                                       'interval_error':fmt(reference_error)})
                 else:check(f'{lin}/{m}/nonworse',max(0,value-inherited)/max(1,inherited),CFG['nonworse_tolerance'])
                 if kind=='sum':
                     check(f'{lin}/{m}/sum_params',float(np.max(np.abs(s))),CFG['control_tolerance'])
@@ -210,7 +231,7 @@ def main(out):
              'localization_counts':{s:sum(r['localization']==s for r in transitions) for s in ['LOCALIZED_AT_END','NOT_ESTABLISHED','ZERO_CHANGE']},
              'cross_candidate_diagnoses':{str(r['segments']):r['diagnosis'] for r in cross}}
     dump(out/'summary.json',summary)
-    dump(out/'provenance.json',{'design_commit':'eacfa4d','config_sha256':sha(ROOT/'config.json'),'script_sha256':sha(Path(__file__)),'groups_sha256':sha(ROOT/'groups.json'),
+    dump(out/'provenance.json',{'design_commit':'eacfa4d','implementation':'v2','errata_sha256':sha(ROOT/'ERRATA_IMPLEMENTACION_v1.md'),'config_sha256':sha(ROOT/'config.json'),'script_sha256':sha(Path(__file__)),'groups_sha256':sha(ROOT/'groups.json'),
                                'sources':CFG['sources'],'python':sys.version.split()[0],'numpy':np.__version__,'scipy':scipy.__version__,'mpmath':mp.__version__})
     dump(out/'resources.json',{'seconds':elapsed,'max_rss_mib':rss,'within_budget':budget})
     print(json.dumps(summary|{'seconds':elapsed,'budget':budget}))
