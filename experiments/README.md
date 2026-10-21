@@ -88,3 +88,9 @@ difíciles resueltos, dos controles válidos y un caso de refinamiento pendiente
 [README](E16/L/README.md) · [conclusión](E16/L/CONCLUSION.md) ·
 [evidencia](E16/L/results/run_v1/summary.json). Longitud validada por refinamiento,
 forma sin acuerdo; global INCONCLUSIVE. Incluye figura y 36 reinicios conservados.
+
+## E16-M — Seguimiento de candidatos
+
+[README](E16/M/README.md) · [conclusión](E16/M/CONCLUSION.md) ·
+[evidencia v2](E16/M/results/run_v2/summary.json). Global INCONCLUSIVE por forma;
+Q0/Q1 coinciden en 64/128, sin concentración de cambio establecida en la cola fijada.

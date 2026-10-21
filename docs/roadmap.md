@@ -93,3 +93,10 @@ ya cumple el criterio original, pero las poligonales difieren entre mallas y
 aparecen salidas estacionarias distintas en M32. Antes de refinar uniformemente
 otra vez, corresponde diseñar seguimiento de ramas y diagnóstico localizado de
 forma. K/L conservan sus resultados, sin modificar T2-A.
+
+## E16-M — Acuerdo entre linajes, forma aún cambiante
+
+[Conclusión](../experiments/E16/M/CONCLUSION.md): se distingue coincidencia
+entre inicializaciones de convergencia entre mallas, y pico local de masa integrada.
+Antes de refinar otra vez, fijar un contraste de parametrización/distribución de
+nodos sin asumir singularidad ni certificar ramas o geodésicas. L permanece intacto.
