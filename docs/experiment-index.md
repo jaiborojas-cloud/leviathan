@@ -101,3 +101,10 @@ figura de caminos y diferencias por nodo, sin certificar geodésicas.
 a 64/128 y coinciden numéricamente, pero persisten cambios de forma entre mallas.
 El pico cerca del extremo no cumple la concentración de masa fijada. Global
 INCONCLUSIVE; v1 conservada y lector de referencia corregido en v2 sin cambiar geometría.
+
+## E16-N — Nodos graduados y Hausdorff
+
+[E16-N](../experiments/E16/N/README.md): nodos concentrados cerca del extremo
+reducen la separación de Hausdorff 64→128 de ≈0,00658 a ≈0,00185; aún supera
+0,001. Nueve caminos válidos, global INCONCLUSIVE por forma y Hausdorff.
+Se conservan las curvas M y se comparan 21 pares sin modificar etapas previas.
