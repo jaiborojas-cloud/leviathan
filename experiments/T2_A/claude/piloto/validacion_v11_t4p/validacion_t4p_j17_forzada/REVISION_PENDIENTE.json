@@ -1,0 +1,42 @@
+{
+  "case": "split10_j17_true",
+  "status": "PAUSED_PENDING_REVIEW",
+  "reason": "PAUSED_TIME_CAP",
+  "extra_budget": false,
+  "caps": {
+    "attempts": 250,
+    "time_s": 120.0,
+    "visit_s": 3600.0
+  },
+  "wall_seconds_session": 177.96743530000094,
+  "cpu_seconds_session": 167.578125,
+  "instrumentacion": {
+    "integraciones": 47,
+    "intentos_total": 2468,
+    "rechazos_total": 391,
+    "max_alarma": 0,
+    "pausadas": [
+      "rays/859d0dcd7226957d2776",
+      "rays/85c8caa5dd184fda5962"
+    ],
+    "detenidas_por_area_t4p": [
+      "rays_t4p/dbbc9db4f58dac86eac7"
+    ]
+  },
+  "sin_cubrir": [],
+  "ultima_integracion_lanzada": {
+    "kind": "rays",
+    "t_end": 0.08599556723839186,
+    "n_state": 32768
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "cpus": 24
+  },
+  "resultado_visita": {},
+  "note": "Si el estado es PAUSED_PENDING_REVIEW: pausa operacional, no es FAIL, ni INCONCLUSIVE, ni evidencia topologica. Sin clasificacion ni outcome."
+}
