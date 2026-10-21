@@ -1,0 +1,84 @@
+{
+  "base_commit": "63b8589e718bb6044f2679ba7bcfa9bb0794fe20",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "K/scripts/run.py": "d7315babc6ecc98c21bc6ea9127c39855ea15c3df2527bc9c6dc63705791a5b5",
+    "M/scripts/run.py": "a7e423fbb5ac86d1c45aba7ff317f619be54481d66ad68b0ba85c69ee8319791",
+    "M/results/run_v2/vertices.csv": "2e9149414ac0fc02cdfa4fe4e4b52beba4163f41dbc29bdc91a9edda33df594a",
+    "M/results/run_v2/trajectories.csv": "9461b2646026efeda843fa1e8bcd30421e1f69adc574552253a29c01fe084ca3"
+  },
+  "groups_sha256": "ec40838a0aa715382f0608348482c284e1a615116df36cf2cbcc979d6f334e8e",
+  "segments": [
+    32,
+    64,
+    128
+  ],
+  "initial_segments": 32,
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "group_length_tolerance": "1e-5",
+  "group_shape_tolerance": "1e-3",
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-14,
+    "gtol": 1e-09,
+    "maxiter": 4800,
+    "maxfun": 80000,
+    "maxls": 40
+  },
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "control_tolerance": "1e-12",
+  "embedding_tolerance": "1e-12",
+  "objective_tolerance": "1e-10",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_tolerance": "1e-5",
+  "mp_fd_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "mp_fd_agreement_tolerance": "1e-20",
+  "length_refinement_tolerance": "1e-3",
+  "shape_refinement_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "tail_cutoffs": [
+    0.75,
+    0.9,
+    0.95
+  ],
+  "localization_cutoff": 0.9,
+  "localization_min_mass": 0.5,
+  "localization_max_outside_ratio": 0.25,
+  "budget_seconds": 300,
+  "memory_target_mib": 512,
+  "grid": "t=1-(1-i/m)^2",
+  "hausdorff_gap": "1e-5",
+  "hausdorff_tolerance": "1e-3",
+  "hausdorff_max_splits": 200000
+}
