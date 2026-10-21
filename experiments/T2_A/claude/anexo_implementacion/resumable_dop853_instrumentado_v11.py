@@ -86,7 +86,10 @@ class Driver:
         extra = b['extra_used']
         att_cap = self.attempt_cap * (2 if extra else 1)
         n_start = b.setdefault('n_start', 0)
-        wall_cap = self.time_cap_s * (2 if extra else 1)
+        # T1 (anexo v1.1): tope por integracion = max(time_cap_s, 0.04 s x n_rays); n_rays = len(y0)/4 (estado [p, v] de 2 coordenadas cada uno).
+        # En integraciones con pocos rayos (p. ej. jacobi) no cambia el tope; solo lo sube en integraciones de muchos rayos.
+        n_rays = np.asarray(y0).size // 4
+        wall_cap = max(self.time_cap_s, 0.04 * n_rays) * (2 if extra else 1)
         if self.visit_cap_s is not None:
             others = 0.0                       # tiempo ya consumido por las DEMAS integraciones de la visita (terminadas o parciales)
             for root in (self.roots or []):

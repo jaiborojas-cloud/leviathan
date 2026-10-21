@@ -1,0 +1,51 @@
+{
+  "case": "split8_j6_true",
+  "status": "VISIT_EVALUATED",
+  "reason": null,
+  "extra_budget": false,
+  "caps": {
+    "attempts": 250,
+    "time_s": 120.0,
+    "visit_s": 900.0
+  },
+  "wall_seconds_session": 85.30543499998748,
+  "cpu_seconds_session": 77.3125,
+  "instrumentacion": {
+    "integraciones": 9,
+    "intentos_total": 184,
+    "rechazos_total": 40,
+    "max_alarma": 0,
+    "pausadas": [],
+    "detenidas_por_area_t4p": [
+      "rays_t4p/89cc52424603f0c01863"
+    ]
+  },
+  "sin_cubrir": [],
+  "ultima_integracion_lanzada": {
+    "kind": "jacobi",
+    "t_end": 0.07883553716312588,
+    "n_state": 3072
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "cpus": 24
+  },
+  "resultado_visita": {
+    "trajectory": "split8_j6_true",
+    "step": 25,
+    "classification": "INJECTIVE_AT_NOMINAL_RADIUS",
+    "checkpoint_sha256": "503b43c1e8701f4fc6db3c243034aa7203f0c854eebabe7297cae94d3bd2594d",
+    "field_sha256": "97130aeb1fc3c51222879700c43002c2efdcddda9707723000b0297dfd78d671",
+    "nominal_radius": 0.07883553716312588,
+    "r_conj": null,
+    "A_embed": 0.020000000000002117,
+    "status": "VISIT_EVALUATED",
+    "calibration_mode": "T4_PRIME_AREA_STOP",
+    "calibration_v10_pause": "FORZADO_VALIDACION"
+  },
+  "note": "Si el estado es PAUSED_PENDING_REVIEW: pausa operacional, no es FAIL, ni INCONCLUSIVE, ni evidencia topologica. Sin clasificacion ni outcome."
+}
