@@ -26,3 +26,9 @@ La prueba de j6 es una falsación con curvatura real sobre un tramo ≈ 8 veces 
 
 ## 4. Versión registrada
 `certificar_t5.py` SHA-256 `afc23c71640616778a79e28ed667b82aa9d746f3ad9c2bb7fc1aef1f04ebb268` (en `MANIFIESTO_scripts_certificacion_T5.sha256`).
+
+## 5. v2 (2026-10-21 ≈15:45), tras la corrida 1
+- **Cambio único:** la cara se identifica por la dirección de avance (tasas f·v) y no por los pesos actuales. Motivo y evidencia en `RESULTADO_corrida1_v1_2026-10-21.md`.
+- **Regresión en la sintética de 3 componentes:** resultado idéntico al de v1 hasta el escape y la continuación (T* = 0.005128446930349743, δ_T = 2.7×10⁻¹³, C1–C6 OK, 148 rayos a carta de cara, 0 problemas). El resto del código no cambió.
+- **No se ejecutó la v2 sobre j5, j7 ni j8 antes de registrar su hash.**
+- SHA-256 v2: `5009cab8262149079430307176d854501c959901b2f26c0ff978a4132ba439c4`.

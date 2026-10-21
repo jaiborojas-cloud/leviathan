@@ -1,4 +1,4 @@
-"""certificar_t5.py - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
+"""certificar_t5.py (v2: cara por direccion de avance, ver Cara) - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
 
 Diagnostico adicional de T5 (anexo E1 v1.1, 2.2/D3). No reclasifica, no asigna Y, no toca carpetas del piloto ni A = 0.02.
 Por caso (j5, j7 y el control j8) escribe <out>/<caso>/resultado.json, rayos.csv y log; al final <out>/RESUMEN.json con V1/V2 y
@@ -98,10 +98,17 @@ def _k_mp_lote(Ps):
 
 # ---------------- carta de cara (como FRONTERA_CONFIRMACION, generalizada a la cara (i, j | k)) ----------------
 class Cara:
-    def __init__(self, M, f, P):
+    def __init__(self, M, f, P, v):
+        """Arista hacia la que SE DIRIGE el rayo (4.4.1). v2: se decide por la direccion de avance, no por los pesos actuales:
+        log w_q crece a razon f_q.v, asi que sobreviven los dos componentes con mayor f.v (j = el de mayor peso actual entre ellos)
+        y el transversal suprimido es el tercero en f.v. (v1 usaba los dos mayores pesos en |p| ~ 150 y en j5/j7/j8 tomo 13/20|6
+        en lugar de 6/13|20: w6 -> 0.064 en el borde mientras w20 aun no decae.)"""
         import mpmath as mp
+        rate = f @ np.asarray(v, float); o = np.argsort(-rate)
         w = np.exp(P @ f.T - (P @ f.T).max()); w /= w.sum()
-        o = np.argsort(-w); self.j, self.i, self.k = int(o[0]), int(o[1]), int(o[2])
+        a1, a2 = int(o[0]), int(o[1])
+        self.j, self.i = (a1, a2) if w[a1] >= w[a2] else (a2, a1); self.k = int(o[2])
+        self.tasas = dict(sup1=float(rate[o[0]]), sup2=float(rate[o[1]]), transversal=float(rate[o[2]]), cuarto=float(rate[o[3]]) if len(o) > 3 else None)
         mp.mp.dps = MP_DPS_BETA
         F = mp.matrix(f.tolist())
         AA = mp.matrix([[F[q, c] - F[self.j, c] for c in range(2)] for q in (self.i, self.k)])
@@ -284,18 +291,18 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
         k1s = next((k for k in range(len(t1s)) if np.linalg.norm(y1s[k][:2]) >= P_T1), None)
         esc["seguimiento_individual"] = dict(status=st1, pasos=len(t1s) - 1, t_final=t1s[-1], paso_arranque=k1s)
         if k1s is not None:
-            solo = (t1s[k1s], y1s[k1s][:2], y1s[k1s][2:], y1s[-1][:2])
+            solo = (t1s[k1s], y1s[k1s][:2], y1s[k1s][2:], y1s[-1][:2], y1s[-1][2:])
     else:
-        solo = (ts[kd], *ys[kd].reshape(2, NT, 2)[:, d], ys[-1].reshape(2, NT, 2)[0, d])
+        solo = (ts[kd], *ys[kd].reshape(2, NT, 2)[:, d], *ys[-1].reshape(2, NT, 2)[:, d])
     if solo is None:
         esc["error"] = "el rayo designado no llega a |p| >= 40"
     else:
         # cara = la arista HACIA LA QUE SE DIRIGE el rayo (4.4.1): se identifica con su ultimo estado disponible, no en |p| = 40
-        r_d, P_d, v_d, P_dest = solo; cara = Cara(M, f, P_dest)
+        r_d, P_d, v_d, P_dest, v_dest = solo; cara = Cara(M, f, P_dest, v_dest)
         a, b, V = cara.coords(P_d, v_d)
         w, Jf, H, G = cara.jet(a, b); Tm = np.vstack([cara.A[0], b * cara.A[1]])
         c2 = float(np.linalg.norm(Jf @ Tm - g.jac(P_d[None])[0]) / np.linalg.norm(g.jac(P_d[None])[0]))
-        esc.update(cara=dict(j=cara.j, i=cara.i, k=cara.k, detA=cara.detA, beta_min=cara.beta_min), C1=cara.c1, C2_rel=c2, r_arranque=r_d, b_arranque=b)
+        esc.update(cara=dict(j=cara.j, i=cara.i, k=cara.k, detA=cara.detA, beta_min=cara.beta_min, tasas_f_v=cara.tasas), C1=cara.c1, C2_rel=c2, r_arranque=r_d, b_arranque=b)
         lims = {}
         for fac in (1.0, 0.01):
             sol, err = cara.integrar(a, r_d, b, V, fac)
@@ -326,7 +333,7 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
     def entregar(rays, ycur, tcur, act):
         n = len(act); pv = ycur.reshape(2, n, 2)
         for q in rays:
-            c = act.tolist().index(q); P, v = pv[0, c], pv[1, c]; cara = Cara(M, f, P); a, b, V = cara.coords(P, v)
+            c = act.tolist().index(q); P, v = pv[0, c], pv[1, c]; cara = Cara(M, f, P, v); a, b, V = cara.coords(P, v)
             sol, err = cara.integrar(a, tcur, b, V)
             if sol is None:
                 problemas.append(f"rayo {q}: {err}"); cara_rayo[int(q)] = dict(r_entrega=tcur, error=err); continue
