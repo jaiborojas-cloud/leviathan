@@ -32,3 +32,9 @@ La prueba de j6 es una falsación con curvatura real sobre un tramo ≈ 8 veces 
 - **Regresión en la sintética de 3 componentes:** resultado idéntico al de v1 hasta el escape y la continuación (T* = 0.005128446930349743, δ_T = 2.7×10⁻¹³, C1–C6 OK, 148 rayos a carta de cara, 0 problemas). El resto del código no cambió.
 - **No se ejecutó la v2 sobre j5, j7 ni j8 antes de registrar su hash.**
 - SHA-256 v2: `5009cab8262149079430307176d854501c959901b2f26c0ff978a4132ba439c4`.
+
+## 6. v3 (2026-10-21 ≈16:05), tras la corrida 2
+- **Cambio único:** si la carta P se vuelve singular (float64) en la continuación, ya sea al iniciar el integrador o dentro de un paso, los rayos con |p| ≥ 40 pasan a la carta de cara desde su último estado aceptado. Si no hay ninguno, la continuación se detiene y el muestreo de K se trunca (registrado como problema). Motivo: `RESULTADO_corrida2_v2_2026-10-21.md`.
+- **Prueba forzada en la sintética de 3 componentes:** con `LinAlgError` inyectado en la continuación cuando |p| > 120, se detectó la singularidad al iniciar, 1113 rayos pasaron a la carta de cara, hubo 0 problemas y el muestreo de 513 puntos terminó (18 921 puntos en carta de cara). Script de la prueba: `forzar_singular.py`, fuera del repositorio.
+- **No se ejecutó la v3 sobre j5, j7 ni j8 antes de registrar su hash.**
+- SHA-256 v3: `7e2fc5b6f3e112657bbcc21fef15f223d90c64959edc395550c81d88edf5c8b5`.

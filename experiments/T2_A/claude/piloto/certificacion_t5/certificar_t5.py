@@ -1,4 +1,4 @@
-"""certificar_t5.py (v2: cara por direccion de avance, ver Cara) - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
+"""certificar_t5.py (v3: + entrega anticipada a la carta de cara si la carta P se vuelve singular; v2: cara por direccion de avance) - implementacion de PROTOCOLO_certificacion_T5_v1_CONGELADO.md (SHA-256 3d2e4882...). SOLO LECTURA sobre los estados.
 
 Diagnostico adicional de T5 (anexo E1 v1.1, 2.2/D3). No reclasifica, no asigna Y, no toca carpetas del piloto ni A = 0.02.
 Por caso (j5, j7 y el control j8) escribe <out>/<caso>/resultado.json, rayos.csv y log; al final <out>/RESUMEN.json con V1/V2 y
@@ -213,10 +213,16 @@ class Segmento:
 def integrar_haz(g, y0, idx, t_start, t_bound, parar, log, etiqueta):
     """DOP853 paso a paso; parar(ts, ys) -> True detiene tras el paso aceptado. Devuelve ts, ys, interps, status."""
     n = len(idx)
-    s = DOP853(rhs_rayos(g, n), t_start, y0, t_bound, rtol=RTOL, atol=ATOL)
     ts, ys, its = [t_start], [np.asarray(y0).copy()], []
+    try:
+        s = DOP853(rhs_rayos(g, n), t_start, y0, t_bound, rtol=RTOL, atol=ATOL)
+    except (np.linalg.LinAlgError, FloatingPointError) as e:   # v3: la evaluacion inicial ya es singular
+        log(f"{etiqueta}: metrica singular al iniciar en t={t_start!r}: {e!r}"); return ts, ys, its, "singular"
     while s.status == "running":
-        msg = s.step()
+        try:
+            msg = s.step()
+        except (np.linalg.LinAlgError, FloatingPointError) as e:   # v3: metrica singular en float64 dentro de un paso
+            log(f"{etiqueta}: metrica singular en t={ts[-1]!r}: {e!r}"); return ts, ys, its, "singular"
         if s.status == "failed":
             log(f"{etiqueta}: DOP853 fallo: {msg}"); return ts, ys, its, "failed"
         its.append(s.dense_output()); ts.append(s.t); ys.append(s.y.copy())
@@ -328,7 +334,7 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
         R["veredicto"] = dict(estado="T5_NO_CERTIFICADA", razones=["(i) no se pudo obtener T* del rayo designado"]); return R
 
     # --- continuacion para muestrear K hasta T+: carta P mientras |p| < 150, luego carta de cara ---
-    segs = [seg0]; cara_rayo = {}; problemas = []
+    segs = [seg0]; cara_rayo = {}; problemas = []; anticipadas = []
     activos = todos.copy(); y_cur = ys[-1]; t_cur = ts[-1]; reinicios = 0
     def entregar(rays, ycur, tcur, act):
         n = len(act); pv = ycur.reshape(2, n, 2)
@@ -354,7 +360,16 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
             if st2 in ("failed", "max_pasos"):
                 problemas.append(f"continuacion: {st2} en t={tts[-1]}"); break
             t_cur, y_cur = tts[-1], yys[-1]
-            fuera = [int(q) for q, pp in zip(activos, maxp(y_cur, n)) if pp >= P_FACE]
+            if st2 == "singular":
+                # v3: la carta P se volvio singular (float64) antes de que algun rayo llegara a |p| = 150. Los rayos ya en regimen
+                # de escape (|p| >= 40, el mismo umbral del arranque del rayo designado) pasan a la carta de cara desde su ultimo
+                # estado aceptado. Si no hay ninguno, se registra como problema y se detiene la continuacion.
+                fuera = [int(q) for q, pp in zip(activos, maxp(y_cur, n)) if pp >= P_T1]
+                anticipadas.append(dict(t=t_cur, rayos=len(fuera), max_p=float(maxp(y_cur, n).max())))
+                if not fuera:
+                    problemas.append(f"continuacion: metrica singular en t={t_cur} sin rayos con |p| >= 40"); break
+            else:
+                fuera = [int(q) for q, pp in zip(activos, maxp(y_cur, n)) if pp >= P_FACE]
             if fuera:
                 entregar(fuera, y_cur, t_cur, activos)
                 keep = np.array([q not in fuera for q in activos])
@@ -364,12 +379,18 @@ def un_caso(caso, g, triangles, area7, jacsolve, M, f, out, args, log):
                 problemas.append("demasiados reinicios"); break
     else:   # el haz ya paso T+ antes de llegar a |p| = 150 (no deberia ocurrir con escape antes de T+)
         pass
-    R["continuacion"] = dict(segmentos=len(segs), reinicios=reinicios, entregados_a_cara=len(cara_rayo), problemas=problemas[:50])
+    R["continuacion"] = dict(segmentos=len(segs), reinicios=reinicios, entregados_a_cara=len(cara_rayo), entregas_anticipadas_por_singularidad=anticipadas, problemas=problemas[:50])
     log(f"continuacion: {len(segs)} segmentos, {len(cara_rayo)} rayos a carta de cara, problemas: {len(problemas)}")
 
     # --- muestreo de K (4.3) ---
+    t_fin_P = min(T_plus, max(sg.t1 for sg in segs))   # v3: si la continuacion se detuvo antes de T+, el muestreo se trunca (y queda registrado)
+    if t_fin_P < T_plus:
+        problemas.append(f"muestreo de K truncado en {t_fin_P} < T+ = {T_plus}")
     def fin_rayo(q):
-        cr = cara_rayo.get(int(q)); return min(T_plus, cr["r_salida"]) if cr and "r_salida" in cr else T_plus
+        cr = cara_rayo.get(int(q))
+        if cr and "r_salida" in cr:
+            return min(T_plus, cr["r_salida"])
+        return t_fin_P
     def posicion(q, r):
         cr = cara_rayo.get(int(q))
         if cr and "sol" in cr and r > cr["r_entrega"]:

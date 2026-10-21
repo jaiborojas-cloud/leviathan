@@ -1,0 +1,27 @@
+{
+  "caso": "split8_j8_true",
+  "completo": false,
+  "error": "Traceback (most recent call last):\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v2.py\", line 560, in main\n    R = un_caso(caso, g, triangles, area7, audit.jacsolve, M, f, out, args, log)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v2.py\", line 351, in un_caso\n    tts, yys, iits, st2 = integrar_haz(g, y_cur, activos, t_cur, T_plus, stop_now, log, \"continuacion\")\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v2.py\", line 219, in integrar_haz\n    msg = s.step()\n          ^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\base.py\", line 201, in step\n    success, message = self._step_impl()\n                       ^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\rk.py\", line 144, in _step_impl\n    y_new, f_new = rk_step(self.fun, t, y, self.f, h, self.A,\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\rk.py\", line 64, in rk_step\n    K[s] = fun(t + c * h, y + dy)\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\base.py\", line 158, in fun\n    return self.fun_single(t, y)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\base.py\", line 24, in fun_wrapped\n    return np.asarray(fun(t, y), dtype=dtype)\n                      ^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v2.py\", line 192, in rhs\n    p, v = y.reshape(2, n, 2); gam = g.jet(p)[4]\n                                     ^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\data\\baselines\\Leviathan_T2A_800_basales_compacto\\sources\\geometry.py\", line 18, in jet\n    gi=np.linalg.inv(g)\n       ^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\numpy\\linalg\\_linalg.py\", line 669, in inv\n    ainv = _umath_linalg.inv(a, signature=signature)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\numpy\\linalg\\_linalg.py\", line 163, in _raise_linalgerror_singular\n    raise LinAlgError(\"Singular matrix\")\nnumpy.linalg.LinAlgError: Singular matrix\n",
+  "meta": {
+    "script": "D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v2.py",
+    "script_sha256": "5009cab8262149079430307176d854501c959901b2f26c0ff978a4132ba439c4",
+    "protocolo_sha256": "3d2e488242a8c8dc81c0967a73887cc40ae8290b4e23f388beabb2daa4dafdbd",
+    "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+    "audit_coincide_con_importado": true,
+    "prueba": false,
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "cpus": 24
+    }
+  },
+  "veredicto": {
+    "estado": "ERROR_DE_EJECUCION",
+    "razones": [
+      "ver error"
+    ]
+  }
+}

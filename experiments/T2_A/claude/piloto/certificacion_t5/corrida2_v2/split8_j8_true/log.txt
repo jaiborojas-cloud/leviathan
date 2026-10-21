@@ -1,0 +1,43 @@
+15:56:42 split8_j8_true: haz: parado, 217 pasos, t=np.float64(0.08610381979936113), max|p|=151.47
+15:56:42 split8_j8_true: t0 = np.float64(0.07826224135937904) (paso 53), rayo designado 1822; t1 = 0.08145321438260679
+15:57:01 split8_j8_true: A0 = 0.0195428515, delta_disc = 1.142e-07
+15:57:35 split8_j8_true: A_J = 0.0195428191, V3 rel = 1.66e-06, rayos con j<=0 en (0,t0]: 0
+15:57:35 split8_j8_true: escape: {"T_star": 0.08746544626359999, "delta_T": 8.1601392309949e-15, "T_plus": 0.08746544626368159, "C1": true, "C2": true, "C3": true, "C4": true, "C5": true, "C6": true}
+15:57:36 split8_j8_true: Traceback (most recent call last):
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v2.py", line 560, in main
+    R = un_caso(caso, g, triangles, area7, audit.jacsolve, M, f, out, args, log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v2.py", line 351, in un_caso
+    tts, yys, iits, st2 = integrar_haz(g, y_cur, activos, t_cur, T_plus, stop_now, log, "continuacion")
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v2.py", line 219, in integrar_haz
+    msg = s.step()
+          ^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\base.py", line 201, in step
+    success, message = self._step_impl()
+                       ^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\rk.py", line 144, in _step_impl
+    y_new, f_new = rk_step(self.fun, t, y, self.f, h, self.A,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\rk.py", line 64, in rk_step
+    K[s] = fun(t + c * h, y + dy)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\base.py", line 158, in fun
+    return self.fun_single(t, y)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\base.py", line 24, in fun_wrapped
+    return np.asarray(fun(t, y), dtype=dtype)
+                      ^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v2.py", line 192, in rhs
+    p, v = y.reshape(2, n, 2); gam = g.jet(p)[4]
+                                     ^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\data\baselines\Leviathan_T2A_800_basales_compacto\sources\geometry.py", line 18, in jet
+    gi=np.linalg.inv(g)
+       ^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\numpy\linalg\_linalg.py", line 669, in inv
+    ainv = _umath_linalg.inv(a, signature=signature)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\numpy\linalg\_linalg.py", line 163, in _raise_linalgerror_singular
+    raise LinAlgError("Singular matrix")
+numpy.linalg.LinAlgError: Singular matrix
+
