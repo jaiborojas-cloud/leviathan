@@ -94,3 +94,10 @@ J conserva sus resultados históricos.
 cumple el umbral 0,001, pero la forma y los reinicios M32 no alcanzan el acuerdo
 fijado. Global INCONCLUSIVE; 36 reinicios validan gradiente y SPD. Se conserva
 figura de caminos y diferencias por nodo, sin certificar geodésicas.
+
+## E16-M — Seguimiento de candidatos y localización
+
+[E16-M](../experiments/E16/M/README.md): dos grupos L32 se siguen por separado
+a 64/128 y coinciden numéricamente, pero persisten cambios de forma entre mallas.
+El pico cerca del extremo no cumple la concentración de masa fijada. Global
+INCONCLUSIVE; v1 conservada y lector de referencia corregido en v2 sin cambiar geometría.
