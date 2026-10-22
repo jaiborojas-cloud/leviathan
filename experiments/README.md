@@ -128,3 +128,10 @@ reproducidas, v1 parcial conservada con errata. P y T2-A intactos.
 El escalado cumple KKT físico en 4/4 cuadráticos frente a 2/4 referencias,
 pero todos agotan iteraciones. Global INCONCLUSIVE; cuatro caminos C0 pasan.
 Quince salidas reproducidas; costes y espectros documentados. Q y T2-A intactos.
+
+### E16-S — Parada por KKT físico con auditorías MP
+
+[E16-S](E16/S/README.md): doce caminos y seis refinamientos PASS_NUMERICAL.
+Ocho paradas por tres auditorías consecutivas; cuatro controles nativos.
+105 auditorías, ninguna sin verificar; costes completos y banderas conservadas.
+R/Q y T2-A intactos; no demuestra mínimo global ni convergencia continua.
