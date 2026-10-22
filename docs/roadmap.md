@@ -139,3 +139,10 @@ conserva L y mejora el KKT físico en 132, pero no termina los casos cuadrático
 y consume más evaluaciones. Queda por contrastar prospectivamente un criterio
 de parada físico con las condiciones internas del solver; los candidatos de R
 no se aprueban retrospectivamente por cumplir otro descriptor.
+
+### E16-S: terminación física observada
+
+[E16-S](../experiments/E16/S/README.md) satisface su regla prospectiva de
+parada y sus seis refinamientos. La auditoría añade coste y sólo acredita
+las muestras observadas. Queda por estudiar segundo orden y modos de
+redistribución bajo otro protocolo; no se certifican mínimos ni se modifica R.

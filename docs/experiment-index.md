@@ -140,3 +140,10 @@ objetivo L y dominio. KKT físico pasa en 4/4 candidatos cuadráticos escalados
 frente a 2/4 referencias, pero los ocho agotan 4800 iteraciones. Global
 INCONCLUSIVE, con más evaluaciones para scaled. Quince salidas reproducidas;
 se distinguen residuo físico, terminación y limitaciones espectrales numéricas.
+
+## E16-S — Parada física auditada
+
+[E16-S](../experiments/E16/S/README.md): PASS_NUMERICAL en doce caminos y
+seis refinamientos. Ocho cuadráticos paran tras tres auditorías consecutivas
+de KKT físico; cuatro controles terminan naturalmente. 105 auditorías sin
+UNVERIFIED. Conserva banderas nativas y el INCONCLUSIVE histórico de R.
