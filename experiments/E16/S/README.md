@@ -68,6 +68,9 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/S/scripts/run.py
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/S/scripts/verify.py
 ```
 
+Verificación completada: **PASS_REPRODUCTION**, dieciséis salidas idénticas
+byte por byte; segunda corrida 486,203 s, dentro del presupuesto.
+
 El verificador reconstruye las rachas desde CSV, contrasta hashes de los
 estados, banderas, gradientes físicos, costes e historia R, y repite la corrida
 para comparar exactamente dieciséis salidas científicas. Tiempos y memoria

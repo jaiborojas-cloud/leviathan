@@ -7,6 +7,7 @@
 - Primera medición archivada en ccb0655: PASS_NUMERICAL, doce caminos,
   105 auditorías, cero UNVERIFIED y 31.409 comprobaciones aprobadas.
 - Figura generada sólo desde CSV archivados y revisada visualmente.
-- Reproducción integral en curso; su resultado se registrará al terminar.
+- Reproducción integral PASS_REPRODUCTION: dieciséis salidas científicas
+  idénticas byte por byte; segunda corrida 486,203 s, dentro del presupuesto.
 - Durante la validación, R fue fusionado externamente en main (766b8cf).
-  Se integrará ese historial sin cambiar fuentes, protocolo ni resultados.
+  Historial integrado sin cambios de fuentes, protocolo ni resultados.
