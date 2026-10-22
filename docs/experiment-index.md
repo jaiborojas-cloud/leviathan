@@ -116,3 +116,11 @@ Se conservan las curvas M y se comparan 21 pares sin modificar etapas previas.
 al mismo t y el indicador terminal no pasan. Once caminos y 1428 probes
 válidos, global INCONCLUSIVE. Crecen pendientes junto a t≈0,9844; queda abierta
 la sensibilidad a la representación como gráficos y a los nodos heredados.
+
+## E16-P — Gráficos y curvas paramétricas
+
+[E16-P](../experiments/E16/P/README.md): variantes con t fijo y t/s libres,
+132/264 segmentos. Los candidatos difieren en Hausdorff ≈0,0035 y la fuente
+presenta gradiente longitudinal ≈0,0031. Global INCONCLUSIVE: las cuatro
+optimizaciones libres cuadráticas agotan 4800 iteraciones. Ocho de doce caminos
+pasan el protocolo completo; trece salidas reproducidas exactamente.
