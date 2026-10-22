@@ -43,9 +43,13 @@ def sha_archivo(p, bloque=1 << 20):
 
 # ---------------- cohorte y cola ----------------
 def leer_manifiesto(root):
-    for cand in (Path(root) / "records" / "cohort_manifest.csv", Path(root) / "cohort_manifest.csv"):
+    for cand in (Path(root) / "metadata" / "cohort_manifest.csv", Path(root) / "records" / "cohort_manifest.csv", Path(root) / "cohort_manifest.csv"):
         if cand.exists():
-            filas = list(csv.DictReader(open(cand, encoding="utf-8")))
+            rd = csv.DictReader(open(cand, encoding="utf-8"))
+            if "trajectory" not in (rd.fieldnames or []):
+                raise SystemExit(f"ABORTA: {cand} sin columna trajectory")
+            # solo se conservan las columnas necesarias; no se leen ni imprimen otras
+            filas = [dict(trajectory=r["trajectory"], checkpoint_sha256=r.get("checkpoint_sha256")) for r in rd]
             return cand, filas
     raise SystemExit("ABORTA: no se encuentra cohort_manifest.csv en la raiz de basales")
 
@@ -78,6 +82,21 @@ def verificar_cohorte(filas):
         if js != set(range(5 * (s - 7), 5 * (s - 7) + 5)):
             errores.append(f"split {s}: inits {sorted(js)}, se esperaban {list(range(5 * (s - 7), 5 * (s - 7) + 5))}")
     return errores
+
+
+def verificar_checkpoints(root, filas, trays):
+    """El ejecutor v12 (congelado) solo busca el manifiesto en records/ o en la raiz y, si no lo encuentra, omite en silencio la
+    comprobacion de checkpoint_005.pt. El lanzador la hace aqui con el manifiesto real (metadata/)."""
+    ref = {f["trajectory"]: f["checkpoint_sha256"] for f in filas}; err = []
+    for t in trays:
+        p = Path(root) / "trajectories" / t / "checkpoint_005.pt"
+        if not ref.get(t):
+            err.append(f"{t}: sin checkpoint_sha256 en el manifiesto")
+        elif not p.exists():
+            err.append(f"{t}: falta {p}")
+        elif sha(p) != ref[t]:
+            err.append(f"{t}: checkpoint_005.pt no coincide con el manifiesto")
+    return err
 
 
 # ---------------- estado de una visita (regla autoritativa del plan §3) ----------------
@@ -135,12 +154,14 @@ def modo_seco(a):
             err.append(f"lote {n}: {c} visitas, se esperaban {ESPERADO[n]}")
     if 25 in [k for _, k in cola_lote(filas, 0)]:
         err.append("el lote 0 no debe incluir el update 25")
+    err += verificar_checkpoints(a.root, filas, [f["trajectory"] for f in filas])
     cola = cola_lote(filas, a.lote)
     est = {}
     for t, k in cola:
         e, _, _ = estado_visita(a.raiz, a.lote, t, k); est[e] = est.get(e, 0) + 1
     rep = dict(modo="seco", fecha=ahora(), lote=a.lote, plan_sha256=PLAN_SHA, codigo=str(cod),
                hashes={f: sha(cod / f) for f in HASHES if (cod / f).exists()}, cohort_manifest=str(cand), cohort_manifest_sha256=sha(cand),
+               checkpoints_005_verificados=len(filas),
                conteos_por_lote=conteos, primeras=cola[:3], ultimas=cola[-3:], estados_actuales=est,
                libre_D_gb=round(libre_gb(a.raiz), 1), libre_E_gb=(round(libre_gb(a.destino_e), 1) if Path(a.destino_e).exists() else None),
                errores=err, veredicto="PASA" if not err else "FALLA")
@@ -187,6 +208,9 @@ def modo_correr(a):
     if err:
         print("\n".join(err)); return 1
     _, filas = leer_manifiesto(a.root); cola = cola_lote(filas, a.lote)
+    err = verificar_checkpoints(a.root, filas, sorted({t for t, _ in cola}))
+    if err:
+        print("ABORTA: checkpoint_005 no verificado:\n" + "\n".join(err[:20])); return 1
     inv = escribir_inventario(a, filas); print(f"inventario: {inv}")
     pend = []
     for t, k in cola:
