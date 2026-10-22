@@ -40,6 +40,10 @@ def archived_reference(value,text):
     distance=max(mp.mpf(0),abs(value-center)-radius)/max(1,abs(value),abs(center))
     return distance,center,quantum,radius
 
+def local_reference(pts,kind,ux,uy,target,total_segments,k):
+    if target=='length':return k.reference(pts,kind,ux,uy)
+    return k.reference_energy(pts,kind,ux,uy)*mp.mpf(total_segments)/(len(pts)-1)
+
 def main(out):
     started=time.monotonic();out.mkdir(parents=True,exist_ok=True)
     for p,h in CFG['sources'].items():assert sha(ROOT.parent/p)==h,p
@@ -68,6 +72,15 @@ def main(out):
                     e=err(val,other);check('control/'+name+'/'+objective+'/'+suffix,e,CFG['precision_tolerance']);controls.append({'name':name+'_'+objective+'_'+suffix,'value':fmt(val),'reference':fmt(other),'error':fmt(e)})
     control_a=np.array([[0.,0.],[.3,0.],[1.,0.]]);control_b=np.array([[0.,0.],[.1,0.],[.9,0.],[1.,0.]])
     check('control/arc_redistribution',float(np.max(abs(geo.resample(control_a,257)-geo.resample(control_b,257)))),CFG['control_tolerance'])
+    with mp.workdps(80):
+        points=[mp.matrix([0,0]),mp.matrix(['.2','.1']),mp.matrix(['.5','-.1']),mp.matrix([1,0])];unit=mp.eye(2);zero=mp.zeros(2);step=mp.mpf('1e-18')
+        for axis in [0,1]:
+            delta=mp.matrix([step if j==axis else 0 for j in [0,1]])
+            plus=[points[0],points[1]+delta,points[2]];minus=[points[0],points[1]-delta,points[2]]
+            fd=(local_reference(plus,'sum',unit,zero,'energy',3,k)-local_reference(minus,'sum',unit,zero,'energy',3,k))/(2*step)
+            analytic=3*(2*points[1][axis]-points[0][axis]-points[2][axis]);e=err(fd,analytic)
+            check('control/local_energy_scale/'+str(axis),e,CFG['precision_tolerance'])
+            controls.append({'name':'local_energy_scale_'+str(axis),'value':fmt(fd),'reference':fmt(analytic),'error':fmt(e)})
     prepared={};rules={}
     for digits in CFG['precision']:
         with mp.workdps(digits):
@@ -89,7 +102,7 @@ def main(out):
                 direction=v if axis==0 else normal;fd=[]
                 for step in CFG['mp_fd_steps']:
                     step=mp.mpf(step);plus=pts[j]+step*direction;minus=pts[j]-step*direction
-                    vp=ref([pts[j-1],plus,pts[j+1]],kind,ux,uy);vm=ref([pts[j-1],minus,pts[j+1]],kind,ux,uy)
+                    vp=local_reference([pts[j-1],plus,pts[j+1]],kind,ux,uy,target,len(z)-1,k);vm=local_reference([pts[j-1],minus,pts[j+1]],kind,ux,uy,target,len(z)-1,k)
                     fd.append((vp-vm)/(2*step))
                 fd0.append(fd[0]);fd1.append(fd[1]);rows.append({'path':name,'index':j,'coordinate':'t' if axis==0 else 's','autograd':repr(float(gad[n])),'mp_fd_1':fmt(fd[0]),'mp_fd_2':fmt(fd[1])})
             aderr=max(abs(mp.mpf(float(x))-y) for x,y in zip(gad,fd1))/scale;fderr=max(abs(x-y) for x,y in zip(fd0,fd1))/scale
@@ -232,7 +245,7 @@ def main(out):
     summary={'status':status,'cases':len(cases),'counts':counts,'paths':len(paths),'validated_paths':sum(z['status']=='PASS_NUMERICAL' for z in paths),'optimizations':sum(z['nfev']>0 for z in paths),
         'refinements':len(refinements),'passed_refinements':sum(z['status']=='PASS_NUMERICAL' for z in refinements),'comparisons':len(comparisons),'conditioning_points':len(spectra)//3,
         'checks':len(checks),'check_counts':cc,'rejected_trials':sum(z['rejected_zero_edges']+z['rejected_invalid_primitive'] for z in paths)}
-    dump(out/'summary.json',summary);dump(out/'provenance.json',{'design_commit':'9d06ad5','implementation':'v1','sources':CFG['sources'],'config_sha256':sha(ROOT/'config.json'),'groups_sha256':sha(ROOT/'groups.json'),
+    dump(out/'summary.json',summary);dump(out/'provenance.json',{'design_commit':'9d06ad5','implementation':'v2','errata_sha256':sha(ROOT/'ERRATA_IMPLEMENTACION_v1.md'),'sources':CFG['sources'],'config_sha256':sha(ROOT/'config.json'),'groups_sha256':sha(ROOT/'groups.json'),
         'scripts':{p.name:sha(p) for p in sorted((ROOT/'scripts').glob('*.py')) if p.name in ['run.py','kernel.py','conditioning.py']},'python':sys.version.split()[0],'numpy':np.__version__,'scipy':scipy.__version__,'mpmath':mp.__version__})
     dump(out/'resources.json',{'seconds':elapsed,'max_rss_mib':rss,'within_budget':budget});print(json.dumps(summary|{'seconds':elapsed,'budget':budget}));return int(status=='FAIL' or not budget)
 
