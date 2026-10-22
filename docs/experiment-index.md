@@ -124,3 +124,11 @@ la sensibilidad a la representación como gráficos y a los nodos heredados.
 presenta gradiente longitudinal ≈0,0031. Global INCONCLUSIVE: las cuatro
 optimizaciones libres cuadráticas agotan 4800 iteraciones. Ocho de doce caminos
 pasan el protocolo completo; trece salidas reproducidas exactamente.
+
+## E16-Q — Energía y condicionamiento
+
+[E16-Q](../experiments/E16/Q/README.md): distingue energía afín de L²/2 y
+comprueba gradientes/Hessianos. El control recto pasa; los ocho candidatos
+cuadráticos agotan iteraciones. Energía estacionaria no implica longitud
+estacionaria. Global INCONCLUSIVE; v1 parcial y errata conservadas, quince
+salidas v2 reproducidas exactamente.

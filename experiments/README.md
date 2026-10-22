@@ -114,3 +114,10 @@ pendientes cerca de t≈0,9844. Etapas previas y T2-A intactos.
 dominio. Ocho de doce caminos pasan el protocolo completo; los cuatro libres
 cuadráticos agotan iteraciones. Global INCONCLUSIVE, con diferencia geométrica
 entre candidatos y trece salidas reproducidas. O y T2-A intactos.
+
+### E16-Q — Energía, parametrización y condicionamiento
+
+[E16-Q](E16/Q/README.md): cuatro caminos del control pasan; ocho cuadráticos
+alcanzan el límite de iteraciones. Gradientes y Hessianos verificados, sin
+confundir energía afín con longitud. Global INCONCLUSIVE; quince salidas v2
+reproducidas, v1 parcial conservada con errata. P y T2-A intactos.

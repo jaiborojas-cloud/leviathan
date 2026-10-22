@@ -1,0 +1,14 @@
+{
+  "status": "ABORTED_IMPLEMENTATION_ERROR",
+  "completed_paths": 4,
+  "reason": "local energy FD used 2 segments instead of global m; original summary and partial outputs preserved",
+  "unreliable_fields": [
+    "energy MP gradient",
+    "energy KKT",
+    "gradient_energy_error",
+    "derived validation statuses"
+  ],
+  "optimizer_gradient": "AD; not the erroneous local finite difference",
+  "original_implementation_commit": "094bc25",
+  "interruption": "SIGINT during descriptive Hausdorff comparison"
+}
