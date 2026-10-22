@@ -94,3 +94,9 @@ forma sin acuerdo; global INCONCLUSIVE. Incluye figura y 36 reinicios conservado
 [README](E16/M/README.md) · [conclusión](E16/M/CONCLUSION.md) ·
 [evidencia v2](E16/M/results/run_v2/summary.json). Global INCONCLUSIVE por forma;
 Q0/Q1 coinciden en 64/128, sin concentración de cambio establecida en la cola fijada.
+
+### E16-N — Nodos graduados y Hausdorff
+
+[E16-N](E16/N/README.md): nueve optimizaciones válidas y 21 comparaciones.
+La separación 64→128 baja con nodos graduados pero aún supera 0,001, incluso
+usando Hausdorff entre curvas. Global INCONCLUSIVE; M y T2-A intactos.

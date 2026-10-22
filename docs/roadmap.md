@@ -100,3 +100,10 @@ forma. K/L conservan sus resultados, sin modificar T2-A.
 entre inicializaciones de convergencia entre mallas, y pico local de masa integrada.
 Antes de refinar otra vez, fijar un contraste de parametrización/distribución de
 nodos sin asumir singularidad ni certificar ramas o geodésicas. L permanece intacto.
+
+### E16-N: sensibilidad a nodos y comparación entre curvas
+
+[E16-N](../experiments/E16/N/README.md) mantiene INCONCLUSIVE. Nodos graduados
+y Hausdorff reducen la discrepancia observada, pero no alcanzan el umbral.
+La estabilidad de longitud y el acuerdo de candidatos no certifican convergencia
+geométrica; queda por estudiar el extremo con un protocolo de error nuevo.
