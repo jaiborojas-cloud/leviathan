@@ -123,3 +123,11 @@ produce retrocesos y candidatos diferentes, pero la optimización libre alcanza
 el límite de iteraciones. Queda por separar condicionamiento paramétrico y
 criterio de terminación con otro protocolo; no se certifican óptimos ni se
 modifica el resultado de O.
+
+### E16-Q: equivalencia de objetivos y condicionamiento
+
+[E16-Q](../experiments/E16/Q/README.md) conserva INCONCLUSIVE. La energía afín
+redistribuye nodos, pero no resuelve la estacionariedad de longitud cuadrática.
+L²/2 conserva los modos nulos del control recto. Queda por estudiar un
+precondicionamiento que preserve L; no se ha aislado una causa única de la
+detención del optimizador. V1 y su corrección documentada permanecen visibles.
