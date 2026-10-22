@@ -1,5 +1,7 @@
 # T2-A — validación prospectiva Wine
 
+
+**Cierre (2026-10-22):** T2-A0 cerrado **INCONCLUSIVE por limitación del instrumento**, con cohorte incompleta: [cierre congelado](claude/CIERRE_T2A0_v1_CONGELADO.md). X sigue sellado. Lote 0: [cierre operacional](claude/produccion/lote_0/CIERRE_LOTE0_2026-10-22.md). Desviación: [acceso a basales](claude/DESVIACION_ACCESO_BASELINE_NEMOTRON_2026-10-21.md).
 800 basales sellados; seguimiento incompleto. Corte de fuentes:2026-10-17 03:46 UTC. No confundir una visita con una trayectoria completa.
 
 - [Prerregistro T2-A0](../../docs/archive/import-2026-10-17/originals/Leviathan/Leviathan_RIPG_T2-A0_preregistro.md).
