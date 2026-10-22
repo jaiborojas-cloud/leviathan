@@ -108,3 +108,11 @@ INCONCLUSIVE; v1 conservada y lector de referencia corregido en v2 sin cambiar g
 reducen la separación de Hausdorff 64→128 de ≈0,00658 a ≈0,00185; aún supera
 0,001. Nueve caminos válidos, global INCONCLUSIVE por forma y Hausdorff.
 Se conservan las curvas M y se comparan 21 pares sin modificar etapas previas.
+
+## E16-O — Indicador local y refinamiento adaptativo
+
+[E16-O](../experiments/E16/O/README.md): cuatro bisecciones por candidato,
+128→132 segmentos. Las ocho transiciones pasan longitud y Hausdorff; la forma
+al mismo t y el indicador terminal no pasan. Once caminos y 1428 probes
+válidos, global INCONCLUSIVE. Crecen pendientes junto a t≈0,9844; queda abierta
+la sensibilidad a la representación como gráficos y a los nodos heredados.

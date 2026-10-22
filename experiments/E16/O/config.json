@@ -1,0 +1,94 @@
+{
+  "base_commit": "6d23a12972f5d0c2875611ddf3ddbe6e4da301df",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "K/scripts/run.py": "d7315babc6ecc98c21bc6ea9127c39855ea15c3df2527bc9c6dc63705791a5b5",
+    "N/scripts/run.py": "14b54910628bdd618d28452de54838a509f843a2bc24f45cfc872c50cafe21fd",
+    "N/scripts/grid_kernel.py": "21277cdb8c556e1bb04ab442820b69011349a45951dab7ff2a13ef1ad2375a0e",
+    "N/scripts/hausdorff.py": "2dd1bddca432e2f5c8872eada57dd66b256422a86e0fbb960207c792601825eb",
+    "N/results/run_v1/vertices.csv": "c56f44cccb6f1afbd88d3b6402ba1ca9621a297e8297f18b66175122aa569251",
+    "N/results/run_v1/trajectories.csv": "08af25c35474524f630c40c510168dd6575582ec87d4bf5704470c5f5eda6861"
+  },
+  "groups_sha256": "ec40838a0aa715382f0608348482c284e1a615116df36cf2cbcc979d6f334e8e",
+  "initial_segments": 128,
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "group_length_tolerance": "1e-5",
+  "group_shape_tolerance": "1e-3",
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-14,
+    "gtol": 1e-09,
+    "maxiter": 4800,
+    "maxfun": 80000,
+    "maxls": 40
+  },
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "control_tolerance": "1e-12",
+  "embedding_tolerance": "1e-12",
+  "objective_tolerance": "1e-10",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_tolerance": "1e-5",
+  "mp_fd_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "mp_fd_agreement_tolerance": "1e-20",
+  "length_refinement_tolerance": "1e-3",
+  "shape_refinement_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "tail_cutoffs": [
+    0.75,
+    0.9,
+    0.95
+  ],
+  "localization_cutoff": 0.9,
+  "localization_min_mass": 0.5,
+  "localization_max_outside_ratio": 0.25,
+  "budget_seconds": 300,
+  "memory_target_mib": 512,
+  "hausdorff_gap": "1e-5",
+  "hausdorff_tolerance": "1e-3",
+  "hausdorff_max_splits": 200000,
+  "max_rounds": 4,
+  "max_segments": 256,
+  "max_additions_per_round": 32,
+  "marking_fraction": 0.5,
+  "probe_shape_tolerance": "1e-3",
+  "probe_gain_tolerance": "1e-8",
+  "probe_tie_tolerance": "1e-12",
+  "probe_objective_tolerance": "1e-10",
+  "probe_scalar": {
+    "method": "bounded",
+    "xatol": 1e-10,
+    "maxiter": 100
+  },
+  "stable_transitions_required": 2
+}
