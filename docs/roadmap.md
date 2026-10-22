@@ -131,3 +131,11 @@ redistribuye nodos, pero no resuelve la estacionariedad de longitud cuadrática.
 L²/2 conserva los modos nulos del control recto. Queda por estudiar un
 precondicionamiento que preserve L; no se ha aislado una causa única de la
 detención del optimizador. V1 y su corrección documentada permanecen visibles.
+
+### E16-R: precondicionamiento y parada física
+
+[E16-R](../experiments/E16/R/README.md) mantiene INCONCLUSIVE. El escalado
+conserva L y mejora el KKT físico en 132, pero no termina los casos cuadráticos
+y consume más evaluaciones. Queda por contrastar prospectivamente un criterio
+de parada físico con las condiciones internas del solver; los candidatos de R
+no se aprueban retrospectivamente por cumplir otro descriptor.

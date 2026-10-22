@@ -132,3 +132,11 @@ comprueba gradientes/Hessianos. El control recto pasa; los ocho candidatos
 cuadráticos agotan iteraciones. Energía estacionaria no implica longitud
 estacionaria. Global INCONCLUSIVE; v1 parcial y errata conservadas, quince
 salidas v2 reproducidas exactamente.
+
+## E16-R — Precondicionamiento conservando longitud
+
+[E16-R](../experiments/E16/R/README.md): escalado diagonal diádico con el mismo
+objetivo L y dominio. KKT físico pasa en 4/4 candidatos cuadráticos escalados
+frente a 2/4 referencias, pero los ocho agotan 4800 iteraciones. Global
+INCONCLUSIVE, con más evaluaciones para scaled. Quince salidas reproducidas;
+se distinguen residuo físico, terminación y limitaciones espectrales numéricas.

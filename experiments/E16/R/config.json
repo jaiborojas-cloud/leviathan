@@ -1,0 +1,97 @@
+{
+  "panel": "P0",
+  "paths": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "group_length_tolerance": "1e-5",
+  "s_bounds": [
+    -0.25,
+    0.25
+  ],
+  "t_bounds": [
+    0.0,
+    1.0
+  ],
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "ftol": 1e-14,
+    "gtol": 1e-09,
+    "maxiter": 4800,
+    "maxfun": 80000,
+    "maxls": 40
+  },
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-40",
+  "identity_tolerance": "1e-40",
+  "control_tolerance": "1e-12",
+  "embedding_tolerance": "1e-12",
+  "objective_tolerance": "1e-10",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_tolerance": "1e-5",
+  "mp_fd_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "mp_fd_agreement_tolerance": "1e-20",
+  "length_refinement_tolerance": "1e-3",
+  "nonworse_tolerance": "1e-12",
+  "boundary_tolerance": "1e-6",
+  "fine_tolerance": "1e-24",
+  "coarse_tolerance": "1e-12",
+  "hausdorff_gap": "1e-5",
+  "hausdorff_tolerance": "1e-3",
+  "hausdorff_max_splits": 200000,
+  "memory_target_mib": 512,
+  "vertical_ratio_tolerance": 0.001,
+  "backtracking_tolerance": 1e-08,
+  "hotspot_t": 0.984375,
+  "arc_samples": 257,
+  "control_length_tolerance": "1e-8",
+  "control_normal_tolerance": "1e-6",
+  "base_commit": "f3523c71ea12855d805df7d43fc38288fecafcee",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "N/scripts/hausdorff.py": "2dd1bddca432e2f5c8872eada57dd66b256422a86e0fbb960207c792601825eb",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "P/scripts/geometry.py": "c9783d8687dac800983c17031420e20a2123fce919dab5a8c246227f05cfbbb0",
+    "Q/results/run_v2/vertices.csv": "eeaeeb7da90e744f06c39a096b7d254499fcfe442569504e3c86a2f0b321b409",
+    "Q/results/run_v2/paths.csv": "8fcbe5e3ec0caa98e2d22a30848eb77b3762aa03352621a612d1b96cd6f06416"
+  },
+  "groups_sha256": "ec40838a0aa715382f0608348482c284e1a615116df36cf2cbcc979d6f334e8e",
+  "arms": [
+    "reference",
+    "scaled"
+  ],
+  "segments": [
+    132,
+    264
+  ],
+  "source_arm": "length",
+  "source_segments": 132,
+  "budget_seconds": 900,
+  "preconditioner_floor_relative": 1e-08,
+  "scale_exponent_bounds": [
+    -7,
+    7
+  ],
+  "spectral_relative_floor": 1e-10,
+  "coordinate_identity_tolerance": "1e-12",
+  "chain_rule_tolerance": "1e-12",
+  "solver_identity_tolerance": "1e-12"
+}
