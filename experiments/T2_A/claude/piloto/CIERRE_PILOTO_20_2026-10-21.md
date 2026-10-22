@@ -1,6 +1,6 @@
 # Cierre del piloto de 20 visitas (update 25) — 2026-10-21
 
-**Estado:** documento de cierre. **No es una decisión de abrir la producción**; esa decisión es del responsable (sección 6). No asigna Y, no decide nada confirmatorio y no modifica E1 v9, el anexo v1.1 ni E2 v1. Las disposiciones son las de E2 v1, sección 4 bis.
+**Estado:** **piloto CERRADO** por decisión del responsable (2026-10-21 ≈23:04, sección 6). **No es una decisión de abrir la producción.** No asigna Y, no decide nada confirmatorio y no modifica E1 v9, el anexo v1.1 ni E2 v1. Las disposiciones son las de E2 v1, sección 4 bis.
 
 ## 1. Resultado
 El piloto visitó en el update 25 las 20 trayectorias de los splits 8–11, en orden de cohorte, sin selección por X ni por facilidad (`PILOTO_20_APERTURA_2026-10-19.md`).
@@ -57,6 +57,8 @@ La regla es: más de 5 de 20 sin resolver, o 5 de 5 en un split. Quedan **2 de 2
 - ¿Se da por cerrado el piloto con este documento?
 - ¿Se autoriza preparar los requisitos de la sección 5 (ejecutor 50–250, inventario, orden, lote de medición)? Preparar no autoriza producir.
 - La apertura de la producción se decidiría después, con el ejecutor validado y el lote medido.
+
+**Decisión registrada (2026-10-21 ≈23:04):** el responsable **da por cerrado el piloto**. Para los requisitos de la sección 5 propone dividir la producción en **7 lotes**. La partición y el orden se fijan en el plan de producción, antes de producir.
 
 ## 7. Qué no se afirma
 - No se afirma la frecuencia de eventos, de pausas ni de T5 en la cohorte.
