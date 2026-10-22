@@ -121,3 +121,10 @@ entre candidatos y trece salidas reproducidas. O y T2-A intactos.
 alcanzan el límite de iteraciones. Gradientes y Hessianos verificados, sin
 confundir energía afín con longitud. Global INCONCLUSIVE; quince salidas v2
 reproducidas, v1 parcial conservada con errata. P y T2-A intactos.
+
+### E16-R — Escalado diagonal del mismo objetivo
+
+[E16-R](E16/R/README.md): ambos métodos minimizan L en el mismo dominio.
+El escalado cumple KKT físico en 4/4 cuadráticos frente a 2/4 referencias,
+pero todos agotan iteraciones. Global INCONCLUSIVE; cuatro caminos C0 pasan.
+Quince salidas reproducidas; costes y espectros documentados. Q y T2-A intactos.
