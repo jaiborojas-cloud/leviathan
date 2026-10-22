@@ -146,3 +146,11 @@ no se aprueban retrospectivamente por cumplir otro descriptor.
 parada y sus seis refinamientos. La auditoría añade coste y sólo acredita
 las muestras observadas. Queda por estudiar segundo orden y modos de
 redistribución bajo otro protocolo; no se certifican mínimos ni se modifica R.
+
+### E16-T: curvatura local de los candidatos
+
+[E16-T](../experiments/E16/T/README.md) detecta curvatura negativa en los
+cuatro candidatos cuadráticos finos y verifica el control recto. Los modos
+son predominantemente tangenciales, sin cociente exacto por reparametrización.
+Queda contrastar descenso finito y cambio geométrico bajo otro protocolo.
+No se certifican mínimos ni se altera la aceptación de primer orden de S.

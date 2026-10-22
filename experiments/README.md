@@ -135,3 +135,10 @@ Quince salidas reproducidas; costes y espectros documentados. Q y T2-A intactos.
 Ocho paradas por tres auditorías consecutivas; cuatro controles nativos.
 105 auditorías, ninguna sin verificar; costes completos y banderas conservadas.
 R/Q y T2-A intactos; no demuestra mínimo global ni convergencia continua.
+
+### E16-T — Hessianos físicos y modos casi nulos
+
+[E16-T](E16/T/README.md): validación diagnóstica PASS en doce caminos;
+488 comprobaciones y contrastes MP. Cuatro cuadráticos finos con curvatura
+negativa casi tangencial, control C0 analítico. INCONCLUSIVE sobre mínimos.
+No cambia S ni T2-A/T2_A1; espectros escalares sin matrices densas.
