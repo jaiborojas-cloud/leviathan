@@ -1,0 +1,43 @@
+16:18:20 split8_j8_true: haz: parado, 217 pasos, t=np.float64(0.08610381979936113), max|p|=151.47
+16:18:20 split8_j8_true: t0 = np.float64(0.07826224135937904) (paso 53), rayo designado 1822; t1 = 0.08145321438260679
+16:18:39 split8_j8_true: A0 = 0.0195428515, delta_disc = 1.142e-07
+16:19:13 split8_j8_true: A_J = 0.0195428191, V3 rel = 1.66e-06, rayos con j<=0 en (0,t0]: 0
+16:19:13 split8_j8_true: escape: {"T_star": 0.08746544626359999, "delta_T": 8.1601392309949e-15, "T_plus": 0.08746544626368159, "C1": true, "C2": true, "C3": true, "C4": true, "C5": true, "C6": true}
+16:19:13 split8_j8_true: continuacion: metrica singular en t=np.float64(0.08610381979936113): LinAlgError('Singular matrix')
+16:20:54 split8_j8_true: Traceback (most recent call last):
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 581, in main
+    R = un_caso(caso, g, triangles, area7, audit.jacsolve, M, f, out, args, log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 374, in un_caso
+    entregar(fuera, y_cur, t_cur, activos)
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 343, in entregar
+    sol, err = cara.integrar(a, tcur, b, V)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 161, in integrar
+    sol = solve_ivp(rhs, (b, 0.0), [a, r, V[0], V[1]], method="DOP853", rtol=RTOL * factor, atol=ATOL * factor, dense_output=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\ivp.py", line 626, in solve_ivp
+    solver = method(fun, t0, y0, tf, vectorized=vectorized, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\rk.py", line 668, in __init__
+    super().__init__(fun, t0, y0, t_bound, max_step, rtol, atol,
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\rk.py", line 94, in __init__
+    self.f = self.fun(self.t, self.y)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\base.py", line 158, in fun
+    return self.fun_single(t, y)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\cribado_borde\venv_torch\Lib\site-packages\scipy\integrate\_ivp\base.py", line 24, in fun_wrapped
+    return np.asarray(fun(t, y), dtype=dtype)
+                      ^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 160, in rhs
+    aa = self.acc(y[0], bb, y[2:]); return [y[2] / y[3], 1 / y[3], aa[0] / y[3], aa[1] / y[3]]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 146, in acc
+    w, J, H, G = self.jet(a, b)
+                 ^^^^^^^^^^^^^^
+  File "D:\RIPG_DATA\T2_A\expediente\certificacion_t5\certificar_t5_v3.py", line 134, in jet
+    al, be = C[q]; ea = math.exp(al * a)
+                        ^^^^^^^^^^^^^^^^
+OverflowError: math range error
+

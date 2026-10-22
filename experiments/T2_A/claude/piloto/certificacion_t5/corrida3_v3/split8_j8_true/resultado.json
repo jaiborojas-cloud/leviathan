@@ -1,0 +1,27 @@
+{
+  "caso": "split8_j8_true",
+  "completo": false,
+  "error": "Traceback (most recent call last):\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 581, in main\n    R = un_caso(caso, g, triangles, area7, audit.jacsolve, M, f, out, args, log)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 374, in un_caso\n    entregar(fuera, y_cur, t_cur, activos)\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 343, in entregar\n    sol, err = cara.integrar(a, tcur, b, V)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 161, in integrar\n    sol = solve_ivp(rhs, (b, 0.0), [a, r, V[0], V[1]], method=\"DOP853\", rtol=RTOL * factor, atol=ATOL * factor, dense_output=True)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\ivp.py\", line 626, in solve_ivp\n    solver = method(fun, t0, y0, tf, vectorized=vectorized, **options)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\rk.py\", line 668, in __init__\n    super().__init__(fun, t0, y0, t_bound, max_step, rtol, atol,\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\rk.py\", line 94, in __init__\n    self.f = self.fun(self.t, self.y)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\base.py\", line 158, in fun\n    return self.fun_single(t, y)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\cribado_borde\\venv_torch\\Lib\\site-packages\\scipy\\integrate\\_ivp\\base.py\", line 24, in fun_wrapped\n    return np.asarray(fun(t, y), dtype=dtype)\n                      ^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 160, in rhs\n    aa = self.acc(y[0], bb, y[2:]); return [y[2] / y[3], 1 / y[3], aa[0] / y[3], aa[1] / y[3]]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 146, in acc\n    w, J, H, G = self.jet(a, b)\n                 ^^^^^^^^^^^^^^\n  File \"D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py\", line 134, in jet\n    al, be = C[q]; ea = math.exp(al * a)\n                        ^^^^^^^^^^^^^^^^\nOverflowError: math range error\n",
+  "meta": {
+    "script": "D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5_v3.py",
+    "script_sha256": "7e2fc5b6f3e112657bbcc21fef15f223d90c64959edc395550c81d88edf5c8b5",
+    "protocolo_sha256": "3d2e488242a8c8dc81c0967a73887cc40ae8290b4e23f388beabb2daa4dafdbd",
+    "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+    "audit_coincide_con_importado": true,
+    "prueba": false,
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "cpus": 24
+    }
+  },
+  "veredicto": {
+    "estado": "ERROR_DE_EJECUCION",
+    "razones": [
+      "ver error"
+    ]
+  }
+}

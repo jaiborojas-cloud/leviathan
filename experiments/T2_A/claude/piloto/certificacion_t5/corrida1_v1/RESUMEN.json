@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "script": "D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5.py",
+    "script_sha256": "afc23c71640616778a79e28ed667b82aa9d746f3ad9c2bb7fc1aef1f04ebb268",
+    "protocolo_sha256": "3d2e488242a8c8dc81c0967a73887cc40ae8290b4e23f388beabb2daa4dafdbd",
+    "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+    "audit_coincide_con_importado": true,
+    "prueba": false,
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "cpus": 24
+    }
+  },
+  "V1": {
+    "split8_j5_true": false,
+    "split8_j7_true": false,
+    "split8_j8_true": false
+  },
+  "V2": false,
+  "procedimiento_valido": false,
+  "casos": {
+    "split8_j5_true": {
+      "estado": "T5_NO_CERTIFICADA",
+      "razones": [
+        "(i) no se pudo obtener T* del rayo designado",
+        "V1/V2 invalidan el procedimiento"
+      ],
+      "U": null
+    },
+    "split8_j7_true": {
+      "estado": "T5_NO_CERTIFICADA",
+      "razones": [
+        "(i) no se pudo obtener T* del rayo designado",
+        "V1/V2 invalidan el procedimiento"
+      ],
+      "U": null
+    }
+  },
+  "nota": "Diagnostico de T5. No reclasifica: j5 y j7 siguen PAUSED_PENDING_REVIEW hasta E2. No asigna Y."
+}

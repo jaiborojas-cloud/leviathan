@@ -1,0 +1,95 @@
+{
+  "caso": "split8_j7_true",
+  "haz": {
+    "status": "parado",
+    "pasos": 112,
+    "t_final": 0.07418069477405621,
+    "max_p_final": 150.38296695065551
+  },
+  "t0": {
+    "paso": 37,
+    "t": 0.0715096528893716,
+    "max_p": 10.273471982518794,
+    "rayo_designado": 1828,
+    "angulo": 5.608233760509904
+  },
+  "t1": {
+    "paso": 58,
+    "t": 0.07255300268439686
+  },
+  "sensibilidad_t0": {
+    "5.0": [
+      29,
+      0.06916145752369025
+    ],
+    "20.0": [
+      46,
+      0.07221391513373264
+    ]
+  },
+  "area_t0": {
+    "A0": 0.017138841638158733,
+    "variantes": {
+      "65x2048": 0.017138858865033316,
+      "33x1024": 0.017138889862645584,
+      "129x2048": 0.017138859295424684
+    },
+    "delta_disc": 4.822448685173897e-08
+  },
+  "jacobi_t0": {
+    "A_J": 0.017138843410107036,
+    "V3_rel": 1.0338786837372216e-07,
+    "rayos_con_j_no_positivo": 0,
+    "j_min": 0.060607029044577626,
+    "j_max": 0.1418776086303982,
+    "jp_min": 0.35526980330305735,
+    "jp_max": 6.646425026840838
+  },
+  "escape": {
+    "paso_arranque": 58,
+    "cara": {
+      "j": 13,
+      "i": 20,
+      "k": 6,
+      "detA": 0.015820619502314767,
+      "beta_min": 3.164285714285737
+    },
+    "C1": true,
+    "C2_rel": 2.1477639444546854e-15,
+    "r_arranque": 0.07255300268439686,
+    "b_arranque": 0.12777953702090408,
+    "limite": {
+      "1.0": {
+        "error": "Required step size is less than spacing between numbers."
+      },
+      "0.01": {
+        "error": "Required step size is less than spacing between numbers."
+      }
+    }
+  },
+  "veredicto": {
+    "estado": "T5_NO_CERTIFICADA",
+    "razones": [
+      "(i) no se pudo obtener T* del rayo designado"
+    ]
+  },
+  "meta": {
+    "script": "D:\\RIPG_DATA\\T2_A\\expediente\\certificacion_t5\\certificar_t5.py",
+    "script_sha256": "afc23c71640616778a79e28ed667b82aa9d746f3ad9c2bb7fc1aef1f04ebb268",
+    "protocolo_sha256": "3d2e488242a8c8dc81c0967a73887cc40ae8290b4e23f388beabb2daa4dafdbd",
+    "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+    "audit_coincide_con_importado": true,
+    "prueba": false,
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "cpus": 24
+    }
+  },
+  "estado_archivo": "D:\\RIPG_DATA\\T2_A\\expediente\\estados_u25\\state_025_regen_split8_j7_true.npz",
+  "estado_sha256": "59990ae56e64499d9bc46bfa056a8c91bcbffd9b188e4fc081933fdb413625c2",
+  "completo": true
+}
