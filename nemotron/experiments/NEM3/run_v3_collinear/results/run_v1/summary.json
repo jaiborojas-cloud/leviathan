@@ -1,0 +1,80 @@
+{
+  "experiment": "NEM3",
+  "run": "run_v3_collinear",
+  "description": "Observables geometricos con dataset sintético colineal (modos debiles de Fisher)",
+  "config": {
+    "n_features": 5,
+    "n_classes": 3,
+    "n_inputs": 50,
+    "n_params": 18,
+    "n_persp": 2,
+    "grid_size": 9,
+    "p_range": [
+      -1.0,
+      1.0
+    ],
+    "step": 0.25,
+    "epsilon_fd": 1e-05,
+    "epsilon_panel": 0.2,
+    "spd_threshold": 1e-12,
+    "tau_weak": 1e-06,
+    "q_values": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "dataset": "synthetic_collinear"
+  },
+  "fisher_base": {
+    "max_eigenvalue": 2.2011489088695235,
+    "min_eigenvalue": 2.5470029744009425e-06,
+    "n_weak_modes": 0,
+    "weak_eigenvalues": []
+  },
+  "fisher_perturbed": {
+    "max_eigenvalue": 2.282413801842257,
+    "min_eigenvalue": 3.6513996029983244e-06,
+    "n_weak_modes": 0,
+    "weak_eigenvalues": []
+  },
+  "panel_base": {
+    "A": 5.027874310801184,
+    "E": 29.72902132606569,
+    "E_K": 5.912840991708963,
+    "C_A": 2.431633399941069,
+    "R_eff": 0.019567292344108318,
+    "lambda_q": {
+      "0.25": 0.997649942988788,
+      "0.5": 0.9998638860508378,
+      "0.75": 0.9999926438900913
+    },
+    "n_points": 81,
+    "n_spd": 81
+  },
+  "panel_perturbed": {
+    "A": 4.903037098789839,
+    "E": 28.51089448134369,
+    "E_K": 5.814945697306821,
+    "C_A": 2.4114198508983917,
+    "R_eff": 0.021140547129532974,
+    "lambda_q": {
+      "0.25": 0.9972438738856502,
+      "0.5": 0.9998198836709264,
+      "0.75": 0.9999891219599389
+    },
+    "n_points": 81,
+    "n_spd": 81
+  },
+  "changes_relative": {
+    "A": -0.024829024015807624,
+    "E": -0.04097433384576223,
+    "E_K": -0.016556388805214227,
+    "C_A": -0.008312745269565313,
+    "R_eff": 0.08040227323012118,
+    "lambda_q": {
+      "0.25": -0.00040702563658879355,
+      "0.5": -4.4008370064357714e-05,
+      "0.75": -3.521956060301745e-06
+    }
+  }
+}
