@@ -100,3 +100,10 @@ Q0/Q1 coinciden en 64/128, sin concentración de cambio establecida en la cola f
 [E16-N](E16/N/README.md): nueve optimizaciones válidas y 21 comparaciones.
 La separación 64→128 baja con nodos graduados pero aún supera 0,001, incluso
 usando Hausdorff entre curvas. Global INCONCLUSIVE; M y T2-A intactos.
+
+### E16-O — Refinamiento guiado por indicador local
+
+[E16-O](E16/O/README.md): once caminos y 1428 probes válidos. Cuatro rondas
+llevan cada candidato de 128 a 132 segmentos; longitud y Hausdorff pasan,
+forma e indicador terminal no. Global INCONCLUSIVE, con crecimiento de
+pendientes cerca de t≈0,9844. Etapas previas y T2-A intactos.

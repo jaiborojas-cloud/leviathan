@@ -107,3 +107,11 @@ nodos sin asumir singularidad ni certificar ramas o geodésicas. L permanece int
 y Hausdorff reducen la discrepancia observada, pero no alcanzan el umbral.
 La estabilidad de longitud y el acuerdo de candidatos no certifican convergencia
 geométrica; queda por estudiar el extremo con un protocolo de error nuevo.
+
+### E16-O: refinamiento local y límites de la representación
+
+[E16-O](../experiments/E16/O/README.md) permanece INCONCLUSIVE tras las cuatro
+rondas fijadas. Hausdorff entre rondas pasa, pero forma e indicador terminal
+no. Las pendientes crecen junto a un nodo heredado próximo a t=0,9844.
+Queda por contrastar la familia de gráficos con una representación paramétrica;
+no se ha demostrado singularidad ni convergencia geométrica.
