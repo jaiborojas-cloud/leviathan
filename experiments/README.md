@@ -107,3 +107,10 @@ usando Hausdorff entre curvas. Global INCONCLUSIVE; M y T2-A intactos.
 llevan cada candidato de 128 a 132 segmentos; longitud y Hausdorff pasan,
 forma e indicador terminal no. Global INCONCLUSIVE, con crecimiento de
 pendientes cerca de t≈0,9844. Etapas previas y T2-A intactos.
+
+### E16-P — Contraste de representación
+
+[E16-P](E16/P/README.md): t fijo frente a t/s libres con los mismos extremos y
+dominio. Ocho de doce caminos pasan el protocolo completo; los cuatro libres
+cuadráticos agotan iteraciones. Global INCONCLUSIVE, con diferencia geométrica
+entre candidatos y trece salidas reproducidas. O y T2-A intactos.

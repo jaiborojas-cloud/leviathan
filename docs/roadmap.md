@@ -115,3 +115,11 @@ rondas fijadas. Hausdorff entre rondas pasa, pero forma e indicador terminal
 no. Las pendientes crecen junto a un nodo heredado próximo a t=0,9844.
 Queda por contrastar la familia de gráficos con una representación paramétrica;
 no se ha demostrado singularidad ni convergencia geométrica.
+
+### E16-P: representación y terminación de la optimización
+
+[E16-P](../experiments/E16/P/README.md) conserva INCONCLUSIVE. Liberar t/s
+produce retrocesos y candidatos diferentes, pero la optimización libre alcanza
+el límite de iteraciones. Queda por separar condicionamiento paramétrico y
+criterio de terminación con otro protocolo; no se certifican óptimos ni se
+modifica el resultado de O.
