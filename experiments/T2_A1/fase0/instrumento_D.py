@@ -1,4 +1,4 @@
-"""instrumento_D.py (v1) - implementacion de PROTOCOLO_instrumento_D_v1_CONGELADO.md (T2-A1, fase 0a).
+"""instrumento_D.py (v2: carga de certificar_t5 importable por los procesos hijos en Windows/spawn; v1 fallaba con PicklingError) - implementacion de PROTOCOLO_instrumento_D_v1_CONGELADO.md (T2-A1, fase 0a).
 
 Instrumento nuevo de T2-A1. NO es una v5 de la certificacion T5 de T2-A0: importa SIN CAMBIOS certificar_t5.py v4
 (SHA-256 9e0c12a2...0b7d, verificado al importar) y usa su funcion un_caso tal cual. Lo unico que anade el instrumento:
@@ -49,8 +49,11 @@ def cargar_t5():
     h = sha(T5_SCRIPT)
     if h != T5_SCRIPT_SHA:
         sys.exit(f"ABORTA: certificar_t5.py no coincide con v4 ({h[:12]} vs {T5_SCRIPT_SHA[:12]})")
+    # v2: el modulo se registra con su nombre y su carpeta va a sys.path, para que los procesos del ProcessPoolExecutor de
+    # un_caso puedan importarlo al deserializar _mp_init/_k_mp_lote. En Windows (spawn) v1 fallaba con PicklingError.
+    sys.path.insert(0, str(T5_SCRIPT.parent))
     spec = importlib.util.spec_from_file_location("certificar_t5", T5_SCRIPT)
-    C = importlib.util.module_from_spec(spec); spec.loader.exec_module(C)
+    C = importlib.util.module_from_spec(spec); sys.modules["certificar_t5"] = C; spec.loader.exec_module(C)
     return C
 
 

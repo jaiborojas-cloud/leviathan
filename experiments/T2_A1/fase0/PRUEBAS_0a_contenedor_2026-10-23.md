@@ -14,3 +14,11 @@ La ruta completa de la vía C (escape real con carta de cara) no se puede ejerci
 
 ## Versión registrada (antes de cualquier corrida sobre j5, j7, j8)
 `instrumento_D.py` v1 SHA-256 `d539aaabf4851616899c8e5cc143da1f994e87592ce56501c9e4f6994460a500`.
+
+## v2 (2026-10-23 ≈10:50), tras el primer intento de P2
+- **Defecto de implementación (v1):** en Windows, el `ProcessPoolExecutor` de `un_caso` crea sus procesos con *spawn* y serializa `_mp_init` y `_k_mp_lote` por el nombre del módulo `certificar_t5`. v1 cargaba ese módulo desde su ruta sin registrarlo, así que los procesos hijos no podían importarlo: `PicklingError: Can't pickle <function _mp_init>: import of module 'certificar_t5' failed`. En el contenedor (Linux, *fork*) no aparecía.
+- **Intento afectado:** P2 de j5 en el equipo del responsable (2026-10-23 ≈10:40), que falló a los 104 s, antes de calcular la cota. j7 se lanzó a continuación con la misma versión. No se calculó U de ningún caso con v1. Las salidas de ese intento se conservan en `D:\RIPG_DATA\T2_A1\fase0a\P2_2026-10-23\`.
+- **Corrección (único cambio):** `cargar_t5` registra el módulo en `sys.modules` y añade su carpeta a `sys.path`. No cambia ningún cálculo; `certificar_t5.py` sigue siendo v4 sin cambios.
+- **Pruebas:** reproducción del fallo con *spawn* forzado en Linux (v1 falla igual que en Windows; v2 evalúa K en mpmath en los procesos hijos); regresión del lote ficticio (mismas D) y de j6 forzado (U = 0.02980103).
+- Es la **versión 2 de 3** permitidas por D0-3.
+- SHA-256 v2: `254ebd83f11e3459f48bc94a2a54fe4019cddfab3341a4db7aaeac54d7789663`.
