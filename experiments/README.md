@@ -156,3 +156,10 @@ resueltos y no resueltos conservados; S/T y T2-A intactos. Estudio exploratorio.
 350 válidos, diez inviables y 2.466 comprobaciones PASS. Transporte conserva
 los cambios de U; nodos insertados fijos cambian el signo par en los finos.
 Exploratorio, sin nuevo espectro refinado ni mínimos certificados. T2-A intacto.
+
+### E16-W — Dirección perpendicular al gradiente
+
+[E16-W](E16/W/README.md): diagnóstico PASS, 144 ensayos y 1.144
+comprobaciones. Ocho proyecciones cuadráticas casi de primer orden nulo con
+curvatura positiva; C0 usa regla de gradiente pequeño. Cuatro inviables
+conservados. No prueba positividad de g⊥; S/T/U/V y T2-A intactos.

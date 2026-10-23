@@ -169,3 +169,10 @@ los efectos son pequeños y no certifican mínimos ni aceleración del optimizad
 la curva, de nodos nuevos fijos, que cambian la familia y el signo par observado.
 No prueba estabilidad espectral refinada. Queda separar curvatura y gradiente
 residual con otro protocolo de variación de primer orden nula; mínimos UNKNOWN.
+
+### E16-W: proyección frente a gradiente residual
+
+[E16-W](../experiments/E16/W/README.md) contrasta pendiente y curvatura de
+una dirección proyectada. Los ocho cuadráticos aumentan longitud en los dos
+sentidos medidos. Queda calcular directamente la mínima curvatura en g⊥:
+proyectar una dirección no determina el signo del Hessiano restringido completo.

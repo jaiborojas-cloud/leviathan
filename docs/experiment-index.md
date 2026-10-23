@@ -170,3 +170,11 @@ los descensos a 1e-4/1e-3 cambian la imagen por encima del umbral numérico.
 E al transportar la misma curva; fijar nodos cambia a positivo el E de los
 cuatro orígenes finos, sin eliminar descenso unilateral. 2.466 comprobaciones.
 No calcula espectro refinado ni certifica convergencia. S/T/U y T2-A intactos.
+
+## E16-W — Proyección de primer orden casi nulo
+
+[E16-W](../experiments/E16/W/README.md): doce caminos, 144 ensayos,
+140 válidos y cuatro inviables. Las ocho direcciones cuadráticas proyectadas
+tienen pendiente casi nula y curvatura positiva, con aumento en ambos sentidos.
+1.144 comprobaciones PASS. No calcula el mínimo restringido en g⊥ ni certifica
+mínimos; S/T/U/V y T2-A intactos.
