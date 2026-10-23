@@ -197,3 +197,12 @@ reestacionarizar bajo otro protocolo antes de comparar estabilidad de mínimos.
 congelada y compara espectros con masa fija, separando elegibilidad y estados
 inconclusos. Queda contrastar tolerancias de estacionariedad más estrictas
 bajo otro protocolo; KKT aproximado no implica mínimo certificado.
+
+### E16-AA: límite de la continuación a KKT1e-7
+
+[E16-AA](../experiments/E16/AA/README.md) conserva ocho casos cuadráticos
+inconclusos al agotar4800 iteraciones; sólo los cuatro controles cumplen el
+umbral más estricto. El espectro es evaluable, pero no responde la pregunta
+estacionaria para esos ocho casos. Antes de una nueva comparación de estabilidad,
+queda diseñar prospectivamente un método que trate el mal condicionamiento y
+controle el residuo físico. No ampliar ni relajar retrospectivamente AA.

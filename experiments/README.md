@@ -184,3 +184,10 @@ Exploratorio, sin reoptimizar ni probar convergencia. T2-A intacto.
 espectro PASS y 12/12 elegibles. Doce fuentes sin reinicios,
 masa fija, todos los puntos devueltos y repeticiones de S identificadas.
 No certifica mínimos ni convergencia; etapas anteriores y T2-A intactos.
+
+### E16-AA — KKT1e-7 y todos los estados devueltos
+
+[E16-AA](E16/AA/README.md): 4/12 primer orden PASS (controles C0), ocho
+cuadráticos INCONCLUSIVE por maxiter y12/12 espectros PASS. Cuatro testigos
+MP negativos en puntos no elegibles;370 controles PASS y ocho KKT inconclusos.
+Masa fija, sin nueva subdivisión, con presupuesto congelado. T2-A intacto.
