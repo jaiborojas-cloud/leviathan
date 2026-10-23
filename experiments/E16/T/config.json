@@ -1,0 +1,52 @@
+{
+  "base_commit": "cee8dec7b38c663779e8f1ccf3d88a336d28916b",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "S/results/run_v1/paths.csv": "d7293f3c80c927ba92209d4043ca8cea8497ba75d2f33ea03dc16770ed51f0fd",
+    "S/results/run_v1/vertices.csv": "ce269d17e98863d7410b4bea6b793094916bc4a02892e0ee1713c6e2f3a12ffc",
+    "S/results/run_v1/gradients.csv": "ca62e4f95d41399f04b84e709c9b5126f07deafb2f57f3d311987c414ea76444",
+    "S/config.json": "b6269fa734cec1f12a2e1d7e480344f3a0e6f87a00e637c4ab9d47ad39d4c444"
+  },
+  "segments": [
+    132,
+    264
+  ],
+  "lineages": [
+    "Q0",
+    "Q1",
+    "C0"
+  ],
+  "arms": [
+    "reference",
+    "scaled"
+  ],
+  "precision": [
+    80,
+    120
+  ],
+  "fd_steps": [
+    "1e-10",
+    "1e-12"
+  ],
+  "direction_agreement_tolerance": "1e-6",
+  "fd_agreement_tolerance": "1e-8",
+  "precision_agreement_tolerance": "1e-35",
+  "symmetry_tolerance": "1e-10",
+  "analytic_control_tolerance": "1e-10",
+  "spectral_relative_floor": 1e-08,
+  "bound_margin": 1e-08,
+  "frame_min_norm": 1e-14,
+  "budget_seconds": 900,
+  "memory_target_mib": 512,
+  "directions": [
+    "full_min",
+    "tangent_min",
+    "normal_min",
+    "tangent_sine",
+    "normal_sine"
+  ],
+  "source_kkt_tolerance": 1e-05,
+  "archived_length_tolerance": "1e-35"
+}

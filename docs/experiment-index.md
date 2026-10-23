@@ -147,3 +147,10 @@ se distinguen residuo físico, terminación y limitaciones espectrales numérica
 seis refinamientos. Ocho cuadráticos paran tras tres auditorías consecutivas
 de KKT físico; cuatro controles terminan naturalmente. 105 auditorías sin
 UNVERIFIED. Conserva banderas nativas y el INCONCLUSIVE histórico de R.
+
+## E16-T — Segundo orden y redistribución de nodos
+
+[E16-T](../experiments/E16/T/README.md): doce diagnósticos PASS y 488
+comprobaciones. Los cuatro cuadráticos de 264 presentan curvatura negativa
+contrastada por MP, casi tangencial; 132 permanece en banda casi nula.
+C0 reproduce nulidad tangencial analítica. INCONCLUSIVE sobre mínimos; S intacto.
