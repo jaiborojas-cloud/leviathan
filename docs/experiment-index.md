@@ -201,3 +201,11 @@ estabilidad de mínimos ni convergencia; etapas previas y T2-A intactos.
 12/12 diagnóstico espectral PASS, 12/12 comparaciones elegibles.
 Masa fija de Y, monitor filtrado AD/MP y todos los estados conservados.
 8 testigos MP negativos; no certifica mínimos. T2-A intacto.
+
+## E16-AA — Continuación a estacionariedad más estricta
+
+[E16-AA](../experiments/E16/AA/README.md): resultado global INCONCLUSIVE.
+Ocho curvas cuadráticas agotan4800 iteraciones sin KKT≤1e-7; cuatro C0 pasan.
+12/12 diagnósticos espectrales PASS y cuatro testigos MP negativos en puntos
+no elegibles.370 comprobaciones PASS y ocho KKT finales INCONCLUSIVE.
+No resuelve estabilidad estacionaria estricta ni certifica mínimos. T2-A intacto.
