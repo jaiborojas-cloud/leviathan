@@ -177,3 +177,10 @@ exploratorios, sin certificados de mínimos. W y T2-A intactos.
 gradientes nuevos en las mallas subdivididas. Misma imagen y longitud no
 conservan estacionariedad; ocho refinados cuadráticos con testigos MP negativos.
 Exploratorio, sin reoptimizar ni probar convergencia. T2-A intacto.
+
+### E16-Z — Parada física y espectro posterior
+
+[E16-Z](E16/Z/README.md): 12/12 primer orden PASS, 12/12
+espectro PASS y 12/12 elegibles. Doce fuentes sin reinicios,
+masa fija, todos los puntos devueltos y repeticiones de S identificadas.
+No certifica mínimos ni convergencia; etapas anteriores y T2-A intactos.
