@@ -8,4 +8,6 @@
   con nodos insertados fijos, en las dos distribuciones y los tres pasos.
 - Primera corrida 412,890 s / 87,938 MiB, dentro del presupuesto.
 - Figura generada sólo de escalares archivados y revisada visualmente.
-- Reproducción integral en curso; resultado pendiente.
+- PASS_REPRODUCTION: nueve salidas científicas idénticas byte por byte;
+  segunda corrida 415,263 s, dentro del presupuesto. Familias, parejas, normas,
+  transporte, identidades con U, costes, fuentes y alcance verificados.

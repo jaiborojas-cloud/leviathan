@@ -93,6 +93,9 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/V/scripts/run.py
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/V/scripts/verify.py
 ```
 
+**PASS_REPRODUCTION**: nueve salidas científicas idénticas byte por byte;
+segunda corrida 415,263 s, dentro del presupuesto.
+
 El verificador reconstruye familias, conteos, parejas, signos, transporte,
 identidades con U y costes; repite y compara nueve salidas científicas byte
 por byte, excluyendo recursos. Figura derivada únicamente de CSV, con las
