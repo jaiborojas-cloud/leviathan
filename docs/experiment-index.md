@@ -154,3 +154,11 @@ UNVERIFIED. Conserva banderas nativas y el INCONCLUSIVE histórico de R.
 comprobaciones. Los cuatro cuadráticos de 264 presentan curvatura negativa
 contrastada por MP, casi tangencial; 132 permanece en banda casi nula.
 C0 reproduce nulidad tangencial analítica. INCONCLUSIVE sobre mínimos; S intacto.
+
+## E16-U — Descenso finito y cambio de imagen
+
+[E16-U](../experiments/E16/U/README.md): exploratorio, diagnóstico PASS.
+360 ensayos prefijados, 350 válidos y diez inviables conservados. Los cuatro
+cuadráticos finos tienen cambio par negativo en full_min para los tres pasos;
+los descensos a 1e-4/1e-3 cambian la imagen por encima del umbral numérico.
+1.487 comprobaciones; S/T y T2-A intactos. No se certifican mínimos.

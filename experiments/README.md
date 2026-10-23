@@ -142,3 +142,10 @@ R/Q y T2-A intactos; no demuestra mínimo global ni convergencia continua.
 488 comprobaciones y contrastes MP. Cuatro cuadráticos finos con curvatura
 negativa casi tangencial, control C0 analítico. INCONCLUSIVE sobre mínimos.
 No cambia S ni T2-A/T2_A1; espectros escalares sin matrices densas.
+
+### E16-U — Descenso y geometría con pasos prefijados
+
+[E16-U](E16/U/README.md): 360 ensayos, 350 válidos, diez inviables;
+1.487 comprobaciones PASS. Cuatro cuadráticos finos con cambio par negativo
+en full_min y descenso unilateral para los tres pasos. Cambios geométricos
+resueltos y no resueltos conservados; S/T y T2-A intactos. Estudio exploratorio.
