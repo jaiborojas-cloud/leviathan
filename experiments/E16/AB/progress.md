@@ -5,3 +5,4 @@
 - b905f9a congela implementación antes de la primera corrida.
 - Controles de racha, raíz diagonal mal escalada e interrupción nativa pasan.
 - Una sola corrida prospectiva; no modificar umbrales, presupuesto o método.
+- Corrida completa: 1629.610065s / 295.710938MiB, dentro del presupuesto. 9/12 primer orden PASS (5 cuadráticos+4 controles),3 inconclusos;12 espectros PASS y4 testigos MP negativos elegibles.

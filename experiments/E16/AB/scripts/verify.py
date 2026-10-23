@@ -75,9 +75,10 @@ def main():
   q=next(r for r in checks if r['name']==p['path']+'/initial_hash');assert q['status']=='PASS' and mp.mpf(q['error'])==0
   q=next(r for r in checks if r['name']==p['path']+'/final_KKT');assert (q['status']=='PASS')==(float(p['final_KKT'])<=cfg['KKT_tolerance'])
  names=[p.name for p in sorted(out.iterdir()) if p.suffix in ['.csv','.json'] and p.name!='resources.json'];assert len(names)==11
+ print('PASS_ARCHIVES: congelación, alcance, rachas, KKT, costes y espectros reconstruidos.',flush=True)
  with tempfile.TemporaryDirectory(prefix='e16ab-') as tmp:
   env=os.environ.copy();env.update(OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');subprocess.run([sys.executable,str(ROOT/'scripts/run.py'),'--out',tmp],env=env,check=True,timeout=cfg['budget_seconds'])
   for name in names:assert (Path(tmp)/name).read_bytes()==(out/name).read_bytes(),name
-  resource=json.loads((Path(tmp)/'resources.json').read_text());assert resource['within_budget'];print('Reproduction seconds:',resource['seconds'])
+  resource=json.loads((Path(tmp)/'resources.json').read_text());assert resource['within_budget'];print('Reproduction seconds:',resource['seconds']);print('Reproduction max_rss_mib:',resource['max_rss_mib'])
  assert json.loads((out/'resources.json').read_text())['within_budget'];print('PASS_REPRODUCTION: once salidas idénticas; rachas filtradas, KKT, hashes, elegibilidad, espectros y costes reconstruidos; AA y previas/T2-A intactos.')
 if __name__=='__main__':main()
