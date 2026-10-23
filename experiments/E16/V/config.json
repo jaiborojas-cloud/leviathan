@@ -1,0 +1,48 @@
+{
+  "base_commit": "a4e053db607bdd1175015b8b28558a0a4054bb34",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "T/scripts/run.py": "3382578c54c6402b7b0dc4e3dd222a92addc014faa668e71bb404256f55d07ad",
+    "T/results/run_v1/rayleigh.csv": "9fecc27c0bfe2bfbf83376086db34b6cf5f96a6a27abc94465ff3a9a5d55bba5",
+    "S/results/run_v1/paths.csv": "d7293f3c80c927ba92209d4043ca8cea8497ba75d2f33ea03dc16770ed51f0fd",
+    "S/results/run_v1/vertices.csv": "ce269d17e98863d7410b4bea6b793094916bc4a02892e0ee1713c6e2f3a12ffc",
+    "U/scripts/run.py": "87943cbc05d2a2b1c91ccebfc154015a6c829c134d65035ef8ec8f057661b8a6",
+    "U/results/run_v1/trials.csv": "1bfa72d1ff089a88400846732622322de282232ec858f5d864833f45dfe72a46",
+    "U/results/run_v1/pairs.csv": "fa47c97a8c0eda52ff9b2ba6af0fd206eee93cb935a47dacf0bc90bfc4992755"
+  },
+  "steps": [
+    "1e-5",
+    "1e-4",
+    "1e-3"
+  ],
+  "signs": [
+    -1,
+    1
+  ],
+  "fractions": [
+    "0.5",
+    "0.25"
+  ],
+  "families": [
+    "original",
+    "transported_half",
+    "pinned_half",
+    "transported_quarter",
+    "pinned_quarter"
+  ],
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-35",
+  "identity_tolerance": "1e-35",
+  "sign_tolerance": "1e-20",
+  "geometry_tolerance": 1e-08,
+  "geometry_cushion": 1e-12,
+  "rounding_tolerance": 1e-15,
+  "budget_seconds": 900,
+  "memory_target_mib": 512
+}

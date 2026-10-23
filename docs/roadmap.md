@@ -162,3 +162,10 @@ geométrico en los candidatos finos, separando componente par y gradiente residu
 Conserva 78 geometrías válidas sin resolver y diez ensayos inviables. Queda
 comprobar estabilidad frente a refinamiento y redistribución bajo otro protocolo;
 los efectos son pequeños y no certifican mínimos ni aceleración del optimizador.
+
+### E16-V: separar subdivisión de cambio de perturbación
+
+[E16-V](../experiments/E16/V/README.md) distingue transporte, que conserva
+la curva, de nodos nuevos fijos, que cambian la familia y el signo par observado.
+No prueba estabilidad espectral refinada. Queda separar curvatura y gradiente
+residual con otro protocolo de variación de primer orden nula; mínimos UNKNOWN.

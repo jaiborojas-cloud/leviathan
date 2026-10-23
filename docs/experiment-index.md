@@ -162,3 +162,11 @@ C0 reproduce nulidad tangencial analítica. INCONCLUSIVE sobre mínimos; S intac
 cuadráticos finos tienen cambio par negativo en full_min para los tres pasos;
 los descensos a 1e-4/1e-3 cambian la imagen por encima del umbral numérico.
 1.487 comprobaciones; S/T y T2-A intactos. No se certifican mínimos.
+
+## E16-V — Transporte y nodos insertados fijos
+
+[E16-V](../experiments/E16/V/README.md): exploratorio, diagnóstico PASS;
+360 ensayos, 350 válidos y diez inviables. Subdivisiones a 1/2 y 1/4 conservan
+E al transportar la misma curva; fijar nodos cambia a positivo el E de los
+cuatro orígenes finos, sin eliminar descenso unilateral. 2.466 comprobaciones.
+No calcula espectro refinado ni certifica convergencia. S/T/U y T2-A intactos.
