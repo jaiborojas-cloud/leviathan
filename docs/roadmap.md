@@ -169,3 +169,24 @@ los efectos son pequeños y no certifican mínimos ni aceleración del optimizad
 la curva, de nodos nuevos fijos, que cambian la familia y el signo par observado.
 No prueba estabilidad espectral refinada. Queda separar curvatura y gradiente
 residual con otro protocolo de variación de primer orden nula; mínimos UNKNOWN.
+
+### E16-W: proyección frente a gradiente residual
+
+[E16-W](../experiments/E16/W/README.md) contrasta pendiente y curvatura de
+una dirección proyectada. Los ocho cuadráticos aumentan longitud en los dos
+sentidos medidos. Queda calcular directamente la mínima curvatura en g⊥:
+proyectar una dirección no determina el signo del Hessiano restringido completo.
+
+### E16-X: mínimo restringido frente a una proyección
+
+[E16-X](../experiments/E16/X/README.md) encuentra curvatura negativa en
+g⊥ para los cuatro finos, pese al Rayleigh positivo de la proyección de W.
+Queda estudiar estabilidad bajo refinamiento con nuevas direcciones finas;
+la subdivisión transportada de V no resuelve esa cuestión espectral.
+
+### E16-Y: nuevas variables, nueva estacionariedad
+
+[E16-Y](../experiments/E16/Y/README.md) verifica refinamiento con masa
+consistente y gradiente fino nuevo. La curvatura negativa persiste y cambia
+mucho su magnitud, pero los nuevos puntos no son estacionarios. Queda
+reestacionarizar bajo otro protocolo antes de comparar estabilidad de mínimos.

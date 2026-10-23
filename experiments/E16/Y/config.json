@@ -1,0 +1,43 @@
+{
+  "base_commit": "646d462be7cb4fc81be0cb778ff507a74a105aea",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "S/results/run_v1/paths.csv": "d7293f3c80c927ba92209d4043ca8cea8497ba75d2f33ea03dc16770ed51f0fd",
+    "S/results/run_v1/vertices.csv": "ce269d17e98863d7410b4bea6b793094916bc4a02892e0ee1713c6e2f3a12ffc",
+    "S/results/run_v1/gradients.csv": "ca62e4f95d41399f04b84e709c9b5126f07deafb2f57f3d311987c414ea76444",
+    "X/scripts/run.py": "1fdcf9ee3e78ba827ed714731e933b5056f2c6f944baa88979ffd1162a192891",
+    "X/results/run_v1/paths.csv": "56c676825a082bc3261ce10ea1719d12607a149b64fc490c62cad100a5fa5514"
+  },
+  "precision": [
+    80,
+    120
+  ],
+  "gradient_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "audit_steps": [
+    "1e-10",
+    "1e-12"
+  ],
+  "gradient_floor": "1e-25",
+  "gradient_agreement_tolerance": "1e-6",
+  "gradient_steps_tolerance": "1e-20",
+  "basis_tolerance": "1e-12",
+  "pullback_tolerance": "1e-8",
+  "eigen_tolerance": "1e-9",
+  "minimum_order_tolerance": "1e-5",
+  "spectral_relative_floor": 1e-08,
+  "witness_tolerance": "1e-8",
+  "rayleigh_tolerance": "1e-5",
+  "rayleigh_steps_tolerance": "1e-7",
+  "slope_tolerance": "1e-18",
+  "slope_steps_tolerance": "1e-16",
+  "precision_tolerance": "1e-35",
+  "mp_constraint_tolerance": "1e-35",
+  "subdivision_tolerance": "1e-35",
+  "budget_seconds": 900,
+  "memory_target_mib": 512
+}

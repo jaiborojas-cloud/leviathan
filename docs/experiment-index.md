@@ -170,3 +170,27 @@ los descensos a 1e-4/1e-3 cambian la imagen por encima del umbral numérico.
 E al transportar la misma curva; fijar nodos cambia a positivo el E de los
 cuatro orígenes finos, sin eliminar descenso unilateral. 2.466 comprobaciones.
 No calcula espectro refinado ni certifica convergencia. S/T/U y T2-A intactos.
+
+## E16-W — Proyección de primer orden casi nulo
+
+[E16-W](../experiments/E16/W/README.md): doce caminos, 144 ensayos,
+140 válidos y cuatro inviables. Las ocho direcciones cuadráticas proyectadas
+tienen pendiente casi nula y curvatura positiva, con aumento en ambos sentidos.
+1.144 comprobaciones PASS. No calcula el mínimo restringido en g⊥ ni certifica
+mínimos; S/T/U/V y T2-A intactos.
+
+## E16-X — Mínimo del Hessiano en g⊥
+
+[E16-X](../experiments/E16/X/README.md): diagnóstico PASS; 627
+comprobaciones y 72 ensayos, dos inviables conservados. Cuatro mínimos
+restringidos finos negativos, contrastados con MP, con descenso en ambos
+sentidos para los tres pasos. No invalida la proyección de W ni certifica
+silla exacta o mínimos; etapas anteriores y T2-A intactos.
+
+## E16-Y — Refinamiento y masa consistente
+
+[E16-Y](../experiments/E16/Y/README.md): 24 problemas y 559 comprobaciones
+PASS. Ocho refinados cuadráticos con nuevos gradientes importantes y testigos
+MP negativos; imagen y longitud conservadas. La masa permite comparar niveles,
+pero no se conservó estacionariedad al ampliar variables. No certifica
+estabilidad de mínimos ni convergencia; etapas previas y T2-A intactos.
