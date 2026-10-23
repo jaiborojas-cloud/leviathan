@@ -178,3 +178,11 @@ No calcula espectro refinado ni certifica convergencia. S/T/U y T2-A intactos.
 tienen pendiente casi nula y curvatura positiva, con aumento en ambos sentidos.
 1.144 comprobaciones PASS. No calcula el mínimo restringido en g⊥ ni certifica
 mínimos; S/T/U/V y T2-A intactos.
+
+## E16-X — Mínimo del Hessiano en g⊥
+
+[E16-X](../experiments/E16/X/README.md): diagnóstico PASS; 627
+comprobaciones y 72 ensayos, dos inviables conservados. Cuatro mínimos
+restringidos finos negativos, contrastados con MP, con descenso en ambos
+sentidos para los tres pasos. No invalida la proyección de W ni certifica
+silla exacta o mínimos; etapas anteriores y T2-A intactos.

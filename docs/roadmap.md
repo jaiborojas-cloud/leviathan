@@ -176,3 +176,10 @@ residual con otro protocolo de variación de primer orden nula; mínimos UNKNOWN
 una dirección proyectada. Los ocho cuadráticos aumentan longitud en los dos
 sentidos medidos. Queda calcular directamente la mínima curvatura en g⊥:
 proyectar una dirección no determina el signo del Hessiano restringido completo.
+
+### E16-X: mínimo restringido frente a una proyección
+
+[E16-X](../experiments/E16/X/README.md) encuentra curvatura negativa en
+g⊥ para los cuatro finos, pese al Rayleigh positivo de la proyección de W.
+Queda estudiar estabilidad bajo refinamiento con nuevas direcciones finas;
+la subdivisión transportada de V no resuelve esa cuestión espectral.

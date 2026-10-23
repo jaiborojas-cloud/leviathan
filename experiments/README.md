@@ -163,3 +163,10 @@ Exploratorio, sin nuevo espectro refinado ni mínimos certificados. T2-A intacto
 comprobaciones. Ocho proyecciones cuadráticas casi de primer orden nulo con
 curvatura positiva; C0 usa regla de gradiente pequeño. Cuatro inviables
 conservados. No prueba positividad de g⊥; S/T/U/V y T2-A intactos.
+
+### E16-X — Curvatura mínima en el subespacio del gradiente
+
+[E16-X](E16/X/README.md): doce caminos, 627 comprobaciones PASS y
+72 ensayos. Cuatro candidatos finos con mínimo restringido negativo y descenso
+bilateral en los tres pasos. Dos inviables conservados; mismos datos
+exploratorios, sin certificados de mínimos. W y T2-A intactos.
