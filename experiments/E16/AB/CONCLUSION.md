@@ -56,7 +56,10 @@ Primera corrida: 1629.610065s / 295.710938MiB, dentro de1800s/512MiB.
 La tabla de costes separa evaluaciones residuales, Jacobianos/Hessianas y
 monitores MP. El caso Q1/reference/264 requiere40 puntos aceptados; el número
 de evaluaciones no equivale al coste de gradientes de AA/L-BFGS-B.
-Las longitudes pueden subir o bajar: no se usaron para filtrar aceptación.
+Las ocho curvas cuadráticas reducen KKT y norma del gradiente respecto de AA.
+Dos aumentan su longitud y seis la reducen: no se usó descenso de L para
+filtrar aceptación. Los controles conservan exactamente sus coordenadas; las
+diferencias de longitud del orden1e-81 son precisión MP80/120, no movimiento.
 Los valores y diferencias por fuente se conservan en comparisons.csv.
 
 ## Alcance de la inferencia
