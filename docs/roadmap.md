@@ -206,3 +206,12 @@ umbral más estricto. El espectro es evaluable, pero no responde la pregunta
 estacionaria para esos ocho casos. Antes de una nueva comparación de estabilidad,
 queda diseñar prospectivamente un método que trate el mal condicionamiento y
 controle el residuo físico. No ampliar ni relajar retrospectivamente AA.
+
+### E16-AB: progreso parcial con región de confianza
+
+[E16-AB](../experiments/E16/AB/README.md) resuelve mínimos cuadrados del
+gradiente con Hessiana AD, SVD y escalado por columnas. Cinco cuadráticos y
+cuatro controles cumplen el criterio estricto; tres cuadráticos siguen
+inconclusos. Los cuatro testigos negativos de malla528 son elegibles bajo
+KKT1e-7. Queda estudiar prospectivamente las direcciones que limitan el residuo
+en los tres inconclusos, sin extender AB ni atribuir causalidad sólo al escalado.

@@ -21,7 +21,7 @@ def main(preview):
  for j,p in enumerate(base):
   if p['path'] not in final:
    for ax in axes:ax.text(j,.98,'UNKNOWN',rotation=90,ha='center',va='top',transform=ax.get_xaxis_transform(),fontsize=7)
- axes[0].axhline(1e-7,c='.4',ls='--',label='Umbral físico 1e-7');axes[0].set_yscale('symlog',linthresh=1e-8);axes[0].set_ylabel('KKT físico final');axes[0].set_title('Criterio físico independiente del solver')
+ axes[0].axhline(1e-7,c='.4',ls='--',label='Umbral físico 1e-7');axes[0].set_yscale('symlog',linthresh=1e-8);axes[0].set_ylim(-1e-9,2*max([float(p['final_KKT']) for p in base]+[float(p['final_KKT']) for p in final.values()]));axes[0].set_ylabel('KKT físico final');axes[0].set_title('Criterio físico independiente del solver')
  axes[1].set_yscale('symlog',linthresh=1e-5);axes[1].axhline(0,c='.5',lw=.7);axes[1].set_ylabel('Mínimo restringido con masa fija');axes[1].set_title('Todos los puntos devueltos, sin filtrar outcomes')
  for ax in axes:
   ax.set_xticks(range(len(base)),[p['path'].replace('/','\n') for p in base],fontsize=7);ax.set_xlabel('Fuente S · segmentos AB = 2×etiqueta',fontsize=8);ax.grid(axis='y',alpha=.2);ax.legend(fontsize=7)
