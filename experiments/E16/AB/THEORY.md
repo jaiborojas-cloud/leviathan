@@ -61,3 +61,8 @@ AB cambia el punto inicial y el método respecto de AA. Es exploratorio sobre
 los mismos datos sintéticos, sin confirmación independiente ni prueba causal
 que aísle el escalado. Una raíz puede ser mínimo, máximo o silla. No se afirma
 mínimo, silla exacta, geodésica ni convergencia por alcanzar un umbral numérico.
+
+Los presupuestos de evaluaciones tampoco son equivalentes: una evaluación de
+AB puede requerir una Hessiana y una SVD densa, frente a gradientes de L-BFGS-B.
+Las tablas de costes separan llamadas residuales, Jacobianos/Hessianas y auditorías
+MP. Reducir nfev no basta para afirmar superioridad temporal o computacional.
