@@ -149,3 +149,10 @@ No cambia S ni T2-A/T2_A1; espectros escalares sin matrices densas.
 1.487 comprobaciones PASS. Cuatro cuadráticos finos con cambio par negativo
 en full_min y descenso unilateral para los tres pasos. Cambios geométricos
 resueltos y no resueltos conservados; S/T y T2-A intactos. Estudio exploratorio.
+
+### E16-V — Subdivisión y transporte de direcciones
+
+[E16-V](E16/V/README.md): doce orígenes, cinco familias y 360 ensayos;
+350 válidos, diez inviables y 2.466 comprobaciones PASS. Transporte conserva
+los cambios de U; nodos insertados fijos cambian el signo par en los finos.
+Exploratorio, sin nuevo espectro refinado ni mínimos certificados. T2-A intacto.
