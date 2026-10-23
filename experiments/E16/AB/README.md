@@ -10,6 +10,10 @@ La aceptación depende de una auditoría física MP separada del solver.
 - [Resultados y límites](CONCLUSION.md), [tablas](results/run_v1),
   [figura](figures/trust_region_comparison.svg) y [registro](progress.md).
 
+**Resultado:** cinco de ocho cuadráticos y cuatro controles cumplen el criterio;
+tres cuadráticos siguen INCONCLUSIVE. Reproducción exacta de once salidas
+aprobada; [registro](verification.json).
+
 No se subdivide de nuevo ni se recalcula la masa de Y/Z/AA. Los nombres132/264
 identifican las fuentes S; las mallas actuales tienen264/528 segmentos.
 reference/scaled son etiquetas de procedencia, no dos métodos AB.

@@ -80,3 +80,12 @@ tres inconclusos y qué relación guardan con el gradiente y el espectro, bajo
 otro protocolo prospectivo. No extender o relajar AB retrospectivamente.
 
 [Formulación](THEORY.md) · [Tablas](results/run_v1) · [Figura](figures/trust_region_comparison.svg)
+
+## Reproducción e integridad
+
+PASS_REPRODUCTION: once salidas científicas idénticas byte a byte en una
+repetición de1644.549843s / 300.121094MiB, dentro de1800s/512MiB.
+Se reconstruyeron rachas, KKT, costes, hashes, elegibilidad y espectros.
+La igualdad reproduce también los tres casos inconclusos. Integridad aprobada
+no convierte el resultado científico global en PASS.
+[Registro de verificación](verification.json).
