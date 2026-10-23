@@ -183,3 +183,10 @@ proyectar una dirección no determina el signo del Hessiano restringido completo
 g⊥ para los cuatro finos, pese al Rayleigh positivo de la proyección de W.
 Queda estudiar estabilidad bajo refinamiento con nuevas direcciones finas;
 la subdivisión transportada de V no resuelve esa cuestión espectral.
+
+### E16-Y: nuevas variables, nueva estacionariedad
+
+[E16-Y](../experiments/E16/Y/README.md) verifica refinamiento con masa
+consistente y gradiente fino nuevo. La curvatura negativa persiste y cambia
+mucho su magnitud, pero los nuevos puntos no son estacionarios. Queda
+reestacionarizar bajo otro protocolo antes de comparar estabilidad de mínimos.

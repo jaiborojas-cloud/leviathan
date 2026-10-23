@@ -170,3 +170,10 @@ conservados. No prueba positividad de g⊥; S/T/U/V y T2-A intactos.
 72 ensayos. Cuatro candidatos finos con mínimo restringido negativo y descenso
 bilateral en los tres pasos. Dos inviables conservados; mismos datos
 exploratorios, sin certificados de mínimos. W y T2-A intactos.
+
+### E16-Y — Comparación espectral con masa P1
+
+[E16-Y](E16/Y/README.md): 24 problemas, 559 comprobaciones PASS y
+gradientes nuevos en las mallas subdivididas. Misma imagen y longitud no
+conservan estacionariedad; ocho refinados cuadráticos con testigos MP negativos.
+Exploratorio, sin reoptimizar ni probar convergencia. T2-A intacto.

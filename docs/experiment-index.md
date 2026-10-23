@@ -186,3 +186,11 @@ comprobaciones y 72 ensayos, dos inviables conservados. Cuatro mínimos
 restringidos finos negativos, contrastados con MP, con descenso en ambos
 sentidos para los tres pasos. No invalida la proyección de W ni certifica
 silla exacta o mínimos; etapas anteriores y T2-A intactos.
+
+## E16-Y — Refinamiento y masa consistente
+
+[E16-Y](../experiments/E16/Y/README.md): 24 problemas y 559 comprobaciones
+PASS. Ocho refinados cuadráticos con nuevos gradientes importantes y testigos
+MP negativos; imagen y longitud conservadas. La masa permite comparar niveles,
+pero no se conservó estacionariedad al ampliar variables. No certifica
+estabilidad de mínimos ni convergencia; etapas previas y T2-A intactos.
