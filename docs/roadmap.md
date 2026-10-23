@@ -154,3 +154,11 @@ cuatro candidatos cuadráticos finos y verifica el control recto. Los modos
 son predominantemente tangenciales, sin cociente exacto por reparametrización.
 Queda contrastar descenso finito y cambio geométrico bajo otro protocolo.
 No se certifican mínimos ni se altera la aceptación de primer orden de S.
+
+### E16-U: perturbaciones finitas de direcciones débiles
+
+[E16-U](../experiments/E16/U/README.md) observa descenso finito y cambio
+geométrico en los candidatos finos, separando componente par y gradiente residual.
+Conserva 78 geometrías válidas sin resolver y diez ensayos inviables. Queda
+comprobar estabilidad frente a refinamiento y redistribución bajo otro protocolo;
+los efectos son pequeños y no certifican mínimos ni aceleración del optimizador.

@@ -1,0 +1,44 @@
+{
+  "base_commit": "dddd47ef2a7f42fab7b085abaef17747f8c651be",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "T/scripts/run.py": "3382578c54c6402b7b0dc4e3dd222a92addc014faa668e71bb404256f55d07ad",
+    "T/results/run_v1/rayleigh.csv": "9fecc27c0bfe2bfbf83376086db34b6cf5f96a6a27abc94465ff3a9a5d55bba5",
+    "T/results/run_v1/paths.csv": "17e4bff550bbb265b872fd0ef6def6cd597a6d6716f8252c0015b3a8bd15f930",
+    "S/results/run_v1/paths.csv": "d7293f3c80c927ba92209d4043ca8cea8497ba75d2f33ea03dc16770ed51f0fd",
+    "S/results/run_v1/vertices.csv": "ce269d17e98863d7410b4bea6b793094916bc4a02892e0ee1713c6e2f3a12ffc",
+    "S/results/run_v1/gradients.csv": "ca62e4f95d41399f04b84e709c9b5126f07deafb2f57f3d311987c414ea76444"
+  },
+  "directions": [
+    "full_min",
+    "tangent_min",
+    "normal_min",
+    "tangent_sine",
+    "normal_sine"
+  ],
+  "steps": [
+    "1e-5",
+    "1e-4",
+    "1e-3"
+  ],
+  "signs": [
+    -1,
+    1
+  ],
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-35",
+  "length_sign_tolerance": "1e-20",
+  "source_length_tolerance": "1e-35",
+  "geometry_tolerance": 1e-08,
+  "geometry_cushion": 1e-12,
+  "geometry_rounding_limit": 1e-15,
+  "control_tolerance": 1e-12,
+  "budget_seconds": 900,
+  "memory_target_mib": 512
+}
