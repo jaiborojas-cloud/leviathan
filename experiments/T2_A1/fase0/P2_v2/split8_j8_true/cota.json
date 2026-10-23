@@ -1,0 +1,248 @@
+{
+  "completo": true,
+  "veredicto_t5": {
+    "estado": "T5_NO_CERTIFICADA",
+    "razones": [
+      "continuacion con 22 problemas (rayos sin carta valida)",
+      "(iii) U = 70.947009 > 0.0195"
+    ]
+  },
+  "U": 70.94700900141211,
+  "V1": {
+    "t1": 0.08145321438260679,
+    "A_medida_t1": 0.021263704021472447,
+    "U_t1": 0.024143789922159167,
+    "kappa_hat_t0_t1": 65496.910863204124,
+    "ok": true
+  },
+  "U_releido": 70.94700900141211,
+  "U_releido_coincide": true,
+  "U2": 4971.43937428342,
+  "cota_factores_dobles": {
+    "kappa": 2491370.7299863202,
+    "T_plus": 0.0874654462637632,
+    "Delta": 0.009203204904384157,
+    "L_plus": 540183.2063448934,
+    "eps_theta": 6.22609013914265e-08
+  },
+  "un_caso": {
+    "caso": "split8_j8_true",
+    "haz": {
+      "status": "parado",
+      "pasos": 217,
+      "t_final": 0.08610381979936113,
+      "max_p_final": 151.47381309204079
+    },
+    "t0": {
+      "paso": 53,
+      "t": 0.07826224135937904,
+      "max_p": 10.038753727470642,
+      "rayo_designado": 1822,
+      "angulo": 5.589825991055276
+    },
+    "t1": {
+      "paso": 99,
+      "t": 0.08145321438260679
+    },
+    "sensibilidad_t0": {
+      "5.0": [
+        40,
+        0.0721789454866357
+      ],
+      "20.0": [
+        75,
+        0.08034211601946885
+      ]
+    },
+    "area_t0": {
+      "A0": 0.01954285154776756,
+      "variantes": {
+        "65x2048": 0.019542857099292793,
+        "33x1024": 0.019542965733713585,
+        "129x2048": 0.019542857192541552
+      },
+      "delta_disc": 1.1418594602491394e-07
+    },
+    "jacobi_t0": {
+      "A_J": 0.01954281911821666,
+      "V3_rel": 1.6594073193239585e-06,
+      "rayos_con_j_no_positivo": 0,
+      "j_min": 0.029249231434190306,
+      "j_max": 0.21875631366410925,
+      "jp_min": -0.9833101806748185,
+      "jp_max": 12.421109292984074
+    },
+    "escape": {
+      "paso_arranque": 99,
+      "cara": {
+        "j": 13,
+        "i": 6,
+        "k": 20,
+        "detA": -0.015820619502314767,
+        "beta_min": 8.335714285714348,
+        "tasas_f_v": {
+          "sup1": 54621.424985932324,
+          "sup2": 54532.44300014125,
+          "transversal": 53797.75937020419,
+          "cuarto": 47474.0193197882
+        }
+      },
+      "C1": true,
+      "C2_rel": 1.8963140508446636e-15,
+      "r_arranque": 0.08145321438260679,
+      "b_arranque": 0.919626457016067,
+      "solape_r_en_150": -1.151918838093735e-11,
+      "limite": {
+        "1.0": {
+          "T_star": 0.08746544626359999,
+          "a": -2.7582291053860724,
+          "db_dr": -79.59596307309937,
+          "da_dr": -79.31125360347934,
+          "speed": 1.0000000020417288,
+          "G_eig": [
+            7.663982142667547e-05,
+            0.0021428679157398933
+          ],
+          "G_eig_mp": [
+            7.663982142667541e-05,
+            0.0021428679157398938
+          ],
+          "G_eig_dif": 5.421010862427522e-20,
+          "w_i": 0.0596235801748095,
+          "w_j": 0.9403764198251904,
+          "w_fuera_cara": 0.0,
+          "nfev": 164
+        },
+        "0.01": {
+          "T_star": 0.08746544626359183,
+          "a": -2.7582291053844106,
+          "db_dr": -79.5959630718451,
+          "da_dr": -79.31125360254944,
+          "speed": 1.0000000020260291,
+          "G_eig": [
+            7.663982142666853e-05,
+            0.0021428679157459354
+          ],
+          "G_eig_mp": [
+            7.663982142666849e-05,
+            0.002142867915745935
+          ],
+          "G_eig_dif": 4.0657581468206416e-20,
+          "w_i": 0.05962358017490268,
+          "w_j": 0.9403764198250973,
+          "w_fuera_cara": 0.0,
+          "nfev": 254
+        }
+      },
+      "T_star": 0.08746544626359999,
+      "delta_T": 8.1601392309949e-15,
+      "T_plus": 0.08746544626368159,
+      "C3": true,
+      "C4": true,
+      "C5": true,
+      "C6": true,
+      "C2": true
+    },
+    "continuacion": {
+      "segmentos": 1,
+      "reinicios": 1,
+      "entregados_a_cara": 153,
+      "entregas_anticipadas_por_singularidad": [
+        {
+          "t": 0.08610381979936113,
+          "rayos": 142,
+          "max_p": 149.80222852279175
+        },
+        {
+          "t": 0.08610381979936113,
+          "rayos": 0,
+          "max_p": 39.72679546076624
+        }
+      ],
+      "problemas": [
+        "rayo 986: Required step size is less than spacing between numbers.",
+        "rayo 987: Required step size is less than spacing between numbers.",
+        "rayo 988: Required step size is less than spacing between numbers.",
+        "rayo 989: Required step size is less than spacing between numbers.",
+        "rayo 990: Required step size is less than spacing between numbers.",
+        "rayo 991: Required step size is less than spacing between numbers.",
+        "rayo 992: Required step size is less than spacing between numbers.",
+        "rayo 993: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 994: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 995: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 996: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 997: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 998: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 999: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1000: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1001: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1002: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1003: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1004: excepcion en la carta de cara: OverflowError('math range error')",
+        "rayo 1005: excepcion en la carta de cara: OverflowError('math range error')",
+        "continuacion: metrica singular en t=0.08610381979936113 sin rayos con |p| >= 40"
+      ]
+    },
+    "curvatura": {
+      "kappa_hat": 311421.34124829003,
+      "kappa_hat_1025": 311698.3409125304,
+      "conv_rel": 0.0008894691132278433,
+      "conv_ok": true,
+      "rayo_kmax": 978,
+      "conteos_513": {
+        "float64": 948312,
+        "mpmath": 92204,
+        "cara": 10108
+      },
+      "conteos_1025": {
+        "float64": 1894741,
+        "mpmath": 184245,
+        "cara": 20214
+      },
+      "solape": {
+        "puntos": 400,
+        "max_rel": 4.603095536780078e-12,
+        "max_abs": 5.657057045027614e-10,
+        "ok": true
+      }
+    },
+    "cota": {
+      "kappa": 1245685.3649931601,
+      "Delta": 0.009203204904302556,
+      "cosh": 14451.8135507155,
+      "sinh_sobre_raiz": 12.948461439396157,
+      "L_plus": 7706.8158764524,
+      "L_plus_1024": 7706.816521198246,
+      "eps_theta": 8.365917347264906e-08,
+      "U": 70.94700900141211,
+      "U_sobre_002": 3547.3504500706053,
+      "U_max": 0.0195
+    },
+    "V1": {
+      "t1": 0.08145321438260679,
+      "A_medida_t1": 0.021263704021472447,
+      "U_t1": 0.024143789922159167,
+      "kappa_hat_t0_t1": 65496.910863204124,
+      "ok": true
+    },
+    "veredicto": {
+      "estado": "T5_NO_CERTIFICADA",
+      "razones": [
+        "continuacion con 22 problemas (rayos sin carta valida)",
+        "(iii) U = 70.947009 > 0.0195"
+      ]
+    },
+    "segundos": 621.1490387000085
+  },
+  "estado": "D:\\RIPG_DATA\\T2_A\\expediente\\estados_u25\\state_025_regen_split8_j8_true.npz",
+  "estado_sha256": "f70d88b3c300286e31b8ca55860cc99f7d2a38c9e5f0c21242d566703928132b",
+  "segundos": 621.1975104000012,
+  "t5_script_sha256": "9e0c12a2a3d2fde95bf04cd729e2e7df5a237fc757ca8ee82d40dd7935b90b7d",
+  "instrumento_sha256": "254ebd83f11e3459f48bc94a2a54fe4019cddfab3341a4db7aaeac54d7789663",
+  "protocolo_D_sha256": "a380e6c3448ed61863075bf855cf36f8c24b336e59a20049d24b5f2b5db81f97",
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "platform": "Windows-11-10.0.26300-SP0"
+  }
+}
