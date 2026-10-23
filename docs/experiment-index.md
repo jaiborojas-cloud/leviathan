@@ -194,3 +194,10 @@ PASS. Ocho refinados cuadráticos con nuevos gradientes importantes y testigos
 MP negativos; imagen y longitud conservadas. La masa permite comparar niveles,
 pero no se conservó estacionariedad al ampliar variables. No certifica
 estabilidad de mínimos ni convergencia; etapas previas y T2-A intactos.
+
+## E16-Z — Reestacionarización física de mallas refinadas
+
+[E16-Z](../experiments/E16/Z/README.md): 12/12 primer orden PASS,
+12/12 diagnóstico espectral PASS, 12/12 comparaciones elegibles.
+Masa fija de Y, monitor filtrado AD/MP y todos los estados conservados.
+8 testigos MP negativos; no certifica mínimos. T2-A intacto.

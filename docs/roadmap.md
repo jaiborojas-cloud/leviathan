@@ -190,3 +190,10 @@ la subdivisión transportada de V no resuelve esa cuestión espectral.
 consistente y gradiente fino nuevo. La curvatura negativa persiste y cambia
 mucho su magnitud, pero los nuevos puntos no son estacionarios. Queda
 reestacionarizar bajo otro protocolo antes de comparar estabilidad de mínimos.
+
+### E16-Z: espectro después de reoptimizar
+
+[E16-Z](../experiments/E16/Z/README.md) reoptimiza con parada física
+congelada y compara espectros con masa fija, separando elegibilidad y estados
+inconclusos. Queda contrastar tolerancias de estacionariedad más estrictas
+bajo otro protocolo; KKT aproximado no implica mínimo certificado.

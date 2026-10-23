@@ -1,0 +1,58 @@
+{
+  "base_commit": "b49f47c3f154c97db45b888b126e16095c12ddab",
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "G/scripts/run.py": "f667277e51a073d9caffa5cad81c443c542cdaba2d646beb3ba3ef6235c38cff",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "S/scripts/stopping.py": "13fb3b6044756c4ed749fa1b2d08d85d1db81dade6067717ce517b154ca5a735",
+    "S/results/run_v1/paths.csv": "d7293f3c80c927ba92209d4043ca8cea8497ba75d2f33ea03dc16770ed51f0fd",
+    "S/results/run_v1/vertices.csv": "ce269d17e98863d7410b4bea6b793094916bc4a02892e0ee1713c6e2f3a12ffc",
+    "X/scripts/run.py": "1fdcf9ee3e78ba827ed714731e933b5056f2c6f944baa88979ffd1162a192891",
+    "Y/scripts/run.py": "02b13b7adcd2709baed0acf582d945e2bd581e0a1780fd95177255c788796258",
+    "Y/results/run_v1/paths.csv": "52a15bbdcb73674a8277d1248a5b1f6244b7877938fb368e372564a367d4d1d1",
+    "Y/results/run_v1/audits.csv": "16a0ede36d7912bd6118ad55bdda3784e00e8a23ac0cb0aa699ee5791ade376e"
+  },
+  "optimizer": {
+    "method": "L-BFGS-B",
+    "maxiter": 4800,
+    "maxfun": 80000,
+    "maxls": 40,
+    "ftol": 1e-14,
+    "gtol": 1e-09
+  },
+  "monitor_interval": 200,
+  "required_streak": 3,
+  "AD_screen": 2e-05,
+  "KKT_tolerance": 1e-05,
+  "gradient_steps": [
+    "1e-18",
+    "1e-22"
+  ],
+  "gradient_tolerance": "1e-6",
+  "gradient_steps_tolerance": "1e-20",
+  "precision": [
+    80,
+    120
+  ],
+  "precision_tolerance": "1e-35",
+  "embedding_tolerance": "1e-12",
+  "nonworse_tolerance": "1e-12",
+  "gradient_floor": "1e-25",
+  "audit_steps": [
+    "1e-10",
+    "1e-12"
+  ],
+  "spectral_relative_floor": 1e-08,
+  "witness_tolerance": "1e-8",
+  "basis_tolerance": "1e-12",
+  "eigen_tolerance": "1e-9",
+  "MP_constraint_tolerance": "1e-35",
+  "rayleigh_tolerance": "1e-5",
+  "rayleigh_steps_tolerance": "1e-7",
+  "slope_tolerance": "1e-18",
+  "slope_steps_tolerance": "1e-16",
+  "boundary_margin": 1e-08,
+  "budget_seconds": 1800,
+  "memory_target_mib": 512
+}
