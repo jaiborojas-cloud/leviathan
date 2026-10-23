@@ -1,3 +1,7 @@
 # Preserve archival bytes and scientific hashes on all platforms.
 docs/archive/** -text
 Perspectivas.ipynb -text
+# Scripts con hash registrado (T2-A, T2-A1): sin conversión de fin de línea, para que el
+# SHA-256 del archivo en Windows coincida con el registrado (los hashes se calcularon con LF).
+experiments/T2_A/claude/**/*.py -text
+experiments/T2_A1/**/*.py -text
