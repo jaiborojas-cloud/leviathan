@@ -102,6 +102,9 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/Z/scripts/run.py
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/Z/scripts/verify.py
 ```
 
+**PASS_REPRODUCTION**: once salidas científicas idénticas byte por byte;
+segunda corrida 671,553 s, dentro del presupuesto.
+
 El verificador reconstruye rachas con filtro, KKT final, hashes de puntos,
 elegibilidad, espectros, costes y fuentes; repite para comparar once salidas
 científicas byte por byte, excluyendo recursos. El entorno exacto queda en

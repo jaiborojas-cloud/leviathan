@@ -8,4 +8,6 @@
 - Primera corrida 699.019 s / 195.812 MiB,
   presupuesto 1.800 s/512 MiB respetado.
 - Repeticiones exactas de S identificadas por hash, sin atribuir independencia.
-- Figura de CSV revisada visualmente. Reproducción integral pendiente.
+- Figura de CSV revisada visualmente. PASS_REPRODUCTION: once salidas
+  científicas idénticas byte por byte; segunda corrida 671,553 s, dentro
+  del presupuesto. Rachas, KKT, hashes, elegibilidad, espectros y costes verificados.
