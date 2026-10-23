@@ -9,3 +9,5 @@
   congelada ni se reinició la corrida.
 - Primeros puntos se conservan aunque alcancen maxiter sin KKT1e-7.
 - Corrida completa: 251.705298s / 202.664062MiB. 12 casos; 4 primer orden PASS, 8 INCONCLUSIVE; 12 espectros PASS. Sin cambios de diseño.
+- PASS_REPRODUCTION: once salidas idénticas;255.124747s. Todos los controles de integridad pasaron; no se repitió más.
+- Alcance final29 archivos, sólo AA y tres índices; enlaces relativos comprobados y figura inspeccionada. Z, T2_A/T2_A1 y .gitattributes intactos.

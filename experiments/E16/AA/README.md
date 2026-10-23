@@ -10,6 +10,9 @@ ni recalcular la masa. Los pesos de la red permanecen fijos.
 - [Registro](progress.md), [tablas](results/run_v1),
   [figura](figures/tolerance_comparison.svg).
 
+**Resultado:** INCONCLUSIVE: ocho cuadráticos sin KKT1e-7 y cuatro controles
+PASS. Reproducción exacta de once salidas aprobada; [registro](verification.json).
+
 Los identificadores terminados en132/264 proceden de S; las curvas actuales
 tienen264/528 segmentos. reference/scaled son procedencias, no dos métodos AA.
 

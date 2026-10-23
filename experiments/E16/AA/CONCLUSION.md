@@ -47,10 +47,15 @@ no hubo aristas nulas ni primitivas inválidas rechazadas.
 
 Primera corrida: 251.705298s, 202.664062MiB; presupuesto1800s/512MiB respetado.
 
-Las ocho longitudes cuadráticas disminuyen, pero el residuo KKT no mejora
-monótonamente entre Z y AA. La comparación conserva masa fija por fuente,
+Las ocho longitudes cuadráticas disminuyen; KKT mejora en cuatro casos y
+empeora en cuatro. Sus residuos finales van de1.33e-6 a7.85e-6, todos por
+encima de1e-7. No hay mejora monótona entre Z y AA. La comparación conserva masa fija por fuente,
 sin comparar normalizaciones entre procedencias distintas. C0 reproduce el
 mismo punto inicial. No son doce réplicas independientes ni datos nuevos.
+
+Se conservan9480 componentes de gradiente,4764 vértices,9472 autovalores
+restringidos y24 auditorías direccionales MP. Ninguna matriz densa ni autovector
+se archiva.
 
 ## Límites y siguiente pregunta
 
@@ -62,3 +67,11 @@ controle explícitamente el residuo físico, bajo un protocolo prospectivo nuevo
 Aumentar retrospectivamente iteraciones o relajar el umbral no resuelve AA.
 
 [Tablas completas](results/run_v1) · [comparación gráfica](figures/tolerance_comparison.svg)
+
+## Reproducción e integridad
+
+PASS_REPRODUCTION: once salidas científicas idénticas byte a byte en una
+repetición de255.124747s, dentro del presupuesto. Se reconstruyeron rachas,
+KKT, hashes, costes, elegibilidad y espectros; etapas previas/T2-A intactas.
+La reproducción verifica integridad; el resultado científico sigue INCONCLUSIVE.
+[Registro de verificación](verification.json).
