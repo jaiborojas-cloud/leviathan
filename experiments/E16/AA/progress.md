@@ -8,3 +8,4 @@
   las referencias de fuente y el código compiló. No se modificó la implementación
   congelada ni se reinició la corrida.
 - Primeros puntos se conservan aunque alcancen maxiter sin KKT1e-7.
+- Corrida completa: 251.705298s / 202.664062MiB. 12 casos; 4 primer orden PASS, 8 INCONCLUSIVE; 12 espectros PASS. Sin cambios de diseño.
