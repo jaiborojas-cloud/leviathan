@@ -43,12 +43,16 @@ Corte: `main` del 2026-10-23 (hasta el PR #56). Una fila por experimento: qué p
 | Lote 0 | 128 de 180 visitas | detenido por disco | 76 pausadas: 71 en calibración, 5 en auditoría; agrupadas por split | [lote 0](../experiments/T2_A/claude/produccion/lote_0/CIERRE_LOTE0_2026-10-22.md) |
 | Cierre | — | **INCONCLUSIVE** (limitación del instrumento) | X sigue sellado | [cierre](../experiments/T2_A/claude/CIERRE_T2A0_v1_CONGELADO.md) |
 
-## 5. T2-A1 (en curso)
+## 5. T2-A1 (cerrado 2026-10-24: **NOT_MET**)
 | ID | qué | estado | fuente |
 |---|---|---|---|
 | Diseño v2 | desenlace D «disco no construible»; W dentro del split | borrador | [diseño v2](../experiments/T2_A1/DISENO_T2A1_BORRADOR_v2.md) |
 | Fase 0a | instrumento D (vía C con factores dobles) | **PASA**; j5 da U₂ = 0.02015 → D = ? | [resultado 0a](../experiments/T2_A1/fase0/RESULTADO_0a_2026-10-23.md) |
-| Fase 0b | cobertura en splits 8–11 | corriendo | [protocolo 0b](../experiments/T2_A1/fase0/PROTOCOLO_0b_v1_CONGELADO.md) |
+| Fase 0b | cobertura en splits 8–11 | **FALLA** (D = ? en 44/60) | [resultado 0b](../experiments/T2_A1/fase0/RESULTADO_0b_2026-10-24.md) |
+| Diagnóstico | causa de la degeneración en desarrollo | incompletitud de la métrica (borde cerca); ρ_borde separa regímenes | [diagnóstico](../experiments/T2_A1/diagnostico/RESULTADO_diagnostico_2026-10-24.md) |
+| Diseño v3 | desenlace ρ_borde (longitud e-geodésica al borde); W y W_adj ajustado por ρ_borde(u5) | congelado | [diseño v3](../experiments/T2_A1/DISENO_T2A1_v3_CONGELADO.md), [0c′](../experiments/T2_A1/fase0prima/PROTOCOLO_0c_prima_v1_CONGELADO.md) |
+| Fase 2 | 2340 visitas confirmatorias | 2340/2340, 0 errores | [informe](../experiments/T2_A1/fase2/RESULTADO_fase2_2026-10-24.md) |
+| Cierre | análisis único con X abierto | **NOT_MET**: W = 0.019 (p = 0.33), W_adj = 0.011 (p = 0.39). Nota exploratoria: la precisión en validación del update 5 se asocia con ρ_borde posterior (no confirmatorio) | [cierre](../experiments/T2_A1/CIERRE_T2A1_v1_CONGELADO.md) |
 
 ## 6. E16 — composición, métricas y caminos (sintético 2→2→1, sin entrenamiento)
 Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación instrumental.
