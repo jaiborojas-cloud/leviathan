@@ -1,0 +1,47 @@
+{
+  "base_commit": "7e757a612a8e21a1df3877b6e6ea9c9b255f6f77",
+  "geometry_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+  "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+  "audit_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/audit.py",
+  "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+  "inputs_path": "experiments/E16/AG/results/run_v1/inputs.json",
+  "inputs_sha256": "360a1d530030be2c12681a571b41222559a5729b765c3e0a79a0cdc8b3ef1838",
+  "q_bound": 12.0,
+  "q_radii": [
+    0.25,
+    0.75,
+    2.0,
+    6.0
+  ],
+  "q_angles": 8,
+  "u_angles": 8,
+  "sector_margin": 0.0001,
+  "global_evaluations": 4096,
+  "branch_maxfun": 120,
+  "branch_maxiter": 40,
+  "optimizer_ftol": 1e-10,
+  "optimizer_gtol": 1e-06,
+  "fast_segment_order": 32,
+  "fast_tail_order": 8,
+  "quad_epsrel": 1e-10,
+  "quad_epsabs_relative": 1e-13,
+  "tail_bound_relative": 1e-14,
+  "validation_relative": 1e-07,
+  "mp_digits": 80,
+  "mp_segment_orders": [
+    64,
+    128
+  ],
+  "mp_tail_orders": [
+    16,
+    32
+  ],
+  "mp_witness_candidates": 3,
+  "median_ratio_limit": 1.2,
+  "max_ratio_limit": 1.5,
+  "spearman_limit": 0.95,
+  "per_state_seconds": 600,
+  "total_seconds": 18000,
+  "workers": 2,
+  "arrays_root": "/workspace/work/e16-ah-v1-arrays"
+}
