@@ -209,3 +209,11 @@ Ocho curvas cuadráticas agotan4800 iteraciones sin KKT≤1e-7; cuatro C0 pasan.
 12/12 diagnósticos espectrales PASS y cuatro testigos MP negativos en puntos
 no elegibles.370 comprobaciones PASS y ocho KKT finales INCONCLUSIVE.
 No resuelve estabilidad estacionaria estricta ni certifica mínimos. T2-A intacto.
+
+## E16-AB — Región de confianza para estacionariedad estricta
+
+[E16-AB](../experiments/E16/AB/README.md): cinco de ocho curvas cuadráticas
+alcanzan KKT≤1e-7; tres agotan60 evaluaciones y siguen INCONCLUSIVE.
+Cuatro C0 INITIAL_CONTROL,9/12 comparaciones elegibles y12/12 espectros PASS.
+Cuatro testigos MP negativos elegibles en las mallas528; no certifica sillas
+exactas o mínimos.756 comprobaciones PASS y tres KKT inconclusos. T2-A intacto.

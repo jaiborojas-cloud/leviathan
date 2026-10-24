@@ -191,3 +191,11 @@ No certifica mínimos ni convergencia; etapas anteriores y T2-A intactos.
 cuadráticos INCONCLUSIVE por maxiter y12/12 espectros PASS. Cuatro testigos
 MP negativos en puntos no elegibles;370 controles PASS y ocho KKT inconclusos.
 Masa fija, sin nueva subdivisión, con presupuesto congelado. T2-A intacto.
+
+### E16-AB — Región de confianza sobre el gradiente
+
+[E16-AB](E16/AB/README.md): cinco de ocho curvas cuadráticas alcanzan KKT1e-7,
+tres inconclusas por límite de60 evaluaciones y cuatro C0 INITIAL_CONTROL.
+9/12 elegibles,12/12 espectros PASS y cuatro testigos MP negativos elegibles.
+Resultado global INCONCLUSIVE, sin certificado de mínimos ni evidencia
+independiente. Masa fija; protocolo y costes archivados. T2-A intacto.
