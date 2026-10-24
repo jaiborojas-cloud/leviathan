@@ -54,7 +54,7 @@ En la familia WineMLP con panel de validación de 27 ejemplos, ¿la incertidumbr
 - **Veredictos:** PASS, NOT_MET o INCONCLUSIVE. Hay un solo análisis, y el script se congela y se prueba con X sintético antes de entrenar.
 
 ## 6. Potencia
-`C1/potencia_C1.py`: el residuo e es el real del descubrimiento, la cohorte se simula remuestreando splits completos y X se construye sintético con el efecto r. Los resultados están en `C1/potencia_C1.json` (sección 6.1).
+`C1/potencia_C1.py`: el residuo e es el real del descubrimiento, la cohorte se simula remuestreando splits completos y X se construye sintético con el efecto r. La salida está en `C1/potencia_C1_salida_v1.txt`. El JSON no llegó a escribirse porque la corrida se cortó por tiempo.
 
 ### 6.1 Resultados
 1000 réplicas por celda; umbral nulo con 2000 réplicas. El efecto se mide como el W_adj esperado.
@@ -63,7 +63,7 @@ En la familia WineMLP con panel de validación de 27 ejemplos, ¿la incertidumbr
 |---|---|---|---|---|---|
 | 100 | 0.080 | 0.63 | 0.81 | 0.93 | 0.99 |
 | **156** | **0.069** | **0.78** | **0.92** | **0.98** | **1.00** |
-| 200 | (pendiente) | | | | |
+| 200 | no calculado: la corrida se cortó por el límite de 900 s después de S = 156 | | | | |
 
 **Propuesta: S = 156.** Con S = 156, la potencia es ≥ 0.9 para un efecto real de la mitad del descubierto (≈ 0.12) y ≈ 0.78 para 0.10. El coste estimado es de unos 40–60 min en la PC: 780 trayectorias y 3 ρ_borde por trayectoria.
 
