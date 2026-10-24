@@ -76,3 +76,23 @@ prospectiva. No se ejecuta aquí. Permanecen abiertos el salto de índice en la
 familia, la generalidad de la asociación y la comparación de desenlaces cuando
 sí existe incertidumbre de área. No se afirma mínimo global, locus de corte
 exacto, certificado riguroso ni transferencia a datos T2.
+
+La única reproducción prevista pasó con igualdad bit a bit de ambas etapas
+(excluidos recursos variables) y de los 120 hashes de arrays. El contraste
+independiente de segunda variación MP frente a diferencias finitas MP dio
+error 1.36e-17. Errores máximos entre resoluciones: radio 0.011491%, área
+0.017264%; en los 170 contrastes locales MP, error de K ≤1.88e-14 y de
+densidad ≤1.32e-19. [Registro de verificación](verification.json).
+
+## Amplitud de los predictores pequeños
+
+Los intervalos siguientes son rangos **entre semillas del máximo muestreado**
+de |K| y de X; no cotas continuas de toda la región. K0 por escala es la
+primera columna de la tabla de desenlaces.
+
+| K0 ≈ | Rango de máximo de curvatura absoluta | Rango de X |
+|---:|---:|---:|
+| 1 | [1.00001699, 1.00036735] | [1.00000016667, 1.00000016673] |
+| 10 | [10.0005102, 10.0113351] | [1.00000166675, 1.00000166854] |
+| 1000 | [1000.14081, 1008.90961] | [1.00016667972, 1.00016812292] |
+| 10000 | [10001.4145, 10229.2467] | [1.00166466905, 1.00170576466] |

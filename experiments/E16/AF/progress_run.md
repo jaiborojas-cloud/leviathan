@@ -14,3 +14,11 @@ las 240 filas INCONCLUSIVE: θ0 no tiene conjugado en ninguno de los 40 estados.
 Q3 PASS exploratorio; Q4 FAIL por empate de desconocidos (0/40 frente a 0/40).
 No se adaptaron semillas, rayos ni tolerancias. Se inicia la única reproducción
 prevista por el diseño, con directorios temporales separados de los originales.
+
+Reproducción finalizada: igualdad bit a bit de todas las salidas de ambas
+etapas salvo resources.json (tiempos, RSS y directorio físico), incluidos los
+120 hashes de arrays diagnósticos. Verificación independiente de la segunda
+variación MP frente a diferencias finitas MP: error 1.3565432461e-17.
+La prueba de la guarda usa una ruta ficticia mediante llamada directa, sin
+abrir archivos T2. Recursos de reproducción y hashes: verification.json.
+No hubo correcciones ni versiones sustituidas.

@@ -13,7 +13,7 @@ La matriz se calibra en amplitud porque escalar sólo f no cambia K central.
 - [Predictores y SHA](results/stage1_v1/predictors_sha256.json),
   [etapa1](results/stage1_v1), [etapa2](results/stage2_v1).
 - [Diccionario de datos](DATA_DICTIONARY.md), [política de arrays](ARCHIVE_POLICY.md).
-- [Conclusión](CONCLUSION.md).
+- [Conclusión](CONCLUSION.md), [verificación y reproducción](verification.json).
 
 La tabla predictora se comprometió antes del primer código de desenlaces.
 Las escalas están emparejadas por semilla y parte de la asociación está inducida
