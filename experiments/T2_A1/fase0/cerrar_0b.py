@@ -18,7 +18,7 @@ from types import SimpleNamespace
 PRIM = (50, 150, 250)
 NUEVAS = [("split10_j19_true", k) for k in (150, 250)] + [(f"split11_j{j}_true", k) for j in range(20, 25) for k in PRIM]
 REPETICIONES = [("split10_j16_true", 50), ("split10_j18_true", 50), ("split9_j13_true", 50), ("split9_j13_true", 150)]
-RAZON_NO_CALC = "paso 3 no calculado: corrida I2 interrumpida por decision del responsable (2026-10-23 21:38), compuerta ya determinada"
+RAZON_NO_CALC = "paso 3 no calculado: corrida I2 interrumpida por decision del responsable (2026-10-23 21:41 y 2026-10-24 05:35), compuerta ya determinada"
 CAMPOS = ["fuente", "trajectory", "update", "D", "via", "razon", "estado_ejecutor", "motivo_ejecutor", "nominal_existe", "U", "U2", "segundos_paso3"]
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
