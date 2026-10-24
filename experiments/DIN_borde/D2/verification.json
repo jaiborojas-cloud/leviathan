@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "panels": 12,
+  "states": 210,
+  "known_global_values_checked": 153,
+  "spectral_and_matrix_checks": 210,
+  "reference_controls": 8,
+  "external_arrays_verified": 360,
+  "Q5_counts": {
+    "PASS": 173,
+    "FAIL": 33,
+    "INCONCLUSIVE": 4
+  },
+  "source_hashes": "PASS",
+  "native_function_reexecuted": false,
+  "reference_curves_reintegrated": false,
+  "endpoint_checks_for_existing_witness_failures": [
+    {
+      "state": "mass_face/2026102600/random_rank1",
+      "native_rho": 0.00558361461295948,
+      "endpoint_chord_lower": "0.205898297281638372802969171756564593647260076790807734229763",
+      "support": [
+        0
+      ],
+      "contradiction": true
+    }
+  ],
+  "guard_probe": "PASS, ficticio sin abrir archivos",
+  "scientific_T2_states_read": 0,
+  "design_before_code": "2269b7f -> 61e7fe6",
+  "runtime_versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "mpmath": "1.3.0"
+  },
+  "verification_meaning": "Integridad y coherencia PASS; el instrumento bajo prueba conserva Q5 FAIL. No se ejecut\u00f3 rho_borde ni se integraron curvas en la verificaci\u00f3n."
+}
