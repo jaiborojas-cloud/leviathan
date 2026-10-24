@@ -1,8 +1,8 @@
-"""c1_cohorte.py (BORRADOR v0, no congelado) - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
+"""c1_cohorte.py (BORRADOR v1, no congelado; compuerta con tolerancia numerica, ver DIAG_compuerta_2026-10-24.md) - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
 
 Modos:
-  --compuerta : reproduce desde cero 5 trayectorias antiguas (split12) y exige (a) parametros del update 5 identicos a
-                checkpoint_005.pt de T2-A0 y (b) state.npz del update 50 identico byte a byte al de la fase 2 de T2-A1.
+  --compuerta : reproduce desde cero 5 trayectorias antiguas (split12) y exige (a) parametros del update 5 a <= 1e-12 de
+                checkpoint_005.pt de T2-A0 y RNG numpy identico, (b) M del update 50 a <= 1e-10 relativo del de la fase 2.
   (normal)    : splits --desde..--hasta (por defecto 168..323), 5 inicializaciones, regla de semillas de T2-A0 extendida.
 Por trayectoria: new_session(s, j) -> updates continuos 0->250; estados (M, f) en 5, 10, 30, 250; en 10: p(y) del panel;
 rho_borde congelado en 10, 30, 250. Reanudable (PROGRESO_c1.csv); al final tabla c1_cohorte.csv y RESUMEN_c1.json con SHA.
@@ -22,6 +22,8 @@ RHO_SHA = "d8ec69f89a75ab947ac05d3764858eb2e8f6dc873b47733645b2e8b5aac0416b"
 GEOM_SHA = "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
 GUARDAR = (5, 10, 30, 50, 250)
 RHO_EN = (10, 30, 250)
+TOL_PARAM = 1e-12   # v1: tolerancia numerica (diag_compuerta: entorno distinto al de T2-A0 da <= 2.5e-15)
+TOL_M = 1e-10       # v1: diferencia relativa maxima de M(u50) frente a la fase 2 (observado <= 2e-12)
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
 _W = {}
 
@@ -51,14 +53,16 @@ def una(s, k, out, t2a1, compuerta):
         _W["updates"](m, opt, rng, X, y, t - prev); prev = t
         if t == 5 and compuerta:
             c = torch.load(_W["root"] / "trajectories" / tray / "checkpoint_005.pt", weights_only=False)
-            R["compuerta_u5"] = int(all(torch.equal(a, c["model"][n]) for n, a in m.state_dict().items()))
+            dmax = max(float((a - c["model"][n]).abs().max()) for n, a in m.state_dict().items())
+            R["dif_u5"] = dmax; R["compuerta_u5"] = int(dmax <= TOL_PARAM and c["numpy_rng"] == rng.bit_generator.state)
         if t == 50 and not compuerta:
             continue
         Rb, Ub, f = core.make_geom_state(m, Xv, yv); M = core.subset_M(Rb, Ub, [0, 1, 2]); p = d / f"u{t}.npz"
         np.savez_compressed(p, M=M.detach().numpy(), f=f.detach().numpy()); R[f"sha_u{t}"] = sha(p)
         if t == 50:
             ref = Path(t2a1) / "fase2" / "visitas" / tray / "u50" / "states" / tray / "state.npz"
-            R["compuerta_u50"] = int(ref.exists() and sha(ref) == R["sha_u50"]); break
+            Mr = np.load(ref)["M"]; dr = float(np.abs(M.detach().numpy() - Mr).max() / np.abs(Mr).max())
+            R["dif_rel_M_u50"] = dr; R["compuerta_u50"] = int(dr <= TOL_M); break
         if t == 10:
             with torch.no_grad():
                 pv = torch.softmax(m(Xv), 1); py = pv[torch.arange(len(yv)), yv].numpy()
@@ -84,7 +88,7 @@ def main():
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True); prog = out / "PROGRESO_c1.csv"
     campos = ["trajectory", "split", "init", "X", "p_min_val_u10", "k_min_u10", "val_acc_u10", "rho_u10", "rho_u30", "rho_u250", "dif_dir_u10", "dif_dir_u30", "dif_dir_u250",
               "diag_frac_u10", "diag_frac_u30", "diag_frac_u250", "k_star_u10", "k_star_u30", "k_star_u250", "sha_u5", "sha_u10", "sha_u30", "sha_u50", "sha_u250",
-              "compuerta_u5", "compuerta_u50", "error"]
+              "dif_u5", "dif_rel_M_u50", "compuerta_u5", "compuerta_u50", "error"]
     hechas = set()
     if prog.exists(): hechas = {r["trajectory"] for r in csv.DictReader(open(prog, encoding="utf-8")) if not r["error"]}
     nuevo = not prog.exists(); fh = open(prog, "a", newline="", encoding="utf-8"); w = csv.DictWriter(fh, fieldnames=campos, extrasaction="ignore")
