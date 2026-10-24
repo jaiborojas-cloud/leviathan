@@ -6,3 +6,7 @@ cónica0 y constante0; suma/producto/cuadrática analíticamente planos en regi�
 regular.81/81 puntos SPD por composición, contraste MP80/120 PASS.
 Rangos residuales MP120 se conservan sin redondear a cero en summary.csv.
 No caminos del producto. No alterar esta conclusión para dirigir la parte B.
+
+B completa:254.725054s/275.984375MiB.12 controles PASS;9/12 estacionarios
+y12 diagnósticos PASS. Tres LIBRE cuadráticos INCONCLUSIVE conservados.
+Archivo suplementario de modos esféricos derivado de bloques ya medidos.
