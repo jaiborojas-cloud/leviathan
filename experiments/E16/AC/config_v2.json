@@ -1,0 +1,50 @@
+{
+  "base_commit": "5a126a4f42fad0b0e47ca9ed705a4ae3b230276a",
+  "rtols": [
+    1e-10,
+    1e-12
+  ],
+  "atol_factor": 0.01,
+  "max_step": 0.01,
+  "shoot_max_nfev": 30,
+  "endpoint_tol": 1e-08,
+  "angle_radius": 1.0471975511965976,
+  "length_bounds": [
+    0.1,
+    4.0
+  ],
+  "hausdorff_samples": 1025,
+  "association_tol": 0.01,
+  "zero_margin": 1e-06,
+  "zero_stability": 1e-05,
+  "mp_digits": [
+    50,
+    80
+  ],
+  "mp_nodes": [
+    256,
+    512
+  ],
+  "mp_agreement": 1e-08,
+  "budget_seconds": 1800,
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "D/config.json": "475ca4608a0c81dfd869afb26901359f737847348bca56cbd1ac486e30c9be76",
+    "P/scripts/kernel.py": "b20a7d8512eb9ad84f4b1dfbfd314c8eb1079b6e50852faff6068e62a7d0bcda",
+    "T/scripts/run.py": "3382578c54c6402b7b0dc4e3dd222a92addc014faa668e71bb404256f55d07ad",
+    "T/results/run_v1/paths.csv": "17e4bff550bbb265b872fd0ef6def6cd597a6d6716f8252c0015b3a8bd15f930",
+    "Z/scripts/run.py": "28fa153f551539aec65f1ea4a639297c451d3b5720c2913d8f2113f1dd5cc41a",
+    "Z/results/run_v1/paths.csv": "7e468b0661bf2f0440ac39f9cb4f09e81162b1f684839225ea88925f9c941d84",
+    "Z/results/run_v1/spectra.csv": "959704b6be3139f103816b4650d4148abd151003b80ad43efa29e6484d09a140",
+    "AA/scripts/run.py": "210592a36b851065fe7a9da83a5f270c519cdd28ce10e487626dac4a978fa955",
+    "AA/results/run_v1/paths.csv": "87afe44298b873ee741cb32faaa69a5d59a67a5bd8fc4b49cd00f1778948ca5a",
+    "AB/scripts/run.py": "4a03a9b1dbeeb9ac9cd71bccf483103653d6423e42eaf79f57b07b1c2c9b1ebd",
+    "AB/results/run_v1/paths.csv": "e53deb6c70ca83f934d1513e269d86042cccd649b3292fba1a4173d1e7d3ff1d",
+    "AB/results/run_v1/vertices.csv": "9c2b2d449593aba81f6c88f7da32e5596b15e0d14bdb13cdd29a22d4319073bf",
+    "AB/results/run_v1/audits.csv": "9fb81b912295186478039b6567888e247e2c096cf0d887c88d54f803cf4a50fb",
+    "AB/results/run_v1/spectra.csv": "7a6f1c2c13431c83fe77d6f74b37fdce49e04d58e084d2c37a54f80924809fad"
+  },
+  "version": 2,
+  "control_mp_nodes": 2048
+}
