@@ -52,6 +52,7 @@ Corte: `main` del 2026-10-23 (hasta el PR #56). Una fila por experimento: qué p
 
 ## 6. E16 — composición, métricas y caminos (sintético 2→2→1, sin entrenamiento)
 Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación instrumental.
+Actualización documental de esta sección hasta AF; el corte inicial de la cabecera se conserva para el resto del catálogo. AE cambia la familia perspectival sobre la red; AF usa estados softmax sintéticos de 27 componentes, sin datos T2.
 
 | ID | pregunta | estado | hallazgo | T2-A1 |
 |---|---|---|---|---|
@@ -71,6 +72,10 @@ Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación
 | [Z](../experiments/E16/Z/CONCLUSION.md) | reestacionarizar y luego el espectro | PASS_PROTOCOL | 12/12 primer orden; 8 testigos MP negativos | — |
 | [AA](../experiments/E16/AA/CONCLUSION.md) | KKT ≤ 1e-7 | INCONCLUSIVE | 8 cuadráticos agotan 4800 iteraciones | — |
 | [AB](../experiments/E16/AB/CONCLUSION.md) | región de confianza | INCONCLUSIVE (progreso) | 5/8 llegan a KKT ≤ 1e-7; 4 testigos negativos en 528 segmentos | — |
+| [AC](../experiments/E16/AC/CONCLUSION.md) | ¿negativas discretas o conjugados continuos? | INCONCLUSIVE (v2 VALID_EXPLORATORY; v1 INVALID conservada) | 12 índices continuos 0; faltan bloques discretos de Z/AB para resolver H2 | — |
+| [AD](../experiments/E16/AD/CONCLUSION.md) | ¿planitud y negativas en el cociente normal? | INCONCLUSIVE | suma/producto/cuadrática K≡0; NN positivo y cociente sin negativas admisibles; tres LIBRE no cumplen la ruta de estacionariedad | — |
+| [AE](../experiments/E16/AE/CONCLUSION.md) | ¿conjugados, índice y corte en la familia tipo E12? | Q1/Q2/Q3 INCONCLUSIVE | K mayormente negativa; todo censurado, sin conjugados observados; r_deg y A(r_deg) UNKNOWN | — |
+| [AF](../experiments/E16/AF/CONCLUSION.md) | ¿degeneración estable, Morse y reducción de desconocidos en sintéticos? | Q1 PASS; Q2 INCONCLUSIVE; Q3 PASS; Q4 FAIL | cinco eventos y 35/40 censurados; Q3 exploratorio, sin escapes ni reducción de «?» (0→0); Q2 pendiente | — |
 
 ## 7. Patrones transversales
 1. **Los instrumentos fallan donde la geometría es interesante:** E13 (37/40 true), C1-A (2 dominios), T2-A0 (split 8) y, en sintético, E16 J–Q.
@@ -78,6 +83,7 @@ Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación
 3. **El panel pesa** (E11, sospecha H-split en T2-A).
 4. **X y los desenlaces geométricos están ligados por Jacobi** (T1-B).
 5. **Un PASS de primer orden no certifica mínimos** (E16 S–AB): no presentar candidatos numéricos como certificados.
+6. **Las composiciones del sintético 2→2→1 son planas; los fenómenos de conjugados exigen otra familia** ([AE](../experiments/E16/AE/CONCLUSION.md), [AF](../experiments/E16/AF/CONCLUSION.md)).
 
 ## 8. Para replantear el desenlace de T2-A1
 | opción (ver conversación del 2026-10-23) | antecedente | lectura |
