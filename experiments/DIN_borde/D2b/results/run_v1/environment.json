@@ -1,0 +1,52 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "torch": "2.9.1+cpu",
+  "sklearn": "1.8.0",
+  "code_commit": "85fffb4bd12861456781ffdb6f7609b53f8d3a39",
+  "config": {
+    "version": "v1",
+    "base_main": "85c5f3509401bc7822c9c2349d84a75efa101ccb",
+    "context_tree": "9904db0392f52ecc05b17c67977e0f892c901d4a",
+    "n": 27,
+    "seeds": [
+      2026102700,
+      2026102701,
+      2026102702
+    ],
+    "statistics_seed": 2026102717,
+    "networks_per_seed": 28,
+    "wine_embeddings": 2,
+    "total_networks": 86,
+    "workers": 2,
+    "threads": 1,
+    "total_budget_s": 7200,
+    "arrays_dir": "/workspace/work/din-d2b-v1-arrays",
+    "tolerances": {
+      "R_U": 1e-10,
+      "M": 1e-07,
+      "PSD": 1e-08,
+      "matched_G": 1e-05,
+      "rho_native": 0.0001,
+      "post_coordinate": 0.05
+    },
+    "inputs": "synthetic_only",
+    "training": false
+  },
+  "sources": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho": {
+      "path": "experiments/T2_A1/fase0prima/rho_borde.py",
+      "sha256": "d8ec69f89a75ab947ac05d3764858eb2e8f6dc873b47733645b2e8b5aac0416b"
+    }
+  }
+}
