@@ -1,4 +1,4 @@
-"""potencia_0c_prima.py (v2: rangos vectorizados; v1 se detuvo por lentitud sin producir resultados) - potencia de la regla conjunta de 0c' (W y W_adj al 5 % unilateral), SIN X (X sintetico).
+"""potencia_0c_prima.py (v3: signo del efecto corregido; v2: rangos vectorizados; v1 se detuvo por lentitud sin producir resultados) - potencia de la regla conjunta de 0c' (W y W_adj al 5 % unilateral), SIN X (X sintetico).
 
 Modelo por split (156 splits x 5 trayectorias): L5 ~ estandarizado; log Y_c = b*L5 + u (u ~ N(0,1));
 X = c*L5 + a*u + ruido, con a fijado para que la correlacion de Pearson intra-split entre X y u sea rho_X.
@@ -41,7 +41,7 @@ for c in (0.0, 0.5):
             for _ in range(REPS):
                 L = rng.normal(size=(S, N)); u = rng.normal(size=(S, N)); Y = b * L + u
                 a = rho / np.sqrt(1 - rho ** 2)
-                X = c * L + a * u + rng.normal(size=(S, N))
+                X = c * L - a * u + rng.normal(size=(S, N))   # v3: signo corregido (mayor X -> menor log Y_c); v2 usaba +u y simulaba el efecto contrario
                 w = W(X, Y) > crit; wa = W(X, residuos(Y, L)) > crit
                 okW += w; okA += wa; ok += (w and wa)
             res["escenarios"].append(dict(corr_X_L5=c, efecto_L5_en_Y=b, rho_X_residuo=rho, potencia_W=okW / REPS, potencia_W_adj=okA / REPS, potencia_conjunta=ok / REPS))
