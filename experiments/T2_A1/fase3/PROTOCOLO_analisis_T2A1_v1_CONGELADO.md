@@ -30,3 +30,8 @@
 ## 5. Orden
 1. Correr `comparadores_ng_u5.py` y publicar su hash.
 2. Abrir X: el responsable corre `analisis_T2A1.py` en modo confirmatorio. Es una sola corrida y su salida se publica íntegra.
+
+## 6. Comparadores no geométricos publicados (2026-10-24 13:59, antes de abrir X)
+- `comparadores_ng_u5.py` (`08735ec0…bed37`) se corrió en el equipo del responsable: 800 de 800 trayectorias, 0 errores, unos 7 s.
+- Tabla: `ng_u5/comparadores_ng_u5.csv`, SHA-256 `e9e47dc94aea28c821eaf4b1cf12645c265b7a8881f903769acbd0f228cb8ab6`. Se recalculó y coincide.
+- Se comprobó con X sintético que el análisis la lee sin faltantes. Las precisiones toman pocos valores distintos (36 en entrenamiento y 11 en validación); los empates se resuelven con la regla de la sección 2.
