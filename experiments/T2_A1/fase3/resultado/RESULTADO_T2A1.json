@@ -1,0 +1,187 @@
+{
+  "veredicto": "NOT_MET",
+  "motivos_inconclusive": [],
+  "modo": "CONFIRMATORIO",
+  "primario_W": {
+    "W": 0.018589743589743597,
+    "p": 0.3260336983150842,
+    "splits_validos": 156,
+    "W_nulo_q95": 0.06666666666666665
+  },
+  "condicion_W_adj": {
+    "W": 0.010897435897435902,
+    "p": 0.3931303434828259,
+    "splits_validos": 156,
+    "W_nulo_q95": 0.06474358974358974,
+    "beta_L5": 0.09588975494411194
+  },
+  "n_trayectorias": 780,
+  "n_analizadas": 780,
+  "faltantes": {
+    "X": 0,
+    "Y_c": 0
+  },
+  "predictor_status": {
+    "PASS": 780
+  },
+  "secundarios": {
+    "Delta": {
+      "W": -0.033974358974358965,
+      "p": 0.8033098345082745,
+      "splits_validos": 156,
+      "W_nulo_q95": 0.06538461538461536
+    },
+    "G_global": {
+      "spearman": -0.021096150590446276,
+      "IC95": [
+        -0.1535245754425833,
+        0.11290783563138664
+      ]
+    },
+    "Y_b": {
+      "cola": 78,
+      "corte_k": 78,
+      "eventos_cola": 23,
+      "precision": 0.2948717948717949,
+      "incidencia": 0.31794871794871793,
+      "lift": 0.9274193548387097,
+      "eventos_total": 248,
+      "nota": "Y_b=1 demuestra borde < r*; Y_b=0 no demuestra lo contrario"
+    },
+    "comparadores_geometricos": {
+      "C_A": {
+        "faltantes": 0,
+        "orientacion": "mayor = mas riesgo",
+        "W_comparador": {
+          "W": 0.01410256410256411,
+          "p": 0.36773161341932903,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06602564102564104
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": -0.02820512820512821,
+          "p": 0.7615619219039048,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06602564102564103
+        },
+        "spearman_X_comparador": 0.9981310847752114
+      },
+      "Lambda_01pct": {
+        "faltantes": 0,
+        "orientacion": "mayor = mas riesgo",
+        "W_comparador": {
+          "W": 0.03141025641025641,
+          "p": 0.2177391130443478,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461535
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": 0.0006410256410256501,
+          "p": 0.49337533123343835,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461537
+        },
+        "spearman_X_comparador": -0.47433600950388455
+      },
+      "R_eff": {
+        "faltantes": 0,
+        "orientacion": "se usa -R_eff",
+        "W_comparador": {
+          "W": 0.037179487179487165,
+          "p": 0.17494125293735313,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.0653846153846154
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": 0.0025641025641025736,
+          "p": 0.47287635618219087,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06666666666666665
+        },
+        "spearman_X_comparador": -0.4406125939366461
+      }
+    },
+    "comparadores_no_geometricos": {
+      "train_loss": {
+        "faltantes": 0,
+        "orientacion": "sin orientar (descriptivo, bilateral)",
+        "W_comparador": {
+          "W": 0.012820512820512824,
+          "p": 0.37883105844707765,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461542
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": -0.0019230769230769162,
+          "p": 0.5261236938153092,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06602564102564101
+        },
+        "spearman_X_comparador": -0.3501699226481812
+      },
+      "train_acc": {
+        "faltantes": 0,
+        "orientacion": "sin orientar (descriptivo, bilateral)",
+        "W_comparador": {
+          "W": 0.04615384615384617,
+          "p": 0.12439378031098446,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461542
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": -0.0038461538461538425,
+          "p": 0.544522773861307,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06602564102564101
+        },
+        "spearman_X_comparador": 0.09915467662071355
+      },
+      "val_acc": {
+        "faltantes": 0,
+        "orientacion": "sin orientar (descriptivo, bilateral)",
+        "W_comparador": {
+          "W": 0.1544871794871795,
+          "p": 9.99950002499875e-05,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461535
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": -0.043589743589743594,
+          "p": 0.863256837158142,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.066025641025641
+        },
+        "spearman_X_comparador": 0.09773949072012435
+      },
+      "weight_norm": {
+        "faltantes": 0,
+        "orientacion": "sin orientar (descriptivo, bilateral)",
+        "W_comparador": {
+          "W": 0.04102564102564102,
+          "p": 0.15219239038048096,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06538461538461537
+        },
+        "W_X_ajustado_L5_y_comparador": {
+          "W": -0.0019230769230769162,
+          "p": 0.5174241287935604,
+          "splits_validos": 156,
+          "W_nulo_q95": 0.06602564102564101
+        },
+        "spearman_X_comparador": 0.13593897830459695
+      }
+    },
+    "spearman_X_L5_global": -0.1291131439931816,
+    "visitas_con_fallo_numerico": 0
+  },
+  "permutaciones": 20000,
+  "hashes": {
+    "x": "9458086153e7bedba05a3234aff0a7e5f4145c4aac595137c4866294f65ee70a",
+    "fase2": "be47e118886627ba61252b7f7dd7793032b42482fd01c44da89efb0cbffb02de",
+    "u5": "618c263e9e3abac651a7e8b51e7a3ec3352b8a3990c00839dfb48307a6b5df2d",
+    "ng": "e9e47dc94aea28c821eaf4b1cf12645c265b7a8881f903769acbd0f228cb8ab6",
+    "script": "9a191450fe837bcdee9dc0b507da7a4eb0946068b25c5317c3871b6f317bed37"
+  },
+  "segundos": 13.7,
+  "fecha": "2026-10-24T14:01:45-0600"
+}
