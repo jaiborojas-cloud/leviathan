@@ -162,6 +162,10 @@ posterior a diseño85fffb4 y código73cb83a.
 El postproceso fallido por serialización también se conserva, junto con
 [enmienda v3](AMENDMENT_FROZEN_v3.md), resumen v3 y código previo intactos.
 No se repitió ninguna medición para corregir el formato.
+El mismo defecto de serialización apareció en el verificador independiente;
+se preserva [su salida parcial](verification_v2_failed.json), con
+[enmienda v4](AMENDMENT_FROZEN_v4.md), script nuevo y manifest anterior.
+El verification.json enlazado arriba corresponde a la auditoría completa v3.
 
 ## Q10 · recomendación, sin decidir DIN-C1
 

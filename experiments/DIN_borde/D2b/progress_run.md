@@ -16,6 +16,10 @@
    sin añadir una regla primaria ni cambiar tolerancias.
 7. Verificación final desde archivos: SHA, permisos, orden de commits,
    probabilidades, cotas Fisher, fórmulas de pares a60 dígitos y alcance.
+   verify_v2 falló al serializar un booleano NumPy de la auditoría adicional;
+   se conserva verification_v2_failed.json. Enmienda v4 en3cba70c antes
+   de corregir; verify_v3 convierte escalares sólo en la salida JSON.
+   manifest_v2.csv conserva el inventario anterior. No se repiten mediciones.
 
 Lecturas empíricas limitadas a documentos escalares publicados D1/D3/D4/D5/D6.
 No se cargó dato, tabla ni estado T2; no se llamó load_split/load_wine/train_branch.
