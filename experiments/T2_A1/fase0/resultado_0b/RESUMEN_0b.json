@@ -1,0 +1,142 @@
+{
+  "visitas_primarias": 60,
+  "por_D": {
+    "0": 13,
+    "1": 3,
+    "?": 44
+  },
+  "por_via": {
+    "A": 13,
+    "B": 0,
+    "C": 3
+  },
+  "D_desconocida": 44,
+  "compuerta": "FALLA",
+  "umbral": "D = ? en <= 3 de 60",
+  "trayectorias": 20,
+  "Y": {
+    "0": 4,
+    "1": 1,
+    "?": 15
+  },
+  "fraccion_trayectorias_Y_desconocida": 0.75,
+  "por_split": {
+    "split10": {
+      "0": 0,
+      "1": 0,
+      "?": 15
+    },
+    "split8": {
+      "0": 0,
+      "1": 3,
+      "?": 12
+    },
+    "split9": {
+      "0": 13,
+      "1": 0,
+      "?": 2
+    },
+    "split11": {
+      "0": 0,
+      "1": 0,
+      "?": 15
+    }
+  },
+  "razones_desconocida": {
+    "no se alcanza max|p| >= 10 antes de t_bound: sin escape en la carta P; V1 del propio caso falla o sin t1; U2 (factores dobles) = None > 0.0195": 8,
+    "auditoria interrumpida, sin clasificacion (D0-1)": 7,
+    "evaluada con clasificacion INCONCLUSIVE": 3,
+    "(i) C5 falla; continuacion con 2 problemas (rayos sin carta valida); V3 falla (1.11e-05); muestreo de K no convergido (513 vs 1025)": 1,
+    "el haz termina con 'max_pasos' antes de max|p| = 150; V1 del propio caso falla o sin t1; U2 (factores dobles) = None > 0.0195": 20,
+    "(i) C5 falla; continuacion con 2 problemas (rayos sin carta valida); V3 falla (1.56e-05)": 1,
+    "paso 3 no calculado: corrida I2 interrumpida por decision del responsable (2026-10-23 21:41 y 2026-10-24 05:35), compuerta ya determinada": 4
+  },
+  "I2_controles_validos": true,
+  "I2_controles": {
+    "split8_j5_true": {
+      "completo": true,
+      "U": 0.019426498826093774,
+      "U2": 0.020152654629338834,
+      "estado_t5": "T5_CERTIFICADA_PENDIENTE_V1_V2",
+      "V1": true,
+      "tope_agotado": false,
+      "ok": true
+    },
+    "split8_j8_true": {
+      "completo": true,
+      "U": 70.94700900141211,
+      "U2": 4971.43937428342,
+      "estado_t5": "T5_NO_CERTIFICADA",
+      "V1": true,
+      "tope_agotado": false,
+      "ok": true
+    }
+  },
+  "repeticiones_D01": {
+    "split10_j16_true/u50": {
+      "D": "?",
+      "razon": "auditoria interrumpida, sin clasificacion (D0-1)"
+    },
+    "split10_j18_true/u50": {
+      "D": "?",
+      "razon": "auditoria interrumpida, sin clasificacion (D0-1)"
+    },
+    "split9_j13_true/u50": {
+      "D": "?",
+      "razon": "auditoria interrumpida, sin clasificacion (D0-1)"
+    },
+    "split9_j13_true/u150": {
+      "D": "?",
+      "razon": "auditoria interrumpida, sin clasificacion (D0-1)"
+    }
+  },
+  "segundos_ejecutor_visitas_nuevas": {
+    "split11_j20_true/u250": 126.1,
+    "split11_j21_true/u150": 127.6,
+    "split11_j21_true/u250": 129.8,
+    "split11_j21_true/u50": 132.3,
+    "split11_j20_true/u150": 135.4,
+    "split11_j20_true/u50": 147.1,
+    "split11_j23_true/u50": 133.3,
+    "split11_j23_true/u150": 161.0,
+    "split11_j23_true/u250": 192.0,
+    "split11_j22_true/u150": 237.6,
+    "split11_j24_true/u50": 115.9,
+    "split11_j22_true/u250": 292.3,
+    "split11_j24_true/u150": 126.0,
+    "split11_j24_true/u250": 110.3,
+    "split10_j19_true/u150": 527.6,
+    "split10_j19_true/u250": 669.2,
+    "split10_j18_true/u50_r1": 406.9,
+    "split9_j13_true/u150_r1": 417.3,
+    "split11_j22_true/u50": 740.6,
+    "split9_j13_true/u50_r1": 459.8,
+    "split10_j16_true/u50_r1": 540.8
+  },
+  "bytes_visitas_nuevas": {
+    "split11_j20_true/u250": 210729044,
+    "split11_j21_true/u150": 212231298,
+    "split11_j21_true/u250": 212172838,
+    "split11_j21_true/u50": 212315062,
+    "split11_j20_true/u150": 239041290,
+    "split11_j20_true/u50": 273718501,
+    "split11_j23_true/u50": 242619511,
+    "split11_j23_true/u150": 382124213,
+    "split11_j23_true/u250": 548905863,
+    "split11_j22_true/u150": 753674446,
+    "split11_j24_true/u50": 209977168,
+    "split11_j22_true/u250": 1048827607,
+    "split11_j24_true/u150": 240098907,
+    "split11_j24_true/u250": 209838599,
+    "split10_j19_true/u150": 2286099700,
+    "split10_j19_true/u250": 3450392840,
+    "split10_j18_true/u50_r1": 1529622592,
+    "split9_j13_true/u150_r1": 1505097915,
+    "split11_j22_true/u50": 4157066266,
+    "split9_j13_true/u50_r1": 1817198731,
+    "split10_j16_true/u50_r1": 2479976909
+  },
+  "script_sha256": "060a7a68bac6fe3f31001f1eb8f0276cb9694b8ce9eb7ff298cef5a964599fc2",
+  "instrumento_sha256": "254ebd83f11e3459f48bc94a2a54fe4019cddfab3341a4db7aaeac54d7789663",
+  "nota": "Fase 0 de T2-A1 (desarrollo). Sin X. I2 reconstruida sin calcular cotas nuevas."
+}
