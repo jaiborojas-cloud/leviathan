@@ -27,3 +27,6 @@ El runner rechaza sobrescribir un directorio existente. El verificador comprueba
 congelación y hashes, fuentes, alcance exclusivo E16 y estados, y realiza una
 repetición exacta de v2 excluyendo tiempos. No reejecuta las etapas S–AB ni v1.
 Cada versión conserva su código, diseño, manifest y resultados.
+
+Estado final: INCONCLUSIVE; v2 válida con12 índices0 y8/8 controles PASS.
+[Reproducción exacta de diez salidas](verification.json).

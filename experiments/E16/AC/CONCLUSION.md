@@ -56,3 +56,10 @@ constante. Con H1 establecido: E16-AD shooting multiángulo y locus de corte.
 Dado este INCONCLUSIVE, primero un protocolo prospectivo que mida bloques
 normales y descomposición tangencial en discretizaciones nuevas de las
 geodésicas AC, preservando AB cerrado. No tratar H2 como ya confirmado.
+
+## Integridad y tiempos
+
+V1:40.276710s/78.785156MiB, INVALID conservada. V2:42.866823s/78.949219MiB.
+Reproducción v2:40.939331s/78.894531MiB; diez salidas científicas idénticas byte
+a byte, excluyendo recursos/tiempos. [Verificación](verification.json).
+Integridad aprobada no cambia el veredicto INCONCLUSIVE.
