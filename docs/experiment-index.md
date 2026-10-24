@@ -217,3 +217,38 @@ alcanzan KKT≤1e-7; tres agotan60 evaluaciones y siguen INCONCLUSIVE.
 Cuatro C0 INITIAL_CONTROL,9/12 comparaciones elegibles y12/12 espectros PASS.
 Cuatro testigos MP negativos elegibles en las mallas528; no certifica sillas
 exactas o mínimos.756 comprobaciones PASS y tres KKT inconclusos. T2-A intacto.
+
+## E16-AC — Índice de Morse por campos de Jacobi
+
+[E16-AC](../experiments/E16/AC/README.md): INCONCLUSIVE; v2 VALID_EXPLORATORY, v1 INVALID preservada.
+12 índices continuos 0 estables y 8/8 controles PASS; faltan bloques normales
+y tangencialidad de Z/AB, por lo que no se establece H2 por regla.
+[Conclusión oficial](../experiments/E16/AC/CONCLUSION.md).
+
+## E16-AD — Bloques discretos y carta normal
+
+[E16-AD](../experiments/E16/AD/README.md): INCONCLUSIVE. Suma, producto y cuadrática tienen K≡0 en región
+regular SPD; bloques normales positivos y cociente sin negativas admisibles.
+12/12 controles PASS; los tres LIBRE cuadráticos no cumplen la ruta de
+estacionariedad. H2 respaldada en sustancia, no establecida por regla.
+[Conclusión oficial](../experiments/E16/AD/CONCLUSION.md).
+
+## E16-AE — Conjugados en la familia no plana tipo E12
+
+[E16-AE](../experiments/E16/AE/README.md): Q1/Q2/Q3 INCONCLUSIVE, corrida VALID_EXPLORATORY.
+K∈[−6.6438350978,+0.0465519012] en la malla, mayormente negativa;
+todos los rayos censurados, sin conjugados ni cruces observados antes de censura.
+r_deg y A(r_deg) UNKNOWN; no se validó el salto de índice ni el locus de corte.
+[Conclusión oficial](../experiments/E16/AE/CONCLUSION.md).
+
+## E16-AF — Degeneración del disco en estados sintéticos de la familia T2
+
+[E16-AF](../experiments/E16/AF/README.md): Q1 PASS, Q2 INCONCLUSIVE, Q3 PASS exploratorio, Q4 FAIL.
+40 estados nuevos: cinco eventos conjugado+colisión operacional y 35 censurados;
+20/20 controles PASS. El rayo prefijado no permite validar Morse. Desconocidos
+de área/radio 0/40→0/40: no se reprodujo la patología motivadora ni hubo escapes
+en la rejilla. Sin transferencia a datos T2.
+[Conclusión oficial](../experiments/E16/AF/CONCLUSION.md).
+
+[Síntesis S–AD](../experiments/E16/SINTESIS_S_AD.md) ·
+[Síntesis AC–AF y preguntas abiertas](../experiments/E16/SINTESIS_AC_AF.md).
