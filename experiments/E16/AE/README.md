@@ -17,3 +17,7 @@ Los runners rechazan sobrescribir directorios existentes. Instalar las versiones
 de [requirements.txt](requirements.txt), y usar BLAS/OMP de un hilo. El protocolo
 principal y la geometría se versionan por separado. La corrección del puente
 será derivada de perfiles archivados, sin repetir ni reemplazar rayos v1.
+
+Corrección derivada: [diseño v2](DESIGN_FROZEN_BRIDGE_v2.md),
+[resultados del puente](results/bridge_v2). V1 permanece intacta.
+Q1/Q2/Q3: INCONCLUSIVE por falta de aplicabilidad/eventos y censura.
