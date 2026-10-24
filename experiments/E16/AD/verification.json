@@ -1,0 +1,39 @@
+{
+  "status": "PASS_REPRODUCTION",
+  "verdict": "INCONCLUSIVE",
+  "design_commit": "279a7be",
+  "dependency_freeze_commit": "a61846b",
+  "implementation_commit": "d35c20c",
+  "A_commit_before_B": "fc6c7dc",
+  "exact_files": {
+    "part_a_v1": {
+      "curvature.csv": "3d5b543cef8d61e115dbe19df49cad0fb9eae102654960d63a26b61e319f953f",
+      "environment.json": "875e7018095f7f6649d0b1e9b5b0906620c855b51c814653455c7b60a14ac1cb",
+      "summary.csv": "6f2f7296b39fad7f93e1a9b432b4960247fba0bf9a0cd80725e4d504755dc7d9",
+      "symbolic.json": "ac025022debf975439a90e9e848cad908587f10609a77e17c41094850ba5691f"
+    },
+    "part_b_v1": {
+      "audits.csv": "76710a9005c38fc0d7bf0d38e0f9bae23f2c06715b404e4c236c7e80ecf0c2c0",
+      "bands.csv": "a6371330ebef33f0f62feef9868001de8f0ddd65201e1ac69501798c4171ba1d",
+      "checks.csv": "f8fa4c0fb69ff5ec30ef23bfe4f0b5035d76d3fb29264cb44598a6f2c7b1b87c",
+      "control_negative_vectors.csv": "34af5d71b2cdc1a90df2fd9f64075e0281ac01784b6131fdda8a58b7c037ae9e",
+      "controls.csv": "91e3e320951413d7ce96cc3433f1feb44f5ec312ef8bb1b8a17a3ad40fd1f844",
+      "environment.json": "ae6011cd410811c80039beb09f30c8a6a155714c53d0df8ed5fb50917917999a",
+      "gradients.csv": "88fb6a200914fb7270ee63273275011ff0e82c7c4d156f1970ed552a0da1d275",
+      "monitor.csv": "5f445c72eef8cf48f7475d6c454d69d006a6426578ef505512a25731d48a2b78",
+      "negative_vectors.csv": "9ec11c3928027e47fc0ff24a1d358595ca8cd7f8caaa65905525e64175f8fd0f",
+      "paths.csv": "33f0990252b4c2885e1e141d4004afb666831a08865e767d7e8dddc55c454171",
+      "spectra.csv": "a05852f1516cf90e77fa575f018808ab2a2ff43dce7841c041c587727db282d1",
+      "summary.json": "d867ebf4e4ea5e190bd92f82d99b01fd215aa1da7af5fcddd1749347af8e8a71",
+      "vertices.csv": "1161f29e2635c1da042218d5759854a7f89f47043a0696af87ce1c7dc34649c6"
+    }
+  },
+  "reproduction_B": {
+    "seconds": 255.15866197399737,
+    "max_rss_mib": 275.05078125
+  },
+  "excluded": [
+    "resources.json"
+  ],
+  "scope": "experiments/E16/AD only"
+}
