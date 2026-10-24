@@ -12,3 +12,10 @@ individual/Jacobi. No permite afirmar ausencia de colisiones con trayectorias
 censuradas. Se conserva v1 íntegra y se congela reproceso v2 antes del código,
 sin reintegrar rayos ni alterar reglas geométricas. También se añade primer
 candidato de colisión por rayo, con incertidumbre de segmentos incidentes.
+
+PASS_REPRODUCTION:22 salidas científicas idénticas byte a byte (3 fase0,
+13 principal,6 puente). Repetición principal324.168418s/
+173.960938MiB. Recursos/tiempos excluidos de igualdad.
+Controles20+2 PASS, figura derivada inspeccionada, enlaces y alcance comprobados.
+Censura conjunta v2 en.6875 y fracción al radio1 en[0,1], sin rellenos.
+No se repitieron geodésicas para v2; sólo en la repetición exacta prevista.

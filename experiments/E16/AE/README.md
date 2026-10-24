@@ -21,3 +21,17 @@ será derivada de perfiles archivados, sin repetir ni reemplazar rayos v1.
 Corrección derivada: [diseño v2](DESIGN_FROZEN_BRIDGE_v2.md),
 [resultados del puente](results/bridge_v2). V1 permanece intacta.
 Q1/Q2/Q3: INCONCLUSIVE por falta de aplicabilidad/eventos y censura.
+
+## Reproducción
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python experiments/E16/AE/scripts/verify.py
+```
+
+El verificador repite fase0 y principal en directorios temporales, reconstruye
+el puente v2 desde la repetición y compara las salidas científicas byte a byte.
+No compara tiempos/recursos y no reejecuta S–AD. El gráfico se deriva de tablas:
+[geometría y censura](figures/geometry_and_censoring.svg).
+
+[Verificación de22 salidas idénticas](verification.json), con tiempos por etapa
+y preservación de la versión1. Sólo AE y la síntesis S–AD se modificaron.

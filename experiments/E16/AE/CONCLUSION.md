@@ -72,3 +72,13 @@ sin reutilizar supervivientes como confirmación. Otra opción es ampliar domini
 con controles de rango/condición para reducir censura, sin cambiar esta corrida.
 No se afirma certificado riguroso, radio de degeneración exacto, locus de corte
 exacto o minimizante global. La síntesis S–AD conserva todos sus estados.
+
+## Integridad y recursos
+
+PASS_REPRODUCTION:22 salidas científicas idénticas byte a byte (3 fase0,
+13 principal,6 puente), excluyendo recursos/tiempos. Principal inicial
+324.810266s/174MiB; repetición324.168418s/
+173.960938MiB, dentro del presupuesto2400s.
+Las tres etapas conservan sus propios tiempos/entorno/hashes.
+[Verificación](verification.json) · [Figura derivada](figures/geometry_and_censoring.svg).
+Integridad aprobada no sustituye las tres respuestas INCONCLUSIVE.
