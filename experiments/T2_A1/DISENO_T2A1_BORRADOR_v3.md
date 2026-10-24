@@ -1,6 +1,6 @@
 # T2-A1 — diseño, BORRADOR v3 (2026-10-24)
 
-**Estado:** borrador. Las tres decisiones quedaron resueltas por el responsable el 2026-10-24 a las 10:11 (sección 7). **No congelado; no autoriza ejecutar nada** salvo la fase 0a′ (instrumento y controles, sin muestra confirmatoria). Sustituye al desenlace D del diseño v2, cuya fase 0b falló (`fase0/RESULTADO_0b_2026-10-24.md`: D = ? en 44 de 60). Lo motiva el diagnóstico de desarrollo (`diagnostico/RESULTADO_diagnostico_2026-10-24.md`). Los puntos **[DECISIÓN]** los resuelve el responsable. Se mantiene todo lo de v2 que no se menciona aquí: muestras, X cerrado y comparadores no geométricos.
+**Estado:** borrador. Las tres decisiones quedaron resueltas por el responsable el 2026-10-24 a las 10:11 (sección 7). **No congelado; no autoriza ejecutar nada** salvo la fase 0a′ (instrumento y controles, sin muestra confirmatoria). Sustituye al desenlace D del diseño v2, cuya fase 0b falló (`fase0/RESULTADO_0b_2026-10-24.md`: D = ? en 44 de 60). Lo motiva el diagnóstico de desarrollo (`diagnostico/RESULTADO_diagnostico_2026-10-24.md`). Se mantiene todo lo de v2 que no se menciona aquí: muestras, X cerrado y comparadores no geométricos.
 
 **Advertencia de procedimiento:** el desenlace de v3 se elige **después** de ver los desenlaces de la muestra de desarrollo (splits 8–11). Está permitido, porque la muestra confirmatoria (splits 12–167) sigue sin ninguna visita futura abierta, pero se declara. Ningún umbral de v3 se ajusta a los datos de desarrollo más allá de lo que aquí se escribe.
 
