@@ -26,3 +26,7 @@ Los runners rechazan sobrescribir resultados. A debe estar disponible antes de B
 El verificador reconstruye bandas/modos y ejecuta una repetición exacta de B;
 los tiempos se excluyen. No reejecuta auditorías cerradas. El archivo suplementario
 de modos esféricos se deriva de las bandas preservadas, sin nueva Hessiana AD.
+
+**Estado final:** INCONCLUSIVE; producto también plano, controles12/12 PASS.
+Los tres LIBRE cuadráticos conservan INCONCLUSIVE.
+[Reproducción exacta de A y B](verification.json).

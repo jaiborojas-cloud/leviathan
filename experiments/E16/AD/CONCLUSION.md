@@ -42,8 +42,10 @@ siguen teniendo modos negativos resueltos, con fracciones tangenciales mínimas
 0.99868,0.99991,0.99999, mientras NN y el bloque admisible son positivos.
 Esto es compatible con el papel de redistribución de nodos; no basta para
 atribuir causa única a negativas de otras etapas o resolver H2 por selección.
-En LIBRE hay mínimos crudos negativos, pero dentro del umbral relativo; no
-hay modos negativos **resueltos**. Se conservan valores, tau y testigos MP.
+En LIBRE/132 y264 los mínimos crudos negativos quedan dentro del umbral
+relativo; no hay modos negativos **resueltos** en esas dos mallas. LIBRE/528
+tiene dos negativos resueltos, con fracciones tangenciales de0.99999038
+a0.99999730. Se conservan todos los valores, tau y testigos MP.
 La guardia de presencia de negativas LIBRE evita una atribución vacía incluso
 si se pasaran todas las condiciones universales sobre un conjunto vacío.
 
@@ -68,3 +70,11 @@ la sublínea con síntesis S–AD, no buscar conjugados regulares inexistentes d
 producto. En el estado actual, antes de cerrar falta resolver prospectivamente
 la parada LIBRE y el carácter de sus negativas subumbral, conservando los tres
 inconclusos. No se propone AE de producto no plano: no se cumple esa premisa.
+
+## Integridad
+
+PASS_REPRODUCTION:4 salidas científicas A y13 B idénticas byte a byte;
+B:255.158662s/275.050781MiB, primera B254.725054s/275.984375MiB.
+Los tiempos se excluyen de igualdad. Se reconstruyeron bloques y modos desde
+bandas sin nuevas Hessianas. [Verificación](verification.json).
+Integridad aprobada no convierte INCONCLUSIVE en H2.
