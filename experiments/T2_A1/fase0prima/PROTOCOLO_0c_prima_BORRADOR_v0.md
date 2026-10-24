@@ -34,7 +34,20 @@ Se simula con datos que no contienen X:
 - la varianza dentro del split de log Y_c y su relación con L5, tomadas de la tabla de ρ_borde(u5) de las 800 y del desarrollo (splits 8–11, updates 25–250);
 - X sintético con una correlación de Spearman dentro del split ρ_X ∈ {0.1, 0.2, 0.3} con el **residuo** (la parte de Y_c no explicada por L5).
 
-Se reporta la potencia de la regla conjunta al 5 % con 156 splits. **Si la potencia para ρ_X = 0.2 es menor del 80 %, se informa antes de abrir X y el responsable decide si sigue** (diseño v2, sección 4). Script: `potencia_0c_prima.py` (por escribir).
+Se reporta la potencia de la regla conjunta al 5 % con 156 splits. **Si la potencia para ρ_X = 0.2 es menor del 80 %, se informa antes de abrir X y el responsable decide si sigue** (diseño v2, sección 4).
+
+**Resultado (2026-10-24; `potencia_0c_prima.py` v3, `8da7423a…4e13`; 2000 réplicas por escenario; umbral nulo de W = 0.0667).** La v1 se detuvo por lentitud sin producir resultados; la v2 tenía el signo del efecto invertido y su salida se conserva como inválida.
+
+| corr(X, L5) | efecto de L5 en log Y_c | ρ_X = 0.05 | 0.10 | 0.15 | **0.20** | 0.30 |
+|---|---|---|---|---|---|---|
+| 0 | 0 | 0.24 | 0.60 | 0.91 | **0.99** | 1.00 |
+| 0 | 0.5 | 0.14 | 0.49 | 0.81 | **0.97** | 1.00 |
+| 0.5 | 0 | 0.17 | 0.49 | 0.81 | **0.97** | 1.00 |
+| 0.5 | 0.5 (mismo signo) | 0.00 | 0.00 | 0.00 | **0.01** | 0.25 |
+
+- **Potencia ≥ 0.97 para ρ_X = 0.2** en tres de los cuatro escenarios: la compuerta de la sección 5 se cumple en esos casos.
+- **Escenario adverso:** si X se asocia con L5 **y** L5 aleja el borde después, la parte de X que va con L5 empuja en contra del efecto y W (sin ajuste) falla, aunque W_adj tiene potencia (0.98). Es una limitación de exigir las dos pruebas: el éxito exige que X anticipe la degeneración tanto en bruto como ajustado.
+- **Datos reales sin X:** ρ_borde(u5) va de 2.5 a 9.2 en las 800 (ninguna cerca del borde). La varianza de log dentro del split es pequeña (0.017) y los splits 8–11 no se distinguen en el update 5. La degeneración aparece después del update 5. Eso hace poco probable un efecto grande de L5, pero no se puede afirmar sin desenlaces.
 
 ## 6. Orden de operaciones
 1. Correr `rho_borde_u5.py` y publicar por hash `rho_borde_u5.csv`. No necesita X ni visitas futuras.
