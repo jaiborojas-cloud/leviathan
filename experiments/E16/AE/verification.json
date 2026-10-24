@@ -1,0 +1,64 @@
+{
+  "status": "PASS_REPRODUCTION",
+  "verdicts": {
+    "Q1": "INCONCLUSIVE",
+    "Q2": "INCONCLUSIVE",
+    "Q3": "INCONCLUSIVE"
+  },
+  "freeze_phase0": "343be81",
+  "implementation_phase0": "ba3bb43",
+  "freeze_main": "91cc1a2",
+  "implementation_main": "b6cbb89",
+  "freeze_bridge": "d1c40fa",
+  "implementation_bridge": "bca4621",
+  "exact_files": {
+    "phase0_v1": {
+      "environment.json": "d0be8683c3d0b1b4817c7581ec567dbc3b0cfc21a3477f59ba92f0c88d0d242f",
+      "grid.csv": "8a25d76b78d0abfb7f2237c46cedef3d98e177e5044eb1f23861e5f968384945",
+      "summary.json": "73e523ae5bb992ceb88c142fb84c48ebb512649c1df3b71f85bb5ec227d91960"
+    },
+    "main_v1": {
+      "controls.csv": "c33e0f151d4f6b85a02f5e5d9945b446a21eb3f866e936c94ec2307bac5d5300",
+      "environment.json": "c885737407ed4248d64230b10b3bc74b89a13cb6780e2be9f2227aae6b42947c",
+      "events.csv": "3746ac71e0dc96acc136d513f63d98e45cb764ea64d8faed85a87105d3c173e8",
+      "index_nodes.csv": "caee25f1c429a53ec5f97e6039c37a3eb5dc0bff86b48b3010e3b3e5c1987453",
+      "indices.csv": "a63e0040108ecb7cc3d59bf674dd9299fabb00317a79067c75df851c0bb1ea34",
+      "mp_audits.csv": "756aafaa750a355b122ece769933e5b0a1fb1d1a8e3c02502e82f6364402da24",
+      "normal_bands.csv": "8cb7092ad87bcc6029403490e50913b00e0aee452b0365f7b029d29a0e5cf03b",
+      "normal_spectra.csv": "a2d3479a3fd93f00a0a69dfacdde2d081f62851b7b8c6d86be33ddaf1297acfa",
+      "profiles.csv": "547d1996b1a77fcf0eeec531606ac501cec1bbdf16a8dc064ed2e5b8dae34300",
+      "rays.csv": "3aff9ed593982c4955447ef671513632799fe03c4ed743cbad485694f0521285",
+      "resolutions.csv": "fb47dcbe9851972e77dbbeb9445de71e4f563a538f7303dec6dfabf736fbb212",
+      "shooting.csv": "c9a41d0de2d9bbba197fef4a708347ca9b163e699a4b599072e3c8ed9fa3dd3d",
+      "summary.json": "5ef55d30a23be46fef618b722690d6f2b9adfc53c8e3742f843aa7f4555d8246"
+    },
+    "bridge_v2": {
+      "bridge.csv": "5b869109a72c238b7d102836c37ae5254e7e15888e42f529addca9f10fda2abd",
+      "collisions.csv": "3a368c5a1294f7e8ae3a16b160cce5dd5d194d9627737528afd270e3881c97c9",
+      "controls.csv": "013c36337a53679b4f17c8d8e62df7e97bc9cd022f8a0adb9a8214a66097a9f1",
+      "environment.json": "061006cfffba864400586e664daeea1e9dabdefb9c03d403cbf8ecc28a1727b0",
+      "per_ray.csv": "7a11842f58fa4c63582f5823e286e6f8f204f02b201ca26722eff07773f2f592",
+      "summary.json": "377a0c3585c2889753130dff16d270a91716df9c90637825313956fcce6b3fe7"
+    }
+  },
+  "excluded": [
+    "resources.json"
+  ],
+  "reproduction_resources": {
+    "phase0": {
+      "seconds": 0.5451374190015486,
+      "max_rss_mib": 56.94140625
+    },
+    "main": {
+      "seconds": 324.16841835900414,
+      "max_rss_mib": 173.9609375
+    },
+    "bridge": {
+      "seconds": 1.511643448000541,
+      "max_rss_mib": 82.765625
+    }
+  },
+  "scope": "AE plus SINTESIS_S_AD.md",
+  "bridge_v1_preserved": true,
+  "bridge_v2_geodesics_reintegrated": 0
+}
