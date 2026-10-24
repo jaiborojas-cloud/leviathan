@@ -1,0 +1,84 @@
+{
+  "base_commit": "aecc3bc668be842b07e9a4b771d6f9693331baef",
+  "geometry_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+  "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+  "audit_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/audit.py",
+  "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+  "n_components": 27,
+  "seeds": [
+    2026102400,
+    2026102401,
+    2026102402,
+    2026102403,
+    2026102404,
+    2026102405,
+    2026102406,
+    2026102407,
+    2026102408,
+    2026102409
+  ],
+  "curvature_targets": [
+    1.0,
+    10.0,
+    1000.0,
+    10000.0
+  ],
+  "feature_scales": [
+    0.0004,
+    0.001264911064067352,
+    0.012649110640673518,
+    0.04
+  ],
+  "feature_base_scale": 0.0004,
+  "base_epsilon": 0.1,
+  "radial_Q_amplitude": 3.0,
+  "noise_Q_std": 0.1,
+  "calibration_floor": 1e-06,
+  "predictor_rho0": 0.0005,
+  "predictor_rx": 0.001,
+  "predictor_angles": 64,
+  "predictor_rings": 9,
+  "R_max": 0.2,
+  "rays": [
+    512,
+    1024
+  ],
+  "escape_norm": "linf",
+  "escape_threshold": 150.0,
+  "rtol": 1e-12,
+  "atol": 1e-14,
+  "radial_scan": 257,
+  "area_rings": [
+    32,
+    64
+  ],
+  "radius_agreement": 0.02,
+  "area_agreement": 0.05,
+  "mp_digits": 80,
+  "mp_K_tolerance": 1e-06,
+  "area_target": 0.02,
+  "index_angle": 0.0,
+  "index_meshes": [
+    32,
+    64,
+    128
+  ],
+  "index_factors": [
+    0.75,
+    1.25
+  ],
+  "index_rel_tol": 1e-07,
+  "index_abs_tol": 1e-08,
+  "index_gradient_tol": 0.001,
+  "kendall_threshold": 0.2,
+  "kendall_resolution_tol": 0.05,
+  "budget_seconds": 7200,
+  "per_state_seconds": 600,
+  "sources": {
+    "H/data.json": "99907826e8084e0b263bc254d83b21cc76104c8cead817a0508531b8d6bbc064",
+    "D/scripts/run.py": "de36b4c91c23ae4b7f9b4cdbf052ac8cf8ae5059d242c12e0b5dba54a98c111f",
+    "D/config.json": "475ca4608a0c81dfd869afb26901359f737847348bca56cbd1ac486e30c9be76",
+    "AC/scripts/run_v2.py": "119b1bc3f6623bc6a9bad11404c8e27f9928f03a8964691c4969c480637122fd",
+    "AC/results/run_v2/shooting.csv": "6edcdf6b65a560ac7c485f899038258bf20c37381977771bc0c3a9236654cc5d"
+  }
+}
