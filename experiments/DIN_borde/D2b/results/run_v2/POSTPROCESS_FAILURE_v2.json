@@ -1,0 +1,9 @@
+{
+  "status": "FAILED_POSTPROCESS_SERIALIZATION",
+  "script": "scripts/summarize_v2.py",
+  "output_preserved": "results/run_v2/summary.json",
+  "exception": "TypeError: Object of type bool is not JSON serializable",
+  "location": "summarize_v2.py:93 json.dump(summary, f, indent=2, allow_nan=False)",
+  "cause": "numpy.bool_ from comparison ratio_error < 1e-4 in sameX.pass_test",
+  "raw_measurements": "run_v2 completed; not repeated or altered"
+}
