@@ -1,0 +1,65 @@
+{
+  "base_commit": "90a2b82cb29ee36c2cdc1572edd6a429fe5d5161",
+  "diagnostic_commit": "51341418671a5517a791f71fb31089dd06332505",
+  "diagnostic_path": "experiments/T2_A1/diagnostico/RESULTADO_diagnostico_2026-10-24.md",
+  "diagnostic_sha256": "ebdcbd025ccaa42c7ff58a647b1a09e7d2e6846df14c3d490bb3c3fb6436e1be",
+  "geometry_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+  "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+  "audit_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/audit.py",
+  "audit_sha256": "d357bfccabba809364b14f29662a0d3a836a411f77294058f538a34888386aaf",
+  "af_inputs": "experiments/E16/AF/results/stage1_v1/synthetic_states.json",
+  "af_inputs_sha256": "692ed004129c9fa580a9edece638f58fa2f22ebcc872a871c30d4ea7ceb2749d",
+  "seeds": [
+    2026102500,
+    2026102501,
+    2026102502,
+    2026102503,
+    2026102504,
+    2026102505,
+    2026102506,
+    2026102507,
+    2026102508,
+    2026102509
+  ],
+  "length_scales": [
+    0.01,
+    0.03,
+    0.1,
+    0.3
+  ],
+  "feature_radius": 0.04,
+  "epsilon_base": 0.001,
+  "angles": [
+    720,
+    1440
+  ],
+  "orders": [
+    400,
+    800
+  ],
+  "s_transform": 10,
+  "quad_epsrel": 1e-10,
+  "rho_resolution_rel": 0.005,
+  "rays": 2048,
+  "rtol": 1e-12,
+  "atol": 1e-14,
+  "escape_norm": "linf",
+  "escape_threshold": 150.0,
+  "horizon_rho_factor": 1.5,
+  "steps_max": 5000,
+  "per_state_seconds": 240,
+  "budget_seconds": 14400,
+  "angle_xatol": 1e-08,
+  "angle_maxiter": 40,
+  "mp_digits": 80,
+  "numeric_relative_tolerance": 2e-05,
+  "ratio_median_threshold": 1.2,
+  "ratio_max_threshold": 2.0,
+  "spearman_threshold": 0.9,
+  "q4_interval": [
+    0.6,
+    1.0
+  ],
+  "workers": 2,
+  "arrays_root": "/workspace/work/e16-ag-v1-arrays"
+}
