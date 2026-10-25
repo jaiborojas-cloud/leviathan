@@ -8,3 +8,6 @@ Se corrió en el equipo del responsable, con salida en `D:\RIPG_DATA\DIN_C1\comp
 - **Robustez del ajuste (Q10 de D2b, sobre datos de descubrimiento).** Con un ajuste flexible, en rangos dentro del split y polinomio cúbico de L10, da **W_adj = 0.225**. El efecto descubierto **no** es un artefacto de la no linealidad entre Y y L10.
 - **Calibración nula.** Con 200 X sintéticos independientes y 1000 permutaciones, la tasa de rechazo al 5 % es 0.035 y la mediana de p es 0.51.
 - **Con efecto.** Con r = 0.15 (32 semillas, 500 permutaciones), W medio = 0.119 y potencia 0.97, coherente con `potencia_C1`.
+
+## Compuerta con `c1_cohorte.py` v2 (`c357f33c…`, 2026-10-25 10:44)
+Se corrió en el equipo del responsable, con salida en `D:\RIPG_DATA\DIN_C1\compuerta_v2`. Resultado: **PASA**, 5 de 5 en el update 5 y 5 de 5 en el 50, 0 errores. Esta vez tardó unos 0.4 min por trayectoria, frente a 0.1 min con la v1. La v2 no hace más cálculos en modo compuerta, así que la diferencia probablemente se debe a la carga del equipo. No se investigó.
