@@ -20,3 +20,8 @@ por ello el criterio literal de compatibilidad y su posible FAIL esperado,
 sin confundir cambio de estimando con defecto numérico. Miembros de caras
 se decidirán racionalmente, sin fusionar casi empates por conveniencia.
 Entorno revisado con cloud-environment-runtime; no red para datasets.
+
+## Código v1, antes de ejecutar
+Se implementan topología racional, conos completos, límites laterales, cuadratura
+logarítmica con restos, referencias independientes MP y cohorte fijada de302 casos.
+La primera ejecución sólo podrá empezar después del commit de estos archivos.
