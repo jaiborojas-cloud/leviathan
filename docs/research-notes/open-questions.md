@@ -17,6 +17,10 @@ estimación de probabilidad de éxito.
 | Q08 | ¿Cuál es la definición operacional completa de $s_\ell$, $H_\phi$ y juego vacío? | Procedencia/definición | La nota seleccionada reporta cifras pero no todas las reglas | Recuperar protocolo o código original y tratar contribuciones negativas; [estado E15-B1](../archive/import-2026-10-17/originals/Leviathan_RIPG_estado_E15-B1_2026-09-24.md) |
 | Q09 | ¿Puede otro colaborador reproducir cada etapa con sus datos externos? | Reproducibilidad | Disponibilidad y permisos de paquetes/checkpoints, no sólo URL | Respaldo verificable y entorno versionado sin credenciales; [guía](reproduction-guide.md) |
 
+| Q10 | ¿Por qué la señal temprana de DIN-C1 aparece en Wine y no en Iris? | Empírica/mecanística | D7: ≈ 46 % pasa por la incertidumbre final del dominante; en Iris el difícil casi nunca se resuelve | Un estudio con familias que varíen la resolución final; [D7](../../experiments/DIN_borde/RESULTADO_D7_2026-10-25.md), [G1](../../experiments/DIN_borde/G1/CONCLUSION.md) |
+| Q11 | ¿Qué lleva el 54 % de la señal que no pasa por R (leverage ℓ_k, grado de colapso, escala Fisher)? | Mecanística | Medir esas cantidades en el update 10 sin tautología con M | Plan exploratorio nuevo sobre los datos de descubrimiento |
+| Q12 | ¿Cambian los resultados con ρ_borde v2 (todas las caras)? | Instrumental | DIN-I2 en desarrollo | Reevaluación declarada de T2-A1, D1–D7 y DIN-C1, sin cambiar los veredictos congelados |
+
 ## Dependencias entre preguntas
 
 Q01 y Q08 son faltantes de fuente: no se rellenan mediante nuevos experimentos.

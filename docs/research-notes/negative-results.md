@@ -16,6 +16,12 @@ Las fuentes y dominios están en el [mapa de afirmaciones](claims-and-evidence.m
 | N08 | E16-B: diferencias finitas insuficientes para su compuerta de rango | INCONCLUSIVE instrumental | Autodiff rango 2 no reemplaza validación independiente | Otro protocolo de precisión, preservando el outcome de B |
 | N09 | E16: agregaciones sin descenso y agregación válida con rango conservado | Contraejemplos matemáticos | Ni toda agregación define métrica heredada ni toda agregación reduce estrictamente rango | Declarar mapa, horizontalidad y dependencia de representante |
 
+| N10 | T2-A0: visitas sin cerrar (pausas, disco, T5) | INCONCLUSIVE instrumental | No hay veredicto sobre la no inyectividad futura | Instrumento viable (lo resolvió el cambio de desenlace a ρ_borde) |
+| N11 | T2-A1: X (update 5) no predice ρ_borde futuro | Efecto no respaldado (confirmatorio) | X no anticipa la degeneración en Wine | Otro predictor u otro momento (DIN-C1 mostró que la confianza en el update 10 sí) |
+| N12 | DIN-D5: ningún candidato del update 50 aporta más allá de la persistencia | Límite empírico exploratorio | Medir en el 50 es demasiado tarde: ya es casi el desenlace | Ventana más temprana (D6) |
+| N13 | DIN-G1: la señal temprana no se reproduce en Iris (D < 0) | No replicado (exploratorio) | El PASS de DIN-C1 no se generaliza automáticamente | Confirmatorio propio en otra familia, con la variación en la resolución final como posible condición |
+| N14 | ρ_borde v1: falla en paneles degenerados sintéticos (D2 Q5) y no alcanza las normales de las aristas (G1) | Límite del instrumento | La «distancia al borde» de v1 es el mínimo de rayos a un vértice | ρ_borde v2 con caras completas (DIN-I2) y reevaluación declarada |
+
 ## Fuentes por registro
 
 - N01–N03: [cierre E10](../archive/import-2026-10-17/originals/Cierre_E10_RIPG_y_ruta_E11.md)
@@ -26,6 +32,11 @@ Las fuentes y dominios están en el [mapa de afirmaciones](claims-and-evidence.m
 - N07: [cierre T1-B](../archive/import-2026-10-17/originals/Leviathan/Leviathan_RIPG_E15-T1-B_cierre.md).
 - N08: [conclusión E16-B](../../experiments/E16/B/CONCLUSION.md).
 - N09: [especificación E16](../../experiments/E16/mathematical_spec.md).
+- N10: [cierre T2-A0](../../experiments/T2_A/claude/CIERRE_T2A0_v1_CONGELADO.md).
+- N11: [cierre T2-A1](../../experiments/T2_A1/CIERRE_T2A1_v1_CONGELADO.md).
+- N12: [D5](../../experiments/DIN_borde/RESULTADO_D5_2026-10-24.md).
+- N13: [G1](../../experiments/DIN_borde/G1/CONCLUSION.md).
+- N14: [D2](../../experiments/DIN_borde/D2/CONCLUSION.md), [G1](../../experiments/DIN_borde/G1/CONCLUSION.md), [sensibilidad C1](../../experiments/DIN_borde/C1/sensibilidad_aristas/SENSIBILIDAD_ARISTAS_2026-10-25.md).
 
 ## Errores corregidos sin borrar historia
 
