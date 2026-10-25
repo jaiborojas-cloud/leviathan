@@ -29,3 +29,8 @@ La primera ejecución sólo podrá empezar después del commit de estos archivos
 ## Primer fallo conservado
 Controles PASS archivados; falla sólo su impresión por numpy.bool_.
 Enmienda v2 congelada antes de corregir. No se sobrescriben salidas ni código v1.
+
+## Cúspides · r2 prospectiva
+La enmienda33a9b43 precede al código r2. Se archiva el instrumento r1 bit a bit;
+se subdivide en ceros antes de optimizar/contrastar casi rango uno. Se repetirán
+los302 casos y24 sensibilidades, sin cambiar umbrales y conservando r1.

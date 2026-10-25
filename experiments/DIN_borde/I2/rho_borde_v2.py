@@ -14,7 +14,9 @@ import warnings
 import numpy as np
 from numpy.polynomial.legendre import leggauss
 from scipy.integrate import quad
-from scipy.optimize import minimize_scalar
+from scipy.optimize import minimize_scalar, brentq
+
+IMPLEMENTATION_VERSION = 'r2'
 
 GEOMETRY_SHA256 = 'b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3'
 _GEOMETRY = {}
@@ -130,6 +132,7 @@ class _Instrument:
                 C = np.zeros((0, 0))
                 factor = np.zeros((0, 0))
                 lam, clipped = 0., 0.
+                dominant, residual_bound = None, 0.
             else:
                 B = E[:, :-1]-E[:, [-1]]
                 C = B.T@centered@B
@@ -141,9 +144,41 @@ class _Instrument:
                 pos = ev > 0
                 factor = vec[:, pos]*np.sqrt(ev[pos])
                 lam = float(max(0., ev[-1]))
+                dominant = None
+                if lam > 0 and lam >= (1-1e-10)*float(np.maximum(ev, 0).sum()):
+                    dominant = vec[:, -1]*math.sqrt(lam)
+                residual_bound = 2*len(groups)*math.sqrt(float(max(0., ev[-2]))) if len(ev) > 1 else 0.
             self.metric_cache[key] = dict(C=C, factor=factor, lam=lam, clipped=clipped,
-                                         counts=self.counts[list(active)].astype(float))
+                                         counts=self.counts[list(active)].astype(float),
+                                         dominant=dominant, residual_bound=residual_bound)
         return self.metric_cache[key]
+
+    def turning_points(self, gaps, counts, mode, lo, hi):
+        """Raíces con cambios de signo; no certificado de exhaustividad."""
+        step = min(.25, self.log_step/16)
+        xs = np.linspace(lo, hi, int(math.ceil((hi-lo)/step))+1)
+        def probability(x):
+            z = np.exp(np.minimum(x+np.where(gaps > 0, np.log(np.maximum(gaps, 1e-300)), -np.inf), np.log(1e4)))
+            a = np.exp(-z)*counts
+            return a/a.sum(), z
+        def derivative(x):
+            a, z = probability(x)
+            return float((a*(a@z-z))[:-1]@mode)
+        # Evaluación vectorizada de la malla para no multiplicar coste Python.
+        zz = np.exp(np.minimum(xs[:, None]+np.where(gaps > 0, np.log(np.maximum(gaps, 1e-300)), -np.inf), np.log(1e4)))
+        aa = np.exp(-zz)*counts; aa /= aa.sum(axis=1, keepdims=True)
+        yy = (aa*((aa*zz).sum(axis=1, keepdims=True)-zz))[:, :-1]@mode
+        roots = []
+        for i in range(len(xs)-1):
+            if yy[i]*yy[i+1] < 0:
+                roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))
+        # La variación incluye los extremos exactos en s=0 e infinito.
+        initial = counts/counts.sum()
+        final = np.where(gaps == 0, counts, 0.); final /= final.sum()
+        values = [float(initial[:-1]@mode)]
+        values.extend(float(probability(x)[0][:-1]@mode) for x in roots)
+        values.append(float(final[:-1]@mode))
+        return roots, float(np.abs(np.diff(values)).sum())
 
     @staticmethod
     def integrand(logs, gaps, counts, factor):
@@ -193,6 +228,14 @@ class _Instrument:
             return dict(base, length=length, quad_error=0., prefix_bound=0., tail_bound=0., method='analytic_segment')
         lo, hi = -32., math.log(48.)-math.log(float(gaps[gaps > 0].min()))
         cuts = np.linspace(lo, hi, int(math.ceil((hi-lo)/self.log_step))+1)
+        roots, dominant_tv = [], None
+        if metric['dominant'] is not None:
+            roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)
+            if not validate:
+                return dict(base, length=dominant_tv, quad_error=None, prefix_bound=0., tail_bound=0.,
+                            method='dominant_TV_search_only', dominant_roots=roots,
+                            residual_length_bound=metric['residual_bound'])
+            cuts = np.array(sorted(set(cuts.tolist()+roots)))
         prefix = 2*scale*math.exp(lo)
         zfinal = np.exp(np.minimum(hi+np.log(gaps[gaps > 0]), np.log(1e4)))
         tail = float(2*scale*np.sum(counts[gaps > 0]*np.exp(-zfinal))/counts[end].sum())
@@ -221,7 +264,9 @@ class _Instrument:
         return dict(base, length=float(value+prefix+tail), integral=float(value), quad_error=error,
                     prefix_bound=prefix, tail_bound=tail, x_lower=lo, x_upper=hi,
                     cutoff_s=math.exp(hi) if hi < 709 else None,
-                    segments=len(cuts)-1, warnings=warning_messages)
+                    segments=len(cuts)-1, warnings=warning_messages,
+                    dominant_roots=roots, dominant_TV=dominant_tv,
+                    residual_length_bound=metric['residual_bound'] if dominant_tv is not None else None)
 
     def cone_rates(self, k, t, rational=False):
         left, right = self.edges[k-1], self.edges[k]
@@ -315,6 +360,7 @@ class _Instrument:
         face = min(faces, key=lambda a: a['length'])
         total = min([vert, face], key=lambda a: a['length'])
         return dict(status='VALID_NUMERICAL_ESTIMATE', rho_vert=vert['length'], rho_caras=total['length'],
+                    implementation_version=IMPLEMENTATION_VERSION,
                     rho_edge_min=face['length'], rho_vert_winner=vert, rho_caras_winner=total,
                     faces=faces, cones=cones, boundary_limits=limits, geometry_check=geometry_check,
                     unique_feature_points=len(self.points), geometric_vertices=len(self.hull),
