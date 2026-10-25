@@ -1,0 +1,204 @@
+{
+  "seed": 2026102700,
+  "name": "lopsided",
+  "id": "2026102700_lopsided",
+  "status": "OK",
+  "metrics": {
+    "R_error": 1.1472429074657131e-16,
+    "U_error": 1.2520897574831146e-16,
+    "M_error": 2.842421433765927e-12,
+    "rank_A": 6,
+    "F_min": 0.0016435585673376123,
+    "F_max": 0.8587012311328064,
+    "gamma": 8.587012311328056e-05,
+    "floor_active": false,
+    "M_min": -4.595948354741006e-15,
+    "M_max": 62.97960869192771,
+    "trace": 98.72860050149725,
+    "maxdiag_fraction": 0.18104678699938953,
+    "maxeig_fraction": 0.6379064260206201,
+    "effective_rank": 2.116487753495497,
+    "offdiag_fraction": 0.909286395305404,
+    "X": -0.3566749439387323,
+    "min_py": 0.29999999999999993,
+    "max_py": 0.6,
+    "argmax_diag": 26,
+    "argmin_py": 0,
+    "dominance_agrees": false,
+    "interpolation_resolved": false,
+    "M0_error": null,
+    "ridge_bound": null,
+    "algebra_pass": true
+  },
+  "construction": {
+    "group_sizes": [
+      25,
+      1,
+      1
+    ]
+  },
+  "native_seconds": 12.613933603999612,
+  "native": {
+    "rho_borde": 0.250962045309409,
+    "err_quad": 6.524341722262406e-12,
+    "theta": 3.086517857097163,
+    "rho_min_gl": 0.2509621343494033,
+    "dif_orden": 1.5908924780416753e-09,
+    "dif_dir": 6.067389375719759e-07,
+    "rho_mediana": 0.35216509057121637
+  },
+  "reference_at_native_theta": {
+    "value": 0.2509620449119713,
+    "error": 2.889767091190866e-15,
+    "tail": 2.0102512334298966e-13,
+    "cutoff": 160.8333586743389
+  },
+  "native_relative_error": 1.5836565804437557e-09,
+  "native_fidelity": "PASS",
+  "log_rho": -1.3824535651910657,
+  "chord_lower": 0.2509620449119711,
+  "G_grid": [
+    [
+      [
+        0.027350277198773493,
+        -0.005562977745237895
+      ],
+      [
+        -0.005562977745237878,
+        0.0024223134593600354
+      ]
+    ],
+    [
+      [
+        0.010939351576007571,
+        -0.004783433384303296
+      ],
+      [
+        -0.004783433384303341,
+        0.004666521371693991
+      ]
+    ],
+    [
+      [
+        0.0026737685654391313,
+        -0.0019443541735701415
+      ],
+      [
+        -0.0019443541735701501,
+        0.001571429855625119
+      ]
+    ],
+    [
+      [
+        0.1462861096913112,
+        -0.052935658913499925
+      ],
+      [
+        -0.052935658913499925,
+        0.034375243466341424
+      ]
+    ],
+    [
+      [
+        0.05830271520626909,
+        -0.03080936538849417
+      ],
+      [
+        -0.030809365388494176,
+        0.04152836372265185
+      ]
+    ],
+    [
+      [
+        0.017570587880591584,
+        -0.015549115533218336
+      ],
+      [
+        -0.015549115533218357,
+        0.01538945164578685
+      ]
+    ],
+    [
+      [
+        0.226148546901933,
+        -0.15040014186363
+      ],
+      [
+        -0.15040014186362996,
+        0.18121275997963032
+      ]
+    ],
+    [
+      [
+        0.12104464244411024,
+        -0.07588179812509172
+      ],
+      [
+        -0.07588179812509162,
+        0.17085157012496435
+      ]
+    ],
+    [
+      [
+        0.055313340995981224,
+        -0.06228640523005986
+      ],
+      [
+        -0.06228640523005984,
+        0.07897370196805464
+      ]
+    ]
+  ],
+  "array": {
+    "path": "/workspace/work/din-d2b-v2-arrays/2026102700_lopsided.npz",
+    "sha256": "7c7272f4de004f150bbd2005ae93803fa104ad02ce95c271653a08e3560508e5",
+    "bytes": 6227
+  },
+  "warnings": [
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    },
+    {
+      "category": "IntegrationWarning",
+      "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+    }
+  ],
+  "seconds": 12.682600763000664
+}
