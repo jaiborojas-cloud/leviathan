@@ -1,0 +1,246 @@
+{
+  "A1": "FAIL",
+  "A2": "PASS",
+  "A3": "FAIL",
+  "A4": "PASS",
+  "A5": "PASS_DESCRIPTIVE",
+  "checks": {
+    "all32_comparisons": true,
+    "monte_carlo_complete": true,
+    "all17_CLI_recorded": true,
+    "no_inflation_valid_nulls": true,
+    "compatible_power": true
+  },
+  "rates": [
+    {
+      "scenario": "N0",
+      "completed": 400,
+      "requested": 400,
+      "PASS": 3,
+      "fraction": 0.0075,
+      "Wilson95": [
+        0.0025538891952499396,
+        0.021815720724032123
+      ],
+      "B": 199,
+      "author_Wilson95": [
+        0.01632070753628833,
+        0.10228191466658104
+      ],
+      "author_interval_overlap": true,
+      "interpretation": "NO_INFLATION_AT_MEASURED_SCOPE",
+      "sensitivity": [
+        {
+          "replicate": 1,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.01,
+          "p5000": 0.009798040391921616
+        },
+        {
+          "replicate": 0,
+          "B199": "NOT_MET",
+          "B5000": "NOT_MET",
+          "p199": 0.85,
+          "p5000": 0.8194361127774445
+        },
+        {
+          "replicate": 2,
+          "B199": "NOT_MET",
+          "B5000": "NOT_MET",
+          "p199": 0.895,
+          "p5000": 0.8354329134173165
+        },
+        {
+          "replicate": 3,
+          "B199": "NOT_MET",
+          "B5000": "NOT_MET",
+          "p199": 0.615,
+          "p5000": 0.6082783443311338
+        },
+        {
+          "replicate": 4,
+          "B199": "NOT_MET",
+          "B5000": "NOT_MET",
+          "p199": 0.19,
+          "p5000": 0.16576684663067387
+        }
+      ],
+      "realised_r_mean": null
+    },
+    {
+      "scenario": "N1",
+      "completed": 400,
+      "requested": 400,
+      "PASS": 6,
+      "fraction": 0.015,
+      "Wilson95": [
+        0.006892291919440893,
+        0.03233463358482672
+      ],
+      "B": 199,
+      "author_Wilson95": null,
+      "author_interval_overlap": null,
+      "interpretation": "DESCRIPTIVE_CONDITIONAL_NULL",
+      "sensitivity": [],
+      "realised_r_mean": null
+    },
+    {
+      "scenario": "N2",
+      "completed": 400,
+      "requested": 400,
+      "PASS": 6,
+      "fraction": 0.015,
+      "Wilson95": [
+        0.006892291919440893,
+        0.03233463358482672
+      ],
+      "B": 199,
+      "author_Wilson95": null,
+      "author_interval_overlap": null,
+      "interpretation": "NO_INFLATION_AT_MEASURED_SCOPE",
+      "sensitivity": [],
+      "realised_r_mean": null
+    },
+    {
+      "scenario": "P010",
+      "completed": 400,
+      "requested": 400,
+      "PASS": 289,
+      "fraction": 0.7225,
+      "Wilson95": [
+        0.6766612653345575,
+        0.7641057636866807
+      ],
+      "B": 199,
+      "author_Wilson95": [
+        0.5143332169904459,
+        0.8204745836639026
+      ],
+      "author_interval_overlap": true,
+      "interpretation": "COMPATIBLE_WITH_SECTION6",
+      "sensitivity": [
+        {
+          "replicate": 0,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.04,
+          "p5000": 0.041991601679664065
+        },
+        {
+          "replicate": 1,
+          "B199": "NOT_MET",
+          "B5000": "NOT_MET",
+          "p199": 0.07,
+          "p5000": 0.060187962407518496
+        },
+        {
+          "replicate": 2,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0003999200159968006
+        },
+        {
+          "replicate": 3,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.003799240151969606
+        },
+        {
+          "replicate": 4,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0003999200159968006
+        }
+      ],
+      "realised_r_mean": 0.09779558538429384
+    },
+    {
+      "scenario": "P015",
+      "completed": 400,
+      "requested": 400,
+      "PASS": 386,
+      "fraction": 0.965,
+      "Wilson95": [
+        0.9421148604670819,
+        0.9790387058020222
+      ],
+      "B": 199,
+      "author_Wilson95": [
+        0.8928208017449293,
+        1.0
+      ],
+      "author_interval_overlap": true,
+      "interpretation": "COMPATIBLE_WITH_SECTION6",
+      "sensitivity": [
+        {
+          "replicate": 1,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0001999600079984003
+        },
+        {
+          "replicate": 0,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0001999600079984003
+        },
+        {
+          "replicate": 2,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0005998800239952009
+        },
+        {
+          "replicate": 3,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0001999600079984003
+        },
+        {
+          "replicate": 4,
+          "B199": "PASS",
+          "B5000": "PASS",
+          "p199": 0.005,
+          "p5000": 0.0005998800239952009
+        }
+      ],
+      "realised_r_mean": 0.14836660477769512
+    }
+  ],
+  "max_D_error": 1.0658141036401503e-14,
+  "max_D_fast_error": 1.2212453270876722e-14,
+  "max_explicit_fast_null_error": 1.829647544582258e-13,
+  "all_operational_p_identical": true,
+  "literal_p_discrepancies": [],
+  "subject_errors": [
+    "L_constant",
+    "Y_constant",
+    "rho_negative",
+    "rho_zero"
+  ],
+  "violated_CLI_contracts": [
+    "L_constant",
+    "Y_constant",
+    "duplicates",
+    "missing47_omitted",
+    "rho_negative",
+    "rho_zero",
+    "splits40_omitted"
+  ],
+  "audit_execution_errors": [],
+  "snapshots": "6b17d25216381238f5a0f38f8eb9e7eb87f0a4da",
+  "limitations": [
+    "B199 en Monte Carlo; no tama\u00f1o exacto B5000",
+    "potencia retrospectiva, no garant\u00eda de cohorte nueva",
+    "X=h(L) puede mejorar base c\u00fabica sin informaci\u00f3n condicional",
+    "datos de descubrimiento gastados; no confirmaci\u00f3n"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "case": "missing39_explicit",
+  "returncode": 0,
+  "expected": "PASS",
+  "output": {
+    "veredicto": "PASS",
+    "motivos_inconclusive": [],
+    "modo": "CONFIRMATORIO",
+    "primaria": {
+      "D": 0.9997631558026714,
+      "p": 0.0001999600079984003,
+      "D_nulo_q95": 0.005584601237464395,
+      "pendiente_X": 3.0004794200301346,
+      "grado_base": 3
+    },
+    "secundarios": {
+      "W_adj_lineal_rangos": {
+        "W": 0.9935897435897436,
+        "p": 4.999750012499375e-05,
+        "splits_validos": 156,
+        "splits_sin_variacion": 0
+      },
+      "W_adj_flexible_rangos": {
+        "W": 0.7243589743589743,
+        "p": 4.999750012499375e-05,
+        "splits_validos": 156,
+        "splits_sin_variacion": 0
+      },
+      "D_base_grado5": {
+        "D": 0.9997692344926132,
+        "p": 0.0004997501249375312,
+        "D_nulo_q95": 0.007900169429377551,
+        "pendiente_X": 3.000453497583895,
+        "grado_base": 5
+      }
+    },
+    "n_tabla": 780,
+    "n_analizadas": 741,
+    "splits": 156,
+    "splits_validos": 156,
+    "compuerta": {
+      "PASA": true,
+      "synthetic": true
+    },
+    "tabla_sha256": "2f18711c5b859a0600188b62958725cd8b6f4e54d114c6e39d5a6fd0e008dfa1",
+    "script_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024"
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/cli_missing39_explicit.csv",
+    "sha256": "2f18711c5b859a0600188b62958725cd8b6f4e54d114c6e39d5a6fd0e008dfa1",
+    "rows": 780
+  },
+  "status": "RECORDED",
+  "planned_splits": 156,
+  "planned_trajectories": 780,
+  "contract_pass": true,
+  "seconds": 18.66718830900004
+}

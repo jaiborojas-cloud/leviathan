@@ -1,0 +1,47 @@
+{
+  "case": "empates_X_260202",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": -0.0026668408629977325,
+      "p": 0.645,
+      "D_nulo_q95": 0.002040666550637714,
+      "pendiente_X": -0.001798926193135954,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": -0.0026668408629981766,
+    "beta": -0.0017989261931359787,
+    "SSE_base": 648.0902706034959,
+    "SSE_full": 649.8186242200529,
+    "D_fast": -0.0026668408629979545,
+    "max_fast_explicit_null_error": 1.1102230246251565e-15,
+    "p": 0.645,
+    "p_literal": 0.645,
+    "p_fast": 0.645
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_empates_X_260202.npz",
+    "sha256": "c6a08ef6cc0a2aeadada12efb4a74c7b2c591e14e9712b1701b17b3c655031db",
+    "bytes": 13409
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_empates_X_260202.npz",
+    "sha256": "aa9f09b7b9ff860edbc19522164214b5c11a1c928da8e84d5f7f1429017ac222",
+    "bytes": 15045
+  },
+  "B": 199,
+  "D_error": 4.440892098500626e-16,
+  "beta_error": 2.47198095326695e-17,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 2.220446049250313e-16,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "NOT_MET",
+  "seconds": 1.5757407600001443
+}

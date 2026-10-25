@@ -1,0 +1,47 @@
+{
+  "case": "author_incremento_real",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": 0.05405178254987375,
+      "p": 0.005,
+      "D_nulo_q95": 0.0014930110397453733,
+      "pendiente_X": 0.14961104111839044,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": 0.05405178254987386,
+    "beta": 0.1496110411183904,
+    "SSE_base": 217.40727449610918,
+    "SSE_full": 205.65602377028475,
+    "D_fast": 0.05405178254987386,
+    "max_fast_explicit_null_error": 8.881784197001252e-16,
+    "p": 0.005,
+    "p_literal": 0.005,
+    "p_fast": 0.005
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_author_incremento_real.npz",
+    "sha256": "5d7f0de116c18c67badb4ecd57eead0b3ef92fbdad0d6bb143b5d481f453b823",
+    "bytes": 18930
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_author_incremento_real.npz",
+    "sha256": "339a2d23eefe9a425aa25f3eebf42c8dc635a4b2db03bed4670e97cc2bed9cd8",
+    "bytes": 20697
+  },
+  "B": 199,
+  "D_error": 1.1102230246251565e-16,
+  "beta_error": 2.7755575615628914e-17,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 0.0,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "PASS",
+  "seconds": 1.743922307000048
+}

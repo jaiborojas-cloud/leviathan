@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "meaning": "Integridad y reproducibilidad de la auditoría; C1 tiene defectos demostrados.",
+  "checks": {
+    "manifest_files": 245,
+    "external_files": 2084,
+    "comparisons": 32,
+    "Monte_Carlo": 2000,
+    "null_replicates": 1200,
+    "power_replicates": 800,
+    "sensitivity_B5000": 15,
+    "p_recounts_errors": 0,
+    "original_CLI_cases": 17,
+    "reference_imports": [
+      "numpy"
+    ],
+    "metadata_cuerda_actual_lines": [
+      50,
+      55
+    ],
+    "forbidden_reads_blocked": [
+      "experiments/T2_A/baseline/NO_LEER",
+      "experiments/T2_A1/predictors_locked.csv",
+      "experiments/DIN_borde/d3/NO_LEER",
+      "experiments/T2_A1/checkpoints/NO_LEER.pt"
+    ],
+    "scope_only_D2c": true,
+    "design_commit": "a6ad5d0",
+    "measurement_code_commit": "0f22130059757e40371b0649a2295aaebee6ec35"
+  },
+  "question_verdicts": {
+    "A1": "FAIL",
+    "A2": "PASS",
+    "A3": "FAIL",
+    "A4": "PASS",
+    "A5": "PASS_DESCRIPTIVE"
+  },
+  "verifier_sha256": "5e1e036644ed0ebb9479701be8466e4050ce4520046bb2688fd5965574849a56"
+}
