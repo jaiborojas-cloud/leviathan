@@ -1,0 +1,47 @@
+{
+  "case": "nulo_condicional_260202",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": -0.004219642524834866,
+      "p": 0.845,
+      "D_nulo_q95": 0.002348659966026055,
+      "pendiente_X": 0.15500124547086666,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": -0.00421964252483531,
+    "beta": 0.15500124547086702,
+    "SSE_base": 162.02256765087395,
+    "SSE_full": 162.7062449673166,
+    "D_fast": -0.004219642524834644,
+    "max_fast_explicit_null_error": 1.3322676295501878e-15,
+    "p": 0.845,
+    "p_literal": 0.845,
+    "p_fast": 0.845
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_nulo_condicional_260202.npz",
+    "sha256": "e7d5e49a4778e27a71a635e938512ee15aa4f49830d043abcd647b475f5c6b7c",
+    "bytes": 19189
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_nulo_condicional_260202.npz",
+    "sha256": "fed16543c5820bd388a6b3a5e770d8d8b5681ba1a871bb770738665cc7034987",
+    "bytes": 20834
+  },
+  "B": 199,
+  "D_error": 4.440892098500626e-16,
+  "beta_error": 3.608224830031759e-16,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 6.661338147750939e-16,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "NOT_MET",
+  "seconds": 1.5705035430000862
+}

@@ -1,0 +1,47 @@
+{
+  "case": "escalon_260202",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": 0.8583724565958681,
+      "p": 0.005,
+      "D_nulo_q95": 0.0025178013125254695,
+      "pendiente_X": 1.9797406443019803,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": 0.8583724565958681,
+    "beta": 1.9797406443019812,
+    "SSE_base": 183.17752871762832,
+    "SSE_full": 25.942983399117523,
+    "D_fast": 0.8583724565958681,
+    "max_fast_explicit_null_error": 8.881784197001252e-16,
+    "p": 0.005,
+    "p_literal": 0.005,
+    "p_fast": 0.005
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_escalon_260202.npz",
+    "sha256": "35b8ecb2c722947f86fb0781caf906c30f2bd3690d6f7e16dd9419281fefb8d5",
+    "bytes": 13441
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_escalon_260202.npz",
+    "sha256": "de9296a0862030154e7ba291bd7db0bf253c1802b4c6f9662e2c12d9646d6029",
+    "bytes": 15089
+  },
+  "B": 199,
+  "D_error": 0.0,
+  "beta_error": 8.881784197001252e-16,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 0.0,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "PASS",
+  "seconds": 1.6157997459999933
+}
