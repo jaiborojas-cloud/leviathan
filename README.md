@@ -45,13 +45,14 @@ La geometría de Fisher describe el modelo estadístico; la familia de funcional
 | ¿Qué tan ajustada es la cota ρ_borde? (E16-AG, AH) | exploratorio | sobreestima la distancia de 2 a 4 veces, pero **ordena bien** (Spearman 0.94–0.98) | [AG](experiments/E16/AG/CONCLUSION.md), [AH](experiments/E16/AH/CONCLUSION.md) |
 | Piso de ρ_borde cuando M colapsa (DIN-D2) | teoría con condiciones | ρ̃(e_k e_kᵀ) = min(1/n, 1/m_k − 1/n); el instrumento falla en paneles degenerados sintéticos, pero no en los reales | [D2](experiments/DIN_borde/D2/CONCLUSION.md), [auditoría](experiments/DIN_borde/auditoria_q5/AUDITORIA_Q5_estados_reales_2026-10-24.md) |
 | ¿Cómo llega el entrenamiento al borde? (DIN-borde D1–D6) | **exploratorio** | M colapsa sobre el ejemplo de validación **menos confiado**; ρ_borde sigue su incertidumbre (Spearman 0.998); el destino se decide entre los updates 10 y 30 | [D1](experiments/DIN_borde/RESULTADO_D1_2026-10-24.md) · [D3](experiments/DIN_borde/RESULTADO_D3_2026-10-24.md) · [D4](experiments/DIN_borde/RESULTADO_D4_2026-10-24.md) · [D5](experiments/DIN_borde/RESULTADO_D5_2026-10-24.md) · [D6](experiments/DIN_borde/RESULTADO_D6_2026-10-24.md) |
+| ¿La confianza temprana anticipa el borde? (DIN-C1, confirmatorio, cohorte nueva de 780 trayectorias) | **PASS** | la incertidumbre sobre el ejemplo de validación más difícil en el update 10 mejora fuera de muestra la predicción de ρ_borde(250) más allá de ρ_borde(10): D = 0.026, p = 1/5001; efecto modesto, predictivo y no causal | [cierre DIN-C1](experiments/DIN_borde/CIERRE_DIN_C1_v1_CONGELADO.md) |
 
 Tabla completa, con todas las etapas y su estado oficial: [catálogo de experimentos](docs/CATALOGO_EXPERIMENTOS.md).
 
 **Lo que no se ha establecido:** una ley universal del signo de la curvatura, un predictor universal de la generalización o una explicación causal. Los hallazgos de DIN-borde son exploratorios: salen de datos ya usados y solo un confirmatorio con cohorte nueva puede sostenerlos. Todo lo de entrenamiento real es de **una familia** (MLP en Wine, panel de 27 ejemplos); no se afirma que se transfiera a otras redes o datos.
 
 ## En curso
-- **DIN-C1:** confirmatorio de la señal temprana de DIN-D6. La hipótesis es que la incertidumbre sobre el ejemplo más difícil en el update 10 predice la cercanía al borde en el 250, más allá de ρ_borde(10). Usará una cohorte nueva (splits 168–323, nunca usados). Está en diseño, **sin congelar** y sin datos.
+- **DIN-G1:** exploración de si el mecanismo de DIN-borde aparece en otros datos, paneles y arquitecturas, antes de un confirmatorio en otra familia.
 - **E16:** cotas y caminos al borde en familias sintéticas.
 
 ## Teoría matemática

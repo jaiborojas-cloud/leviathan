@@ -54,6 +54,13 @@ Corte: `main` del 2026-10-23 (hasta el PR #56). Una fila por experimento: qué p
 | Fase 2 | 2340 visitas confirmatorias | 2340/2340, 0 errores | [informe](../experiments/T2_A1/fase2/RESULTADO_fase2_2026-10-24.md) |
 | Cierre | análisis único con X abierto | **NOT_MET**: W = 0.019 (p = 0.33), W_adj = 0.011 (p = 0.39). Nota exploratoria: la precisión en validación del update 5 se asocia con ρ_borde posterior (no confirmatorio) | [cierre](../experiments/T2_A1/CIERRE_T2A1_v1_CONGELADO.md) |
 
+## 5b. DIN-borde y DIN-C1 (dinámica hacia el borde, Wine)
+| ID | qué | estado | hallazgo | fuente |
+|---|---|---|---|---|
+| D1–D6 | escala y forma de M; colapso; confianza; predictores; ¿cuándo se decide? | exploratorio (datos de T2-A1) | M colapsa sobre el ejemplo de validación menos confiado; ρ_borde sigue su incertidumbre; el destino se decide entre los updates 10 y 30 | [D1](../experiments/DIN_borde/RESULTADO_D1_2026-10-24.md)–[D6](../experiments/DIN_borde/RESULTADO_D6_2026-10-24.md) |
+| D2, D2b, D2c | piso 1/n; qué parte es álgebra; auditoría del análisis | exploratorio (sintético) | ρ̃ = min(1/n, 1/m_k − 1/n); bajo colapso, M ≈ N·diag(odds); el residuo lineal más Spearman no identifica información nueva; defectos de entrada corregidos | [D2](../experiments/DIN_borde/D2/CONCLUSION.md), [D2b](../experiments/DIN_borde/D2b/CONCLUSION.md), [D2c](../experiments/DIN_borde/D2c/CONCLUSION.md) |
+| **DIN-C1** | ¿la incertidumbre del ejemplo difícil en u10 predice ρ_borde(250) más allá de ρ_borde(10)? (cohorte nueva, splits 168–323) | **PASS** (confirmatorio) | D = 0.026 (p = 1/5001), pendiente +0.81; efecto modesto; respecto de una base cúbica, predictivo y no causal | [cierre](../experiments/DIN_borde/CIERRE_DIN_C1_v1_CONGELADO.md) |
+
 ## 6. E16 — composición, métricas y caminos (sintético 2→2→1, sin entrenamiento)
 Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación instrumental.
 Actualización documental de esta sección hasta AF; el corte inicial de la cabecera se conserva para el resto del catálogo. AE cambia la familia perspectival sobre la red; AF usa estados softmax sintéticos de 27 componentes, sin datos T2.
