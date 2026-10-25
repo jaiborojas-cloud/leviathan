@@ -1,4 +1,6 @@
-"""c1_cohorte.py (BORRADOR v1, no congelado; compuerta con tolerancia numerica, ver DIAG_compuerta_2026-10-24.md) - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
+"""c1_cohorte.py (BORRADOR v2, no congelado). v1: compuerta con tolerancia numerica (DIAG_compuerta_2026-10-24.md).
+v2 (diseno C1 v2): X desde logits con logsumexp; cota de cuerda en u10; auditoria de precision de rho(10) con 5760 direcciones
+y orden 1600 en 40 trayectorias preseleccionadas por semilla 270001 - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
 
 Modos:
   --compuerta : reproduce desde cero 5 trayectorias antiguas (split12) y exige (a) parametros del update 5 a <= 1e-12 de
@@ -45,7 +47,15 @@ def init_index(s, k):
     return 5 + 5 * (s - 8) + k
 
 
-def una(s, k, out, t2a1, compuerta):
+def cuerda(M, f):
+    from scipy.spatial import ConvexHull
+    n = len(f); V = list(ConvexHull(f).vertices); best = float("inf")
+    for S in [[v] for v in V] + [[V[i], V[(i + 1) % len(V)]] for i in range(len(V))]:
+        d = -np.ones(n) / n; d[S] += 1 / len(S); best = min(best, math.sqrt(max(float(d @ M @ d), 0.0)))
+    return best
+
+
+def una(s, k, out, t2a1, compuerta, auditar=False):
     torch, core = _W["torch"], _W["core"]; j = init_index(s, k); tray = f"split{s}_j{j}_true"
     X, y, Xv, yv, m, opt, rng = _W["new_session"](s, j)
     d = Path(out) / "estados" / tray; d.mkdir(parents=True, exist_ok=True); R = dict(trajectory=tray, split=s, init=j, error=""); prev = 0
@@ -65,11 +75,18 @@ def una(s, k, out, t2a1, compuerta):
             R["dif_rel_M_u50"] = dr; R["compuerta_u50"] = int(dr <= TOL_M); break
         if t == 10:
             with torch.no_grad():
-                pv = torch.softmax(m(Xv), 1); py = pv[torch.arange(len(yv)), yv].numpy()
-            R.update(p_min_val_u10=float(py.min()), X=math.log(max(1 - float(py.min()), 1e-300)), k_min_u10=int(np.argmin(py)),
+                z = m(Xv); lse = torch.logsumexp(z, 1); zm = z.clone(); zm[torch.arange(len(yv)), yv] = -float("inf")
+                l1mp = (torch.logsumexp(zm, 1) - lse).numpy()          # log(1 - p(y_n)), estable sin saturar
+                pv = torch.softmax(z, 1); py = pv[torch.arange(len(yv)), yv].numpy()
+            kk = int(np.argmax(l1mp))
+            R.update(X=float(l1mp[kk]), k_min_u10=kk, p_min_val_u10=float(py.min()), X_prob=math.log(max(1 - float(py.min()), 1e-300)),
                      val_acc_u10=float((pv.argmax(1) == yv).double().mean()))
         if t in RHO_EN and not compuerta:
             Mn = M.detach().numpy().astype(float); RR = _W["rb"].rho_borde(_W["Geometry"](Mn, f.detach().numpy().astype(float)))
+            if t == 10:
+                R["cuerda_u10"] = cuerda((Mn + Mn.T) / 2, f.detach().numpy().astype(float))
+                if auditar:
+                    RA = _W["rb"].rho_borde(_W["Geometry"](Mn, f.detach().numpy().astype(float)), ndir=5760, orden=1600); R["rho_u10_alta"] = RA["rho_borde"]
             dg = np.diag(Mn); R.update({f"rho_u{t}": RR["rho_borde"], f"dif_dir_u{t}": RR.get("dif_dir"), f"diag_frac_u{t}": float(dg.max() / np.trace(Mn)), f"k_star_u{t}": int(np.argmax(dg))})
     return R
 
@@ -86,7 +103,7 @@ def main():
     cola = [(12, k) for k in range(5)] if a.compuerta else [(s, k) for s in range(a.desde, a.hasta + 1) for k in range(5)]
     if not a.compuerta and a.desde < 168: sys.exit("ABORTA: la cohorte confirmatoria empieza en el split 168")
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True); prog = out / "PROGRESO_c1.csv"
-    campos = ["trajectory", "split", "init", "X", "p_min_val_u10", "k_min_u10", "val_acc_u10", "rho_u10", "rho_u30", "rho_u250", "dif_dir_u10", "dif_dir_u30", "dif_dir_u250",
+    campos = ["trajectory", "split", "init", "X", "X_prob", "cuerda_u10", "rho_u10_alta", "auditada", "p_min_val_u10", "k_min_u10", "val_acc_u10", "rho_u10", "rho_u30", "rho_u250", "dif_dir_u10", "dif_dir_u30", "dif_dir_u250",
               "diag_frac_u10", "diag_frac_u30", "diag_frac_u250", "k_star_u10", "k_star_u30", "k_star_u250", "sha_u5", "sha_u10", "sha_u30", "sha_u50", "sha_u250",
               "dif_u5", "dif_rel_M_u50", "compuerta_u5", "compuerta_u50", "error"]
     hechas = set()
@@ -94,14 +111,15 @@ def main():
     nuevo = not prog.exists(); fh = open(prog, "a", newline="", encoding="utf-8"); w = csv.DictWriter(fh, fieldnames=campos, extrasaction="ignore")
     if nuevo: w.writeheader()
     pend = [(s, k) for s, k in cola if f"split{s}_j{init_index(s, k)}_true" not in hechas]; t0 = time.time()
+    aud = set() if a.compuerta else {tuple(x) for x in np.random.default_rng(270001).permutation(np.array(cola))[:40].tolist()}
     print(json.dumps(dict(modo="compuerta" if a.compuerta else "cohorte", trayectorias=len(cola), pendientes=len(pend), script_sha256=sha(Path(__file__)))), flush=True)
     with ProcessPoolExecutor(max_workers=min(a.procesos, max(1, len(pend))), initializer=_init, initargs=(str(root), a.mocks, a.rho_dir)) as pool:
-        futs = {pool.submit(una, s, k, str(out), a.t2a1, a.compuerta): (s, k) for s, k in pend}
+        futs = {pool.submit(una, s, k, str(out), a.t2a1, a.compuerta, (s, k) in aud): (s, k) for s, k in pend}
         for i, fu in enumerate(as_completed(futs), 1):
             try: R = fu.result()
             except Exception as e:
                 s, k = futs[fu]; R = dict(trajectory=f"split{s}_j{init_index(s, k)}_true", split=s, init=init_index(s, k), error=repr(e)[:300])
-            w.writerow(R); fh.flush()
+            R["auditada"] = int(futs[fu] in aud); w.writerow(R); fh.flush()
             if i % 25 == 0 or R.get("error") or a.compuerta: print(f"[{i}/{len(pend)}] {R['trajectory']} {'ERROR ' + R['error'] if R.get('error') else 'ok'} ({(time.time() - t0) / 60:.1f} min)", flush=True)
     fh.close()
     filas = [r for r in csv.DictReader(open(prog, encoding="utf-8")) if not r["error"]]
