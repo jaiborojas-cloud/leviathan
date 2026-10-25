@@ -16,7 +16,7 @@ from numpy.polynomial.legendre import leggauss
 from scipy.integrate import quad
 from scipy.optimize import minimize_scalar, brentq
 
-IMPLEMENTATION_VERSION = 'r2'
+IMPLEMENTATION_VERSION = 'r3'
 
 GEOMETRY_SHA256 = 'b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3'
 _GEOMETRY = {}
@@ -168,17 +168,25 @@ class _Instrument:
         zz = np.exp(np.minimum(xs[:, None]+np.where(gaps > 0, np.log(np.maximum(gaps, 1e-300)), -np.inf), np.log(1e4)))
         aa = np.exp(-zz)*counts; aa /= aa.sum(axis=1, keepdims=True)
         yy = (aa*((aa*zz).sum(axis=1, keepdims=True)-zz))[:, :-1]@mode
-        roots = []
+        roots, rejected = [], []
         for i in range(len(xs)-1):
             if yy[i]*yy[i+1] < 0:
-                roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))
+                ya, yb = derivative(xs[i]), derivative(xs[i+1])
+                if ya*yb < 0:
+                    roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))
+                elif ya == 0 or yb == 0:
+                    roots.append(float(xs[i] if ya == 0 else xs[i+1]))
+                else:
+                    rejected.append(dict(bracket=[float(xs[i]), float(xs[i+1])],
+                                         scalar=[ya, yb], vectorized=[float(yy[i]), float(yy[i+1])]))
+        roots = sorted(set(roots))
         # La variación incluye los extremos exactos en s=0 e infinito.
         initial = counts/counts.sum()
         final = np.where(gaps == 0, counts, 0.); final /= final.sum()
         values = [float(initial[:-1]@mode)]
         values.extend(float(probability(x)[0][:-1]@mode) for x in roots)
         values.append(float(final[:-1]@mode))
-        return roots, float(np.abs(np.diff(values)).sum())
+        return roots, float(np.abs(np.diff(values)).sum()), rejected
 
     @staticmethod
     def integrand(logs, gaps, counts, factor):
@@ -228,12 +236,13 @@ class _Instrument:
             return dict(base, length=length, quad_error=0., prefix_bound=0., tail_bound=0., method='analytic_segment')
         lo, hi = -32., math.log(48.)-math.log(float(gaps[gaps > 0].min()))
         cuts = np.linspace(lo, hi, int(math.ceil((hi-lo)/self.log_step))+1)
-        roots, dominant_tv = [], None
+        roots, dominant_tv, rejected = [], None, []
         if metric['dominant'] is not None:
-            roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)
+            roots, dominant_tv, rejected = self.turning_points(gaps, counts, metric['dominant'], lo, hi)
             if not validate:
                 return dict(base, length=dominant_tv, quad_error=None, prefix_bound=0., tail_bound=0.,
                             method='dominant_TV_search_only', dominant_roots=roots,
+                            rejected_roundoff_brackets=rejected,
                             residual_length_bound=metric['residual_bound'])
             cuts = np.array(sorted(set(cuts.tolist()+roots)))
         prefix = 2*scale*math.exp(lo)
@@ -266,6 +275,7 @@ class _Instrument:
                     cutoff_s=math.exp(hi) if hi < 709 else None,
                     segments=len(cuts)-1, warnings=warning_messages,
                     dominant_roots=roots, dominant_TV=dominant_tv,
+                    rejected_roundoff_brackets=rejected,
                     residual_length_bound=metric['residual_bound'] if dominant_tv is not None else None)
 
     def cone_rates(self, k, t, rational=False):
