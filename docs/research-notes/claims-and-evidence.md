@@ -28,6 +28,11 @@ Los cierres enlazados prevalecen sobre planes previos.
 | A19 | E16-C: PASS_NUMERICAL con otro protocolo | 99/99 rangos y 54/54 negativos, según fuente de rama fijada | [Cierre C por commit](https://github.com/jaiborojas-cloud/leviathan/blob/4fd7eb5790a7161731e22c238f29138cd66425ac/experiments/E16/C/CONCLUSION.md) | Mismos datos conocidos; no reescribe B ni certifica todo un dominio |
 | A20 | Emergencia, canonicidad absoluta y causalidad: abiertas | Propuestas de extensión | [Rutas históricas](../archive/import-2026-10-17/RUTAS_INVESTIGACION_texto_extraido.md) | Requieren definición y evidencia independientes de controles algebraicos |
 
+| A21 | Curvatura temprana X (update 5) anticipa la cercanía posterior al borde: **no sostenida** | T2-A1, confirmatorio, 780 trayectorias: NOT_MET | [cierre T2-A1](../../experiments/T2_A1/CIERRE_T2A1_v1_CONGELADO.md) | Una familia y un desenlace (ρ_borde); no descarta efectos pequeños (≤ 0.1) |
+| A22 | Tras entrenar, M colapsa sobre el ejemplo de validación menos confiado: hallazgo exploratorio | Wine (D3/D4: 100 % tras el update 50); Iris (G1: H2 al 100 %) | [D4](../../experiments/DIN_borde/RESULTADO_D4_2026-10-24.md), [G1](../../experiments/DIN_borde/G1/CONCLUSION.md) | Bajo rango interpolante y ridge despreciable es en parte algebraico (D2b); la frecuencia del colapso es empírica |
+| A23 | La incertidumbre temprana del ejemplo difícil predice ρ_borde final más allá de ρ_borde(10): **confirmado en Wine** | DIN-C1: PASS, D = 0.026, p = 1/5001, cohorte nueva | [cierre DIN-C1](../../experiments/DIN_borde/CIERRE_DIN_C1_v1_CONGELADO.md) | Base cúbica; predictivo, no causal; no se reproduce en Iris (G1) |
+| A24 | ρ_borde v1 mide el mínimo de rayos que terminan en un vértice, no el de todas las caras: límite instrumental | Testigo de G1; 68 % de los estados Wine en el update 10 con un rayo normal más corto | [sensibilidad](../../experiments/DIN_borde/C1/sensibilidad_aristas/SENSIBILIDAD_ARISTAS_2026-10-25.md) | No invalida los veredictos congelados; v2 en desarrollo (DIN-I2) |
+
 ## Uso y actualización
 
 Para ampliar este mapa, registrar una fuente precisa, el dominio y el tipo de
