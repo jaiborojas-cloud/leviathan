@@ -25,3 +25,7 @@ Entorno revisado con cloud-environment-runtime; no red para datasets.
 Se implementan topología racional, conos completos, límites laterales, cuadratura
 logarítmica con restos, referencias independientes MP y cohorte fijada de302 casos.
 La primera ejecución sólo podrá empezar después del commit de estos archivos.
+
+## Primer fallo conservado
+Controles PASS archivados; falla sólo su impresión por numpy.bool_.
+Enmienda v2 congelada antes de corregir. No se sobrescriben salidas ni código v1.
