@@ -1,0 +1,128 @@
+{
+  "veredicto": "PASS",
+  "motivos_inconclusive": [],
+  "primaria": {
+    "D": 0.025589890497794143,
+    "p": 0.0001999600079984003,
+    "D_nulo_q95": 0.003282088958142493,
+    "pendiente_X": 0.8051069197192978,
+    "grado_base": 3,
+    "permutaciones": 5000
+  },
+  "secundarios": {
+    "W_adj_lineal_rangos": {
+      "W": 0.19935897435897432,
+      "p": 4.999750012499375e-05,
+      "splits_validos": 156,
+      "splits_sin_variacion": 0
+    },
+    "W_adj_flexible_rangos": {
+      "W": 0.19807692307692304,
+      "p": 4.999750012499375e-05,
+      "splits_validos": 156,
+      "splits_sin_variacion": 0
+    },
+    "A_W_logrho30": {
+      "W": 0.6378205128205128,
+      "p": 4.999750012499375e-05,
+      "splits_validos": 156,
+      "splits_sin_variacion": 0
+    },
+    "D_base_grado5": {
+      "D": 0.026038767848388433,
+      "p": 0.0004997501249375312,
+      "D_nulo_q95": 0.0034414074160981126,
+      "pendiente_X": 0.8103913363264529,
+      "grado_base": 5,
+      "permutaciones": 2000
+    },
+    "auditoria_rho10": {
+      "auditadas": 40,
+      "con_valor": 40,
+      "dif_rel_max": 8.310361506840094e-15
+    },
+    "cuerda_u10": {
+      "n": 780,
+      "violaciones": 0,
+      "cara_max": 2
+    }
+  },
+  "planificadas": 780,
+  "validas": 780,
+  "faltantes": 0,
+  "faltantes_por_motivo": {
+    "ausente": 0,
+    "error": 0,
+    "dominio": 0
+  },
+  "splits_planificados": 156,
+  "splits_validos": 156,
+  "alcance": "PASS = X mejora fuera de muestra a una base cubica de log rho(10); no informacion nueva sobre toda funcion de L; predictivo, no causal",
+  "modo": "CONFIRMATORIO",
+  "tabla_sha256": "554f354e62072e53f983002cb3233c5392756a8a95b08cc137bb3b0b28e5fd84",
+  "script_sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5",
+  "cohorte_script_sha256": "dc077630dae577d7a6d010245d86e0f178c9b6e309771bd3f05b798545a00a33",
+  "compuerta": {
+    "modo": "compuerta",
+    "trayectorias": 5,
+    "completas": 5,
+    "errores": 0,
+    "script_sha256": "dc077630dae577d7a6d010245d86e0f178c9b6e309771bd3f05b798545a00a33",
+    "ids_planificados_sha256": "08b09990d1fc9a1d40f5ffcf58ed18502e99d88c78f9c46fe8daa66d4833967e",
+    "compuerta_u5": 5,
+    "compuerta_u50": 5,
+    "PASA": true,
+    "tolerancias": {
+      "param_u5": 1e-12,
+      "M_rel_u50": 1e-10
+    },
+    "trayectorias_compuerta": [
+      "split12_j25_true",
+      "split12_j26_true",
+      "split12_j27_true",
+      "split12_j28_true",
+      "split12_j29_true"
+    ],
+    "detalle": [
+      {
+        "trajectory": "split12_j25_true",
+        "dif_u5": "1.5265566588595902e-16",
+        "dif_rel_M_u50": "3.8183262021634873e-13",
+        "compuerta_u5": "1",
+        "compuerta_u50": "1"
+      },
+      {
+        "trajectory": "split12_j26_true",
+        "dif_u5": "1.2073675392798577e-15",
+        "dif_rel_M_u50": "1.9299282007145235e-12",
+        "compuerta_u5": "1",
+        "compuerta_u50": "1"
+      },
+      {
+        "trajectory": "split12_j27_true",
+        "dif_u5": "2.914335439641036e-16",
+        "dif_rel_M_u50": "1.8390608353810986e-12",
+        "compuerta_u5": "1",
+        "compuerta_u50": "1"
+      },
+      {
+        "trajectory": "split12_j28_true",
+        "dif_u5": "2.508410146262463e-15",
+        "dif_rel_M_u50": "9.680989415494951e-14",
+        "compuerta_u5": "1",
+        "compuerta_u50": "1"
+      },
+      {
+        "trajectory": "split12_j29_true",
+        "dif_u5": "1.1102230246251565e-16",
+        "dif_rel_M_u50": "2.022969146662344e-12",
+        "compuerta_u5": "1",
+        "compuerta_u50": "1"
+      }
+    ]
+  }
+}
+
+real	0m20.313s
+user	0m19.991s
+sys	0m0.143s
