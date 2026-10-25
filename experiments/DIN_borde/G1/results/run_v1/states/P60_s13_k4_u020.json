@@ -1,0 +1,139 @@
+{
+  "id": "P60_s13_k4_u020",
+  "family": "P60",
+  "split": 13,
+  "initialization": 4,
+  "update": 20,
+  "checkpoint": {
+    "path": "/workspace/work/din-g1-v1-arrays/reference_s13_k4_u020.npz",
+    "sha256": "50814b4cf23086ca0ab84950fe3cef5b4883b0ff6c6abe44257614f26135edce",
+    "bytes": 61305
+  },
+  "batch_hash": "aa9d7063c3ecd38ca3a5701f41c2855639f0275c54b7ae08b75f4ca9df30c5dd",
+  "train": {
+    "acc": 0.8888888888888888,
+    "loss": 0.25306361192044624,
+    "min_py": 0.2552709489954255
+  },
+  "status": "MEASURED",
+  "validation": {
+    "acc": 0.9166666666666666,
+    "loss": 0.25260063410078204,
+    "min_py": 0.31654371443422913
+  },
+  "metrics": {
+    "trace": 840.4524646703591,
+    "k_star": 49,
+    "k_hard": 49,
+    "py_star": 0.31654371443422913,
+    "log1m_star": -0.3805925816070208,
+    "X": -0.3805925816070208,
+    "hard_match": true,
+    "c": 0.10198080624862717,
+    "q": 0.29124334645490785,
+    "eigmax_fraction": 0.10792087458563163,
+    "leading_max_coordinate": 0.4850900376765992,
+    "leading_k": 20,
+    "effective_rank": 17.23597824203064,
+    "minimum_eigenvalue": 7.023704076360911e-07,
+    "symmetry_error": 0.0,
+    "h0_eigenvalues": [
+      0.1681123302838535,
+      0.271407089279352
+    ],
+    "gamma": 0.0006551888617688845,
+    "rank_F_1e10": 118,
+    "interpolation_numerically_resolved": false,
+    "gamma_minF": 964789.3218361074,
+    "diagonal_odds_relative_error": 0.4124395894008396,
+    "leverage_star": 0.661611884953789,
+    "universal_bound_min_eigenvalue": 0.00067176379882159,
+    "chord": {
+      "value": 0.5675328824498957,
+      "min_squared": 0.32209357266188715,
+      "face_count": 16,
+      "largest_face": 3,
+      "faces": [
+        [
+          1
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          4
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          9
+        ],
+        [
+          9,
+          42
+        ],
+        [
+          22
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          25
+        ],
+        [
+          25,
+          48
+        ],
+        [
+          42
+        ],
+        [
+          42,
+          54
+        ],
+        [
+          48
+        ],
+        [
+          48,
+          50,
+          54
+        ],
+        [
+          54
+        ]
+      ]
+    },
+    "M_valid": true,
+    "collapsed": false,
+    "k_star_id": 119,
+    "k_hard_id": 119
+  },
+  "rho": {
+    "rho_borde": 0.6485804841064061,
+    "err_quad": 1.9883879558538726e-12,
+    "theta": 2.412115657703432,
+    "rho_min_gl": 0.648582126073121,
+    "dif_orden": 5.357851727321835e-14,
+    "dif_dir": 0.0,
+    "rho_mediana": 2.0240477344323704
+  },
+  "rho_valid": true,
+  "rho_seconds": 3.954003357000147,
+  "array": {
+    "path": "/workspace/work/din-g1-v1-arrays/P60_s13_k4_u020.npz",
+    "sha256": "6b170156d4e2f09d8701d2c78ed5a4cc5ba9724112a761b5f12e0948a45450a2",
+    "bytes": 25003
+  },
+  "warnings": [],
+  "seconds": 4.051879775000089
+}

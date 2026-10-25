@@ -1,0 +1,82 @@
+{
+  "id": "P60_s00_k0_u010",
+  "source_array": {
+    "path": "/workspace/work/din-g1-v1-arrays/P60_s00_k0_u010.npz",
+    "sha256": "01d7a626bdd4d8b0e26337d49996fd61f8b4133d9a6bdee37de743a4351d784f",
+    "bytes": 24423
+  },
+  "selected_post_design": true,
+  "status": "SIN_TESTIGO",
+  "rays": [
+    {
+      "u": [
+        1.0,
+        0.0
+      ],
+      "value": 2.5405637086104167,
+      "quad_error": 6.952313301716173e-14,
+      "tail": 3.5015104533685157e-13,
+      "upper_estimate": 2.5405637086108364,
+      "cutoff": 130.95466372228708,
+      "maxima": 1,
+      "min_positive_gap": 0.24435937667605145,
+      "monotonic_tail": true,
+      "numerical_witness": false
+    },
+    {
+      "u": [
+        -1.0,
+        0.0
+      ],
+      "value": 5.858844982527169,
+      "quad_error": 1.0150244670280253e-13,
+      "tail": 7.003020906737166e-13,
+      "upper_estimate": 5.8588449825279705,
+      "cutoff": 130.95466372228756,
+      "maxima": 1,
+      "min_positive_gap": 0.24435937667605057,
+      "monotonic_tail": true,
+      "numerical_witness": false
+    },
+    {
+      "u": [
+        0.0,
+        1.0
+      ],
+      "value": 3.6505261280432277,
+      "quad_error": 4.38843371012104e-14,
+      "tail": 7.020090449854577e-13,
+      "upper_estimate": 3.650526128043974,
+      "cutoff": 23.712887109948507,
+      "maxima": 1,
+      "min_positive_gap": 1.3494771788701645,
+      "monotonic_tail": true,
+      "numerical_witness": false
+    },
+    {
+      "u": [
+        0.0,
+        -1.0
+      ],
+      "value": 5.758609461201863,
+      "quad_error": 8.904340633485961e-14,
+      "tail": 7.003021694823259e-13,
+      "upper_estimate": 5.758609461202652,
+      "cutoff": 71.13866132984569,
+      "maxima": 1,
+      "min_positive_gap": 0.4498257262900538,
+      "monotonic_tail": true,
+      "numerical_witness": false
+    }
+  ],
+  "rho_native": 2.092787923778475,
+  "min_axial_upper_estimate": 2.5405637086108364,
+  "ratio_native_to_axial": 0.8237494366645101,
+  "PSD_with_primary_tolerance": true,
+  "warnings": [
+    {
+      "category": "IntegrationWarning",
+      "message": "Extremely bad integrand behavior occurs at some points of the\n  integration interval."
+    }
+  ]
+}

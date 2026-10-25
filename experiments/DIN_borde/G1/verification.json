@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "checks": {
+    "manifest_files": 2352,
+    "external_files": 3521,
+    "design_commit": "bb7fedf",
+    "measurement_code_commit": "28c639582c6084f2eb8f9f0bb346b6f74d7b2b7d",
+    "splits_checked": 20,
+    "states_preserved": 2100,
+    "states_measured": 2100,
+    "audits_preserved": 120,
+    "paired_snapshots": 700,
+    "batch_sequences_checked": 2100,
+    "M_reproductions": [
+      {
+        "family": "R27",
+        "relative_error": 0.0
+      },
+      {
+        "family": "P60",
+        "relative_error": 0.0
+      },
+      {
+        "family": "W27",
+        "relative_error": 0.0
+      }
+    ],
+    "analysis_unit_controls": {
+      "increment_exact": true,
+      "redundant_X": true,
+      "constant_Y": true,
+      "event_censored": true,
+      "event_interval": true,
+      "ranks_ties": true
+    },
+    "forbidden_access_blocked": [
+      "experiments/DIN_borde/C1/c1_cohorte.csv",
+      "experiments/DIN_borde/d1/d1_estados.csv",
+      "experiments/T2_A/baseline/NO_LEER",
+      "experiments/T2_A1/predictors_locked.csv",
+      "sklearn.datasets.data.wine_data.csv"
+    ]
+  },
+  "scientific_verdicts": "Ver summary.json; integridad PASS no implica APARECE.",
+  "verifier_sha256": "668d6b303612150e01cb10090b74f4a99d6f5a9fe06e816494eb4f70cfe8ad03",
+  "p_values_computed": false
+}
