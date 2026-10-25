@@ -108,7 +108,7 @@ Estos scripts comprueban los hashes de las fuentes históricas y de los cierres 
 
 ## Licencia y cita
 
-**© 2026 Jaibo Rojas. Todos los derechos reservados.**
+**© 2026 Jair Rojas. Todos los derechos reservados.**
 - **Licencia:** no se concede ninguna. Copiar, modificar, redistribuir o reutilizar cualquier parte de este repositorio requiere autorización previa y por escrito; los detalles están en [LICENSE](LICENSE).
 - **Cita:** para referenciar el trabajo, usa [CITATION.cff](CITATION.cff). Citarlo no concede permiso de reproducción.
 
