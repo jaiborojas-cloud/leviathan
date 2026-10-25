@@ -1,0 +1,25 @@
+/workspace/leviathan/experiments/DIN_borde/D2c/sources/analisis_C1_v1.py:104: RuntimeWarning: invalid value encountered in log
+  L = np.log([float(r["rho_u10"]) for r in ok]); Y = np.log([float(r["rho_u250"]) for r in ok])
+Traceback (most recent call last):
+  File "/workspace/leviathan/experiments/DIN_borde/D2c/scripts/cli_worker_v1.py", line 10, in <module>
+    runpy.run_path(str(target), run_name='__main__')
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/leviathan/experiments/DIN_borde/D2c/sources/analisis_C1_v1.py", line 137, in <module>
+    main()
+  File "/workspace/leviathan/experiments/DIN_borde/D2c/sources/analisis_C1_v1.py", line 108, in main
+    prim = primaria(sp, X, L, Y, 3, 260001, a.B)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/experiments/DIN_borde/D2c/sources/analisis_C1_v1.py", line 52, in primaria
+    D = D_cv(Yc, Bm, Xc, fo); beta = float(np.linalg.lstsq(np.column_stack([Bm, Xc]), Yc, rcond=None)[0][-1])
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/experiments/DIN_borde/D2c/sources/analisis_C1_v1.py", line 43, in D_cv
+    bb = np.linalg.lstsq(Bm[tr], Yc[tr], rcond=None)[0]; bf = np.linalg.lstsq(C[tr], Yc[tr], rcond=None)[0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 2564, in lstsq
+    x, resids, rank, s = _umath_linalg.lstsq(a, b, rcond,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 175, in _raise_linalgerror_lstsq
+    raise LinAlgError("SVD did not converge in Linear Least Squares")
+numpy.linalg.LinAlgError: SVD did not converge in Linear Least Squares

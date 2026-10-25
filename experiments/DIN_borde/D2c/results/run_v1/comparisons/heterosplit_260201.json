@@ -1,0 +1,47 @@
+{
+  "case": "heterosplit_260201",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": -0.01060615758668515,
+      "p": 0.57,
+      "D_nulo_q95": 0.013370576492898755,
+      "pendiente_X": -0.09536036432124444,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": -0.01060615758668515,
+    "beta": -0.09536036432124438,
+    "SSE_base": 3710.2202952204807,
+    "SSE_full": 3749.5714763529068,
+    "D_fast": -0.010606157586685372,
+    "max_fast_explicit_null_error": 4.440892098500626e-16,
+    "p": 0.57,
+    "p_literal": 0.57,
+    "p_fast": 0.57
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_heterosplit_260201.npz",
+    "sha256": "637a23f0c580a60dab6156a63462be882b2ff0a5a0535a78755e56b44f1c2ab9",
+    "bytes": 19272
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_heterosplit_260201.npz",
+    "sha256": "b92cb52fd46d4ec9bfcc38a6a3861766983e0cb5b58f2a644cfb4885d6331f12",
+    "bytes": 20963
+  },
+  "B": 199,
+  "D_error": 0.0,
+  "beta_error": 5.551115123125783e-17,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 2.220446049250313e-16,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "NOT_MET",
+  "seconds": 1.5682564549999825
+}

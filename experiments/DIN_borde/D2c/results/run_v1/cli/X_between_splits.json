@@ -1,0 +1,58 @@
+{
+  "case": "X_between_splits",
+  "returncode": 0,
+  "expected": "INCONCLUSIVE",
+  "output": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos_inconclusive": [
+      "X sin variacion dentro de los splits: NO_IDENTIFICABLE"
+    ],
+    "modo": "CONFIRMATORIO",
+    "primaria": {
+      "D": null,
+      "p": null,
+      "pendiente_X": null,
+      "nota": "X sin variacion dentro de los splits: NO_IDENTIFICABLE"
+    },
+    "secundarios": {
+      "W_adj_lineal_rangos": {
+        "W": null,
+        "p": null,
+        "splits_validos": 0,
+        "splits_sin_variacion": 156
+      },
+      "W_adj_flexible_rangos": {
+        "W": null,
+        "p": null,
+        "splits_validos": 0,
+        "splits_sin_variacion": 156
+      },
+      "D_base_grado5": {
+        "D": null,
+        "p": null,
+        "pendiente_X": null,
+        "nota": "X sin variacion dentro de los splits: NO_IDENTIFICABLE"
+      }
+    },
+    "n_tabla": 780,
+    "n_analizadas": 780,
+    "splits": 156,
+    "splits_validos": 156,
+    "compuerta": {
+      "PASA": true,
+      "synthetic": true
+    },
+    "tabla_sha256": "d01550fd4c8c8b7eab849963cfb787dbfd6e3f13524ba80dd6d7e48bbe5160c5",
+    "script_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024"
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/cli_X_between_splits.csv",
+    "sha256": "d01550fd4c8c8b7eab849963cfb787dbfd6e3f13524ba80dd6d7e48bbe5160c5",
+    "rows": 780
+  },
+  "status": "RECORDED",
+  "planned_splits": 156,
+  "planned_trajectories": 780,
+  "contract_pass": true,
+  "seconds": 0.7165373350001119
+}

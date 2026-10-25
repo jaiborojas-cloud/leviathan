@@ -1,0 +1,47 @@
+{
+  "case": "ruido_260202",
+  "subject": {
+    "source_sha256": "50fa255697422e102e9b248a3ccfa7bcd0d0456a8a223e7487f2b2bdf023b024",
+    "primary": {
+      "D": -0.0003492262826749748,
+      "p": 0.19,
+      "D_nulo_q95": 0.002823502587527193,
+      "pendiente_X": 0.03981298803014112,
+      "grado_base": 3
+    },
+    "status": "OK",
+    "warnings": []
+  },
+  "independent": {
+    "D": -0.00034922628267564093,
+    "beta": 0.039812988030141105,
+    "SSE_base": 648.0902706034959,
+    "SSE_full": 648.316600759537,
+    "D_fast": -0.00034922628267519684,
+    "max_fast_explicit_null_error": 1.1102230246251565e-15,
+    "p": 0.19,
+    "p_literal": 0.19,
+    "p_fast": 0.19
+  },
+  "input": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ruido_260202.npz",
+    "sha256": "14f30ed6ed7afea7735696ee36880f836944de8630c1b7b5c8a866c84111f1cd",
+    "bytes": 19211
+  },
+  "evidence": {
+    "path": "/workspace/work/din-d2c-v1-arrays/A2_ref_ruido_260202.npz",
+    "sha256": "5d03a03ef9d65bf0ed9236b772f16e26331df28c38bf01fb1ec537a74bd53a69",
+    "bytes": 20854
+  },
+  "B": 199,
+  "D_error": 6.661338147750939e-16,
+  "beta_error": 1.3877787807814457e-17,
+  "p_identical": true,
+  "p_fast_identical": true,
+  "D_fast_error": 4.440892098500626e-16,
+  "defined": true,
+  "literal_p_differs": false,
+  "status": "PASS",
+  "reference_verdict": "NOT_MET",
+  "seconds": 1.5819889599999897
+}
