@@ -1,0 +1,57 @@
+{
+  "base_commit": "3798757acde266b43dd22b23ba4ddd12a73bca92",
+  "context_commit": "cb588738857a8448238d0340cca3ce5b51db3651",
+  "context_hashes": {
+    "PLAN_D1_exploratorio.md": "497f2cef91b9d1d4545f1dba2b443ffb2e8377f7d24c1212329997ada0d4ddc8",
+    "RESULTADO_D1_2026-10-24.md": "154194f375aa7da9255f6b2b571ecc9d85a44a7138d3651d6ef75da05001cc9f"
+  },
+  "geometry_path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+  "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+  "rho_path": "experiments/T2_A1/fase0prima/rho_borde.py",
+  "rho_sha256": "d8ec69f89a75ab947ac05d3764858eb2e8f6dc873b47733645b2e8b5aac0416b",
+  "n": 27,
+  "seeds": [
+    2026102600,
+    2026102601,
+    2026102602
+  ],
+  "forms": [
+    "gaussian",
+    "interior",
+    "near_collinear",
+    "mass_face"
+  ],
+  "near_scale": 0.000244140625,
+  "epsilons": [
+    1e-05,
+    0.0001,
+    0.01,
+    0.1
+  ],
+  "null_lambdas": [
+    0.5,
+    0.9
+  ],
+  "native_defaults": {
+    "ndir": 1440,
+    "orden": 800
+  },
+  "absolute_tolerance": 1e-06,
+  "relative_tolerance": 1e-05,
+  "normalization_tolerance": 1e-12,
+  "reference_digits": 80,
+  "reference_orders": [
+    16,
+    32
+  ],
+  "reference_tail_absolute": 1e-20,
+  "reference_relative_tolerance": 1e-08,
+  "reference_absolute_tolerance": 1e-12,
+  "reference_root_scan": 9,
+  "per_case_seconds": 240,
+  "total_seconds": 14400,
+  "workers": 3,
+  "arrays_root": "/workspace/work/din-d2-v1-arrays",
+  "published_D1_log_min_rounded": -3.29588,
+  "illustrative_log_deficit": 5e-05
+}
