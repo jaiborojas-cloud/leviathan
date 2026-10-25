@@ -1,0 +1,1995 @@
+{
+  "number": 224,
+  "id": "AG/triangle/2026102503/a0.1",
+  "group": "AG_triangle",
+  "input": {
+    "id": "AG/triangle/2026102503/a0.1",
+    "group": "AG_triangle",
+    "old_AG_rho": 0.013234379012126275,
+    "d_border": 0.0051569107629708295,
+    "fresh_v1": true,
+    "sensitivity": false,
+    "MP_ray": false,
+    "source": {
+      "path": "experiments/E16/AG/results/run_v1/inputs.json",
+      "sha256": "360a1d530030be2c12681a571b41222559a5729b765c3e0a79a0cdc8b3ef1838"
+    }
+  },
+  "arrays": {
+    "path": "/workspace/work/din-i2-r3-arrays/224.npz",
+    "sha256": "ebc3ef04f442942720962e5c4b08ada3f4ec6b78f005c1b24a8dabc63b862df3",
+    "bytes": 665
+  },
+  "v2": {
+    "status": "VALID_NUMERICAL_ESTIMATE",
+    "rho_vert": 0.02646875802425674,
+    "rho_caras": 0.013234379012126263,
+    "implementation_version": "r3",
+    "rho_edge_min": 0.013234379012126263,
+    "rho_vert_winner": {
+      "active_groups": [
+        0,
+        1,
+        2
+      ],
+      "endpoint_groups": [
+        0
+      ],
+      "metric_clip": 0.0,
+      "method": "log_quad",
+      "length": 0.02646875802425674,
+      "integral": 0.02646875802425242,
+      "quad_error": 2.703979627182225e-13,
+      "prefix_bound": 4.320440554477749e-15,
+      "tail_bound": 9.72403020245323e-22,
+      "x_lower": -32.0,
+      "x_upper": 3.871201012839503,
+      "cutoff_s": 48.00000009271737,
+      "segments": 9,
+      "warnings": [],
+      "dominant_roots": [],
+      "dominant_TV": null,
+      "rejected_roundoff_brackets": [],
+      "residual_length_bound": null,
+      "kind": "vertex",
+      "cone": 0,
+      "t": 0.5000000004829029,
+      "attained": true,
+      "vertex_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "direction_rational": [
+        "-2138669021973440515026825685155056/345343563531363574476319699315313",
+        "1925666230321300308152724208477568/345343563531363574476319699315313"
+      ],
+      "direction_unit_float": [
+        -0.7431448265967324,
+        0.6691306051157073
+      ]
+    },
+    "rho_caras_winner": {
+      "active_groups": [
+        0,
+        1,
+        2
+      ],
+      "endpoint_groups": [
+        1,
+        2
+      ],
+      "metric_clip": 0.0,
+      "method": "analytic_segment",
+      "length": 0.013234379012126263,
+      "quad_error": 0.0,
+      "prefix_bound": 0.0,
+      "tail_bound": 0.0,
+      "kind": "face",
+      "face_id": 1,
+      "attained": true,
+      "face_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "near_face_indices": [],
+      "direction_rational": [
+        "4277338037504276357226240076152832/345343563531363574476319699315313",
+        "-3851332467797837994044605385932800/345343563531363574476319699315313"
+      ],
+      "direction_unit_float": [
+        0.7431448254773941,
+        -0.6691306063588583
+      ]
+    },
+    "faces": [
+      {
+        "active_groups": [
+          0,
+          1,
+          2
+        ],
+        "endpoint_groups": [
+          0,
+          1
+        ],
+        "metric_clip": 0.0,
+        "method": "analytic_segment",
+        "length": 0.03989575576975101,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "kind": "face",
+        "face_id": 0,
+        "attained": true,
+        "face_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "near_face_indices": [],
+        "direction_rational": [
+          "-5474020774284878270134826509008896/345343563531363574476319699315313",
+          "-1778617167153258897866622211457024/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          -0.9510565162951538,
+          -0.30901699437494706
+        ]
+      },
+      {
+        "active_groups": [
+          0,
+          1,
+          2
+        ],
+        "endpoint_groups": [
+          1,
+          2
+        ],
+        "metric_clip": 0.0,
+        "method": "analytic_segment",
+        "length": 0.013234379012126263,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "kind": "face",
+        "face_id": 1,
+        "attained": true,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "near_face_indices": [],
+        "direction_rational": [
+          "4277338037504276357226240076152832/345343563531363574476319699315313",
+          "-3851332467797837994044605385932800/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.7431448254773941,
+          -0.6691306063588583
+        ]
+      },
+      {
+        "active_groups": [
+          0,
+          1,
+          2
+        ],
+        "endpoint_groups": [
+          0,
+          2
+        ],
+        "metric_clip": 0.0,
+        "method": "analytic_segment",
+        "length": 0.027744106388192195,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "kind": "face",
+        "face_id": 2,
+        "attained": true,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "near_face_indices": [],
+        "direction_rational": [
+          "1196682736780601912908586432856064/345343563531363574476319699315313",
+          "5629949634951096891911227597389824/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.20791169081775943,
+          0.9781476007338057
+        ]
+      }
+    ],
+    "cones": [
+      {
+        "cone": 0,
+        "vertex_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "grid": [
+          1e-08,
+          0.12500000749999998,
+          0.25000000499999997,
+          0.37500000249999993,
+          0.49999999999999994,
+          0.6249999975,
+          0.7499999949999999,
+          0.8749999924999999,
+          0.99999999
+        ],
+        "fast_values": [
+          0.08031696022519325,
+          0.055781256469788196,
+          0.03942759665457305,
+          0.028557933625997744,
+          0.02646885897016012,
+          0.029045170449941787,
+          0.03685441502260283,
+          0.04627669520322356,
+          0.057161242309701474
+        ],
+        "optimizer_attempts": [
+          {
+            "bounds": [
+              1e-08,
+              0.5
+            ],
+            "t": 0.49999998573316984,
+            "fast_length": 0.026468858970170317,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 35
+          },
+          {
+            "bounds": [
+              0.25,
+              0.75
+            ],
+            "t": 0.5000000004829029,
+            "fast_length": 0.026468858970160408,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 19
+          },
+          {
+            "bounds": [
+              0.5,
+              0.99999999
+            ],
+            "t": 0.5000000099640685,
+            "fast_length": 0.0264688589701661,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 37
+          }
+        ],
+        "candidates": [
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              0
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.026468758024256762,
+            "integral": 0.026468758024252442,
+            "quad_error": 2.703981421827655e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.72401733507931e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.871201067975212,
+            "cutoff_s": 48.000002739231476,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 0,
+            "t": 0.49999998573316984,
+            "attained": true,
+            "vertex_indices": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "direction_rational": [
+              "-2138668923582344127171630374164256/345343563531363574476319699315313",
+              "1925666339595683304270041816292608/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.7431447924077881,
+              0.6691306430863749
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              0
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.026468758024256744,
+            "integral": 0.026468758024252425,
+            "quad_error": 2.7039831000550466e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724030653246249e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010109078916,
+            "cutoff_s": 48.00000000000003,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 0,
+            "t": 0.49999999999999994,
+            "attained": true,
+            "vertex_indices": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "direction_rational": [
+              "-2138669018752137808314688616437976/345343563531363574476319699315313",
+              "1925666233898919408280374851457472/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.743144825477394,
+              0.6691306063588586
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              0
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.02646875802425674,
+            "integral": 0.02646875802425242,
+            "quad_error": 2.703979627182225e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.72403020245323e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.871201012839503,
+            "cutoff_s": 48.00000009271737,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 0,
+            "t": 0.5000000004829029,
+            "attained": true,
+            "vertex_indices": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "direction_rational": [
+              "-2138669021973440515026825685155056/345343563531363574476319699315313",
+              "1925666230321300308152724208477568/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.7431448265967324,
+              0.6691306051157073
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              0
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.02646875802425675,
+            "integral": 0.026468758024252432,
+            "quad_error": 2.7039847593734297e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724021351728062e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.871201050764165,
+            "cutoff_s": 48.000001913101194,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 0,
+            "t": 0.5000000099640685,
+            "attained": true,
+            "vertex_indices": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "direction_rational": [
+              "-2138669085219484633973528611224416/345343563531363574476319699315313",
+              "1925666160079452196211278289504000/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.7431448485734707,
+              0.6691305807080656
+            ]
+          }
+        ],
+        "best": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            0
+          ],
+          "metric_clip": 0.0,
+          "method": "log_quad",
+          "length": 0.02646875802425674,
+          "integral": 0.02646875802425242,
+          "quad_error": 2.703979627182225e-13,
+          "prefix_bound": 4.320440554477749e-15,
+          "tail_bound": 9.72403020245323e-22,
+          "x_lower": -32.0,
+          "x_upper": 3.871201012839503,
+          "cutoff_s": 48.00000009271737,
+          "segments": 9,
+          "warnings": [],
+          "dominant_roots": [],
+          "dominant_TV": null,
+          "rejected_roundoff_brackets": [],
+          "residual_length_bound": null,
+          "kind": "vertex",
+          "cone": 0,
+          "t": 0.5000000004829029,
+          "attained": true,
+          "vertex_indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "direction_rational": [
+            "-2138669021973440515026825685155056/345343563531363574476319699315313",
+            "1925666230321300308152724208477568/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            -0.7431448265967324,
+            0.6691306051157073
+          ]
+        }
+      },
+      {
+        "cone": 1,
+        "vertex_indices": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "grid": [
+          1e-08,
+          0.12500000749999998,
+          0.25000000499999997,
+          0.37500000249999993,
+          0.49999999999999994,
+          0.6249999975,
+          0.7499999949999999,
+          0.8749999924999999,
+          0.99999999
+        ],
+        "fast_values": [
+          0.057161245419137995,
+          0.05650211959747523,
+          0.055997066832682706,
+          0.05562237207482792,
+          0.05548842439598017,
+          0.05560812923293627,
+          0.05636920148526758,
+          0.061689848341808566,
+          0.08067076022406677
+        ],
+        "optimizer_attempts": [
+          {
+            "bounds": [
+              1e-08,
+              0.5
+            ],
+            "t": 0.4999999850233408,
+            "fast_length": 0.05548842439600007,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 36
+          },
+          {
+            "bounds": [
+              0.25,
+              0.75
+            ],
+            "t": 0.5000000004666233,
+            "fast_length": 0.05548842439598082,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 19
+          },
+          {
+            "bounds": [
+              0.5,
+              0.99999999
+            ],
+            "t": 0.5000000094467141,
+            "fast_length": 0.055488424395993614,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 37
+          }
+        ],
+        "candidates": [
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              1
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.0554882127763885,
+            "integral": 0.055488212776384174,
+            "quad_error": 5.668540509039112e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724016672450724e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.871201070814528,
+            "cutoff_s": 48.000002875518675,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 1,
+            "t": 0.4999999850233408,
+            "attained": true,
+            "vertex_indices": [
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26
+            ],
+            "direction_rational": [
+              "-598341514433078525785696069668776/345343563531363574476319699315313",
+              "-2814974786433197789078639982220064/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.2079117415647113,
+              -0.9781475899472066
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              1
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.05548821277638849,
+            "integral": 0.05548821277638417,
+            "quad_error": 5.668537168851652e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724030653246249e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010109078916,
+            "cutoff_s": 48.00000000000003,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 1,
+            "t": 0.49999999999999994,
+            "attained": true,
+            "vertex_indices": [
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26
+            ],
+            "direction_rational": [
+              "-598341368390301497763446927914424/345343563531363574476319699315313",
+              "-2814974817475548330896801285271648/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.20791169081775962,
+              -0.9781476007338057
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              1
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.0554882127763885,
+            "integral": 0.055488212776384174,
+            "quad_error": 5.668540637749976e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724030217650392e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010127743843,
+            "cutoff_s": 48.00000008959168,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 1,
+            "t": 0.5000000004666233,
+            "attained": true,
+            "vertex_indices": [
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26
+            ],
+            "direction_rational": [
+              "-598341363840089771523068717432336/345343563531363574476319699315313",
+              "-2814974818442725690297073923636544/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.20791168923665176,
+              -0.9781476010698805
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              1
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.05548821277638847,
+            "integral": 0.055488212776384147,
+            "quad_error": 5.668540647940303e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724021834681104e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010486947475,
+            "cutoff_s": 48.000001813769146,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 1,
+            "t": 0.5000000094467141,
+            "attained": true,
+            "vertex_indices": [
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26
+            ],
+            "direction_rational": [
+              "-598341276272002392866348555302208/345343563531363574476319699315313",
+              "-2814974837055897255524442878245120/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              -0.20791165880848797,
+              -0.9781476075375857
+            ]
+          }
+        ],
+        "best": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            1
+          ],
+          "metric_clip": 0.0,
+          "method": "log_quad",
+          "length": 0.05548821277638847,
+          "integral": 0.055488212776384147,
+          "quad_error": 5.668540647940303e-13,
+          "prefix_bound": 4.320440554477749e-15,
+          "tail_bound": 9.724021834681104e-22,
+          "x_lower": -32.0,
+          "x_upper": 3.8712010486947475,
+          "cutoff_s": 48.000001813769146,
+          "segments": 9,
+          "warnings": [],
+          "dominant_roots": [],
+          "dominant_TV": null,
+          "rejected_roundoff_brackets": [],
+          "residual_length_bound": null,
+          "kind": "vertex",
+          "cone": 1,
+          "t": 0.5000000094467141,
+          "attained": true,
+          "vertex_indices": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "direction_rational": [
+            "-598341276272002392866348555302208/345343563531363574476319699315313",
+            "-2814974837055897255524442878245120/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            -0.20791165880848797,
+            -0.9781476075375857
+          ]
+        }
+      },
+      {
+        "cone": 2,
+        "vertex_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "grid": [
+          1e-08,
+          0.12500000749999998,
+          0.25000000499999997,
+          0.37500000249999993,
+          0.49999999999999994,
+          0.6249999975,
+          0.7499999949999999,
+          0.8749999924999999,
+          0.99999999
+        ],
+        "fast_values": [
+          0.0806707719196597,
+          0.08012575832232749,
+          0.07993041898233391,
+          0.07982792598429432,
+          0.07979181584642538,
+          0.07982856944084694,
+          0.07992234412429687,
+          0.08006346342821515,
+          0.08031697042583284
+        ],
+        "optimizer_attempts": [
+          {
+            "bounds": [
+              1e-08,
+              0.5
+            ],
+            "t": 0.49999999149350643,
+            "fast_length": 0.07979181584644232,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 37
+          },
+          {
+            "bounds": [
+              0.25,
+              0.75
+            ],
+            "t": 0.5000000028213522,
+            "fast_length": 0.0797918158464309,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 21
+          },
+          {
+            "bounds": [
+              0.5,
+              0.99999999
+            ],
+            "t": 0.5000000082163526,
+            "fast_length": 0.07979181584644152,
+            "success": true,
+            "message": "Solution found.",
+            "nfev": 37
+          }
+        ],
+        "candidates": [
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              2
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.079791511539506,
+            "integral": 0.07979151153950169,
+            "quad_error": 8.151307022429044e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724022712381951e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010449338656,
+            "cutoff_s": 48.00000163324681,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 2,
+            "t": 0.49999999149350643,
+            "attained": true,
+            "vertex_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "direction_rational": [
+              "2737010413348013626955059365534928/345343563531363574476319699315313",
+              "889308502924164253030924922691872/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              0.9510565254010678,
+              0.30901696634982395
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              2
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.079791511539506,
+            "integral": 0.07979151153950169,
+            "quad_error": 8.151303585806136e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724030653246249e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010109078916,
+            "cutoff_s": 48.00000000000003,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 2,
+            "t": 0.49999999999999994,
+            "attained": true,
+            "vertex_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "direction_rational": [
+              "2737010387142439306078135544352400/345343563531363574476319699315313",
+              "889308583576628922616426433814176/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              0.9510565162951538,
+              0.3090169943749469
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              2
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.07979151153950599,
+            "integral": 0.07979151153950167,
+            "quad_error": 8.151303563053501e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724028019495313e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010221932998,
+            "cutoff_s": 48.00000054169963,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 2,
+            "t": 0.5000000028213522,
+            "attained": true,
+            "vertex_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "direction_rational": [
+              "2737010378450825673093338108326624/345343563531363574476319699315313",
+              "889308610326665112341739700183744/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              0.9510565132749913,
+              0.30901700367005086
+            ]
+          },
+          {
+            "active_groups": [
+              0,
+              1,
+              2
+            ],
+            "endpoint_groups": [
+              2
+            ],
+            "metric_clip": 0.0,
+            "method": "log_quad",
+            "length": 0.07979151153950599,
+            "integral": 0.07979151153950167,
+            "quad_error": 8.151306999726367e-13,
+            "prefix_bound": 4.320440554477749e-15,
+            "tail_bound": 9.724022983230176e-22,
+            "x_lower": -32.0,
+            "x_upper": 3.8712010437733015,
+            "cutoff_s": 48.000001577539734,
+            "segments": 9,
+            "warnings": [],
+            "dominant_roots": [],
+            "dominant_TV": null,
+            "rejected_roundoff_brackets": [],
+            "residual_length_bound": null,
+            "kind": "vertex",
+            "cone": 2,
+            "t": 0.5000000082163526,
+            "attained": true,
+            "vertex_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "direction_rational": [
+              "2737010361830688950532949781911648/345343563531363574476319699315313",
+              "889308661478186288967732550078912/345343563531363574476319699315313"
+            ],
+            "direction_unit_float": [
+              0.9510565074998248,
+              0.309017021444184
+            ]
+          }
+        ],
+        "best": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "log_quad",
+          "length": 0.07979151153950599,
+          "integral": 0.07979151153950167,
+          "quad_error": 8.151303563053501e-13,
+          "prefix_bound": 4.320440554477749e-15,
+          "tail_bound": 9.724028019495313e-22,
+          "x_lower": -32.0,
+          "x_upper": 3.8712010221932998,
+          "cutoff_s": 48.00000054169963,
+          "segments": 9,
+          "warnings": [],
+          "dominant_roots": [],
+          "dominant_TV": null,
+          "rejected_roundoff_brackets": [],
+          "residual_length_bound": null,
+          "kind": "vertex",
+          "cone": 2,
+          "t": 0.5000000028213522,
+          "attained": true,
+          "vertex_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "direction_rational": [
+            "2737010378450825673093338108326624/345343563531363574476319699315313",
+            "889308610326665112341739700183744/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            0.9510565132749913,
+            0.30901700367005086
+          ]
+        }
+      }
+    ],
+    "boundary_limits": [
+      {
+        "kind": "vertex_limit",
+        "cone": 0,
+        "vertex_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "face_id": 2,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "attained": false,
+        "length": 0.08031695863412928,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            0,
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.027744106388192195,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 2,
+          "attained": true,
+          "face_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "1196682736780601912908586432856064/345343563531363574476319699315313",
+            "5629949634951096891911227597389824/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            0.20791169081775943,
+            0.9781476007338057
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            0,
+            2
+          ],
+          "endpoint_groups": [
+            0
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.052572852245937086,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "1196682736780601912908586432856064/345343563531363574476319699315313",
+          "5629949634951096891911227597389824/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.20791169081775943,
+          0.9781476007338057
+        ]
+      },
+      {
+        "kind": "vertex_limit",
+        "cone": 0,
+        "vertex_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "face_id": 0,
+        "face_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "attained": false,
+        "length": 0.057161245215238785,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            0,
+            1
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.03989575576975101,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 0,
+          "attained": true,
+          "face_indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "-5474020774284878270134826509008896/345343563531363574476319699315313",
+            "-1778617167153258897866622211457024/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            -0.9510565162951538,
+            -0.30901699437494706
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            0,
+            1
+          ],
+          "endpoint_groups": [
+            0
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.01726548944548777,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "-5474020774284878270134826509008896/345343563531363574476319699315313",
+          "-1778617167153258897866622211457024/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          -0.9510565162951538,
+          -0.30901699437494706
+        ]
+      },
+      {
+        "kind": "vertex_limit",
+        "cone": 1,
+        "vertex_indices": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "face_id": 0,
+        "face_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "attained": false,
+        "length": 0.057161245215238785,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            0,
+            1
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.03989575576975101,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 0,
+          "attained": true,
+          "face_indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "-5474020774284878270134826509008896/345343563531363574476319699315313",
+            "-1778617167153258897866622211457024/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            -0.9510565162951538,
+            -0.30901699437494706
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            0,
+            1
+          ],
+          "endpoint_groups": [
+            1
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.01726548944548777,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "-5474020774284878270134826509008896/345343563531363574476319699315313",
+          "-1778617167153258897866622211457024/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          -0.9510565162951538,
+          -0.30901699437494706
+        ]
+      },
+      {
+        "kind": "vertex_limit",
+        "cone": 1,
+        "vertex_indices": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "face_id": 1,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "attained": false,
+        "length": 0.08067075456420711,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            1,
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.013234379012126263,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 1,
+          "attained": true,
+          "face_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "4277338037504276357226240076152832/345343563531363574476319699315313",
+            "-3851332467797837994044605385932800/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            0.7431448254773941,
+            -0.6691306063588583
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            1
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.06743637555208085,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "4277338037504276357226240076152832/345343563531363574476319699315313",
+          "-3851332467797837994044605385932800/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.7431448254773941,
+          -0.6691306063588583
+        ]
+      },
+      {
+        "kind": "vertex_limit",
+        "cone": 2,
+        "vertex_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "face_id": 1,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "attained": false,
+        "length": 0.08067075456420711,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            1,
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.013234379012126263,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 1,
+          "attained": true,
+          "face_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "4277338037504276357226240076152832/345343563531363574476319699315313",
+            "-3851332467797837994044605385932800/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            0.7431448254773941,
+            -0.6691306063588583
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.06743637555208085,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "4277338037504276357226240076152832/345343563531363574476319699315313",
+          "-3851332467797837994044605385932800/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.7431448254773941,
+          -0.6691306063588583
+        ]
+      },
+      {
+        "kind": "vertex_limit",
+        "cone": 2,
+        "vertex_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "face_id": 2,
+        "face_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "attained": false,
+        "length": 0.08031695863412928,
+        "quad_error": 0.0,
+        "prefix_bound": 0.0,
+        "tail_bound": 0.0,
+        "face_component": {
+          "active_groups": [
+            0,
+            1,
+            2
+          ],
+          "endpoint_groups": [
+            0,
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.027744106388192195,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0,
+          "kind": "face",
+          "face_id": 2,
+          "attained": true,
+          "face_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "near_face_indices": [],
+          "direction_rational": [
+            "1196682736780601912908586432856064/345343563531363574476319699315313",
+            "5629949634951096891911227597389824/345343563531363574476319699315313"
+          ],
+          "direction_unit_float": [
+            0.20791169081775943,
+            0.9781476007338057
+          ]
+        },
+        "edge_tail_component": {
+          "active_groups": [
+            0,
+            2
+          ],
+          "endpoint_groups": [
+            2
+          ],
+          "metric_clip": 0.0,
+          "method": "analytic_segment",
+          "length": 0.052572852245937086,
+          "quad_error": 0.0,
+          "prefix_bound": 0.0,
+          "tail_bound": 0.0
+        },
+        "direction_rational": [
+          "1196682736780601912908586432856064/345343563531363574476319699315313",
+          "5629949634951096891911227597389824/345343563531363574476319699315313"
+        ],
+        "direction_unit_float": [
+          0.20791169081775943,
+          0.9781476007338057
+        ]
+      }
+    ],
+    "geometry_check": {
+      "jac0_speed_original": 0.004411459670708758,
+      "speed_contrast": 0.004411459670708754,
+      "absolute_error": 4.336808689942018e-18
+    },
+    "unique_feature_points": 3,
+    "geometric_vertices": 3,
+    "duplicate_groups": [
+      [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    ],
+    "exact_membership_tolerance": 0,
+    "near_face_alert": 1e-10,
+    "min_input_eigenvalue": 9.99999999996687e-06,
+    "contrast_rounding_max": 0.0,
+    "evaluations": 305,
+    "seconds": 0.10523409000234096,
+    "geometry_sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3",
+    "global_optimum_certified": false
+  },
+  "fresh_v1": {
+    "status": "RETURNED",
+    "raw": {
+      "rho_borde": 0.0788443680534283,
+      "err_quad": 5.3165805091737184e-14,
+      "theta": 5.545783834397726,
+      "rho_min_gl": 0.013234379022953133,
+      "dif_orden": 1.1076849868060286e-10,
+      "dif_dir": 0.0,
+      "rho_mediana": 0.055818314455810016
+    },
+    "seconds": 4.524610851000034,
+    "warnings": []
+  },
+  "fresh_v1_reused_from": "run_v1; misma sesión, CPU, workers y BLAS1",
+  "triangle_reference": {
+    "rho_vert": 0.026468758024252553,
+    "rho_caras": 0.013234379012126277,
+    "rho_vert_MP": "0.026468758024252553475798860983351183026175583824261130424679776504849932907370679",
+    "rho_caras_MP": "0.01323437901212627673789943049167559151308779191213056521233988825242496645368534",
+    "vertex_chords_MP": [
+      "0.026468758024252553475798860983351183026175583824261130424679776504849932907370679",
+      "0.055488212776384388525049281222876113193898666091609395120295713250173578395522012",
+      "0.079791511539502022066906200038429195911690960183543610866825515097359258210202699"
+    ],
+    "face_chords_MP": [
+      "0.01323437901212627673789943049167559151308779191213056521233988825242496645368534",
+      "0.027744106388192194262524640611438056596949333045804697560147856625086789197761006",
+      "0.03989575576975101103345310001921459795584548009177180543341275754867962910510135"
+    ]
+  },
+  "wall_seconds": 0.11924355900191586
+}

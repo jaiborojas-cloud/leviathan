@@ -1,0 +1,96 @@
+{
+  "number": 17,
+  "id": "D2/interior/2026102600/coordinate0",
+  "group": "D2_interior",
+  "input": {
+    "id": "D2/interior/2026102600/coordinate0",
+    "group": "D2_interior",
+    "case": {
+      "id": "interior/2026102600/coordinate0",
+      "panel": "interior/2026102600",
+      "form": "interior",
+      "seed": 2026102600,
+      "kind": "coordinate",
+      "k": 0
+    },
+    "old_v1": {
+      "status": "RETURNED",
+      "raw": {
+        "rho_borde": 0.03703703703703702,
+        "err_quad": 1.4876021638211826e-12,
+        "theta": 3.1958771046461205,
+        "rho_min_gl": 0.03703703703703642,
+        "dif_orden": 8.599371215112232e-14,
+        "dif_dir": 0.0,
+        "rho_mediana": 0.037037038399348375
+      },
+      "finite": true,
+      "warnings": [],
+      "error": "",
+      "seconds": 6.7842579999996815
+    },
+    "reference": {
+      "known_exact": true,
+      "exact": 0.037037037037037035,
+      "exact_MP": "0.037037037037037037037037037037037037037037037037037037037037037037037037037037037",
+      "lower": 0.037037037037037035,
+      "upper": 0.037037037037037035,
+      "upper_u": [
+        "-60283144610856070619/62257761248769736704",
+        "-3570589917949183993/31128880624384868352"
+      ],
+      "upper_witness": {
+        "value": 0.037037037037037035,
+        "MP_value": "0.037037037037037037037037037037037037037037037037037037037037037037037037037037037",
+        "reference_error": 0.0,
+        "status": "PASS",
+        "method": "analytic_TV_MP80",
+        "roots": [],
+        "root_count": 0,
+        "cut_count": 0,
+        "U": null,
+        "tail_bound": 0.0
+      },
+      "status": "PASS"
+    },
+    "old_Q5": "PASS",
+    "fresh_v1": true,
+    "sensitivity": true,
+    "MP_ray": false,
+    "source": {
+      "path": "/workspace/work/din-d2-v1-arrays/interior_2026102600_coordinate0_M.npy",
+      "sha256": "6339c92458ebe20b99e579822a55527e6e6f3fbf324e01bc9fe78feb2c89b3d8"
+    }
+  },
+  "arrays": {
+    "path": "/workspace/work/din-i2-r2-arrays/017.npz",
+    "sha256": "29f24ed8422bd0ab6ef349094f190aad85bc60a38e553d675187d541191a8230",
+    "bytes": 836
+  },
+  "v2": {
+    "status": "FAILED",
+    "exception": "ValueError('f(a) and f(b) must have different signs')",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/scripts/run_r2.py\", line 98, in measure\n    out[label] = rho_borde_v2(c['M'], c['f'], **options)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 383, in rho_borde_v2\n    return instrument.calculate()\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 301, in calculate\n    rr = self.ray(e['gaps'], validate=True)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 233, in ray\n    roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 174, in turning_points\n    roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_zeros_py.py\", line 846, in brentq\n    r = _zeros._brentq(f, a, b, xtol, rtol, maxiter, args, full_output, disp)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: f(a) and f(b) must have different signs\n"
+  },
+  "sensitivity": {
+    "status": "FAILED",
+    "exception": "ValueError('f(a) and f(b) must have different signs')",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/scripts/run_r2.py\", line 98, in measure\n    out[label] = rho_borde_v2(c['M'], c['f'], **options)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 383, in rho_borde_v2\n    return instrument.calculate()\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 301, in calculate\n    rr = self.ray(e['gaps'], validate=True)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 233, in ray\n    roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 174, in turning_points\n    roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_zeros_py.py\", line 846, in brentq\n    r = _zeros._brentq(f, a, b, xtol, rtol, maxiter, args, full_output, disp)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: f(a) and f(b) must have different signs\n"
+  },
+  "fresh_v1": {
+    "status": "RETURNED",
+    "raw": {
+      "rho_borde": 0.03703703703703702,
+      "err_quad": 1.4876021638211826e-12,
+      "theta": 3.1958771046461205,
+      "rho_min_gl": 0.03703703703703642,
+      "dif_orden": 8.599371215112232e-14,
+      "dif_dir": 0.0,
+      "rho_mediana": 0.037037038399348375
+    },
+    "seconds": 4.358787122000649,
+    "warnings": []
+  },
+  "fresh_v1_reused_from": "run_v1; misma sesión, CPU, workers y BLAS1",
+  "wall_seconds": 0.011282131999905687
+}
