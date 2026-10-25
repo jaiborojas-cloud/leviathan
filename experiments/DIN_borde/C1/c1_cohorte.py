@@ -1,6 +1,8 @@
 """c1_cohorte.py (BORRADOR v2, no congelado). v1: compuerta con tolerancia numerica (DIAG_compuerta_2026-10-24.md).
 v2 (diseno C1 v2): X desde logits con logsumexp; cota de cuerda en u10; auditoria de precision de rho(10) con 5760 direcciones
-y orden 1600 en 40 trayectorias preseleccionadas por semilla 270001 - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
+y orden 1600 en 40 trayectorias preseleccionadas por semilla 270001.
+v3 (auditoria D2c, PR #76): la tabla final conserva TODAS las trayectorias planificadas (las fallidas con su error); cuerda
+con caras completas (todos los puntos de cada arista del casco); el resumen publica IDs planificados, auditados y de compuerta. - DIN-C1: entrena la cohorte nueva y mide X, L10, rho(30) y Y. NO analiza.
 
 Modos:
   --compuerta : reproduce desde cero 5 trayectorias antiguas (split12) y exige (a) parametros del update 5 a <= 1e-12 de
@@ -47,12 +49,22 @@ def init_index(s, k):
     return 5 + 5 * (s - 8) + k
 
 
-def cuerda(M, f):
+def caras_expuestas(f, tol=1e-9):
+    """Caras expuestas del casco 2D: vertices y, por cada arista, TODOS los indices sobre ella (no solo sus extremos)."""
     from scipy.spatial import ConvexHull
-    n = len(f); V = list(ConvexHull(f).vertices); best = float("inf")
-    for S in [[v] for v in V] + [[V[i], V[(i + 1) % len(V)]] for i in range(len(V))]:
+    V = list(ConvexHull(f).vertices); esc = float(np.ptp(f, 0).max()); caras = [[v] for v in V]
+    for i in range(len(V)):
+        a, b = f[V[i]], f[V[(i + 1) % len(V)]]; d = b - a; L2 = float(d @ d); nrm = np.array([-d[1], d[0]]) / math.sqrt(L2)
+        t = (f - a) @ d / L2; S = [j for j in range(len(f)) if abs(float((f[j] - a) @ nrm)) <= tol * esc and -tol <= t[j] <= 1 + tol]
+        caras.append(sorted(S))
+    return caras
+
+
+def cuerda(M, f):
+    n = len(f); caras = caras_expuestas(f); best = float("inf")
+    for S in caras:
         d = -np.ones(n) / n; d[S] += 1 / len(S); best = min(best, math.sqrt(max(float(d @ M @ d), 0.0)))
-    return best
+    return best, max(len(S) for S in caras)
 
 
 def una(s, k, out, t2a1, compuerta, auditar=False):
@@ -84,7 +96,7 @@ def una(s, k, out, t2a1, compuerta, auditar=False):
         if t in RHO_EN and not compuerta:
             Mn = M.detach().numpy().astype(float); RR = _W["rb"].rho_borde(_W["Geometry"](Mn, f.detach().numpy().astype(float)))
             if t == 10:
-                R["cuerda_u10"] = cuerda((Mn + Mn.T) / 2, f.detach().numpy().astype(float))
+                R["cuerda_u10"], R["cara_max_u10"] = cuerda((Mn + Mn.T) / 2, f.detach().numpy().astype(float))
                 if auditar:
                     RA = _W["rb"].rho_borde(_W["Geometry"](Mn, f.detach().numpy().astype(float)), ndir=5760, orden=1600); R["rho_u10_alta"] = RA["rho_borde"]
             dg = np.diag(Mn); R.update({f"rho_u{t}": RR["rho_borde"], f"dif_dir_u{t}": RR.get("dif_dir"), f"diag_frac_u{t}": float(dg.max() / np.trace(Mn)), f"k_star_u{t}": int(np.argmax(dg))})
@@ -103,7 +115,7 @@ def main():
     cola = [(12, k) for k in range(5)] if a.compuerta else [(s, k) for s in range(a.desde, a.hasta + 1) for k in range(5)]
     if not a.compuerta and a.desde < 168: sys.exit("ABORTA: la cohorte confirmatoria empieza en el split 168")
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True); prog = out / "PROGRESO_c1.csv"
-    campos = ["trajectory", "split", "init", "X", "X_prob", "cuerda_u10", "rho_u10_alta", "auditada", "p_min_val_u10", "k_min_u10", "val_acc_u10", "rho_u10", "rho_u30", "rho_u250", "dif_dir_u10", "dif_dir_u30", "dif_dir_u250",
+    campos = ["trajectory", "split", "init", "X", "X_prob", "cuerda_u10", "cara_max_u10", "rho_u10_alta", "auditada", "p_min_val_u10", "k_min_u10", "val_acc_u10", "rho_u10", "rho_u30", "rho_u250", "dif_dir_u10", "dif_dir_u30", "dif_dir_u250",
               "diag_frac_u10", "diag_frac_u30", "diag_frac_u250", "k_star_u10", "k_star_u30", "k_star_u250", "sha_u5", "sha_u10", "sha_u30", "sha_u50", "sha_u250",
               "dif_u5", "dif_rel_M_u50", "compuerta_u5", "compuerta_u50", "error"]
     hechas = set()
@@ -122,17 +134,24 @@ def main():
             R["auditada"] = int(futs[fu] in aud); w.writerow(R); fh.flush()
             if i % 25 == 0 or R.get("error") or a.compuerta: print(f"[{i}/{len(pend)}] {R['trajectory']} {'ERROR ' + R['error'] if R.get('error') else 'ok'} ({(time.time() - t0) / 60:.1f} min)", flush=True)
     fh.close()
-    filas = [r for r in csv.DictReader(open(prog, encoding="utf-8")) if not r["error"]]
-    res = dict(modo="compuerta" if a.compuerta else "cohorte", trayectorias=len(cola), completas=len(filas),
-               errores=sum(1 for r in csv.DictReader(open(prog, encoding="utf-8")) if r["error"]), script_sha256=sha(Path(__file__)))
+    ult = {}
+    for r in csv.DictReader(open(prog, encoding="utf-8")): ult[r["trajectory"]] = r if (r["trajectory"] not in ult or not r["error"]) else ult[r["trajectory"]]
+    planificadas = [f"split{s}_j{init_index(s, k)}_true" for s, k in cola]
+    todas = [ult.get(t, dict(trajectory=t, split=int(t.split("_")[0][5:]), init=int(t.split("_")[1][1:]), error="no ejecutada")) for t in planificadas]
+    filas = [r for r in todas if not r["error"]]
+    res = dict(modo="compuerta" if a.compuerta else "cohorte", trayectorias=len(cola), completas=len(filas), errores=len(todas) - len(filas),
+               script_sha256=sha(Path(__file__)), ids_planificados_sha256=hashlib.sha256("\n".join(planificadas).encode()).hexdigest())
     if a.compuerta:
-        res.update(compuerta_u5=sum(r["compuerta_u5"] == "1" for r in filas), compuerta_u50=sum(r["compuerta_u50"] == "1" for r in filas),
-                   PASA=all(r["compuerta_u5"] == "1" and r["compuerta_u50"] == "1" for r in filas) and len(filas) == 5)
+        res.update(compuerta_u5=sum(str(r.get("compuerta_u5")) == "1" for r in filas), compuerta_u50=sum(str(r.get("compuerta_u50")) == "1" for r in filas),
+                   PASA=all(str(r.get("compuerta_u5")) == "1" and str(r.get("compuerta_u50")) == "1" for r in filas) and len(filas) == 5,
+                   tolerancias=dict(param_u5=TOL_PARAM, M_rel_u50=TOL_M), trayectorias_compuerta=planificadas,
+                   detalle=[{k: r.get(k) for k in ("trajectory", "dif_u5", "dif_rel_M_u50", "compuerta_u5", "compuerta_u50")} for r in todas])
     else:
-        tabla = out / "c1_cohorte.csv"; orden = sorted(filas, key=lambda r: (int(r["split"]), int(r["init"])))
+        tabla = out / "c1_cohorte.csv"
         with open(tabla, "w", newline="", encoding="utf-8") as f2:
-            w2 = csv.DictWriter(f2, fieldnames=campos, extrasaction="ignore"); w2.writeheader(); w2.writerows(orden)
-        res.update(tabla_sha256=sha(tabla), nota="Informe operacional: no contiene analisis de X frente a Y.")
+            w2 = csv.DictWriter(f2, fieldnames=campos, extrasaction="ignore"); w2.writeheader(); w2.writerows(todas)   # orden planificado; incluye fallidas
+        res.update(tabla_sha256=sha(tabla), auditadas=sorted(f"split{s}_j{init_index(s, k)}_true" for s, k in aud),
+                   nota="Informe operacional: no contiene analisis de X frente a Y. La tabla incluye las trayectorias fallidas con su error.")
     (out / "RESUMEN_c1.json").write_text(json.dumps(res, indent=2)); print(json.dumps(res, indent=2))
 
 
