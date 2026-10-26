@@ -1,0 +1,260 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "case": 0,
+      "n": 100,
+      "aggregate_paired": false,
+      "constant_base_column": false,
+      "D_max_error": 1.1102230246251565e-15,
+      "SSE_relative_max_error": 1.0431929613011057e-15,
+      "p_identical": true,
+      "source": [
+        {
+          "permutation": 0,
+          "source_D": [
+            0.011419380739062235,
+            0.09993336151590382,
+            0.2054313505532922
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 1,
+          "source_D": [
+            -0.015183163774752817,
+            0.012590459108095642,
+            -0.03028388283752048
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 2,
+          "source_D": [
+            -0.0414726624398698,
+            -0.014492608638338345,
+            -0.040732083900793414
+          ],
+          "max_absolute_error": 4.440892098500626e-16
+        },
+        {
+          "permutation": 17,
+          "source_D": [
+            -0.028269623624114892,
+            -0.05096934188791247,
+            0.0004889793131037656
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 2000,
+          "source_D": [
+            -0.02934044614948883,
+            -0.016137443276369012,
+            -0.012333536086979846
+          ],
+          "max_absolute_error": 6.661338147750939e-16
+        }
+      ],
+      "array": {
+        "path": "/workspace/work/din-d9g-v1-arrays/control_statistics_0.npz",
+        "sha256": "294a520c61c1a9e16d8e21a90bfa337932bcd758403544255b5fd312686c7391",
+        "bytes": 176957
+      },
+      "pass_test": true
+    },
+    {
+      "case": 1,
+      "n": 200,
+      "aggregate_paired": true,
+      "constant_base_column": false,
+      "D_max_error": 1.1102230246251565e-15,
+      "SSE_relative_max_error": 1.094590697672037e-15,
+      "p_identical": true,
+      "source": [
+        {
+          "permutation": 0,
+          "source_D": [
+            0.06536915307039237,
+            0.19042149165303046,
+            0.07817452718139772
+          ],
+          "max_absolute_error": 3.3306690738754696e-16
+        },
+        {
+          "permutation": 1,
+          "source_D": [
+            -0.015388480760760048,
+            -0.009285806966934151,
+            -0.01515951068938226
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 2,
+          "source_D": [
+            -0.007070597654964983,
+            -0.009693231166667315,
+            -0.006386700046179472
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 17,
+          "source_D": [
+            -0.00758122003058137,
+            -0.005616158869134358,
+            -0.01449314182426198
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 2000,
+          "source_D": [
+            -0.013903702217457736,
+            -0.0029550956231183534,
+            -0.02013966704264525
+          ],
+          "max_absolute_error": 0.0
+        }
+      ],
+      "array": {
+        "path": "/workspace/work/din-d9g-v1-arrays/control_statistics_1.npz",
+        "sha256": "53d1a2148ce9b6536e4ab71e28ad5bd01a144381057174dc4a1d046a206f6108",
+        "bytes": 175759
+      },
+      "pass_test": true
+    },
+    {
+      "case": 2,
+      "n": 100,
+      "aggregate_paired": false,
+      "constant_base_column": true,
+      "D_max_error": 8.881784197001252e-16,
+      "SSE_relative_max_error": 8.463020256828263e-16,
+      "p_identical": true,
+      "source": [
+        {
+          "permutation": 0,
+          "source_D": [
+            -0.005395967833857096,
+            0.012064696418648824,
+            0.05088499738961749
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 1,
+          "source_D": [
+            0.029243588716577396,
+            -0.041304268698608926,
+            -0.04757188339391094
+          ],
+          "max_absolute_error": 0.0
+        },
+        {
+          "permutation": 2,
+          "source_D": [
+            -0.0027951056013695297,
+            -0.009199961785920197,
+            -0.023799825532470953
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 17,
+          "source_D": [
+            -0.013048947500370112,
+            -0.00955160829778956,
+            -0.02170188240061699
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 2000,
+          "source_D": [
+            0.0417275522488999,
+            0.00945014955007295,
+            -0.017492838571510516
+          ],
+          "max_absolute_error": 4.440892098500626e-16
+        }
+      ],
+      "array": {
+        "path": "/workspace/work/din-d9g-v1-arrays/control_statistics_2.npz",
+        "sha256": "60223fc9c6c462ce9e2144919aab70c620303b7b0cab23e2aa9bc35dd34bc19f",
+        "bytes": 177375
+      },
+      "pass_test": true
+    },
+    {
+      "case": 3,
+      "n": 100,
+      "aggregate_paired": false,
+      "constant_base_column": false,
+      "D_max_error": 8.881784197001252e-16,
+      "SSE_relative_max_error": 8.6321683937940355e-16,
+      "p_identical": true,
+      "source": [
+        {
+          "permutation": 0,
+          "source_D": [
+            -0.015338123046799712,
+            0.03647214526234066,
+            0.08601225415210845
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 1,
+          "source_D": [
+            0.009872991599069958,
+            0.009284380805700598,
+            0.002702895555059759
+          ],
+          "max_absolute_error": 3.3306690738754696e-16
+        },
+        {
+          "permutation": 2,
+          "source_D": [
+            0.027305714171661388,
+            -0.0262818418031181,
+            -0.03330687132648036
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        },
+        {
+          "permutation": 17,
+          "source_D": [
+            -0.050193249095346726,
+            -0.012249345152252511,
+            0.010866254360380578
+          ],
+          "max_absolute_error": 4.440892098500626e-16
+        },
+        {
+          "permutation": 2000,
+          "source_D": [
+            -0.01137906318432913,
+            -0.0005030782244528353,
+            -0.046598632726200906
+          ],
+          "max_absolute_error": 2.220446049250313e-16
+        }
+      ],
+      "array": {
+        "path": "/workspace/work/din-d9g-v1-arrays/control_statistics_3.npz",
+        "sha256": "e6d1d03d7a3dd11b9c555f1326b443af5f423ea5ddcff6bc2adba6d9fbd110b7",
+        "bytes": 177915
+      },
+      "pass_test": true
+    }
+  ],
+  "degenerate_identified": true,
+  "blocked_before_read": [
+    "experiments/DIN_borde/C2/cohorte/c2_cohorte.csv",
+    "experiments/DIN_borde/C2/analisis_C2.py",
+    "experiments/T2_A1/baseline/__NO_LEER__.csv"
+  ],
+  "C2_data_read": false
+}

@@ -1,0 +1,116 @@
+{
+  "dataset": 2,
+  "candidate": "c_10",
+  "index": 0,
+  "time": 10,
+  "planned": 500,
+  "valid": 500,
+  "adjusted": 500,
+  "missing": [],
+  "eligible_groups": 100,
+  "complete_splits": 100,
+  "gate_reasons": [],
+  "results": {
+    "test_loss_250": {
+      "D": -0.008392751616109528,
+      "p_exploratorio": 0.9715142428785607,
+      "beta": 0.010085723955504817,
+      "D_base": -0.007851804989374989,
+      "D_candidate_alone": -0.0017249498653297834,
+      "halves": [
+        {
+          "parity": 0,
+          "n": 250,
+          "D": -0.0037261255774361235,
+          "beta": -0.037018417842364114,
+          "alias": false
+        },
+        {
+          "parity": 1,
+          "n": 250,
+          "D": -0.009629439118389538,
+          "beta": 0.15298022754332558,
+          "alias": false
+        }
+      ],
+      "permutations": 2000,
+      "status": "ESTIMATED",
+      "half_sign_stable": false,
+      "meets_reference_rule": false,
+      "propose_to_responsible": false
+    },
+    "test_accuracy_250": {
+      "D": -0.010048957115530666,
+      "p_exploratorio": 0.9835082458770614,
+      "beta": 0.00021761248936771714,
+      "D_base": -0.008912247202733647,
+      "D_candidate_alone": -0.0023752571473916184,
+      "halves": [
+        {
+          "parity": 0,
+          "n": 250,
+          "D": -0.0060864665164128695,
+          "beta": 0.012826092127312724,
+          "alias": false
+        },
+        {
+          "parity": 1,
+          "n": 250,
+          "D": -0.016671595720995303,
+          "beta": -0.028334199432573648,
+          "alias": false
+        }
+      ],
+      "permutations": 2000,
+      "status": "ESTIMATED",
+      "half_sign_stable": false,
+      "meets_reference_rule": false,
+      "propose_to_responsible": false
+    },
+    "gap_loss_250": {
+      "D": -0.008392017521934747,
+      "p_exploratorio": 0.9715142428785607,
+      "beta": 0.010085616497568122,
+      "D_base": -0.007851692460521864,
+      "D_candidate_alone": -0.0017252472125512952,
+      "halves": [
+        {
+          "parity": 0,
+          "n": 250,
+          "D": -0.0037251477213886552,
+          "beta": -0.036987911673744996,
+          "alias": false
+        },
+        {
+          "parity": 1,
+          "n": 250,
+          "D": -0.009632748429579285,
+          "beta": 0.1529263985064041,
+          "alias": false
+        }
+      ],
+      "permutations": 2000,
+      "status": "ESTIMATED",
+      "half_sign_stable": false,
+      "meets_reference_rule": false,
+      "propose_to_responsible": false
+    }
+  },
+  "array": {
+    "path": "/workspace/work/din-d9g-v1-arrays/analysis_2_00.npz",
+    "sha256": "58c4e29c760af60e688bdc66ca7b89c7d159b809a6fcd7daa263b6157f218103",
+    "bytes": 84379
+  },
+  "numerics": {
+    "base_scale": [
+      0.04533699701316923,
+      0.04868238632872137,
+      0.05601293207528757,
+      0.06263827016929097
+    ],
+    "candidate_scale": 0.032582106986051684,
+    "alias": false,
+    "fallbacks": 0
+  },
+  "seconds": 0.7352529509989836
+}
