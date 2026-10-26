@@ -22,6 +22,7 @@ estimación de probabilidad de éxito.
 | Q12 | ¿Cambian los resultados con ρ_borde v2 (todas las caras)? | Instrumental | **Respondida: no** (DIN-R1); los veredictos y descriptivos se sostienen | Reevaluación declarada de T2-A1, D1–D7 y DIN-C1, sin cambiar los veredictos congelados |
 
 | Q13 | ¿El colapso de M es **necesario** para la señal temprana? | Causal/mecanística | C2 no manipula el colapso | Diseño que varíe el colapso con el resto fijo (regularización, tamaño del panel, arquitectura) |
+| Q14 | ¿La **distancia al borde de saturación** (qué tan lejos está un estado de colapsar en una elección dura) anticipa algo en modelos que razonan en latente o cuantizan conceptos? En HybridAgent (arXiv 2610.18861) se sale del modo latente por similitud coseno con el ancla `</latent>`; en NCM (Next-Concept Modeling) se elige el código más cercano del diccionario (VQ) | Extensión / analogía | La familia perspectival a(P) = softmax(f·P) tiene la forma de una atención; emitir un token o elegir un código es su vértice (el borde). Hoy es una **analogía de forma**, sin resultado | Definir ρ_borde para la decisión «seguir en latente / emitir» o «elegir código»; medirla en un modelo abierto (p. ej. HybridAgent-14B) y ver si anticipa errores o la calidad del razonamiento, con un diseño propio congelado. Fuentes: [arXiv 2610.18861](https://www.emergentmind.com/papers/2610.18861), [NCM](https://www.edenai.co/fr/post/ncm-vs-llm-next-concept-modeling) |
 
 ## Dependencias entre preguntas
 
