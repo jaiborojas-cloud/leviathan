@@ -1,0 +1,135 @@
+{
+  "N": 320,
+  "PASS_estimates": [
+    {
+      "target": 0,
+      "success": 8,
+      "n": 400,
+      "rate": 0.02,
+      "lower": 0.010168386791664645,
+      "upper": 0.03896341576926
+    },
+    {
+      "target": 0.006,
+      "success": 299,
+      "n": 400,
+      "rate": 0.7475,
+      "lower": 0.7027083556965948,
+      "upper": 0.7875830586079285
+    },
+    {
+      "target": 0.012,
+      "success": 383,
+      "n": 400,
+      "rate": 0.9575,
+      "lower": 0.9329979456752499,
+      "upper": 0.9732983050088689
+    }
+  ],
+  "CAE_estimate": {
+    "success": 144,
+    "n": 400,
+    "rate": 0.36,
+    "lower": 0.3144979076102711,
+    "upper": 0.40816553480333195
+  },
+  "eligible": false,
+  "frames": [
+    {
+      "N": 320,
+      "frame": 0,
+      "replicates": 100,
+      "PASS_counts": [
+        2,
+        78,
+        97
+      ],
+      "CAE_count": 38,
+      "target_values": [
+        0,
+        0.006,
+        0.012
+      ],
+      "max_D_punto_error": 2.220446049250313e-16,
+      "bootstrap": 500,
+      "seconds": 9.560943157997826,
+      "array": {
+        "path": "/workspace/work/din-q13-power-v2-arrays/N320_frame0.npz",
+        "sha256": "cad46827b44bab0e6b778aac29b96e9955e2095df9b0d0618d07db2f93d4f5be",
+        "bytes": 6714810
+      }
+    },
+    {
+      "N": 320,
+      "frame": 1,
+      "replicates": 100,
+      "PASS_counts": [
+        3,
+        70,
+        93
+      ],
+      "CAE_count": 39,
+      "target_values": [
+        0,
+        0.006,
+        0.012
+      ],
+      "max_D_punto_error": 3.3306690738754696e-16,
+      "bootstrap": 500,
+      "seconds": 9.290348470000026,
+      "array": {
+        "path": "/workspace/work/din-q13-power-v2-arrays/N320_frame1.npz",
+        "sha256": "559bdec1885de969acc8a2da409504bbf845c95e8581adc558154f26f33991b3",
+        "bytes": 6715273
+      }
+    },
+    {
+      "N": 320,
+      "frame": 2,
+      "replicates": 100,
+      "PASS_counts": [
+        0,
+        68,
+        94
+      ],
+      "CAE_count": 32,
+      "target_values": [
+        0,
+        0.006,
+        0.012
+      ],
+      "max_D_punto_error": 2.220446049250313e-16,
+      "bootstrap": 500,
+      "seconds": 9.599369200997899,
+      "array": {
+        "path": "/workspace/work/din-q13-power-v2-arrays/N320_frame2.npz",
+        "sha256": "cf6f8a71b80427c9480b3444d724b4a03e764d489f298d13d108cfa66d402c2f",
+        "bytes": 6714096
+      }
+    },
+    {
+      "N": 320,
+      "frame": 3,
+      "replicates": 100,
+      "PASS_counts": [
+        3,
+        83,
+        99
+      ],
+      "CAE_count": 35,
+      "target_values": [
+        0,
+        0.006,
+        0.012
+      ],
+      "max_D_punto_error": 2.220446049250313e-16,
+      "bootstrap": 500,
+      "seconds": 9.676181627000915,
+      "array": {
+        "path": "/workspace/work/din-q13-power-v2-arrays/N320_frame3.npz",
+        "sha256": "5518ac650af6cc6636dece31a8df258d7d019667ae9c9b04f0b33407d7622838",
+        "bytes": 6716409
+      }
+    }
+  ]
+}
