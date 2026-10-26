@@ -1,0 +1,37 @@
+--- verify_v1.py
++++ verify_v2.py
+@@ -28,6 +28,7 @@
+         for frame in candidate['frames']: register(frame['array'])
+     if power['selected_splits']!=len(CFG['splits']): errors.append('Plan vs potencia')
+     frozen_content=(STAGE/'MANIFIESTO_DIN_C2_v1_CONGELADO.sha256').read_bytes()
++    state_manifest_rows=list(csv.DictReader((STAGE/'state_records_manifest.csv').open()))
+     guard()
+     gate=json.loads((STAGE/'cohorte/compuerta_v1/reconstruction.json').read_text())
+     if gate['status']!='PASS' or len(gate['records'])!=3: errors.append('Compuerta fallida')
+@@ -81,7 +82,7 @@
+     summary=json.loads((STAGE/'cohorte/RESUMEN_c2.json').read_text())
+     if summary['tabla_sha256']!=sha(table) or summary['plan_sha256']!=CFG['plan_sha256']:errors.append('SHA publicación')
+     if summary['script_sha256']!=sha(STAGE/'cohorte_scripts/run_v1.py'):errors.append('SHA generador')
+-    for r in csv.DictReader((STAGE/'state_records_manifest.csv').open()):
++    for r in state_manifest_rows:
+         p=STAGE/r['path']
+         if sha(p)!=r['sha256']:errors.append('SHA estado:'+r['path'])
+     if subprocess.check_output(['git','show',CFG['sample_commit']+':experiments/DIN_borde/C2/cohorte/c2_plan.json'],cwd=ROOT)!=(STAGE/'cohorte/c2_plan.json').read_bytes():errors.append('Plan congelado distinto')
+@@ -96,7 +97,7 @@
+         status,path=line.split('\t',1)
+         if status!='A' or not path.startswith('experiments/DIN_borde/C2/'):errors.append('Cambio no aditivo o fuera de alcance:'+line)
+     if any(p.suffix in ['.npz','.npy','.pt','.pth','.zip'] for p in STAGE.rglob('*') if p.is_file()):errors.append('Array/peso dentro de Git')
+-    with (STAGE/'external_manifest_cohorte.csv').open('x') as file:
++    with (STAGE/'cohorte/external_manifest.csv').open('x') as file:
+         writer=csv.DictWriter(file,fieldnames=['path','sha256','bytes']);writer.writeheader()
+         for path in sorted(external):writer.writerow(external[path])
+     result=dict(status='PASS' if not errors else 'FAIL',errors=errors,verification_type='INTEGRIDAD_OPERACIONAL_SIN_ANALISIS',
+@@ -107,7 +108,7 @@
+         aggregate_regime_computed=False,scope='Sólo adiciones experiments/DIN_borde/C2/',
+         sample_commit=CFG['sample_commit'],initial_cohort_code_commit=code_commit,training_commit=training_commit,
+         tabla_sha256=sha(table),plan_sha256=CFG['plan_sha256'])
+-    write(STAGE/'verification.json',result)
++    write(STAGE/'cohorte/verification.json',result)
+     print(json.dumps(result,ensure_ascii=False,indent=2))
+     if errors:raise RuntimeError('Verificación fallida')
+ 
