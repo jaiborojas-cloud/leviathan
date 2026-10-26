@@ -20,3 +20,8 @@ No se presupone éxito en producir variación: falta de manipulación →
 INDETERMINADO. I2 r3 es primario rho_caras y secundario rho_vert, intacto.
 
 El diseño se compromete antes de crear código de generación/medición.
+
+## Código v1 antes de ejecutar
+Generación emparejada, fuentes importadas sin cambios, IO exclusivo, guarda,
+funciones C1 originales y reimplementación independiente para controles.
+El commit del código debe preceder a controles y cualquier entrenamiento.
