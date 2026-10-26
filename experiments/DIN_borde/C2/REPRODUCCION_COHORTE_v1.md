@@ -32,9 +32,10 @@ Después de una compuerta válida y comprometida:
 ```bash
 python experiments/DIN_borde/C2/cohorte_scripts/run_v1.py --part prepare
 python experiments/DIN_borde/C2/cohorte_scripts/run_v1.py --part cohort
-python experiments/DIN_borde/C2/cohorte_scripts/publish_v1.py
 python experiments/DIN_borde/C2/cohorte_scripts/archive_v1.py --part pack
 python experiments/DIN_borde/C2/cohorte_scripts/archive_v1.py --part unpack
+# Comprometer el archivo completo de cohorte antes del paso de publicación.
+python experiments/DIN_borde/C2/cohorte_scripts/publish_v1.py
 python experiments/DIN_borde/C2/cohorte_scripts/verify_v1.py
 ```
 
