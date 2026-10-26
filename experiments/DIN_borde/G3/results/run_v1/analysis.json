@@ -1,0 +1,321 @@
+{
+  "nature": "EXPLORATORIO",
+  "planned_trajectories": 1500,
+  "planned_states": 10500,
+  "state_count": 10500,
+  "invalid_states": 0,
+  "splits_per_level": 100,
+  "levels": [
+    {
+      "level": 0,
+      "s": 0.25,
+      "regime": "NO_CUMPLE_COLAPSO",
+      "median_c250": 0.5473382956074322,
+      "median_q250": 0.0008897455061991955,
+      "collapsed_fraction": 0.23,
+      "collapsed_fraction_n": 500,
+      "mal_fraction": 0.062,
+      "V_cont": 1.1156377071903592,
+      "V_cont_complete_splits": 1.1156377071903592,
+      "V_cont_splits": 100,
+      "V_bin": 0.0312,
+      "V_bin_splits": 100,
+      "modal_dominant_fraction": 0.62,
+      "k_hard10_matches_final": 0.262,
+      "train_acc250": 1.0,
+      "val_acc250": 1.0,
+      "primary": {
+        "target": "caras",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "NOT_MET",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.00019082163052852597,
+          "D_nulo_q95": 0.006316988016014924,
+          "pendiente_X": 0.30983240001932627,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.1655
+        },
+        "D7_conditional_R": {
+          "D": -0.002772818373513841,
+          "pendiente_X": -0.11042892238117599,
+          "p_exploratorio": 0.3915,
+          "D_nulo_q95": 0.006422669851714157,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": null,
+        "W_adj_legacy": {
+          "W": 0.07200000000000001,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.0775,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "NOT_MET",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.0003572545060199772,
+          "D_nulo_q95": 0.006370594833402737,
+          "pendiente_X": 0.27863831282981416,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.1655
+        },
+        "D7_conditional_R": {
+          "D": -0.0037833187595646134,
+          "pendiente_X": -0.10427312174091004,
+          "p_exploratorio": 0.5075,
+          "D_nulo_q95": 0.006059624915002496,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": null,
+        "W_adj_legacy": {
+          "W": 0.057,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.1275,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "power_D026": {
+        "D_target": 0.026,
+        "success": 362,
+        "n": 400,
+        "rate": 0.905,
+        "lower": 0.8722916530824945,
+        "upper": 0.9300033885067254
+      }
+    },
+    {
+      "level": 1,
+      "s": 0.5,
+      "regime": "NO_CUMPLE_COLAPSO",
+      "median_c250": 0.6943144343801158,
+      "median_q250": 0.0002720350586874644,
+      "collapsed_fraction": 0.382,
+      "collapsed_fraction_n": 500,
+      "mal_fraction": 0.314,
+      "V_cont": 0.6981869815124755,
+      "V_cont_complete_splits": 0.6981869815124755,
+      "V_cont_splits": 100,
+      "V_bin": 0.0872,
+      "V_bin_splits": 100,
+      "modal_dominant_fraction": 0.7200000000000002,
+      "k_hard10_matches_final": 0.322,
+      "train_acc250": 1.0,
+      "val_acc250": 1.0,
+      "primary": {
+        "target": "caras",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "NOT_MET",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.00272153632232075,
+          "D_nulo_q95": 0.006654176528389549,
+          "pendiente_X": 0.5358760595429435,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.0895
+        },
+        "D7_conditional_R": {
+          "D": 0.004759941729141182,
+          "pendiente_X": 0.32778940349619445,
+          "p_exploratorio": 0.077,
+          "D_nulo_q95": 0.0066815864171655606,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": null,
+        "W_adj_legacy": {
+          "W": 0.05099999999999999,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.1465,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "NOT_MET",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.0015256674068867548,
+          "D_nulo_q95": 0.006272228546085409,
+          "pendiente_X": 0.44849847850642444,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.12
+        },
+        "D7_conditional_R": {
+          "D": 0.0026881096627151546,
+          "pendiente_X": 0.2667420830218602,
+          "p_exploratorio": 0.104,
+          "D_nulo_q95": 0.0065116943401831865,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": null,
+        "W_adj_legacy": {
+          "W": 0.030999999999999996,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.2605,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "power_D026": {
+        "D_target": 0.026,
+        "success": 357,
+        "n": 400,
+        "rate": 0.8925,
+        "lower": 0.8583265694191717,
+        "upper": 0.9192062795284055
+      }
+    },
+    {
+      "level": 2,
+      "s": 0.8,
+      "regime": "COLAPSO_OPERACIONAL",
+      "median_c250": 0.8642144278850283,
+      "median_q250": 0.0001041649951864083,
+      "collapsed_fraction": 0.58,
+      "collapsed_fraction_n": 500,
+      "mal_fraction": 0.86,
+      "V_cont": 0.09999540540801759,
+      "V_cont_complete_splits": 0.09999540540801759,
+      "V_cont_splits": 100,
+      "V_bin": 0.0528,
+      "V_bin_splits": 100,
+      "modal_dominant_fraction": 0.7680000000000001,
+      "k_hard10_matches_final": 0.378,
+      "train_acc250": 1.0,
+      "val_acc250": 0.9259259259259259,
+      "primary": {
+        "target": "caras",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "PASS_DESCRIPTIVO",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.017347781869078593,
+          "D_nulo_q95": 0.005888234862395076,
+          "pendiente_X": 1.3732317553102071,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.003
+        },
+        "D7_conditional_R": {
+          "D": 0.0025439659385736446,
+          "pendiente_X": 0.5617978585486428,
+          "p_exploratorio": 0.0985,
+          "D_nulo_q95": 0.005191731665756459,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": 0.8533549731157206,
+        "W_adj_legacy": {
+          "W": 0.069,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.085,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 500,
+        "valid_pairs": 500,
+        "adjusted_pairs": 500,
+        "eligible_splits": 100,
+        "reasons": [],
+        "verdict": "PASS_DESCRIPTIVO",
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.017272386706155496,
+          "D_nulo_q95": 0.006956446308179278,
+          "pendiente_X": 1.3882942166649714,
+          "grado_base": 3,
+          "permutaciones": 1999,
+          "p_exploratorio": 0.0055
+        },
+        "D7_conditional_R": {
+          "D": 0.0018988351836675132,
+          "pendiente_X": 0.5625196368752987,
+          "p_exploratorio": 0.121,
+          "D_nulo_q95": 0.0054495044730227754,
+          "permutaciones": 1999
+        },
+        "fraction_removed_descriptive": 0.8900652691506258,
+        "W_adj_legacy": {
+          "W": 0.067,
+          "splits_validos": 100,
+          "splits_sin_variacion": 0,
+          "p_exploratorio": 0.0935,
+          "nature": "LEGADO; no prueba información condicional nueva"
+        }
+      },
+      "power_D026": {
+        "D_target": 0.026,
+        "success": 356,
+        "n": 400,
+        "rate": 0.89,
+        "lower": 0.8555490895383555,
+        "upper": 0.9170313208808931
+      }
+    }
+  ],
+  "reading": {
+    "verdict": "SENAL_PRESENTE_FUERA_DE_WINE_DESCRIPTIVA",
+    "eligible_collapse_levels": [
+      2
+    ],
+    "detected_levels": [
+      2
+    ],
+    "detected_in_collapse": [
+      2
+    ],
+    "sufficient_simulated_power": true,
+    "complete_pairs": true,
+    "spearman_D_Vcont": -1.0,
+    "D": [
+      0.00019082163052852597,
+      0.00272153632232075,
+      0.017347781869078593
+    ],
+    "V_cont": [
+      1.1156377071903592,
+      0.6981869815124755,
+      0.09999540540801759
+    ],
+    "trend_inferential": false,
+    "absence_scope": "Sólo niveles elegibles y tamaño .026 bajo modelo de potencia; no prueba del nulo."
+  },
+  "permutations": 1999,
+  "p_confirmatorio": false,
+  "primary": "rho_caras",
+  "secondary": "rho_vert",
+  "seconds": 49.81329704399832
+}

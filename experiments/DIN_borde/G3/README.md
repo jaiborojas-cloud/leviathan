@@ -63,3 +63,21 @@ Matrices/scores/pesos/Adam/RNG/rho completos fuera de Git en
 `/workspace/work/din-g3-v1-arrays`; simulaciones en din-g3-power-v1-arrays.
 Los10500 metadatos originales se preservan y versionan en shardsJSONL
 reversibles conSHA. La cohorte se genera desde semillas, sin datasets externos.
+
+## Resultado y consulta
+
+**Señal presente descriptivamente en s=.8**, único nivel que cumple el
+criterio operacional de colapso: D=.017348,p exploratorio=.003,beta positiva.
+s=.25 y.5 son NOT_MET. En.8,290/500 son individualmente colapsadas;
+el ajuste usa las500, sin seleccionar ese subconjunto. No es confirmatorio.
+
+D aumenta cuando V_cont disminuye entre los tres niveles (Spearman−1),
+pero sólo uno cumple régimen: no establece dependencia causal o una ley
+sobre variancia continua. D_X|R=.002544 y rho_vert secundario D=.017272,
+p=.0055. W_adj legado no sustituye la primaria.
+
+- [Conclusión y límites](CONCLUSION.md), [tabla por nivel](results/run_v1/levels.csv).
+- [Análisis íntegro](results/run_v1/analysis.json), [figura](figures/potencia_senal.png).
+- [Verificación](verification.json), [manifest SHA](manifest.csv).
+- [Archivo reversible](ARCHIVO.md), [shards completos](results/run_v1/state_records/).
+- [SHA de originales](state_records_manifest.csv), [inventario externo](external_manifest.csv).
