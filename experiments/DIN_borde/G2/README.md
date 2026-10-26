@@ -54,3 +54,22 @@ Presupuestos fijos:14400s globales y los predeterminados60s/4096 evaluaciones
 de I2 por estado; dos procesos y un hilo por proceso. No se reanuda ni extiende
 el entrenamiento tras inspeccionar outcomes. Una falla requiere versión nueva
 y registro prospectivo; los UNKNOWN/UNMEASURED conservan su significado.
+
+## Resultado y consulta
+
+**H-var: CONTRADICE_DESCRIPTIVAMENTE**, por la regla primaria congelada.
+La variación fue máxima en s=.5 y el incremento D fue negativo; los
+incrementos positivos aparecieron con V=0 en s=2/4. No es una refutación
+universal: las medianas de concentración de M también cambian con s.
+
+- [Conclusión y límites](CONCLUSION.md), [tabla seis niveles](results/run_v1/levels.csv).
+- [Análisis C1/D7](results/run_v1/analysis.json), [figura](figures/resolucion.png).
+- [Verificación](verification.json), [manifest SHA](manifest.csv).
+- [Archivo reversible](ARCHIVO.md), [4200 registros completos](results/run_v1/state_records.jsonl).
+- [SHA por registro original](state_records_manifest.csv), [inventario externo](external_manifest.csv).
+
+Los JSON originales individuales se conservan en la ejecución; en Git se
+versionan en JSONL reversible bit a bit. El script archive_v1.py --part unpack
+los comprueba/restaura sin sobrescribir. Los diagnósticos rho completos y
+arrays permanecen externos, con sus SHA y rutas; las semillas permiten
+recrear la cohorte sintética en un entorno limpio sin datos protegidos.

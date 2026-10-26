@@ -1,0 +1,464 @@
+{
+  "nature": "EXPLORATORIO",
+  "planned_trajectories": 600,
+  "planned_states": 4200,
+  "state_count": 4200,
+  "invalid_states": 0,
+  "levels": [
+    {
+      "level": 0,
+      "s": 0.25,
+      "V": 0.06,
+      "V_numerator_over_500": 30,
+      "V_complete_splits": 0.06,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 0.11,
+      "modal_dominant_fraction": 0.64,
+      "variance_regime": "INTERMEDIA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.015255517806504137,
+          "D_nulo_q95": 0.03559441411646752,
+          "pendiente_X": 0.3951782691245006,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.441
+        },
+        "D7_conditional_R": {
+          "D": -0.01729389154849148,
+          "pendiente_X": 0.04305351170234807,
+          "p_exploratorio": 0.601,
+          "D_nulo_q95": 0.03489707138673819,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.007169912478985685,
+          "D_nulo_q95": 0.0337266783383863,
+          "pendiente_X": 0.466583145414989,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.292
+        },
+        "D7_conditional_R": {
+          "D": -0.004343769586148127,
+          "pendiente_X": 0.17821513372517536,
+          "p_exploratorio": 0.372,
+          "D_nulo_q95": 0.04616371732626948,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "k_hard10_matches_final": 0.21,
+      "median_c250": 0.605714770770396,
+      "median_q250": 0.000748002871610946,
+      "train_acc250": 1.0,
+      "val_acc250": 1.0
+    },
+    {
+      "level": 1,
+      "s": 0.5,
+      "V": 0.104,
+      "V_numerator_over_500": 52,
+      "V_complete_splits": 0.10400000000000001,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 0.46,
+      "modal_dominant_fraction": 0.6500000000000001,
+      "variance_regime": "ALTA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.032711014821820594,
+          "D_nulo_q95": 0.02207208393358426,
+          "pendiente_X": -0.08366327171149872,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.805
+        },
+        "D7_conditional_R": {
+          "D": -0.03725124960905424,
+          "pendiente_X": -0.11341630729406496,
+          "p_exploratorio": 0.831,
+          "D_nulo_q95": 0.023886788444916592,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.02493590726676498,
+          "D_nulo_q95": 0.021913460838867024,
+          "pendiente_X": -0.2422914418836182,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.672
+        },
+        "D7_conditional_R": {
+          "D": -0.023343218625281548,
+          "pendiente_X": -0.21710481901091513,
+          "p_exploratorio": 0.59,
+          "D_nulo_q95": 0.03368402708441588,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "k_hard10_matches_final": 0.28,
+      "median_c250": 0.7407430775586372,
+      "median_q250": 0.00014701159285004028,
+      "train_acc250": 1.0,
+      "val_acc250": 1.0
+    },
+    {
+      "level": 2,
+      "s": 0.8,
+      "V": 0.024,
+      "V_numerator_over_500": 12,
+      "V_complete_splits": 0.024,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 0.9,
+      "modal_dominant_fraction": 0.76,
+      "variance_regime": "BAJA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.015003805971447903,
+          "D_nulo_q95": 0.027902696772746496,
+          "pendiente_X": -0.3138846873422192,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.453
+        },
+        "D7_conditional_R": {
+          "D": 0.0236565423697902,
+          "pendiente_X": -1.5490780737278076,
+          "p_exploratorio": 0.063,
+          "D_nulo_q95": 0.026789189389552978,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.00920539553030908,
+          "D_nulo_q95": 0.03903207735427332,
+          "pendiente_X": -0.37667372433784524,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.37
+        },
+        "D7_conditional_R": {
+          "D": 0.025023105858717143,
+          "pendiente_X": -1.530990563589725,
+          "p_exploratorio": 0.076,
+          "D_nulo_q95": 0.034328808645530874,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "k_hard10_matches_final": 0.24,
+      "median_c250": 0.8656714943745085,
+      "median_q250": 0.0001410667559334065,
+      "train_acc250": 1.0,
+      "val_acc250": 0.8888888888888888
+    },
+    {
+      "level": 3,
+      "s": 1.2,
+      "V": 0.0,
+      "V_numerator_over_500": 0,
+      "V_complete_splits": 0.0,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 1.0,
+      "modal_dominant_fraction": 0.75,
+      "variance_regime": "BAJA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.018834327893037406,
+          "D_nulo_q95": 0.03432074574366001,
+          "pendiente_X": -0.7988740868046326,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.442
+        },
+        "D7_conditional_R": {
+          "D": -0.040658314313534616,
+          "pendiente_X": -0.7146658838483477,
+          "p_exploratorio": 0.809,
+          "D_nulo_q95": 0.04315022953663198,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": -0.0265313647829839,
+          "D_nulo_q95": 0.031932346179997226,
+          "pendiente_X": -0.887270950764013,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.551
+        },
+        "D7_conditional_R": {
+          "D": -0.03593184647671821,
+          "pendiente_X": -0.8787828579432092,
+          "p_exploratorio": 0.753,
+          "D_nulo_q95": 0.0349593101922193,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"
+      },
+      "k_hard10_matches_final": 0.32,
+      "median_c250": 0.6228069514794472,
+      "median_q250": 0.020701871529830024,
+      "train_acc250": 1.0,
+      "val_acc250": 0.7962962962962963
+    },
+    {
+      "level": 4,
+      "s": 2.0,
+      "V": 0.0,
+      "V_numerator_over_500": 0,
+      "V_complete_splits": 0.0,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 1.0,
+      "modal_dominant_fraction": 0.64,
+      "variance_regime": "BAJA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.04453390826722692,
+          "D_nulo_q95": 0.045376036181426285,
+          "pendiente_X": 1.3771040480524257,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.055
+        },
+        "D7_conditional_R": {
+          "D": 0.02334027259119653,
+          "pendiente_X": 1.3840274827608474,
+          "p_exploratorio": 0.173,
+          "D_nulo_q95": 0.08593769059609915,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": 0.47589884877961763,
+        "level_signal": "INCREMENTO_DESCRIPTIVO"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.015576290796530001,
+          "D_nulo_q95": 0.03920571993543912,
+          "pendiente_X": 1.207180342525143,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.119
+        },
+        "D7_conditional_R": {
+          "D": 0.017223492343732993,
+          "pendiente_X": 1.2383462440666602,
+          "p_exploratorio": 0.186,
+          "D_nulo_q95": 0.08021468602691557,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": -0.10575056467037358,
+        "level_signal": "INCREMENTO_PEQUENO_O_SIGNO_INVERSO"
+      },
+      "k_hard10_matches_final": 0.24,
+      "median_c250": 0.3240844693510472,
+      "median_q250": 0.16366246762507827,
+      "train_acc250": 1.0,
+      "val_acc250": 0.5925925925925926
+    },
+    {
+      "level": 5,
+      "s": 4.0,
+      "V": 0.0,
+      "V_numerator_over_500": 0,
+      "V_complete_splits": 0.0,
+      "splits_with_variance": 20,
+      "measured_mal": 100,
+      "mal_fraction": 1.0,
+      "modal_dominant_fraction": 0.5000000000000001,
+      "variance_regime": "BAJA",
+      "primary": {
+        "target": "caras",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.032360717723624366,
+          "D_nulo_q95": 0.04369719045739984,
+          "pendiente_X": 1.2133087187413345,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.072
+        },
+        "D7_conditional_R": {
+          "D": 0.043675736021862366,
+          "pendiente_X": 1.3937637265169858,
+          "p_exploratorio": 0.064,
+          "D_nulo_q95": 0.04699105277604362,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": -0.34965288455199106,
+        "level_signal": "INCREMENTO_DESCRIPTIVO"
+      },
+      "secondary": {
+        "target": "vert",
+        "planned": 100,
+        "valid_pairs": 100,
+        "adjusted_pairs": 100,
+        "eligible_splits": 20,
+        "reasons": [],
+        "gate": "VALIDA",
+        "C1_exact": {
+          "D": 0.007205644373039832,
+          "D_nulo_q95": 0.030210617296585324,
+          "pendiente_X": 1.07997728247891,
+          "grado_base": 3,
+          "permutaciones": 999,
+          "p_exploratorio": 0.128
+        },
+        "D7_conditional_R": {
+          "D": 0.012383500649315482,
+          "pendiente_X": 1.1383138129168202,
+          "p_exploratorio": 0.116,
+          "D_nulo_q95": 0.034245474935109495,
+          "permutaciones": 999
+        },
+        "fraction_removed_descriptive": null,
+        "level_signal": "INCREMENTO_PEQUENO_O_SIGNO_INVERSO"
+      },
+      "k_hard10_matches_final": 0.19,
+      "median_c250": 0.25351691098198137,
+      "median_q250": 0.20043209552392371,
+      "train_acc250": 1.0,
+      "val_acc250": 0.4444444444444444
+    }
+  ],
+  "H_var": {
+    "V": [
+      0.06,
+      0.104,
+      0.024,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "D": [
+      -0.015255517806504137,
+      -0.032711014821820594,
+      -0.015003805971447903,
+      -0.018834327893037406,
+      0.04453390826722692,
+      0.032360717723624366
+    ],
+    "high_levels": [
+      1
+    ],
+    "low_levels": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "spearman_D_V": -0.6375355777548621,
+    "manipulation": true,
+    "verdict": "CONTRADICE_DESCRIPTIVAMENTE",
+    "peak_levels": [
+      4
+    ],
+    "qualifying_peak_levels": [],
+    "mean_D_high_minus_low": -0.04347513785341209,
+    "contradiction": true
+  },
+  "permutations": 999,
+  "p_confirmatorio": false,
+  "primary": "rho_caras",
+  "secondary": "rho_vert",
+  "seconds": 17.08607132599718
+}

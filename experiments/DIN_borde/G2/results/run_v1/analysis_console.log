@@ -1,0 +1,42 @@
+{"level": 0, "s": 0.25, "V": 0.06, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": -0.015255517806504137, "D_nulo_q95": 0.03559441411646752, "pendiente_X": 0.3951782691245006, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.441}, "D7_conditional_R": {"D": -0.01729389154849148, "pendiente_X": 0.04305351170234807, "p_exploratorio": 0.601, "D_nulo_q95": 0.03489707138673819, "permutaciones": 999}, "fraction_removed_descriptive": null, "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"}}
+{"level": 1, "s": 0.5, "V": 0.104, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": -0.032711014821820594, "D_nulo_q95": 0.02207208393358426, "pendiente_X": -0.08366327171149872, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.805}, "D7_conditional_R": {"D": -0.03725124960905424, "pendiente_X": -0.11341630729406496, "p_exploratorio": 0.831, "D_nulo_q95": 0.023886788444916592, "permutaciones": 999}, "fraction_removed_descriptive": null, "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"}}
+{"level": 2, "s": 0.8, "V": 0.024, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": -0.015003805971447903, "D_nulo_q95": 0.027902696772746496, "pendiente_X": -0.3138846873422192, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.453}, "D7_conditional_R": {"D": 0.0236565423697902, "pendiente_X": -1.5490780737278076, "p_exploratorio": 0.063, "D_nulo_q95": 0.026789189389552978, "permutaciones": 999}, "fraction_removed_descriptive": null, "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"}}
+{"level": 3, "s": 1.2, "V": 0.0, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": -0.018834327893037406, "D_nulo_q95": 0.03432074574366001, "pendiente_X": -0.7988740868046326, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.442}, "D7_conditional_R": {"D": -0.040658314313534616, "pendiente_X": -0.7146658838483477, "p_exploratorio": 0.809, "D_nulo_q95": 0.04315022953663198, "permutaciones": 999}, "fraction_removed_descriptive": null, "level_signal": "SIN_INCREMENTO_FUERA_MUESTRA"}}
+{"level": 4, "s": 2.0, "V": 0.0, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": 0.04453390826722692, "D_nulo_q95": 0.045376036181426285, "pendiente_X": 1.3771040480524257, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.055}, "D7_conditional_R": {"D": 0.02334027259119653, "pendiente_X": 1.3840274827608474, "p_exploratorio": 0.173, "D_nulo_q95": 0.08593769059609915, "permutaciones": 999}, "fraction_removed_descriptive": 0.47589884877961763, "level_signal": "INCREMENTO_DESCRIPTIVO"}}
+{"level": 5, "s": 4.0, "V": 0.0, "primary": {"target": "caras", "planned": 100, "valid_pairs": 100, "adjusted_pairs": 100, "eligible_splits": 20, "reasons": [], "gate": "VALIDA", "C1_exact": {"D": 0.032360717723624366, "D_nulo_q95": 0.04369719045739984, "pendiente_X": 1.2133087187413345, "grado_base": 3, "permutaciones": 999, "p_exploratorio": 0.072}, "D7_conditional_R": {"D": 0.043675736021862366, "pendiente_X": 1.3937637265169858, "p_exploratorio": 0.064, "D_nulo_q95": 0.04699105277604362, "permutaciones": 999}, "fraction_removed_descriptive": -0.34965288455199106, "level_signal": "INCREMENTO_DESCRIPTIVO"}}
+{
+  "V": [
+    0.06,
+    0.104,
+    0.024,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "D": [
+    -0.015255517806504137,
+    -0.032711014821820594,
+    -0.015003805971447903,
+    -0.018834327893037406,
+    0.04453390826722692,
+    0.032360717723624366
+  ],
+  "high_levels": [
+    1
+  ],
+  "low_levels": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "spearman_D_V": -0.6375355777548621,
+  "manipulation": true,
+  "verdict": "CONTRADICE_DESCRIPTIVAMENTE",
+  "peak_levels": [
+    4
+  ],
+  "qualifying_peak_levels": [],
+  "mean_D_high_minus_low": -0.04347513785341209,
+  "contradiction": true
+}
