@@ -28,3 +28,8 @@ reentrenar ni repetir rho. Cohorte iniciada;primeras330 trayectorias sin
 errores/invalidaciones. No se calcularon D ni veredictos parciales.
 Se versionan controles, entorno ymetadata de generación antes de finalizar
 la cohorte; las mediciones siguen con el código de entrenamiento intacto.
+
+## Segundo avance · cohorte por encima de la mitad
+804/1500 trayectorias completas, cero errores e invalidaciones acumuladas.
+No se calculan D, V_cont ni veredictos por anticipado. Continúa el universo
+original; sin cambios de código, semillas, presupuesto o selección de casos.
