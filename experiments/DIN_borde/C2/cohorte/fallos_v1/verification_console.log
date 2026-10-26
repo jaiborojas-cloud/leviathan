@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/workspace/leviathan/experiments/DIN_borde/C2/cohorte_scripts/verify_v1.py", line 114, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/leviathan/experiments/DIN_borde/C2/cohorte_scripts/verify_v1.py", line 84, in main
+    for r in csv.DictReader((STAGE/'state_records_manifest.csv').open()):
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/experiments/DIN_borde/C2/cohorte_scripts/support_v1.py", line 83, in audit
+    raise PermissionError('DIN-C2 cohorte: acceso no autorizado: '+p)
+PermissionError: DIN-C2 cohorte: acceso no autorizado: /workspace/leviathan/experiments/DIN_borde/C2/state_records_manifest.csv

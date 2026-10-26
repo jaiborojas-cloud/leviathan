@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "control": 0,
+      "weight_seed": 641000,
+      "data_seed": 651000,
+      "relative_M_error": 0.0,
+      "f_identical": true,
+      "pass_test": true,
+      "array": {
+        "path": "/workspace/work/din-c2-compuerta-v1-arrays/control_0.npz",
+        "sha256": "e82622a2d861d83110deba59dc7163704449074b804b0bb5522731f13d7d757c",
+        "bytes": 41689
+      }
+    },
+    {
+      "control": 1,
+      "weight_seed": 641001,
+      "data_seed": 651001,
+      "relative_M_error": 0.0,
+      "f_identical": true,
+      "pass_test": true,
+      "array": {
+        "path": "/workspace/work/din-c2-compuerta-v1-arrays/control_1.npz",
+        "sha256": "e3a6e411b463d378b90c2ea08276d1696ecaf31efa3069b10c23c44737e7b6f0",
+        "bytes": 41717
+      }
+    },
+    {
+      "control": 2,
+      "weight_seed": 641002,
+      "data_seed": 651002,
+      "relative_M_error": 0.0,
+      "f_identical": true,
+      "pass_test": true,
+      "array": {
+        "path": "/workspace/work/din-c2-compuerta-v1-arrays/control_2.npz",
+        "sha256": "15d0ea76358c1fb00daf65114919cde172596e35d5fbc4aab02781fc601b4ad6",
+        "bytes": 41703
+      }
+    }
+  ],
+  "source_seeds": {
+    "G2": {
+      "path": "experiments/DIN_borde/G3/sources/G2/config.json",
+      "sha256": "b797b5d30c2dfa670e017f9196b47b45f5e705947ae8dda6f14f1573a5196854",
+      "splits": 20
+    },
+    "G3": {
+      "path": "experiments/DIN_borde/G3/config.json",
+      "sha256": "b5042380a1c6c56adf84820ff07504412583480d322d7ec8e11418e621c31637",
+      "splits": 100
+    }
+  },
+  "new_seed_count": 2200,
+  "seeds_disjoint": true,
+  "cohort_training_started": false,
+  "control_models_trained": false,
+  "rho_computed": false,
+  "associations_computed": false,
+  "code_commit": "df248d5b59910fdd8828bc6216d76ab428278051"
+}

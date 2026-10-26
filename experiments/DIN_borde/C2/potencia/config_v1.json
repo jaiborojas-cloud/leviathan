@@ -1,0 +1,40 @@
+{
+  "power_frames": 4,
+  "power_replicates_per_frame": 100,
+  "power_seed_frame": 412000,
+  "power_seed_noise": 413000,
+  "power_replicates": 400,
+  "power_threshold": 0.8,
+  "power_Wilson_z": 1.959963984540054,
+  "null_upper_limit": 0.1,
+  "version": "v1",
+  "pilot": "experiments/DIN_borde/G3/results/run_v1/trajectories.csv",
+  "pilot_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794",
+  "pilot_level": 2,
+  "pilot_splits": 100,
+  "power_candidates": [
+    200,
+    256,
+    320,
+    400,
+    512,
+    640
+  ],
+  "power_targets": [
+    0,
+    0.01,
+    0.012,
+    0.015,
+    0.017
+  ],
+  "selection_target": 0.012,
+  "power_arrays_dir": "/workspace/work/din-c2-power-v1-arrays",
+  "sources": {
+    "C1_analysis": {
+      "path": "experiments/DIN_borde/C1/analisis_C1_v2.py",
+      "sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5"
+    }
+  },
+  "design_sha256": "d00abbad3ff4cfd2dbd34ba3c3a4ff4321a16d862e2f639e98802faca562ff80",
+  "base_main": "9be9352"
+}

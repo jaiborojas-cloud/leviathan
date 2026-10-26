@@ -1,0 +1,208 @@
+{
+  "status": "PASS_PLANNING",
+  "selected_splits": 200,
+  "candidates": [
+    {
+      "N": 200,
+      "levels": [
+        {
+          "level": 2,
+          "s": 0.8,
+          "estimates": [
+            {
+              "D_target": 0,
+              "success": 11,
+              "n": 400,
+              "rate": 0.0275,
+              "lower": 0.015423636260295411,
+              "upper": 0.048565481885614784
+            },
+            {
+              "D_target": 0.01,
+              "success": 312,
+              "n": 400,
+              "rate": 0.78,
+              "lower": 0.7368470079068086,
+              "upper": 0.8178261072659854
+            },
+            {
+              "D_target": 0.012,
+              "success": 347,
+              "n": 400,
+              "rate": 0.8675,
+              "lower": 0.8307536803033191,
+              "upper": 0.897254783360973
+            },
+            {
+              "D_target": 0.015,
+              "success": 373,
+              "n": 400,
+              "rate": 0.9325,
+              "lower": 0.9035733345645931,
+              "upper": 0.9531985308362403
+            },
+            {
+              "D_target": 0.017,
+              "success": 385,
+              "n": 400,
+              "rate": 0.9625,
+              "lower": 0.9390561575554867,
+              "upper": 0.9771449701852891
+            }
+          ],
+          "pass_size": true
+        }
+      ],
+      "frames": [
+        {
+          "N": 200,
+          "level": 2,
+          "frame": 0,
+          "success": [
+            4,
+            80,
+            91,
+            95,
+            97
+          ],
+          "replicates": 100,
+          "beta": [
+            0.0,
+            1.0113594782932978,
+            1.1090095780464706,
+            1.2417971550130515,
+            1.32333819644123
+          ],
+          "D_cv_mean": [
+            -0.001463122325901347,
+            0.009344686506336639,
+            0.011417525763060925,
+            0.014514621054706673,
+            0.016573068847474507
+          ],
+          "variance_residual_X": 0.003816571988289037,
+          "sigma2": 0.4830919091771342,
+          "degenerate_fold_candidates": 0,
+          "seconds": 7.099283943000046,
+          "array": {
+            "path": "/workspace/work/din-c2-power-v1-arrays/N200_L2_frame0.npz",
+            "sha256": "001a5fdcbbceb8f32102e5b2ca60fc301b72a024bd136f1ee87cc3df0ad60202",
+            "bytes": 7725729
+          }
+        },
+        {
+          "N": 200,
+          "level": 2,
+          "frame": 1,
+          "success": [
+            2,
+            76,
+            89,
+            96,
+            98
+          ],
+          "replicates": 100,
+          "beta": [
+            0.0,
+            1.0442935862259854,
+            1.145123582933638,
+            1.2822352805376378,
+            1.3664316403931192
+          ],
+          "D_cv_mean": [
+            -0.001613063429008793,
+            0.007883125822553487,
+            0.009842711212128834,
+            0.012790388248211609,
+            0.01475979674971632
+          ],
+          "variance_residual_X": 0.003579639856744039,
+          "sigma2": 0.4830919091771342,
+          "degenerate_fold_candidates": 0,
+          "seconds": 6.912032573000033,
+          "array": {
+            "path": "/workspace/work/din-c2-power-v1-arrays/N200_L2_frame1.npz",
+            "sha256": "e89a2b336ca4718716750105ac0ffa8d0706b4a66773a636cd4508697b69d1f7",
+            "bytes": 7727526
+          }
+        },
+        {
+          "N": 200,
+          "level": 2,
+          "frame": 2,
+          "success": [
+            1,
+            84,
+            87,
+            94,
+            97
+          ],
+          "replicates": 100,
+          "beta": [
+            0.0,
+            1.0657750605201106,
+            1.168679164558231,
+            1.30861129642167,
+            1.3945396040394955
+          ],
+          "D_cv_mean": [
+            -0.0015109267342809385,
+            0.009057029888455623,
+            0.011104048918189325,
+            0.01416555038482141,
+            0.016201905155798373
+          ],
+          "variance_residual_X": 0.003436793589330006,
+          "sigma2": 0.4830919091771342,
+          "degenerate_fold_candidates": 0,
+          "seconds": 6.203170399000101,
+          "array": {
+            "path": "/workspace/work/din-c2-power-v1-arrays/N200_L2_frame2.npz",
+            "sha256": "80d314adc4a505778a5aeb6e8831d4bec182347f144ce1bfea85098c6a9d76d5",
+            "bytes": 7723617
+          }
+        },
+        {
+          "N": 200,
+          "level": 2,
+          "frame": 3,
+          "success": [
+            4,
+            72,
+            80,
+            88,
+            93
+          ],
+          "replicates": 100,
+          "beta": [
+            0.0,
+            0.9834698119090545,
+            1.0784270722090392,
+            1.207552844148767,
+            1.2868452761646985
+          ],
+          "D_cv_mean": [
+            -0.0011474143411246563,
+            0.007612933468268874,
+            0.009498336121327708,
+            0.012344838862757335,
+            0.014252035285249298
+          ],
+          "variance_residual_X": 0.004036105309136401,
+          "sigma2": 0.4830919091771342,
+          "degenerate_fold_candidates": 0,
+          "seconds": 6.253402798000025,
+          "array": {
+            "path": "/workspace/work/din-c2-power-v1-arrays/N200_L2_frame3.npz",
+            "sha256": "ca7875c362db19379481ce0280d05525d1f0fe8075e1a3a7a9dcc668cf636eff",
+            "bytes": 7722623
+          }
+        }
+      ],
+      "selected": true
+    }
+  ],
+  "seconds": 13.386912676000065,
+  "training_started": false,
+  "conditional_model": "Ruido Gaussiano, soporte de covariables piloto; no potencia universal."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "sources": {
+    "experiments/DIN_borde/G3/scripts/run_v1.py": "79634f22acd081ab4500464d1e88e348ec1fdbd5219a241321c91e662ef767f7",
+    "experiments/DIN_borde/C2/cohorte_scripts/run_v1.py": "41dd0afafc64c860bdaa61636583dfc71171d7df13c0a01096a8bc9b498008a4"
+  },
+  "comparisons": [
+    {
+      "function": "network",
+      "identical_AST": true,
+      "normalization": "ninguno"
+    },
+    {
+      "function": "scores",
+      "identical_AST": true,
+      "normalization": "ninguno"
+    },
+    {
+      "function": "checkpoint",
+      "identical_AST": true,
+      "normalization": "ninguno"
+    },
+    {
+      "function": "prepare",
+      "identical_AST": true,
+      "normalization": "sólo semilla 511000→611000"
+    },
+    {
+      "function": "measure",
+      "identical_AST": true,
+      "normalization": "sólo identificador de registro"
+    }
+  ],
+  "cohort_values_read": false
+}
