@@ -37,3 +37,6 @@ Se propone un candidato si cumple **las tres** condiciones:
 - el mismo signo de la pendiente en los splits pares y los impares.
 
 **Si ninguno pasa:** «la geometría del colapso no añade predicción de la generalización sobre las medidas baratas en Wine». Siguiente paso: Q13.
+
+## Errata (2026-10-26 10:09, antes de calcular nada)
+El texto decía «12 candidatos», pero la lista tiene **11**: 3 medidas (c, log tr M y log ρ_caras) en 3 momentos (10, 20 y 30), que son 9, más Δc entre 10 y 20 y entre 20 y 30. El error lo detectó el agente de D9g. **Decisión del responsable:** se analizan **los 11 candidatos enumerados** y se **mantiene el umbral p < 0.05/12**, algo más conservador que 0.05/11. No se añade Δc entre 10 y 30, porque es la suma de los otros dos. La misma corrección vale para D9g.
