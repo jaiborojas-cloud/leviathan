@@ -1,6 +1,6 @@
 # Estado científico documentado
 
-## Actualización 2026-10-25 (prevalece sobre el corte anterior en lo que toca)
+## Actualización 2026-10-26 (prevalece sobre el corte anterior en lo que toca)
 | Etapa | Estado respaldado | Fuente |
 |---|---|---|
 | T2-A0 | **INCONCLUSIVE** por limitación del instrumento; X siguió sellado | [cierre](../experiments/T2_A/claude/CIERRE_T2A0_v1_CONGELADO.md) |
@@ -10,8 +10,13 @@
 | **DIN-C1** | **PASS** (confirmatorio, cohorte nueva de 780): la incertidumbre del ejemplo difícil en el update 10 mejora fuera de muestra la predicción de ρ_borde(250) sobre una base cúbica de ρ_borde(10); D = 0.026, p = 1/5001. Se sostiene con la sensibilidad a las aristas (D = 0.022) | [cierre](../experiments/DIN_borde/CIERRE_DIN_C1_v1_CONGELADO.md), [sensibilidad](../experiments/DIN_borde/C1/sensibilidad_aristas/SENSIBILIDAD_ARISTAS_2026-10-25.md) |
 | DIN-G1 (Iris) | exploratorio: el colapso sobre el ejemplo difícil aparece (H2 al 100 %); la señal temprana **no** se reproduce | [G1](../experiments/DIN_borde/G1/CONCLUSION.md) |
 | Instrumento ρ_borde v1 | límite demostrado: no alcanza las normales exactas de las aristas, así que mide el mínimo sobre rayos que terminan en un vértice; en Wine, en el update 10, el 68 % de los estados tiene un rayo normal más corto | [G1, suplemento](../experiments/DIN_borde/G1/CONCLUSION.md), [sensibilidad](../experiments/DIN_borde/C1/sensibilidad_aristas/SENSIBILIDAD_ARISTAS_2026-10-25.md) |
+| Instrumento ρ_borde v2 (DIN-I2) | validado en 302 estados sintéticos: separa ρ_caras (todas las semirrectas) de ρ_vert (rayos a vértices); 17 veces más rápido que v1 | [I2](../experiments/DIN_borde/I2/CONCLUSION.md) |
+| Reevaluación con v2 (DIN-R1) | 1560 + 6240 estados de Wine: T2-A1 sigue NOT_MET; DIN-C1 sigue PASS (D = 0.022 con ρ_caras); D1, D4, D6 y D7 sin cambios. El límite de v1 pesa sobre todo en los updates 5–10 | [etapa 1](../experiments/DIN_borde/R1/RESULTADO_R1_etapa1_2026-10-25.md), [etapa 2](../experiments/DIN_borde/R1/RESULTADO_R1_etapa2_2026-10-25.md) |
+| DIN-G2 (mezclas gaussianas, 6 niveles × 20 splits) | exploratorio: H-var (la señal depende de cuánto varía la resolución) **contradicha** según su regla, con potencia baja; en los niveles más solapados M no colapsa | [G2](../experiments/DIN_borde/G2/CONCLUSION.md) |
+| DIN-G3 (mezclas gaussianas, 3 niveles × 100 splits, potencia planificada) | exploratorio: **la señal aparece** en el único nivel con colapso (s = 0.8: D = 0.017, p = 0.003); es nula sin colapso, con potencia ≥ 0.8 para D = 0.02 | [G3](../experiments/DIN_borde/G3/CONCLUSION.md) |
+| DIN-C2 | diseño **congelado**: réplica confirmatoria en la familia gaussiana de G3 (s = 0.8, tamaño para D = 0.012); cohorte en curso | [diseño](../experiments/DIN_borde/DISENO_DIN_C2_v1_CONGELADO.md) |
 
-Primer resultado confirmatorio predictivo positivo del proyecto: DIN-C1. Es de una sola familia (WineMLP); predictivo, no causal; y su comparación es con una base cúbica.
+Primer resultado confirmatorio predictivo positivo del proyecto: DIN-C1. Es de una sola familia (WineMLP); predictivo, no causal; y su comparación es con una base cúbica. Se sostiene con ρ_borde v2. G3 sugiere una condición: la señal aparece cuando M colapsa (hipótesis **H-colapso**, exploratoria). DIN-C2 la pone a prueba en otra familia.
 
 ## Corte anterior (se conserva)
 
