@@ -1,0 +1,234 @@
+{
+  "completa_s08": {
+    "veredicto": "PASS",
+    "motivos": [],
+    "regimen": {
+      "mediana_c250": 0.8642144278850283,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.58,
+      "c_faltantes": 0
+    },
+    "primaria": {
+      "D": 0.017347781869078593,
+      "p": 0.005198960207958408,
+      "D_nulo_q95": 0.006130158980716076,
+      "pendiente_X": 1.373231755310207,
+      "grado_base": 3,
+      "permutaciones": 5000
+    },
+    "esperado": "PASS",
+    "ok": true
+  },
+  "s025_sin_colapso": {
+    "veredicto": "INCONCLUSIVE_REGIMEN",
+    "motivos": [],
+    "regimen": {
+      "mediana_c250": 0.5473382956074322,
+      "mediana_q250": 0.0008897455061991955,
+      "frac_individual_colapsada": 0.23,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE_REGIMEN",
+    "ok": true
+  },
+  "omitidas_26": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "faltantes 26 > 5 % de 500"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8670535253490165,
+      "mediana_q250": 0.00010204609015605078,
+      "frac_individual_colapsada": 0.5780590717299579,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "errores_25_limite": {
+    "veredicto": "PASS",
+    "motivos": [],
+    "regimen": {
+      "mediana_c250": 0.8655594801029404,
+      "mediana_q250": 0.00010259456329026944,
+      "frac_individual_colapsada": 0.5768421052631579,
+      "c_faltantes": 0
+    },
+    "primaria": {
+      "D": 0.0200550839740683,
+      "p": 0.004399120175964807,
+      "D_nulo_q95": 0.006233356008182871,
+      "pendiente_X": 1.47520787288101,
+      "grado_base": 3,
+      "permutaciones": 5000
+    },
+    "esperado": "PASS",
+    "ok": true
+  },
+  "errores_26": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "faltantes 26 > 5 % de 500"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8670535253490165,
+      "mediana_q250": 0.00010204609015605078,
+      "frac_individual_colapsada": 0.5780590717299579,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "splits_omitidos_21": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "faltantes 107 > 5 % de 500"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8771658604863665,
+      "mediana_q250": 9.761662139080453e-05,
+      "frac_individual_colapsada": 0.5954198473282443,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "duplicados": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: IDs duplicados\n",
+    "esperado": "ABORTA",
+    "ok": true
+  },
+  "id_ajeno": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: 1 IDs fuera del universo\n",
+    "esperado": "ABORTA",
+    "ok": true
+  },
+  "dominio_3": {
+    "veredicto": "PASS",
+    "motivos": [],
+    "regimen": {
+      "mediana_c250": 0.8628693756671163,
+      "mediana_q250": 0.00010481306163035116,
+      "frac_individual_colapsada": 0.579476861167002,
+      "c_faltantes": 0
+    },
+    "primaria": {
+      "D": 0.018565473447300307,
+      "p": 0.003599280143971206,
+      "D_nulo_q95": 0.006169720869472435,
+      "pendiente_X": 1.4163264097199708,
+      "grado_base": 3,
+      "permutaciones": 5000
+    },
+    "esperado": "PASS",
+    "ok": true
+  },
+  "L_constante": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "L sin variacion"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8642144278850283,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.58,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "X_constante": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "X sin variacion intra-split"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8642144278850283,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.58,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "regimen_forzado_fallo": {
+    "veredicto": "INCONCLUSIVE_REGIMEN",
+    "motivos": [],
+    "regimen": {
+      "mediana_c250": 0.5,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.0,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE_REGIMEN",
+    "ok": true
+  },
+  "plan_otros_ids": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "plan/resumen no vinculados: ids_sha256, tabla_sha256 o plan_sha256 no coinciden"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8642144278850283,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.58,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "resumen_otra_tabla": {
+    "veredicto": "INCONCLUSIVE",
+    "motivos": [
+      "plan/resumen no vinculados: ids_sha256, tabla_sha256 o plan_sha256 no coinciden"
+    ],
+    "regimen": {
+      "mediana_c250": 0.8642144278850283,
+      "mediana_q250": 0.0001041649951864083,
+      "frac_individual_colapsada": 0.58,
+      "c_faltantes": 0
+    },
+    "primaria": null,
+    "esperado": "INCONCLUSIVE",
+    "ok": true
+  },
+  "control:X_igual_L": {
+    "veredicto": "NOT_MET",
+    "primaria": {
+      "D": 0.0,
+      "p": 0.171,
+      "D_nulo_q95": 0.005451609814124036,
+      "pendiente_X": -0.00948718318089344,
+      "grado_base": 3,
+      "permutaciones": 999
+    },
+    "esperado": "NOT_MET",
+    "ok": true
+  },
+  "control:X_ruido": {
+    "veredicto": "NOT_MET",
+    "primaria": {
+      "D": -0.0055862475398618106,
+      "p": 0.826,
+      "D_nulo_q95": 0.004795207983901937,
+      "pendiente_X": 0.013495515455072885,
+      "grado_base": 3,
+      "permutaciones": 999
+    },
+    "esperado": "NOT_MET",
+    "ok": true
+  },
+  "fallos": [],
+  "analisis_sha256": "d24ac5a7f88b5afd52e13e63bafc179ef046920a27b7144f0ce14cb5fefc1709",
+  "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
+}
