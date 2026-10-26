@@ -1,0 +1,76 @@
+{
+  "number": 87,
+  "id": "D2/interior/2026102601/coordinate0",
+  "group": "D2_interior",
+  "input": {
+    "id": "D2/interior/2026102601/coordinate0",
+    "group": "D2_interior",
+    "case": {
+      "id": "interior/2026102601/coordinate0",
+      "panel": "interior/2026102601",
+      "form": "interior",
+      "seed": 2026102601,
+      "kind": "coordinate",
+      "k": 0
+    },
+    "old_v1": {
+      "status": "RETURNED",
+      "raw": {
+        "rho_borde": 0.03703703703703703,
+        "err_quad": 6.193849089566298e-13,
+        "theta": 3.315825322384276,
+        "rho_min_gl": 0.0370370370370364,
+        "dif_orden": 8.805456364058275e-14,
+        "dif_dir": 0.0,
+        "rho_mediana": 0.037037404143639756
+      },
+      "finite": true,
+      "warnings": [],
+      "error": "",
+      "seconds": 7.114155744999152
+    },
+    "reference": {
+      "known_exact": true,
+      "exact": 0.037037037037037035,
+      "exact_MP": "0.037037037037037037037037037037037037037037037037037037037037037037037037037037037",
+      "lower": 0.037037037037037035,
+      "upper": 0.037037037037037035,
+      "upper_u": [
+        "-7573066551504513815/7782220156096217088",
+        "-133017814372194071/648518346341351424"
+      ],
+      "upper_witness": {
+        "value": 0.037037037037037035,
+        "MP_value": "0.037037037037037037037037037037037037037037037037037037037037037037037037037037037",
+        "reference_error": 0.0,
+        "status": "PASS",
+        "method": "analytic_TV_MP80",
+        "roots": [],
+        "root_count": 0,
+        "cut_count": 0,
+        "U": null,
+        "tail_bound": 0.0
+      },
+      "status": "PASS"
+    },
+    "old_Q5": "PASS",
+    "fresh_v1": false,
+    "sensitivity": false,
+    "MP_ray": false,
+    "source": {
+      "path": "/workspace/work/din-d2-v1-arrays/interior_2026102601_coordinate0_M.npy",
+      "sha256": "6339c92458ebe20b99e579822a55527e6e6f3fbf324e01bc9fe78feb2c89b3d8"
+    }
+  },
+  "arrays": {
+    "path": "/workspace/work/din-i2-r2-arrays/087.npz",
+    "sha256": "61def8f8811935ccfbc7258913e04b7eb8a894baf59549c3a9516a6adaea0ebf",
+    "bytes": 837
+  },
+  "v2": {
+    "status": "FAILED",
+    "exception": "ValueError('f(a) and f(b) must have different signs')",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/scripts/run_r2.py\", line 98, in measure\n    out[label] = rho_borde_v2(c['M'], c['f'], **options)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 383, in rho_borde_v2\n    return instrument.calculate()\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 337, in calculate\n    op = minimize_scalar(objective, bounds=(a, b), method='bounded',\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_minimize.py\", line 1027, in minimize_scalar\n    res = _minimize_scalar_bounded(fun, bounds, args, **options)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_optimize.py\", line 2389, in _minimize_scalar_bounded\n    fu = func(x, *args)\n         ^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 330, in objective\n    cache[t] = self.ray(rates)['length']\n               ^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 233, in ray\n    roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 174, in turning_points\n    roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_zeros_py.py\", line 846, in brentq\n    r = _zeros._brentq(f, a, b, xtol, rtol, maxiter, args, full_output, disp)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: f(a) and f(b) must have different signs\n"
+  },
+  "wall_seconds": 0.06487280700093834
+}

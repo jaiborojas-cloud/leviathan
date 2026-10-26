@@ -1,0 +1,139 @@
+{
+  "number": 199,
+  "id": "D2/mass_face/2026102602/null_lambda0.9",
+  "group": "D2_mass_face",
+  "input": {
+    "id": "D2/mass_face/2026102602/null_lambda0.9",
+    "group": "D2_mass_face",
+    "case": {
+      "id": "mass_face/2026102602/null_lambda0.9",
+      "panel": "mass_face/2026102602",
+      "form": "mass_face",
+      "seed": 2026102602,
+      "kind": "null_mix",
+      "k": 10,
+      "j": 13,
+      "lam": 0.9
+    },
+    "old_v1": {
+      "status": "RETURNED",
+      "raw": {
+        "rho_borde": 5.08047578809937e-10,
+        "err_quad": 4.256681492648284e-11,
+        "theta": 4.95736761214738,
+        "rho_min_gl": 3.722411098151768e-06,
+        "dif_orden": 0.18355148483433453,
+        "dif_dir": 0.0,
+        "rho_mediana": 0.0038303491375514384
+      },
+      "finite": true,
+      "warnings": [
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The occurrence of roundoff error is detected, which prevents \n  the requested tolerance from being achieved.  The error may be \n  underestimated."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The integral is probably divergent, or slowly convergent."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The maximum number of subdivisions (1000) has been achieved.\n  If increasing the limit yields no improvement it is advised to analyze \n  the integrand in order to determine the difficulties.  If the position of a \n  local difficulty can be determined (singularity, discontinuity) one will \n  probably gain from splitting up the interval and calling the integrator \n  on the subranges.  Perhaps a special-purpose integrator should be used."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The integral is probably divergent, or slowly convergent."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The integral is probably divergent, or slowly convergent."
+        },
+        {
+          "category": "IntegrationWarning",
+          "message": "The integral is probably divergent, or slowly convergent."
+        }
+      ],
+      "error": "",
+      "seconds": 17.502995501999976
+    },
+    "reference": {
+      "known_exact": true,
+      "exact": 0.0,
+      "exact_MP": "0.0",
+      "lower": 0.0,
+      "upper": 0.0,
+      "upper_u": [
+        "3/64",
+        "-3/16"
+      ],
+      "upper_witness": {
+        "value": 0.0,
+        "MP_value": "0.0",
+        "reference_error": 0.0,
+        "status": "PASS",
+        "method": "analytic_TV_MP80",
+        "roots": [],
+        "root_count": 0,
+        "cut_count": 0,
+        "U": null,
+        "tail_bound": 0.0
+      },
+      "status": "PASS"
+    },
+    "old_Q5": "PASS",
+    "fresh_v1": false,
+    "sensitivity": false,
+    "MP_ray": false,
+    "source": {
+      "path": "/workspace/work/din-d2-v1-arrays/mass_face_2026102602_null_lambda0.9_M.npy",
+      "sha256": "49697ad60812bfe0a0ae1aeda0d3dc6a8e5f71db66e4b6520e123d6d144b8cc0"
+    }
+  },
+  "arrays": {
+    "path": "/workspace/work/din-i2-r2-arrays/199.npz",
+    "sha256": "a0f51e9215533c0468b361dc5f6c70eadc5691c36d47dade44a950671a46884a",
+    "bytes": 572
+  },
+  "v2": {
+    "status": "FAILED",
+    "exception": "ValueError('f(a) and f(b) must have different signs')",
+    "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/scripts/run_r2.py\", line 98, in measure\n    out[label] = rho_borde_v2(c['M'], c['f'], **options)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 383, in rho_borde_v2\n    return instrument.calculate()\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 332, in calculate\n    vals = [objective(t) for t in ts]\n            ^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 330, in objective\n    cache[t] = self.ray(rates)['length']\n               ^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 233, in ray\n    roots, dominant_tv = self.turning_points(gaps, counts, metric['dominant'], lo, hi)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/I2/rho_borde_v2.py\", line 174, in turning_points\n    roots.append(float(brentq(derivative, xs[i], xs[i+1], xtol=1e-12)))\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/optimize/_zeros_py.py\", line 846, in brentq\n    r = _zeros._brentq(f, a, b, xtol, rtol, maxiter, args, full_output, disp)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: f(a) and f(b) must have different signs\n"
+  },
+  "wall_seconds": 0.0921863370022038
+}
