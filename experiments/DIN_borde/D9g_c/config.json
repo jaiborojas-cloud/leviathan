@@ -1,0 +1,127 @@
+{
+  "version": "v1",
+  "base_main": "0dbc973e22fb580e6a5ac5bf51740cce204c8e8e",
+  "outcome": "Y=test_loss_250",
+  "candidate": "c30",
+  "candidate_mode": "OLS_residual_of_21_terms_train_only_unpenalized",
+  "levels": [
+    0.25,
+    0.5,
+    0.8
+  ],
+  "decides_level": 2,
+  "fold_seed": 260010,
+  "inner_fold_seed": 260011,
+  "inner_folds": 5,
+  "lambda_grid": [
+    0.0001,
+    0.00017782794100389227,
+    0.00031622776601683794,
+    0.0005623413251903491,
+    0.001,
+    0.0017782794100389228,
+    0.0031622776601683794,
+    0.005623413251903491,
+    0.01,
+    0.01778279410038923,
+    0.03162277660168379,
+    0.05623413251903491,
+    0.1,
+    0.1778279410038923,
+    0.31622776601683794,
+    0.5623413251903491,
+    1.0,
+    1.7782794100389228,
+    3.1622776601683795,
+    5.623413251903491,
+    10.0,
+    17.78279410038923,
+    31.622776601683793,
+    56.23413251903491,
+    100.0,
+    177.82794100389228,
+    316.22776601683796,
+    562.341325190349,
+    1000.0,
+    1778.2794100389228,
+    3162.2776601683795,
+    5623.413251903491,
+    10000.0
+  ],
+  "ridge_objective": "mean_squared_error + lambda * squared_L2_beta",
+  "lambda_tie_rule": "exact_ties_choose_largest",
+  "permutations": 999,
+  "permutation_seed": 340001,
+  "p_resolution": 0.001,
+  "adequacy_tolerance": 0.005,
+  "robust_D_min": 0.01,
+  "robust_p_max": 0.05,
+  "alias_tol": 1e-10,
+  "negative_D_atol": 1e-08,
+  "numeric_D_atol": 1e-09,
+  "reproduction_B1_D_atol": 1e-10,
+  "tie_tolerance": 1e-15,
+  "controls_seeds": {
+    "large": 801001,
+    "small": 801002,
+    "quadratic": 801003,
+    "product": 801004,
+    "numeric": 801005
+  },
+  "controls_oracle_D": {
+    "large": 0.2,
+    "small": 0.02
+  },
+  "controls_splits": 100,
+  "workers": 2,
+  "threads": 1,
+  "budget_seconds": 14400,
+  "arrays_dir": "/workspace/work/din-d9g-c-v1-arrays",
+  "planned_rows": 1500,
+  "sources": {
+    "sources/D9g/CONCLUSION.md": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g/CONCLUSION.md",
+      "sha256": "6be8d2e4c72e3183edc4988f2cc7e063f50753e5bfaabe9d65529a3b4a2dbb8b"
+    },
+    "sources/D9g/config.json": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g/config.json",
+      "sha256": "a2dab963617f3dacbea17ac91abeee5547a03f997d908851d9c1f0804202edee"
+    },
+    "sources/D9g/results/run_v1/estimates.csv": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g/results/run_v1/estimates.csv",
+      "sha256": "c6b68910b29e1ce176f61bd131750a08ae352b7ff4b01e9d6ca305801a3031d0"
+    },
+    "sources/D9g_b/CONCLUSION.md": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/CONCLUSION.md",
+      "sha256": "4e8e1a623a6006d9105576cd5d5c1eb5edf85b673f76d9c7d7628f8fbcd34a0c"
+    },
+    "sources/D9g_b/DESIGN_FROZEN.md": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/DESIGN_FROZEN.md",
+      "sha256": "f7a4e395e2d4d03dd372bf511c596b9bcd1f05286d310d5dca1b77fc2556a987"
+    },
+    "sources/D9g_b/config.json": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/config.json",
+      "sha256": "8e87bef39de1aa7c04aba0b7aefd91edd2fbf5a37034cc9f4262845b6a3bddf1"
+    },
+    "sources/D9g_b/results/run_v1/estimates.csv": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/results/run_v1/estimates.csv",
+      "sha256": "63bf3fb5561c5c398016910ce75ea51c5f51b95d07c3ad411caa830aaa2ff5ab"
+    },
+    "sources/D9g_b/results/run_v1/features.csv": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/results/run_v1/features.csv",
+      "sha256": "11680c2353a6a03c3ee3387cb969c95c5ea83717e1b8efe11084f0f3f1429525"
+    },
+    "sources/D9g_b/results/run_v1/features_summary.json": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/results/run_v1/features_summary.json",
+      "sha256": "70b4e83a4743b80ba7ffe01f8477b6662bda3932b7439d59cbcad900138dd9ac"
+    },
+    "sources/D9g_b/verification.json": {
+      "path": "experiments/DIN_borde/D9g_c/sources/D9g_b/verification.json",
+      "sha256": "18f89fc1a6cf703bc86263bf2adf15324599bc7940f6264bfb921f7592a7ba3f"
+    },
+    "sources/provenance.json": {
+      "path": "experiments/DIN_borde/D9g_c/sources/provenance.json",
+      "sha256": "e190080ec4a44221722261854cd79f8e64f42b7ec4fa0ba45856123afc000201"
+    }
+  }
+}
