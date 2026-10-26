@@ -14,3 +14,9 @@ operacional c≥.8,q≤.05 sobre medianas, sin filtrar individuos posteriormente
 Este commit precede a código/ejecución de potencia y a toda cohorte nueva.
 El tamaño se congelará en otro commit, por la regla de planificación YA fijada,
 antes de crear código de entrenamiento y antes de entrenar.
+
+## Planificación terminada antes de cohorte
+Controles FWL/C1 PASS. PrimerN válido=100;potencia.026=.905,.8925,.89;
+límites inferiores≥.8555. Nulo=.03,.0175,.025 (pasa control).
+Se congela config/SAMPLE antes de crear código de entrenamiento.
+1500 entrenamientos nuevos,10500 visitas; no se entrenó aún.
