@@ -79,6 +79,9 @@ sin relaciones entre variables ni régimen agregado. No ejecutar el analista.
 - Multiprocessing usa **spawn** y una hebra BLAS/torch por worker; 12 procesos
   son configurables por CLI. El orden de ejecución es split→k→brazo para el
   pareado; el plan y la tabla usan brazo→split→k como el diseño congelado.
+  La revisión r2 mantiene como máximo una tarea enviada por worker. Ante una
+  interrupción cancela pendientes y no repone tareas; espera sólo a las ya
+  activas, nunca a todo el universo. Véase la enmienda congelada r2.
 - Cada trayectoria tiene reclamo, bloqueo del SO, arrays, checkpoints de cuatro
   visitas (5,10,30,250), diagnósticos rho y un JSON final con SHA interno.
 - Se salta cualquier JSON ya escrito, incluidos fallos y JSON truncados. Un

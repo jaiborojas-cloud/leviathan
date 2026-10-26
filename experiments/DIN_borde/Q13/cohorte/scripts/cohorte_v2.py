@@ -535,6 +535,27 @@ def pending_tasks(ctx,limit=None):
     return remaining if limit is None else remaining[:limit],len(done),len(remaining)
 
 
+def collect_bounded(pool,tasks,slots,deliver):
+    """No encolar el universo: máximo una tarea por worker; parar antes de reponer."""
+    iterator=iter(tasks);pending=set()
+    for _ in range(min(slots,len(tasks))):pending.add(pool.submit(run_trajectory,next(iterator)))
+    try:
+        while pending:
+            finished,_=cf.wait(pending,return_when=cf.FIRST_COMPLETED)
+            for future in finished:
+                result=future.result()
+                pending.remove(future)
+                deliver(result)
+            # Sólo reponer después de comprobar TODOS los resultados terminados.
+            for _ in finished:
+                task=next(iterator,None)
+                if task is not None:pending.add(pool.submit(run_trajectory,task))
+    except BaseException:
+        for future in pending:future.cancel()
+        pool.shutdown(wait=True,cancel_futures=True)
+        raise
+
+
 def cohort(ctx,processes,limit):
     read_gate(ctx);out=Path(ctx['out'])
     if (out/'q13_cohorte.csv').exists():raise RuntimeError('Tabla ya publicada; no añadir entrenamientos después de publicación')
@@ -542,16 +563,16 @@ def cohort(ctx,processes,limit):
     print(json.dumps(dict(trayectorias=12000,ya_escritas=done,pendientes=remaining,a_ejecutar=len(tasks),
                          procesos=processes,script_sha256=ctx['script_sha256'])),flush=True)
     start=time.perf_counter();results=[];session=out/'sessions'/('sesion_'+uuid.uuid4().hex+'.json')
+    def deliver(rec):
+        results.append(rec)
+        if len(results)%500==0 or len(results)==len(tasks):
+            print(f'[{len(results)}/{len(tasks)}] {rec["id"]} '+('error' if rec['error'] else 'ok')+
+                  f' ({(time.perf_counter()-start)/60:.1f} min)',flush=True)
     try:
         if tasks:
             with cf.ProcessPoolExecutor(max_workers=min(processes,len(tasks)),mp_context=mp.get_context('spawn'),
                     initializer=initialize_worker,initargs=(ctx,)) as pool:
-                futures=[pool.submit(run_trajectory,t) for t in tasks]
-                for f in cf.as_completed(futures):
-                    rec=f.result();results.append(rec)
-                    if len(results)%500==0 or len(results)==len(tasks):
-                        print(f'[{len(results)}/{len(tasks)}] {rec["id"]} '+('error' if rec['error'] else 'ok')+
-                              f' ({(time.perf_counter()-start)/60:.1f} min)',flush=True)
+                collect_bounded(pool,tasks,min(processes,len(tasks)),deliver)
     except BaseException:
         exclusive_json(session,dict(status='INTERRUPTED',error=traceback.format_exc(),completed=results,
             script_sha256=ctx['script_sha256'],plan_sha256=PLAN_SHA,seconds=time.perf_counter()-start))
