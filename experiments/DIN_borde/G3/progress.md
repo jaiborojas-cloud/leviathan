@@ -20,3 +20,11 @@ Controles FWL/C1 PASS. PrimerN válido=100;potencia.026=.905,.8925,.89;
 límites inferiores≥.8555. Nulo=.03,.0175,.025 (pasa control).
 Se congela config/SAMPLE antes de crear código de entrenamiento.
 1500 entrenamientos nuevos,10500 visitas; no se entrenó aún.
+
+## Cohorte en curso · primer avance conservado
+Prepare bajo2048dd4: PASS semillas disjuntas,triángulo,cara26,r3,C1 ygenerador.
+Tres reconstrucciones prefijadas de M: error relativo0,f idéntica, sin
+reentrenar ni repetir rho. Cohorte iniciada;primeras330 trayectorias sin
+errores/invalidaciones. No se calcularon D ni veredictos parciales.
+Se versionan controles, entorno ymetadata de generación antes de finalizar
+la cohorte; las mediciones siguen con el código de entrenamiento intacto.
