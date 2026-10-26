@@ -1,0 +1,70 @@
+--- G2/run_v1.py
++++ G3/run_v1.py
+@@ -1,4 +1,4 @@
+-"""DIN-G2:600 entrenamientos sintéticos emparejados, fuentes intactas."""
++"""DIN-G3:1500 entrenamientos sintéticos emparejados, fuentes intactas."""
+ import argparse
+ import concurrent.futures as cf
+ import datetime
+@@ -63,7 +63,7 @@
+     va = np.array([39*c+i for c in range(3) for i in range(30, 39)], dtype=np.int64)
+     metadata = []
+     for split in CFG['splits']:
+-        epsilon = np.random.default_rng(311000+split).normal(size=(117, 13))
++        epsilon = np.random.default_rng(511000+split).normal(size=(117, 13))
+         base = array(f'noise_s{split:02}', epsilon=epsilon, means=means, y=y, train_ids=tr, panel_ids=va)
+         for level, s in enumerate(CFG['levels']):
+             raw = means[y]+s*epsilon
+@@ -89,16 +89,19 @@
+     face = rho.rho_borde_v2(mm, ff)
+     estimator = []
+     for j in range(4):
+-        rng = np.random.default_rng(400000+j)
++        rng = np.random.default_rng(544000+j)
+         sp = np.repeat(np.arange(20), 5)
+         L = rng.normal(size=100)+np.repeat(rng.normal(size=20), 5)
+         X = rng.normal(size=100)+(.2+j*.2)*L
+         Y = .4*L-.1*L**2+(.1*j)*X+rng.normal(size=100)
+-        original = source.primaria(sp, X, L, Y, 3, 260001, 999)
+-        other = independent(sp, X, L, Y, 999)
++        original = source.primaria(sp, X, L, Y, 3, 260001, 1999)
++        other = independent(sp, X, L, Y, 1999)
+         estimator.append(dict(original=original, independent=other,
+                        pass_test=abs(original['D']-other['D']) <= 1e-10 and original['p'] == other['p']))
+-    checks = dict(triangle=abs(tri['rho_caras']-math.sqrt(1/6)) < 2e-7 and abs(tri['rho_vert']-math.sqrt(2/3)) < 2e-5,
++    old = json.loads((STAGE/'sources/G2/config.json').read_text())
++    new_seeds = set(range(511000, 511000+len(CFG['splits']))) | set(range(521000, 521000+5*len(CFG['splits']))) | set(range(531000, 531000+5*len(CFG['splits'])))
++    old_seeds = set(range(old['split_seed_base'], old['split_seed_base']+20)) | set(range(old['init_seed_base'], old['init_seed_base']+100)) | set(range(old['batch_seed_base'], old['batch_seed_base']+100))
++    checks = dict(new_seeds_disjoint=not bool(new_seeds & old_seeds), triangle=abs(tri['rho_caras']-math.sqrt(1/6)) < 2e-7 and abs(tri['rho_vert']-math.sqrt(2/3)) < 2e-5,
+                   face26=abs(face['rho_caras']-1/702) < 2e-7,
+                   r3=tri['implementation_version'] == 'r3', estimator=all(x['pass_test'] for x in estimator),
+                   datasets=all(d['controls']['disjoint'] and d['controls']['train_balance'] == [30]*3
+@@ -184,16 +187,16 @@
+     try:
+         with np.load(ARRAYS/f'data_S{level:02}_s{split:02}.npz', allow_pickle=False) as z:
+             Z, y, tr, va = [z[key].copy() for key in ['Z', 'y', 'train_ids', 'panel_ids']]
+-        torch.manual_seed(312000+5*split+k)
++        torch.manual_seed(521000+5*split+k)
+         model = network(torch)
+         initial_hash = hashlib.sha256(b''.join(p.detach().numpy().tobytes() for p in model.parameters())).hexdigest()
+         optimizer = torch.optim.Adam(model.parameters(), lr=.006)
+-        rng = np.random.default_rng(313000+5*split+k)
++        rng = np.random.default_rng(531000+5*split+k)
+         xt, yt = torch.tensor(Z[tr]), torch.tensor(y[tr], dtype=torch.long)
+         batches = hashlib.sha256()
+         for step in range(1, 251):
+             if time.perf_counter() > deadline:
+-                raise TimeoutError('Presupuesto14400s agotado; sin sustitución')
++                raise TimeoutError('Presupuesto43200s agotado; sin sustitución')
+             ids = rng.choice(len(tr), size=64, replace=False)
+             batches.update(np.asarray(ids, dtype=np.int64).tobytes())
+             optimizer.zero_grad()
+@@ -240,7 +243,7 @@
+         if json.loads((RUN/'controls.json').read_text())['status'] != 'PASS':
+             raise RuntimeError('Controles primero')
+         begin = time.perf_counter(); deadline = begin+CFG['budget_seconds']
+-        tasks = [(level, split, k, deadline) for split in CFG['splits'] for k in CFG['initializations'] for level in range(6)]
++        tasks = [(level, split, k, deadline) for split in CFG['splits'] for k in CFG['initializations'] for level in range(len(CFG['levels']))]
+         records = []
+         with cf.ProcessPoolExecutor(max_workers=2) as pool:
+             jobs = {pool.submit(trajectory, t): t[:3] for t in tasks}
