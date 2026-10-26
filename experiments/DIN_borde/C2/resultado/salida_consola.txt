@@ -1,0 +1,69 @@
+{
+  "veredicto": "PASS",
+  "motivos_inconclusive": [],
+  "regimen": {
+    "mediana_c250": 0.8583677928647069,
+    "mediana_q250": 9.727293108760177e-05,
+    "frac_individual_colapsada": 0.578,
+    "c_faltantes": 0
+  },
+  "regimen_ok": true,
+  "primaria": {
+    "D": 0.029493516205711723,
+    "p": 0.0001999600079984003,
+    "D_nulo_q95": 0.0024036897767253664,
+    "pendiente_X": 1.716250268097177,
+    "grado_base": 3,
+    "permutaciones": 5000
+  },
+  "secundarios": {
+    "D_X_dado_R250": {
+      "D": 0.028500381084410886,
+      "p": 0.0004997501249375312
+    },
+    "D_rho_vert": {
+      "D": 0.028798126249836353,
+      "p": 0.0004997501249375312,
+      "D_nulo_q95": 0.0026824739533944314,
+      "pendiente_X": 1.7186987542429684,
+      "grado_base": 3,
+      "permutaciones": 2000
+    },
+    "W_adj_legado": {
+      "W": 0.1565,
+      "p": 4.999750012499375e-05,
+      "splits_validos": 200,
+      "splits_sin_variacion": 0
+    },
+    "D_subconjunto_colapsado_descriptivo": {
+      "n": 457,
+      "splits": 113,
+      "D": 0.05644830497727127,
+      "p": 0.0004997501249375312,
+      "D_nulo_q95": 0.006573893239125411,
+      "pendiente_X": 2.4445369435869595,
+      "grado_base": 3,
+      "permutaciones": 2000
+    }
+  },
+  "planificadas": 1000,
+  "validas": 1000,
+  "faltantes": 0,
+  "faltantes_por_motivo": {
+    "ausente": 0,
+    "error": 0,
+    "dominio": 0
+  },
+  "splits_planificados": 200,
+  "splits_validos": 200,
+  "alcance": "replica confirmatoria independiente en la familia gaussiana explorada por G3 (s=0.8); base cubica; predictivo, no causal; no establece necesidad del colapso ni transferencia a datos reales",
+  "modo": "CONFIRMATORIO",
+  "tabla_sha256": "afd4783c2505251a1456aed9b3f8583d8f98c186908d2611be7f3dedd64eca19",
+  "plan_sha256": "ad320ac9fdf75a80801f2c44a529de467f1c852ed90cdd3d7181a61151b6aed8",
+  "script_sha256": "d24ac5a7f88b5afd52e13e63bafc179ef046920a27b7144f0ce14cb5fefc1709",
+  "analisis_C1_v2_sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5"
+}
+
+real	0m48.249s
+user	0m47.144s
+sys	0m0.221s
