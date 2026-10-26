@@ -48,13 +48,14 @@ La geometría de Fisher describe el modelo estadístico; la familia de funcional
 | ¿La confianza temprana anticipa el borde? (DIN-C1, confirmatorio, cohorte nueva de 780 trayectorias) | **PASS** | la incertidumbre sobre el ejemplo de validación más difícil en el update 10 mejora fuera de muestra la predicción de ρ_borde(250) más allá de ρ_borde(10): D = 0.026, p = 1/5001; efecto modesto, predictivo y no causal; se sostiene con ρ_borde v2 (D = 0.022) | [cierre DIN-C1](experiments/DIN_borde/CIERRE_DIN_C1_v1_CONGELADO.md) |
 | ¿Aparece la señal fuera de Wine? (DIN-G1–G3, exploratorio) | exploratorio | no en Iris (G1); en mezclas gaussianas aparece **solo donde M colapsa** (G3: D = 0.017, p = 0.003); hipótesis H-colapso | [G1](experiments/DIN_borde/G1/CONCLUSION.md) · [G2](experiments/DIN_borde/G2/CONCLUSION.md) · [G3](experiments/DIN_borde/G3/CONCLUSION.md) |
 | ¿Es fiable la medida de distancia al borde? (DIN-I2, R1) | instrumento validado | v1 medía solo rayos a vértices; v2 cubre todas las caras; la reevaluación de 7800 estados de Wine no cambia ningún veredicto | [I2](experiments/DIN_borde/I2/CONCLUSION.md) · [R1](experiments/DIN_borde/R1/RESULTADO_R1_etapa2_2026-10-25.md) |
+| ¿Se replica en otra familia? (DIN-C2, confirmatorio, mezclas gaussianas en régimen de colapso, cohorte nueva de 1000 trayectorias) | **PASS** | D = 0.0295, p = 1/5001, pendiente +1.72; compuerta de régimen cumplida. Con DIN-C1, confirmado en dos familias; no establece que el colapso sea necesario ni transferencia a otras redes | [cierre DIN-C2](experiments/DIN_borde/CIERRE_DIN_C2_v1_CONGELADO.md) |
 
 Tabla completa, con todas las etapas y su estado oficial: [catálogo de experimentos](docs/CATALOGO_EXPERIMENTOS.md).
 
 **Lo que no se ha establecido:** una ley universal del signo de la curvatura, un predictor universal de la generalización o una explicación causal. Los hallazgos de DIN-borde son exploratorios: salen de datos ya usados y solo un confirmatorio con cohorte nueva puede sostenerlos. Todo lo de entrenamiento real es de **una familia** (MLP en Wine, panel de 27 ejemplos); no se afirma que se transfiera a otras redes o datos.
 
 ## En curso
-- **DIN-C2:** réplica confirmatoria de DIN-C1 en la familia gaussiana de G3 (s = 0.8, régimen de colapso). Diseño congelado; cohorte en curso; el análisis se corre una sola vez sobre la tabla publicada por hash.
+- **D9:** ¿el colapso de M (cuándo y cuánto) predice la **generalización** (pérdida en test) más allá de la pérdida y la confianza baratas? Es exploratorio, con los datos de descubrimiento de Wine. Si no sale, se mide Q13 (¿el colapso es necesario?).
 - **E16:** cotas y caminos al borde en familias sintéticas.
 
 ## Teoría matemática
