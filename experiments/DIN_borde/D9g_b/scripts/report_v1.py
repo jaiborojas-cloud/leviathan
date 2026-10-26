@@ -55,7 +55,7 @@ def main():
         'B1 reproduce los cuatro conjuntos D9g con error≤3.34e-16 y p idéntica.',
         '- Todas las transformaciones se ajustan sólo con entrenamiento exterior, incluyendo mu/sigma, potencias, productos y escalado de términos; '
         'mitades reajustadas. No B5, tuning o selección posterior.',
-        f"- [verification.json](verification.json): **PASS**, {v['rows']} filas, 16 celdas, {v['external_files_verified']} archivos externos por SHA. '
+        f"- [verification.json](verification.json): **PASS**, {v['rows']} filas, 16 celdas, {v['external_files_verified']} archivos externos por SHA. "
         'La pérdida test250 y c30/medidas baratas se copiaron exactamente de D9g. 1.500 paneles/pesos u30 restaurados sin fallos; test no se regeneró ni reevaluó.', '',
         '## Recomendación al responsable y límites','',
         '**Posponer el confirmatorio de c30 apoyado sólo en D9g.** La señal no pasó esta prueba de robustez. '
