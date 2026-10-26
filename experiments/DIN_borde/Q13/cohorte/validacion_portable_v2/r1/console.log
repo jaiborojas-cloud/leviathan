@@ -1,0 +1,19 @@
+PASS fuentes_embebidas_byte_por_byte
+PASS compuerta_spawn_aislado_tres_modelos_sin_entrenar
+PASS interrupcion_preservada_sin_reentrenar
+PASS resume_salta_exito_fallo_truncado_e_interrumpido
+PASS escritura_exclusiva_concurrente_sin_sobreescritura
+PASS bloqueo_de_coordinador_exclusivo
+PASS plan_incorrecto_rechazado_antes_de_entrenar
+{"trayectorias": 12000, "ya_escritas": 4, "pendientes": 11996, "a_ejecutar": 0, "procesos": 12, "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21"}
+{"status": "COMPLETED_INVOCATION", "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3", "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21", "realizadas": 0, "errores": 0, "ya_escritas": 4, "segundos_pared": 3.5834000300383195e-05, "media_segundos_trayectoria": null, "segundos_pared_por_trayectoria": null, "procesos": 12, "limite": 0, "plataforma": "Linux-6.18.55-x86_64-with-glibc2.41", "versiones": {"torch": "2.9.1+cpu", "numpy": "2.3.5", "scipy": "1.17.0", "scikit-learn": "1.8.0"}}
+
+PASS cli_aislado_cohorte_limite_cero_sin_entrenamiento
+{"tabla_sha256": "12384fdd78f85b589e4ad8cb4a9615c43a82b8212b70fa9bb2efdffdd382b588", "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3", "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21", "filas": 12000, "filas_con_error_por_brazo": {"A0": 4000, "LS": 3999, "WD": 4000}}
+
+{"tabla_sha256": "12384fdd78f85b589e4ad8cb4a9615c43a82b8212b70fa9bb2efdffdd382b588", "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3", "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21", "filas": 12000, "filas_con_error_por_brazo": {"A0": 4000, "LS": 3999, "WD": 4000}}
+
+PASS tabla_12000_incluye_ausentes_y_fallos_sin_excluir_IDs
+PASS tabla_repetida_idempotente_y_resumen_vinculado
+PASS publicacion_terminal_impide_entrenamiento_posterior
+{"status": "PASS", "tests": ["fuentes_embebidas_byte_por_byte", "compuerta_spawn_aislado_tres_modelos_sin_entrenar", "interrupcion_preservada_sin_reentrenar", "resume_salta_exito_fallo_truncado_e_interrumpido", "escritura_exclusiva_concurrente_sin_sobreescritura", "bloqueo_de_coordinador_exclusivo", "plan_incorrecto_rechazado_antes_de_entrenar", "cli_aislado_cohorte_limite_cero_sin_entrenamiento", "tabla_12000_incluye_ausentes_y_fallos_sin_excluir_IDs", "tabla_repetida_idempotente_y_resumen_vinculado", "publicacion_terminal_impide_entrenamiento_posterior"], "platform": "Linux", "Windows_execution_tested": false, "isolated_python": true, "spawn_gate_workers": 3, "untrained_gate_models": 3, "cohort_models_initialized_or_trained": 0, "training_limit_15_executed": false, "fixtures_only": true, "fixture_csv_not_cohort_data": true, "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21", "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3"}
