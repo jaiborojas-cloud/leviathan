@@ -20,7 +20,9 @@ Las fuentes y dominios están en el [mapa de afirmaciones](claims-and-evidence.m
 | N11 | T2-A1: X (update 5) no predice ρ_borde futuro | Efecto no respaldado (confirmatorio) | X no anticipa la degeneración en Wine | Otro predictor u otro momento (DIN-C1 mostró que la confianza en el update 10 sí) |
 | N12 | DIN-D5: ningún candidato del update 50 aporta más allá de la persistencia | Límite empírico exploratorio | Medir en el 50 es demasiado tarde: ya es casi el desenlace | Ventana más temprana (D6) |
 | N13 | DIN-G1: la señal temprana no se reproduce en Iris (D < 0) | No replicado (exploratorio) | El PASS de DIN-C1 no se generaliza automáticamente | Confirmatorio propio en otra familia, con la variación en la resolución final como posible condición |
-| N14 | ρ_borde v1: falla en paneles degenerados sintéticos (D2 Q5) y no alcanza las normales de las aristas (G1) | Límite del instrumento | La «distancia al borde» de v1 es el mínimo de rayos a un vértice | ρ_borde v2 con caras completas (DIN-I2) y reevaluación declarada |
+| N14 | ρ_borde v1: falla en paneles degenerados sintéticos (D2 Q5) y no alcanza las normales de las aristas (G1) | Límite del instrumento | La «distancia al borde» de v1 es el mínimo de rayos a un vértice | Resuelto: v2 (DIN-I2) y reevaluación DIN-R1, sin cambio de veredictos |
+| N15 | DIN-G2: H-var (la señal depende de la variación de la resolución final) no se sostiene; patrón inverso descriptivo | Hipótesis no respaldada (exploratoria, potencia baja) | La variación binaria de la resolución no explica la señal | Más potencia y régimen de colapso (lo hizo G3) |
+| N16 | DIN-G3: sin señal en niveles sin colapso (s = 0.25 y 0.5), con potencia planificada | Ausencia descriptiva con potencia ≥ 0.8 para D = 0.02 | La señal no es general en la familia gaussiana; no prueba equivalencia | Diseño que manipule el colapso directamente |
 
 ## Fuentes por registro
 
@@ -36,6 +38,8 @@ Las fuentes y dominios están en el [mapa de afirmaciones](claims-and-evidence.m
 - N11: [cierre T2-A1](../../experiments/T2_A1/CIERRE_T2A1_v1_CONGELADO.md).
 - N12: [D5](../../experiments/DIN_borde/RESULTADO_D5_2026-10-24.md).
 - N13: [G1](../../experiments/DIN_borde/G1/CONCLUSION.md).
+- N15: [G2](../../experiments/DIN_borde/G2/CONCLUSION.md).
+- N16: [G3](../../experiments/DIN_borde/G3/CONCLUSION.md).
 - N14: [D2](../../experiments/DIN_borde/D2/CONCLUSION.md), [G1](../../experiments/DIN_borde/G1/CONCLUSION.md), [sensibilidad C1](../../experiments/DIN_borde/C1/sensibilidad_aristas/SENSIBILIDAD_ARISTAS_2026-10-25.md).
 
 ## Errores corregidos sin borrar historia
