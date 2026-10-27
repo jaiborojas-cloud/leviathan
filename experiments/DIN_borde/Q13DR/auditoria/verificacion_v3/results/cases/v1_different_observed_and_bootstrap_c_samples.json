@@ -1,0 +1,85 @@
+{
+  "case": "v1_different_observed_and_bootstrap_c_samples",
+  "status": "RETURNED",
+  "result": {
+    "target_result": {
+      "manipulacion": {
+        "L0": {
+          "mediana_c250": 0.88,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L1": {
+          "mediana_c250": 0.6799999999999999,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L2": {
+          "mediana_c250": 0.63,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L3": {
+          "mediana_c250": 0.52,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L4": {
+          "mediana_c250": 0.44,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L5": {
+          "mediana_c250": 0.33999999999999997,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 20,
+      "splits_comunes": 14,
+      "faltantes": {
+        "L0": 3,
+        "L1": 3,
+        "L2": 3,
+        "L3": 3,
+        "L4": 3,
+        "L5": 3
+      },
+      "motivos_inconclusive": [
+        "splits comunes 14 < 80 % de 20"
+      ],
+      "primaria": {},
+      "bootstrap": {},
+      "secundarios": {},
+      "veredicto": "INCONCLUSIVE"
+    },
+    "common": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "reached_point": false,
+    "point_c": null,
+    "expected_common_c": [
+      0.885,
+      0.6749999999999999,
+      0.635,
+      0.515,
+      0.445,
+      0.33499999999999996
+    ],
+    "point_c_equals_common": false
+  },
+  "warnings": []
+}

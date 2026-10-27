@@ -1,0 +1,706 @@
+{
+  "case": "plans",
+  "status": "RETURNED",
+  "result": {
+    "cases": [
+      {
+        "name": "n_1",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 1,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "n_20",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "n_400",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 400,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "n_0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: 0",
+        "ok": true
+      },
+      {
+        "name": "n_-1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: -1",
+        "ok": true
+      },
+      {
+        "name": "n_401",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: 401",
+        "ok": true
+      },
+      {
+        "name": "n_True",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: True",
+        "ok": true
+      },
+      {
+        "name": "n_False",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: False",
+        "ok": true
+      },
+      {
+        "name": "n_20.0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: 20.0",
+        "ok": true
+      },
+      {
+        "name": "n_20",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: '20'",
+        "ok": true
+      },
+      {
+        "name": "n_None",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: None",
+        "ok": true
+      },
+      {
+        "name": "n_10000000000000000000000000000000",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "n_splits invalido: 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l0_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: eps invalido 5e-324",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l1_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 1: eps invalido 0.0020000000000000005",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l2_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 2: eps invalido 0.005000000000000001",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l3_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 3: eps invalido 0.010000000000000002",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l4_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 4: eps invalido 0.020000000000000004",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j0",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido True",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j1",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido False",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j2",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido '0'",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j3",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido None",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j4",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido nan",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j5",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido inf",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j6",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido 1000000000000000000000000000000000000000",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j7",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido {}",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j8",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido []",
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j9",
+        "expected": "ACCEPT",
+        "actual": "ACCEPT",
+        "n": 20,
+        "error": null,
+        "ok": true
+      },
+      {
+        "name": "eps_l5_j10",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 5: eps invalido 0.05000000000000001",
+        "ok": true
+      },
+      {
+        "name": "root_NoneType",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "plan no es un objeto",
+        "ok": true
+      },
+      {
+        "name": "root_list",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "plan no es un objeto",
+        "ok": true
+      },
+      {
+        "name": "root_int",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "plan no es un objeto",
+        "ok": true
+      },
+      {
+        "name": "root_str",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "plan no es un objeto",
+        "ok": true
+      },
+      {
+        "name": "levels_82",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "niveles: se esperan 6",
+        "ok": true
+      },
+      {
+        "name": "levels_83",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "niveles: se esperan 6",
+        "ok": true
+      },
+      {
+        "name": "levels_84",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "nivel 0: numero invalido 5",
+        "ok": true
+      },
+      {
+        "name": "levels_85",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "niveles: se esperan 6",
+        "ok": true
+      },
+      {
+        "name": "levels_86",
+        "expected": "ABORTA",
+        "actual": "ABORTA",
+        "n": null,
+        "error": "niveles: se esperan 6",
+        "ok": true
+      }
+    ],
+    "all_ok": true
+  },
+  "warnings": []
+}
