@@ -116,10 +116,12 @@ def main():
         ci='desconocido' if d['IC95_mediana_c250'] is None else '['+', '.join(f(x) for x in d['IC95_mediana_c250'])+']'
         lines.append(f"| {d['brazo']} | {d['dosis']:g} | {f(d['c250'])} | {ci} | {f(d['q250'])} | {f(d['acc_panel250'])} | {f(d['fraccion_c250_le_070'])} | {d['measured']}/{d['failed']} |")
     lines+=['','## Criterios exactos del §5','', '| Manipulador | C1 monotonía | C2 rango y precisión | C3 precisión si c≥.55 | Resultado |', '|---|---|---|---|---|']
+    notes=[]
     for a,e in summary['elegibilidad'].items():
         label=lambda x:'desconocido' if x is None else 'cumple' if x else 'no cumple'
         lines.append(f"| {a} | {label(e['criterio1_monotona_no_creciente'])} | {label(e['criterio2_alcanza_c045_y_preserva_acc'])} | {label(e['criterio3_acc_preservada_si_c_ge_055'])} | {e['estado']} |")
-        lines+=['',f"{a}: inversiones adyacentes={json.dumps(e['inversiones'],ensure_ascii=False)}; dosis que testimonian C2={e['dosis_testigo_criterio2']}; violaciones C3={json.dumps(e['violaciones_criterio3'],ensure_ascii=False)}."]
+        notes.append(f"{a}: inversiones adyacentes={json.dumps(e['inversiones'],ensure_ascii=False)}; dosis que testimonian C2={e['dosis_testigo_criterio2']}; violaciones C3={json.dumps(e['violaciones_criterio3'],ensure_ascii=False)}.")
+    for note in notes:lines+=['',note]
     lines+=['',f"Bootstrap percentil de2000 remuestreos de100 splits completos con sus cinco k, semilla904001. Draws compartidos entre condiciones. No son intervalos entre trayectorias independientes ni pruebas confirmatorias de monotonía. Comparaciones exactas con valores sin redondear; las cifras de esta tabla solo se redondean para leer.",
             '',f"Tiempo total de medición y resumen:{summary['seconds']:.3f}s;dos procesos de un hilo. Código publicado antes de medir en16139f48. Fuente de protocolo SHA:{CFG['sources']['protocol']['sha256']}.",
             '', 'Las dosis testigo de C2 son evidencia de un criterio, no elecciones para el confirmatorio. La regla de interpolación y cualquier selección corresponden al diseño posterior y al responsable. No se interpoló, amplió rejilla ni calcularon asociaciones. Las dos calibraciones Q13 anteriores permanecen intactas.',
