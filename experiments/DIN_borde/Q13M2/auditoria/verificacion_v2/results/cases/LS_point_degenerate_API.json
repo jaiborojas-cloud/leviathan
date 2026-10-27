@@ -1,0 +1,13 @@
+{
+  "case": "LS_point_degenerate_API",
+  "status": "EXCEPTION",
+  "exception": "LinAlgError",
+  "message": "SVD did not converge in Linear Least Squares",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/cases_v1.py\", line 125, in main\n    try:r=dict(case=name,status='RETURNED',result=fn())\n                                                  ^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/cases_v1.py\", line 111, in <lambda>\n    ('LS_sparse_bootstrap_result',lambda:ls_synthetic(m,64,True)),('LS_point_degenerate_API',lambda:ls_synthetic(m,64,False,True))])\n                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/cases_v1.py\", line 56, in ls_synthetic\n    return m.referencia_ls(out,NB)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/sources/v2/Q13M2/analisis_Q13M2.py\", line 106, in referencia_ls\n    D = [Q.D_punto(arr[l][\"sp\"], arr[l][\"X\"], arr[l][\"L\"], arr[l][\"Y\"]) for l in range(6)]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/sources/v2/Q13/analisis_Q13.py\", line 53, in D_punto\n    Bm = np.column_stack([A.cen(z ** g, sp) for g in (1, 2, 3)]); return A.D_cv(Yc, Bm, A.cen(X, sp), fo)\n                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/sources/v2/C1/analisis_C1_v2.py\", line 52, in D_cv\n    bb = np.linalg.lstsq(Bm[tr], Yc[tr], rcond=None)[0]; bf = np.linalg.lstsq(C[tr], Yc[tr], rcond=None)[0]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py\", line 2564, in lstsq\n    x, resids, rank, s = _umath_linalg.lstsq(a, b, rcond,\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py\", line 175, in _raise_linalgerror_lstsq\n    raise LinAlgError(\"SVD did not converge in Linear Least Squares\")\nnumpy.linalg.LinAlgError: SVD did not converge in Linear Least Squares\n",
+  "warnings": [
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in divide"
+    }
+  ]
+}
