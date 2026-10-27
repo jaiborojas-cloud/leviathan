@@ -13,6 +13,8 @@
   - La v1 hacía global cualquier X/L constante; la v2 lo localiza, de acuerdo con la independencia que pide el §4. **Aprobado por el responsable a las 10:48** («si localizalo»).
 - **F02, la salida no se sobrescribe:** `RESULTADO_Q13M2.json` se crea en exclusiva. Si ya existe, el resultado es ABORTA.
 - **F03, evidencia vinculada a los archivos finales:** las pruebas se ejecutan contra los SHA finales y se publican en un informe nuevo. El anterior se conserva.
+- **N01, traza de fallos múltiples** (verificación del PR #118): si varios niveles de un mismo manipulador fallan, se registran **todos** los motivos, no solo el primero. El estado del manipulador no cambia: queda INCONCLUSIVE.
+- **N02 (PR #118):** se quitó «exactamente» del texto sobre β_LS para que coincida con la tolerancia de F04.
 - **F04, reproducción de β_LS:** se exige |β_LS − 0.07692466151365258| ≤ 1e-12 y no igualdad literal. La auditoría obtuvo 0.07692466151365296, una diferencia de 3.7e-16, en otro entorno. **No cambia ningún umbral científico.**
 - **Endurecimiento opcional adoptado:**
   - si la referencia LS falla, la compatibilidad queda «no definida» y no se interrumpe el análisis;
@@ -81,7 +83,7 @@ Si las tres vías coinciden, la modulación se atribuye al colapso y no al manip
    - **Multiplicidad:** IC bilateral al 97.5 %, con cuantiles 0.0125 y 0.9875 (decisión 1).
 4. **Secundarios predeclarados:**
    - **Compatibilidad con LS:**
-     - β_LS es la pendiente de la tabla de Q13-DR (`ed00364f…`) con las funciones de la v3 congeladas: filas comunes y mediana de c. Reproduce exactamente 0.07692466151365258.
+     - β_LS es la pendiente de la tabla de Q13-DR (`ed00364f…`) con las funciones de la v3 congeladas: filas comunes y mediana de c. Reproduce 0.07692466151365258 con tolerancia absoluta de 1e-12 (F04).
      - Su incertidumbre sale de un bootstrap **independiente** de los splits LS (2000 réplicas, semilla 960002).
      - En cada réplica b se calcula Δβ_m,b = β_m,b − β_LS,b, con la **misma** réplica LS para LP y WD. El IC95 usa los cuantiles 0.025 y 0.975.
      - **SIN_DIFERENCIA_DETECTADA** si contiene 0; **DIFIERE** si lo excluye. Es compatibilidad estadística, no equivalencia.
@@ -103,7 +105,7 @@ Si las tres vías coinciden, la modulación se atribuye al colapso y no al manip
 Son las de Q13-DR adaptadas a 11 niveles, más:
 - un manipulador modula y el otro no;
 - la compuerta falla en un solo manipulador: el otro se evalúa igual, y queda declarado;
-- el cálculo determinista de β_LS desde la tabla de Q13-DR reproduce exactamente 0.07692466151365258;
+- el cálculo determinista de β_LS desde la tabla de Q13-DR reproduce 0.07692466151365258 con tolerancia absoluta de 1e-12 (F04);
 - la diferencia β_m − β_LS en casos construidos.
 
 Después, **auditoría y verificación** por el otro agente, como en Q13-DR.

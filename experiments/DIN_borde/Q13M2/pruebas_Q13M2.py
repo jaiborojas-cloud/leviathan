@@ -1,4 +1,4 @@
-"""pruebas_Q13M2.py v2 - regresiones de analisis_Q13M2.py antes de congelar. Fixture: G3 s=0.8 (C2/fixtures/G3_trajectories.csv) copiada en
+"""pruebas_Q13M2.py v2.1 - regresiones de analisis_Q13M2.py antes de congelar. Fixture: G3 s=0.8 (C2/fixtures/G3_trajectories.csv) copiada en
 11 niveles SINTETICOS; referencia LS = tabla real de Q13-DR (ed00364f...), solo para reproducir beta_LS. Semillas fijas.
 Uso: python3 -I pruebas_Q13M2.py --out <dir>"""
 import argparse, copy, csv, hashlib, json, math, subprocess, sys
@@ -126,6 +126,16 @@ def main():
     esperar("F01_LP3_Y_constante", run(mod_nivel("LP3", "rho_caras_250", "1.0"), 800), "INCONCLUSIVE_PARCIAL", "INCONCLUSIVE", "MODULA")
     esperar("F01_WD3_X_constante", run(mod_nivel("WD3", "X10", "-2"), 800), "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE")
     esperar("F01_WD3_L_constante", run(mod_nivel("WD3", "rho_caras_10", "0.5"), 800), "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE")
+    f = mod_nivel("WD2", "X10", "-2")
+    for r in f:
+        if r["nivel"] == "WD3": r["rho_caras_10"] = "0.5"
+    o = run(f, 800); esperar("N01_WD2_X_y_WD3_L_ambos_motivos", o, "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE",
+                             extra=any("WD2" in m for m in o["motivos"]) and any("WD3" in m for m in o["motivos"]))
+    f = mod_nivel("WD2", "rho_caras_250", "1.0")
+    for r in f:
+        if r["nivel"] == "WD3": r["rho_caras_250"] = "1.0"
+    o = run(f, 800); esperar("N01_WD2_y_WD3_SSE0_ambos_motivos", o, "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE",
+                             extra=any("WD2" in m for m in o["motivos"]) and any("WD3" in m for m in o["motivos"]))
     esperar("F01_A0_X_constante_global", run(mod_nivel("A0", "X10", "-2"), 800), "INCONCLUSIVE")
     # comunes < 80 %
     f = cohorte(b1); spl = sorted({int(r["split"]) for r in f})

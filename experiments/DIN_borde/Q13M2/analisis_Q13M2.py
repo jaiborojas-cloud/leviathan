@@ -1,4 +1,4 @@
-"""analisis_Q13M2.py v2 - analisis UNICO de DIN-Q13-M2 (segundo y tercer manipulador del colapso: LP y WD, A0 compartido, 11 niveles).
+"""analisis_Q13M2.py v2.1 - analisis UNICO de DIN-Q13-M2 (segundo y tercer manipulador del colapso: LP y WD, A0 compartido, 11 niveles).
 Reutiliza SIN CAMBIOS, con SHA verificado: C1/analisis_C1_v2.py (primaria), Q13/analisis_Q13.py (D_punto, bloques) y
 Q13DR/analisis_Q13DR.py v3 (valida, pendiente, rango_c, clasificar_extremo, equivalencia, spearman, limpio, Aborta).
 
@@ -11,6 +11,7 @@ INCONCLUSIVE (global) si en cualquier nivel faltantes > 5 % de 5N o splits con >
 11 niveles) < 80 % de N; plan/resumen no vinculados. v2 (auditoria PR #117, F01): X o L sin variacion, o un fallo de la primaria, en un
 nivel EXCLUSIVO de m deja INCONCLUSIVE solo a m (el otro se evalua; veredicto conjunto INCONCLUSIVE_PARCIAL); en A0 es global.
 Salida (F02): RESULTADO_Q13M2.json se crea en exclusiva; si ya existe: ABORTA (no se sobrescribe).
+v2.1 (verificacion PR #118, N01): con varios niveles fallidos de un mismo manipulador se registran todos los motivos.
 Por manipulador m en {LP, WD}, niveles (A0, m1..m5):
  1) COMPUERTA: A0 c >= 0.8 y q <= 0.05 (si falla: INCONCLUSIVE_MANIPULACION en ambos); por m: c estrictamente decreciente A0 > m1 > ... > m5,
     rango (c_A0 - c_m5) >= 0.30, |acc_mj - acc_A0| < 0.05 en m1-m3, acc_A0 - acc_mj <= 0.10 en m4-m5 (si falla: INCONCLUSIVE_MANIPULACION en m).
@@ -156,7 +157,7 @@ def analizar(filas, n, gate_ok, gate_nota, ls=None, B=5000, NB=2000):
         estado[m] = None if ok else "INCONCLUSIVE_MANIPULACION"
     for m in MANIP:
         for nv in MANIP[m][1:]:
-            if nv in malo and estado[m] is None:
+            if nv in malo and estado[m] in (None, "INCONCLUSIVE"):   # N01: se registran todos los motivos
                 estado[m] = "INCONCLUSIVE"; out["motivos_inconclusive"].append(f"{m}: {nv}: {', '.join(malo[nv])}")
     activos = [m for m in MANIP if estado[m] is None]
     usar = sorted({nv for m in activos for nv in MANIP[m]}, key=NOMBRES.index) or ["A0"]
@@ -169,7 +170,7 @@ def analizar(filas, n, gate_ok, gate_nota, ls=None, B=5000, NB=2000):
             if nv == "A0":
                 out["motivos_inconclusive"].append(msg); out["veredicto_conjunto"] = "INCONCLUSIVE"; return out
             for m in MANIP:
-                if nv in MANIP[m] and estado[m] is None: estado[m] = "INCONCLUSIVE"; out["motivos_inconclusive"].append(f"{m}: {msg}")
+                if nv in MANIP[m] and estado[m] in (None, "INCONCLUSIVE"): estado[m] = "INCONCLUSIVE"; out["motivos_inconclusive"].append(f"{m}: {msg}")   # N01
     activos = [m for m in activos if estado[m] is None]
     if not out["primaria"]["A0"]["pass"]:
         out["veredicto_conjunto"] = "INCONCLUSIVE_SIN_SENAL_CONTROL"; out["por_manipulador"] = {m: dict(veredicto="INCONCLUSIVE_SIN_SENAL_CONTROL") for m in MANIP}; return out
