@@ -26,7 +26,7 @@ def nivel(filas, l, c=None, w=1.0, sem=0, **mod):
     xs = np.array([float(r["X10"]) for r in filas if not r["error"]]); sd = xs.std()
     for r in filas:
         q = dict(r); q.update(trajectory=f"q13dr_L{l}_s{int(r['split']):04d}_k{r['k']}", nivel=str(l), c250=repr(C[l] if c is None else c))
-        if w < 1 and not r["error"]: q["X10"] = repr(w * float(r["X10"]) + math.sqrt(max(1 - w * w, 0)) * sd * float(g.standard_normal()))
+        if w < 1 and not r["error"]: q["X10"] = repr(float(w * float(r["X10"]) + math.sqrt(max(1 - w * w, 0)) * sd * float(g.standard_normal())))
         q.update(mod); out.append(q)
     return out
 
