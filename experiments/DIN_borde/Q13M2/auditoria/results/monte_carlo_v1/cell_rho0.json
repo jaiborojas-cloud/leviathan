@@ -1,0 +1,78 @@
+{
+  "rho": 0.0,
+  "N": 320,
+  "replicates": 400,
+  "control_PASS": 400,
+  "control_fail": 0,
+  "global_rates": {
+    "false_MODULA_LP": {
+      "k": 2,
+      "n": 400,
+      "rate": 0.005,
+      "lower": 0.0013722529547103846,
+      "upper": 0.018044918436243156
+    },
+    "false_MODULA_WD": {
+      "k": 4,
+      "n": 400,
+      "rate": 0.01,
+      "lower": 0.003895483794990993,
+      "upper": 0.025426564652619582
+    },
+    "family_error": {
+      "k": 6,
+      "n": 400,
+      "rate": 0.015,
+      "lower": 0.006892291919440893,
+      "upper": 0.03233463358482672
+    },
+    "both_false": {
+      "k": 0,
+      "n": 400,
+      "rate": 0.0,
+      "lower": 8.673617379884035e-19,
+      "upper": 0.009512294334296508
+    }
+  },
+  "conditional_on_control_PASS": {
+    "false_MODULA_LP": {
+      "k": 2,
+      "n": 400,
+      "rate": 0.005,
+      "lower": 0.0013722529547103846,
+      "upper": 0.018044918436243156
+    },
+    "false_MODULA_WD": {
+      "k": 4,
+      "n": 400,
+      "rate": 0.01,
+      "lower": 0.003895483794990993,
+      "upper": 0.025426564652619582
+    },
+    "family_error": {
+      "k": 6,
+      "n": 400,
+      "rate": 0.015,
+      "lower": 0.006892291919440893,
+      "upper": 0.03233463358482672
+    },
+    "both_false": {
+      "k": 0,
+      "n": 400,
+      "rate": 0.0,
+      "lower": 8.673617379884035e-19,
+      "upper": 0.009512294334296508
+    }
+  },
+  "family_reading_vs_005": "COMPATIBLE_EN_MODELO",
+  "labels": {
+    "LP": {
+      "NO_CONCLUYENTE": 398,
+      "MODULA": 2
+    },
+    "WD": {
+      "NO_CONCLUYENTE": 396,
+      "MODULA": 4
+    }
+  }
+}

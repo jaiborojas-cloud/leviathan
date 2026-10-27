@@ -1,0 +1,25 @@
+{
+  "status": "PASS_EXPECTED_API_BEHAVIOR",
+  "cases": [
+    {
+      "case": "LS_length_mismatch_API",
+      "exception": "ValueError",
+      "message": "operands could not be broadcast together with shapes (64,) (63,) ",
+      "reachable_with_fixed_CLI": false
+    },
+    {
+      "case": "decimal_constant_c_replica",
+      "exception": "FloatingPointError",
+      "message": "beta no identificada (c constante)",
+      "c": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    }
+  ],
+  "real_data_used": false
+}
