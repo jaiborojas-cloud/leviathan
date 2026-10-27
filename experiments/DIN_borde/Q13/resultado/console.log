@@ -1,0 +1,48 @@
+{
+  "brazos": [
+    "A0",
+    "LS",
+    "WD"
+  ],
+  "manipulacion": {
+    "A0": {
+      "mediana_c250": 0.8626259929943956,
+      "mediana_q250": 9.337537577235657e-05,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "LS": {
+      "mediana_c250": 0.6005941559647336,
+      "mediana_q250": 0.00020409485842231307,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "WD": {
+      "mediana_c250": 0.7402553125573992,
+      "mediana_q250": 0.00013672131858353756,
+      "mediana_acc_panel250": 0.9259259259259259
+    }
+  },
+  "splits_planificados": 800,
+  "splits_comunes": 800,
+  "faltantes": {
+    "A0": 0,
+    "LS": 0,
+    "WD": 0
+  },
+  "motivos_inconclusive": [],
+  "primaria": {},
+  "bootstrap": {},
+  "clasificacion": {},
+  "secundarios": {},
+  "manipulacion_ok": false,
+  "veredicto": "INCONCLUSIVE_MANIPULACION",
+  "modo": "CONFIRMATORIO_Q13",
+  "dosis": {
+    "LS": 0.005,
+    "WD": 0.2
+  },
+  "tabla_sha256": "d360b3134b40f206c7005d00606dc7102257a9891087d15f87769bfa25f3bc0c",
+  "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3",
+  "script_sha256": "9998a1b2f8f37dd0e803c6a4b024f289a23df71eea17a0b1ed6f7c6d15f3c5b3",
+  "analisis_C1_v2_sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5",
+  "alcance": "efecto de manipular el entrenamiento (LS, WD) sobre la senal temprana en la familia gaussiana s=0.8; no necesidad logica ni transferencia"
+}
