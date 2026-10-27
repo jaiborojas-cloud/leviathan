@@ -1,6 +1,6 @@
 {
   "reglas_puras": {
-    "n": 17,
+    "n": 18,
     "fallos": []
   },
   "beta_LS_reproduce_Q13DR": {
@@ -239,6 +239,103 @@
     ],
     "ok": true
   },
+  "F01_WD3_Y_constante": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "MODULA",
+    "WD": "INCONCLUSIVE",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": null,
+    "motivos": [
+      "WD: WD3: primaria no definida: FloatingPointError: SSE_base = 0"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "MODULA",
+      "INCONCLUSIVE"
+    ],
+    "ok": true
+  },
+  "F01_LP3_Y_constante": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "INCONCLUSIVE",
+    "WD": "MODULA",
+    "IC_LP": null,
+    "IC_WD": [
+      0.023043068767593496,
+      0.07101203010683113
+    ],
+    "motivos": [
+      "LP: LP3: primaria no definida: FloatingPointError: SSE_base = 0"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "INCONCLUSIVE",
+      "MODULA"
+    ],
+    "ok": true
+  },
+  "F01_WD3_X_constante": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "MODULA",
+    "WD": "INCONCLUSIVE",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": null,
+    "motivos": [
+      "WD: WD3: X sin variacion intra-split"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "MODULA",
+      "INCONCLUSIVE"
+    ],
+    "ok": true
+  },
+  "F01_WD3_L_constante": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "MODULA",
+    "WD": "INCONCLUSIVE",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": null,
+    "motivos": [
+      "WD: WD3: L sin variacion"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "MODULA",
+      "INCONCLUSIVE"
+    ],
+    "ok": true
+  },
+  "F01_A0_X_constante_global": {
+    "veredicto_conjunto": "INCONCLUSIVE",
+    "LP": null,
+    "WD": null,
+    "IC_LP": null,
+    "IC_WD": null,
+    "motivos": [
+      "A0: X sin variacion intra-split"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
   "comunes_menor_80": {
     "veredicto_conjunto": "INCONCLUSIVE",
     "LP": null,
@@ -333,6 +430,16 @@
     ],
     "ok": true
   },
+  "cli:F02_salida_existente_no_se_sobrescribe": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: la salida ya existe; no se sobrescribe\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
   "cli:resumen_otra_tabla": {
     "veredicto_conjunto": "INCONCLUSIVE",
     "LP": null,
@@ -351,8 +458,8 @@
     "ok": true
   },
   "fallos": [],
-  "analisis_sha256": "2e69516e62b59d90d8abd9d91e1468e538c07b50dc059a6814cd7a20197030fa",
-  "pruebas_sha256": "063c15e455bef12ba89dc4c68c509e928deaf65938171721726d0b33bbe0d1f3",
+  "analisis_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+  "pruebas_sha256": "6e7b836ca08f0c7f5123c24ae1b0de7948fe5bd70e7d77f5ee337b5f30445d7e",
   "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794",
   "ls_sha256": "ed00364f66d4ac0d312cba63d14d5c5da67006956336c16e7e44336457b5240a"
 }
