@@ -1,0 +1,63 @@
+{
+  "version": "v1",
+  "base_main": "ac40fcd099b5f67f4b7f71eb46204901554fd91b",
+  "splits": 100,
+  "initializations": 5,
+  "LP": [
+    0.0001,
+    0.0003,
+    0.001,
+    0.003,
+    0.01,
+    0.03,
+    0.1,
+    0.3
+  ],
+  "WD": [
+    0.2,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "split_seed_base": 901000,
+  "init_seed_base": 902000,
+  "batch_seed_base": 903000,
+  "bootstrap": 2000,
+  "bootstrap_seed": 904001,
+  "workers": 2,
+  "BLAS_threads": 1,
+  "arrays_root": "/workspace/work/din-q13m2-calibracion-v1-arrays",
+  "versions": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "sources": {
+    "protocol": {
+      "path": "experiments/DIN_borde/Q13M2/PROTOCOLO_CALIBRACION_M2_v1.md",
+      "sha256": "08551c5810d0c9d65c20e6adf193fed04c195def5cacedd44b9144731f3f7a15"
+    },
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "recipe": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    "support": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/support_v1.py",
+      "sha256": "29158f316c8a4b982e206a6588ad49702af8f3d0710326bfac190ebdc52285c1"
+    },
+    "calibrate_Q13": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/calibrate_v1.py",
+      "sha256": "6c85aae79e245e8e7d0d5395d9a1dee9acbdbf33543af8ee34f77fc767c5b614"
+    }
+  }
+}
