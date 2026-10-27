@@ -1,0 +1,1266 @@
+{
+  "reglas_puras": {
+    "n": 15,
+    "fallos": []
+  },
+  "nucleo:niveles_iguales_N100": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L1": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L2": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L3": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L4": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L5": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      "PERSISTE"
+    ],
+    "ok": true
+  },
+  "nucleo:N800_modula_y_desaparece": {
+    "veredicto": "MODULA",
+    "equivalencia": "NO_ESTABLECIDA",
+    "extremo": "DESAPARECE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.039302014920810244,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.023248915927572326,
+        0.058857303222449364
+      ],
+      "IC95_D": {
+        "L0": [
+          0.010514232944093566,
+          0.027169892248394868
+        ],
+        "L1": [
+          0.005651796218598559,
+          0.02058939869810601
+        ],
+        "L2": [
+          -0.0004347003711288821,
+          0.008607835914588026
+        ],
+        "L3": [
+          -0.0008865812788293792,
+          0.00769909589664129
+        ],
+        "L4": [
+          -0.001556883635306361,
+          0.0030613136726254414
+        ],
+        "L5": [
+          -0.0018025651736547688,
+          0.0005927981620214601
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.018405909331147052,
+      "L1": 0.012840106858337585,
+      "L2": 0.003479298699839428,
+      "L3": 0.0027157801664365877,
+      "L4": 0.00040228735084391065,
+      "L5": -0.00040781586134341907
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "MODULA",
+      null,
+      "DESAPARECE"
+    ],
+    "ok": true
+  },
+  "nucleo:N800_modula_y_persiste": {
+    "veredicto": "MODULA",
+    "equivalencia": "NO_ESTABLECIDA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.03146330312850877,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.018329439312491595,
+        0.047237117103529416
+      ],
+      "IC95_D": {
+        "L0": [
+          0.010514232944093566,
+          0.027169892248394868
+        ],
+        "L1": [
+          0.008126797069926344,
+          0.02386702495878031
+        ],
+        "L2": [
+          0.002607312058943184,
+          0.015751916859278844
+        ],
+        "L3": [
+          0.002850357311538107,
+          0.01630478115082634
+        ],
+        "L4": [
+          0.001203591430831072,
+          0.012098894069286286
+        ],
+        "L5": [
+          -0.0006857858106667225,
+          0.006821426334714072
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.018405909331147052,
+      "L1": 0.015983656240679434,
+      "L2": 0.008318122278177076,
+      "L3": 0.008415197595515567,
+      "L4": 0.0061079619394953655,
+      "L5": 0.002642515664189715
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "MODULA",
+      null,
+      "PERSISTE"
+    ],
+    "ok": true
+  },
+  "nucleo:N100_ruido_independiente_sin_precision": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_ESTABLECIDA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.017928904580998918,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        -0.005451957586763129,
+        0.04687294631715199
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L1": [
+          -0.0003495372971971776,
+          0.04345713501252688
+        ],
+        "L2": [
+          -0.00743759620402909,
+          0.036147014451535675
+        ],
+        "L3": [
+          -0.0037528323693369722,
+          0.048723614545383015
+        ],
+        "L4": [
+          -0.005767223371606794,
+          0.040275696791103786
+        ],
+        "L5": [
+          -0.00772911178260664,
+          0.024859394661119933
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.02026660923768342,
+      "L2": 0.012310885336224042,
+      "L3": 0.01694804503003844,
+      "L4": 0.015315348128747575,
+      "L5": 0.00612755749019489
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_ESTABLECIDA",
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:c_no_monotona": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:rango_menor_030": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L0_sin_colapso": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L2_pierde_acc_005": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L2_gana_acc_005": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L5_pierde_acc_009_permitido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L1": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L2": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L3": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L4": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L5": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L5_pierde_acc_011": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L4_gana_acc_permitido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L1": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L2": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L3": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L4": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L5": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L0_sin_senal": {
+    "veredicto": "INCONCLUSIVE_SIN_SENAL_CONTROL",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {
+      "L0": 0.001038937521928296,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_SIN_SENAL_CONTROL",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "auditoria:F01_punto_usa_c_comunes": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.8616262294801307,
+        0.7019305625251078,
+        0.6102271675164713,
+        0.540074647876759,
+        0.4153527513887041,
+        0.3615024745583102
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L1": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L2": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L3": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L4": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L5": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ]
+      },
+      "rango_c": 0.5001237549218205,
+      "margen_dD_equivalencia": 0.01000247509843641
+    },
+    "D": {
+      "L0": 0.020285047277373125,
+      "L1": 0.020285047277373125,
+      "L2": 0.020285047277373125,
+      "L3": 0.020285047277373125,
+      "L4": 0.020285047277373125,
+      "L5": 0.020285047277373125
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 3,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "auditoria:F02_L_constante_en_bootstrap": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "bootstrap degenerado: 114 de 300 replicas (indices [10, 11, 12, 15, 16, 17, 21, 23, 24, 29])"
+    ],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 114,
+      "fallos_primeros": [
+        {
+          "replica": 10,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 11,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 12,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 15,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 16,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 17,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 21,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 23,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 24,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 29,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 31,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 32,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 33,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 37,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 38,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 40,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 44,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 45,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 46,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 47,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        }
+      ]
+    },
+    "D": {
+      "L0": 0.01862350391531331,
+      "L1": 0.01862350391531331,
+      "L2": 0.01862350391531331,
+      "L3": 0.01862350391531331,
+      "L4": 0.01862350391531331,
+      "L5": 0.01862350391531331
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "validacion:comunes_menor_80": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "splits comunes 52 < 80 % de 100"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 24,
+      "L1": 24,
+      "L2": 24,
+      "L3": 24,
+      "L4": 24,
+      "L5": 24
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "validacion:dominio_5_invalidos_1_valido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": -2.7055127912021525e-05,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        -0.00010441929898213792,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L1": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L2": [
+          -0.003791195717623413,
+          0.05237472974822105
+        ],
+        "L3": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L4": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L5": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.020285047277373125,
+      "L1": 0.020285047277373125,
+      "L2": 0.02012340084548936,
+      "L3": 0.020285047277373125,
+      "L4": 0.020285047277373125,
+      "L5": 0.020285047277373125
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 5,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:completa": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 2000,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ],
+        "L1": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ],
+        "L2": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ],
+        "L3": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ],
+        "L4": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ],
+        "L5": [
+          -0.005260779942042026,
+          0.043639237567804495
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      "PERSISTE"
+    ],
+    "ok": true
+  },
+  "cli:L3_25_faltantes_limite": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 4.092121466842638e-06,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 2000,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        -0.002160814878550069,
+        0.002378690292965006
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.007988454963620311,
+          0.0452217601230673
+        ],
+        "L1": [
+          -0.007988454963620311,
+          0.0452217601230673
+        ],
+        "L2": [
+          -0.007988454963620311,
+          0.0452217601230673
+        ],
+        "L3": [
+          -0.009730439454426953,
+          0.04803544978863355
+        ],
+        "L4": [
+          -0.007988454963620311,
+          0.0452217601230673
+        ],
+        "L5": [
+          -0.007988454963620311,
+          0.0452217601230673
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.015428304298204076,
+      "L1": 0.015428304298204076,
+      "L2": 0.015428304298204076,
+      "L3": 0.015411678827108588,
+      "L4": 0.015428304298204076,
+      "L5": 0.015428304298204076
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 25,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:L3_26_faltantes": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "L3: faltantes 26 > 5 % de 500"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 26,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:duplicados": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: IDs duplicados\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:id_ajeno": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: 1 IDs fuera del universo\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_niveles_incompletos": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: niveles: se esperan 6\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_seis_eps_cero": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 1: eps invalido 0\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_sin_eps": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 0: eps invalido None\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_sin_clave_nivel": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 0: numero invalido None\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_fraccional": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 100.5\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_cero": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 0\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_bool": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: True\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_sobre_tope": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 401\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_ilegible": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: plan o resumen ilegible: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_otros_ids": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "plan/resumen no vinculados"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:resumen_otra_tabla": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "plan/resumen no vinculados"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:L4_X_constante": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "L4: X sin variacion intra-split"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "fallos": [],
+  "analisis_sha256": "afb807aad20830e0402c5fdb8f946f783b2a0835f497855e12364bf1fae356e6",
+  "pruebas_sha256": "7e16fa29737586044feb943d103fd9f5b04cd72420d6e97afaf42b524dba16b9",
+  "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
+}

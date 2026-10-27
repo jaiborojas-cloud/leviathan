@@ -35,3 +35,10 @@ Pasa. A0 tiene c250 = 0.863 y q250 = 9e-5; LS tiene c250 = 0.601. La precisión 
 - **Q13 v2:** INCONCLUSIVE_MANIPULACION.
 - **Q13-LS:** NO_CONCLUYENTE, con la señal atenuada pero presente.
 - **Pregunta abierta, reformulada:** ¿el colapso *modula* la intensidad de la señal (relación graduada) en lugar de ser una condición necesaria? Esta lectura nació de este resultado. Contrastarla exigiría un diseño nuevo, por ejemplo varias dosis y un control de la varianza de Y. No se responde con estos datos.
+
+## Errata (2026-10-26 19:20, sin cambiar el veredicto)
+El punto 3 de la «Lectura» sobrestimaba la amenaza 1.
+- **Por qué:** D = 1 − SSE_full/SSE_base **no depende de la escala de Y**. Si LS solo encogiera log ρ250 de manera uniforme, D no cambiaría.
+- **Lo que muestran los datos:** la pendiente cruda baja 4.5 veces (de 1.95 a 0.43), mientras la DE de Y baja 2.1 veces. La relación X→Y se debilita más allá de la escala.
+- **Lo que sigue siendo posible:** una restricción de rango **no uniforme**, es decir, que LS comprima justo la parte de Y que X predice. Esa posibilidad no se distingue con estos datos.
+- **Corrección:** donde dice «parte de la caída de D puede deberse a que hay menos rango que predecir», léase «la caída no se explica por la escala de Y; una restricción no uniforme no está descartada».
