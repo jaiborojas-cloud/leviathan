@@ -1,0 +1,358 @@
+{
+  "reglas_puras": {
+    "n": 16,
+    "fallos": []
+  },
+  "beta_LS_reproduce_Q13DR": {
+    "beta": 0.07692466151365258,
+    "ok": true
+  },
+  "niveles_iguales_N100": {
+    "veredicto_conjunto": "NO_REPRODUCIDA",
+    "LP": "NO_CONCLUYENTE",
+    "WD": "NO_CONCLUYENTE",
+    "IC_LP": [
+      0.0,
+      0.0
+    ],
+    "IC_WD": [
+      0.0,
+      0.0
+    ],
+    "motivos": [],
+    "lp_wd": {
+      "dbeta": 0.0,
+      "IC95": [
+        0.0,
+        0.0
+      ]
+    },
+    "esperado": [
+      "NO_REPRODUCIDA",
+      "NO_CONCLUYENTE",
+      "NO_CONCLUYENTE"
+    ],
+    "ok": true
+  },
+  "N800_ambos_modulan": {
+    "veredicto_conjunto": "MODULACION_REPRODUCIDA_EN_DOS_VIAS",
+    "LP": "MODULA",
+    "WD": "MODULA",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": [
+      0.023043068767593496,
+      0.07101203010683113
+    ],
+    "motivos": [],
+    "lp_wd": {
+      "dbeta": -0.002826568110312358,
+      "IC95": [
+        -0.00919604496279223,
+        0.003391733638972449
+      ]
+    },
+    "esperado": [
+      "MODULACION_REPRODUCIDA_EN_DOS_VIAS",
+      "MODULA",
+      "MODULA"
+    ],
+    "ok": true
+  },
+  "N800_solo_LP": {
+    "veredicto_conjunto": "REPRODUCIDA_SOLO_EN_LP",
+    "LP": "MODULA",
+    "WD": "NO_CONCLUYENTE",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": [
+      0.0,
+      0.0
+    ],
+    "motivos": [],
+    "lp_wd": {
+      "dbeta": 0.04452457017377376,
+      "IC95": [
+        0.02513804091932139,
+        0.06457351536129827
+      ]
+    },
+    "esperado": [
+      "REPRODUCIDA_SOLO_EN_LP",
+      "MODULA",
+      "NO_CONCLUYENTE"
+    ],
+    "ok": true
+  },
+  "N800_solo_WD": {
+    "veredicto_conjunto": "REPRODUCIDA_SOLO_EN_WD",
+    "LP": "NO_CONCLUYENTE",
+    "WD": "MODULA",
+    "IC_LP": [
+      0.0,
+      0.0
+    ],
+    "IC_WD": [
+      0.023043068767593496,
+      0.07101203010683113
+    ],
+    "motivos": [],
+    "lp_wd": {
+      "dbeta": -0.04735113828408612,
+      "IC95": [
+        -0.06941004683095246,
+        -0.025181117306205543
+      ]
+    },
+    "esperado": [
+      "REPRODUCIDA_SOLO_EN_WD",
+      "NO_CONCLUYENTE",
+      "MODULA"
+    ],
+    "ok": true
+  },
+  "A0_sin_colapso": {
+    "veredicto_conjunto": "INCONCLUSIVE_MANIPULACION",
+    "LP": null,
+    "WD": null,
+    "IC_LP": null,
+    "IC_WD": null,
+    "motivos": [
+      "A0 sin colapso operacional"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "WD_no_monotono_LP_modula": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "MODULA",
+    "WD": "INCONCLUSIVE_MANIPULACION",
+    "IC_LP": [
+      0.022118686321694198,
+      0.06593858788493857
+    ],
+    "IC_WD": null,
+    "motivos": [],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "MODULA",
+      "INCONCLUSIVE_MANIPULACION"
+    ],
+    "ok": true
+  },
+  "LP_rango_menor_030": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "INCONCLUSIVE_MANIPULACION",
+    "WD": "NO_CONCLUYENTE",
+    "IC_LP": null,
+    "IC_WD": [
+      0.0,
+      0.0
+    ],
+    "motivos": [],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "INCONCLUSIVE_MANIPULACION",
+      "NO_CONCLUYENTE"
+    ],
+    "ok": true
+  },
+  "WD2_pierde_acc": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "NO_CONCLUYENTE",
+    "WD": "INCONCLUSIVE_MANIPULACION",
+    "IC_LP": [
+      0.0,
+      0.0
+    ],
+    "IC_WD": null,
+    "motivos": [],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "NO_CONCLUYENTE",
+      "INCONCLUSIVE_MANIPULACION"
+    ],
+    "ok": true
+  },
+  "LP5_pierde_011": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "INCONCLUSIVE_MANIPULACION",
+    "WD": "NO_CONCLUYENTE",
+    "IC_LP": null,
+    "IC_WD": [
+      0.0,
+      0.0
+    ],
+    "motivos": [],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "INCONCLUSIVE_MANIPULACION",
+      "NO_CONCLUYENTE"
+    ],
+    "ok": true
+  },
+  "A0_sin_senal": {
+    "veredicto_conjunto": "INCONCLUSIVE_SIN_SENAL_CONTROL",
+    "LP": "INCONCLUSIVE_SIN_SENAL_CONTROL",
+    "WD": "INCONCLUSIVE_SIN_SENAL_CONTROL",
+    "IC_LP": null,
+    "IC_WD": null,
+    "motivos": [],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_SIN_SENAL_CONTROL",
+      "INCONCLUSIVE_SIN_SENAL_CONTROL",
+      "INCONCLUSIVE_SIN_SENAL_CONTROL"
+    ],
+    "ok": true
+  },
+  "WD4_L_degenerado": {
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL",
+    "LP": "NO_CONCLUYENTE",
+    "WD": "INCONCLUSIVE",
+    "IC_LP": [
+      0.0,
+      0.0
+    ],
+    "IC_WD": null,
+    "motivos": [
+      "WD: bootstrap degenerado (94 de 300)"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE_PARCIAL",
+      "NO_CONCLUYENTE",
+      "INCONCLUSIVE"
+    ],
+    "ok": true
+  },
+  "comunes_menor_80": {
+    "veredicto_conjunto": "INCONCLUSIVE",
+    "LP": null,
+    "WD": null,
+    "IC_LP": null,
+    "IC_WD": null,
+    "motivos": [
+      "splits comunes 67 < 80 % de 100"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:completa": {
+    "veredicto_conjunto": "NO_REPRODUCIDA",
+    "LP": "NO_CONCLUYENTE",
+    "WD": "NO_CONCLUYENTE",
+    "IC_LP": [
+      0.0,
+      0.0
+    ],
+    "IC_WD": [
+      0.0,
+      0.0
+    ],
+    "motivos": [],
+    "lp_wd": {
+      "dbeta": 0.0,
+      "IC95": [
+        0.0,
+        0.0
+      ]
+    },
+    "esperado": [
+      "NO_REPRODUCIDA",
+      "NO_CONCLUYENTE",
+      "NO_CONCLUYENTE"
+    ],
+    "ok": true
+  },
+  "cli:duplicados": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: IDs duplicados\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:id_ajeno": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: 1 IDs fuera del universo\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:dosis_distinta": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: nivel LP2: dosis invalida 0.00035552\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:n_sobre_tope": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 219\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:tabla_LS_otro_sha": {
+    "veredicto_conjunto": "ABORTA",
+    "detalle": "ABORTA: SHA de la tabla LS\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:resumen_otra_tabla": {
+    "veredicto_conjunto": "INCONCLUSIVE",
+    "LP": null,
+    "WD": null,
+    "IC_LP": null,
+    "IC_WD": null,
+    "motivos": [
+      "plan/resumen no vinculados"
+    ],
+    "lp_wd": null,
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "fallos": [],
+  "analisis_sha256": "15ca7b428110f0b7bff1520d93587c7438e8ea0959394f98c91ac37653d95332",
+  "pruebas_sha256": "c195ec50f77fc6382983d170c6ddff2624ab4c0943461b0224805023959ac9e0",
+  "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794",
+  "ls_sha256": "ed00364f66d4ac0d312cba63d14d5c5da67006956336c16e7e44336457b5240a"
+}

@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "case": "A0_delegation",
+      "pass_test": true
+    },
+    {
+      "case": "WD_delegation",
+      "pass_test": true
+    },
+    {
+      "case": "LP_analytic_logit_gradient_and_Adam_no_decay",
+      "max_gradient_error": 1.734723475976807e-18,
+      "pass_test": true
+    },
+    {
+      "case": "LP_zero_equals_A0",
+      "pass_test": true
+    }
+  ],
+  "independent_control_seeds": [
+    905001,
+    905101,
+    905102,
+    905103,
+    905201,
+    905202,
+    905203
+  ],
+  "calibration_trajectories_measured": 0
+}

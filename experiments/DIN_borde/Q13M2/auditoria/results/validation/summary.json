@@ -1,0 +1,332 @@
+{
+  "cases": [
+    {
+      "case": "missing_table",
+      "status": "RETURNED",
+      "result": {
+        "mode": "missing_table",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: entrada ilegible: FileNotFoundError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/missing_table"
+      }
+    },
+    {
+      "case": "table_dir",
+      "status": "RETURNED",
+      "result": {
+        "mode": "table_dir",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: entrada ilegible: IsADirectoryError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/table_dir"
+      }
+    },
+    {
+      "case": "missing_plan",
+      "status": "RETURNED",
+      "result": {
+        "mode": "missing_plan",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: entrada ilegible: FileNotFoundError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/missing_plan"
+      }
+    },
+    {
+      "case": "plan_dir",
+      "status": "RETURNED",
+      "result": {
+        "mode": "plan_dir",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: entrada ilegible: IsADirectoryError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/plan_dir"
+      }
+    },
+    {
+      "case": "missing_summary",
+      "status": "RETURNED",
+      "result": {
+        "mode": "missing_summary",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: plan o resumen ilegible: FileNotFoundError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/missing_summary"
+      }
+    },
+    {
+      "case": "bad_utf8_plan",
+      "status": "RETURNED",
+      "result": {
+        "mode": "bad_utf8_plan",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: plan o resumen ilegible: UnicodeDecodeError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/bad_utf8_plan"
+      }
+    },
+    {
+      "case": "bad_json_summary",
+      "status": "RETURNED",
+      "result": {
+        "mode": "bad_json_summary",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: plan o resumen ilegible: JSONDecodeError\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/bad_json_summary"
+      }
+    },
+    {
+      "case": "invalid_plan",
+      "status": "RETURNED",
+      "result": {
+        "mode": "invalid_plan",
+        "returncode": 3,
+        "strict_aborta": true,
+        "stderr": "ABORTA: n_splits invalido: 321\n",
+        "result": null,
+        "output_marker_preserved": null,
+        "output_file_SHA": null,
+        "JSON_strict": false,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/invalid_plan"
+      }
+    },
+    {
+      "case": "output_collision",
+      "status": "RETURNED",
+      "result": {
+        "mode": "output_collision",
+        "returncode": 0,
+        "strict_aborta": false,
+        "stderr": "",
+        "result": {
+          "manipulacion": {
+            "A0": {
+              "mediana_c250": 0.864,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "LP1": {
+              "mediana_c250": 0.69,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "LP2": {
+              "mediana_c250": 0.61,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "LP3": {
+              "mediana_c250": 0.56,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "LP4": {
+              "mediana_c250": 0.5,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "LP5": {
+              "mediana_c250": 0.4,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "WD1": {
+              "mediana_c250": 0.69,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "WD2": {
+              "mediana_c250": 0.61,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "WD3": {
+              "mediana_c250": 0.56,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "WD4": {
+              "mediana_c250": 0.5,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            },
+            "WD5": {
+              "mediana_c250": 0.44,
+              "mediana_q250": 0.001,
+              "mediana_acc_panel250": 0.93
+            }
+          },
+          "splits_planificados": 1,
+          "splits_comunes": 1,
+          "faltantes": {
+            "A0": 0,
+            "LP1": 0,
+            "LP2": 0,
+            "LP3": 0,
+            "LP4": 0,
+            "LP5": 0,
+            "WD1": 0,
+            "WD2": 0,
+            "WD3": 0,
+            "WD4": 0,
+            "WD5": 0
+          },
+          "motivos_inconclusive": [
+            "A0: X sin variacion intra-split",
+            "LP1: X sin variacion intra-split",
+            "LP2: X sin variacion intra-split",
+            "LP3: X sin variacion intra-split",
+            "LP4: X sin variacion intra-split",
+            "LP5: X sin variacion intra-split",
+            "WD1: X sin variacion intra-split",
+            "WD2: X sin variacion intra-split",
+            "WD3: X sin variacion intra-split",
+            "WD4: X sin variacion intra-split",
+            "WD5: X sin variacion intra-split"
+          ],
+          "primaria": {},
+          "por_manipulador": {},
+          "secundarios": {},
+          "veredicto_conjunto": "INCONCLUSIVE",
+          "modo": "CONFIRMATORIO_Q13M2",
+          "niveles": [
+            {
+              "nivel": "A0",
+              "brazo": "A0",
+              "dosis": 0
+            },
+            {
+              "nivel": "LP1",
+              "brazo": "LP",
+              "dosis": 0.0001
+            },
+            {
+              "nivel": "LP2",
+              "brazo": "LP",
+              "dosis": 0.000352
+            },
+            {
+              "nivel": "LP3",
+              "brazo": "LP",
+              "dosis": 0.000748
+            },
+            {
+              "nivel": "LP4",
+              "brazo": "LP",
+              "dosis": 0.00185
+            },
+            {
+              "nivel": "LP5",
+              "brazo": "LP",
+              "dosis": 0.00722
+            },
+            {
+              "nivel": "WD1",
+              "brazo": "WD",
+              "dosis": 0.709
+            },
+            {
+              "nivel": "WD2",
+              "brazo": "WD",
+              "dosis": 1.56
+            },
+            {
+              "nivel": "WD3",
+              "brazo": "WD",
+              "dosis": 2.19
+            },
+            {
+              "nivel": "WD4",
+              "brazo": "WD",
+              "dosis": 2.94
+            },
+            {
+              "nivel": "WD5",
+              "brazo": "WD",
+              "dosis": 4
+            }
+          ],
+          "tabla_sha256": "06d8cd97de98d2841129ce8bdfcc79187ab982f850ae2574415f4d2d69c93432",
+          "plan_sha256": "42b5be06255f32e85714e275196e07c9fd467e4d0561c70b1e760ba0ab7df322",
+          "tabla_ls_sha256": "ed00364f66d4ac0d312cba63d14d5c5da67006956336c16e7e44336457b5240a",
+          "script_sha256": "2e69516e62b59d90d8abd9d91e1468e538c07b50dc059a6814cd7a20197030fa",
+          "alcance": "modulacion de la senal temprana por el colapso con dos intervenciones de entrenamiento adicionales (LP, WD) en la familia gaussiana s=0.8; no identifica al colapso como causa"
+        },
+        "output_marker_preserved": false,
+        "output_file_SHA": "eacd4d719d90da237f9951ffa7a108dd6a078b94fdc9f5ef66d98800e565574d",
+        "JSON_strict": true,
+        "fixture_dir": "/workspace/work/din-q13m2-audit-v1-arrays/cli/output_collision"
+      }
+    }
+  ],
+  "pure": {
+    "constant_c_rejected": true,
+    "constants": [
+      {
+        "c": 0.1,
+        "rejected": true
+      },
+      {
+        "c": 0.2,
+        "rejected": true
+      },
+      {
+        "c": 0.3,
+        "rejected": true
+      },
+      {
+        "c": 0.4,
+        "rejected": true
+      },
+      {
+        "c": 0.5,
+        "rejected": true
+      },
+      {
+        "c": 0.7,
+        "rejected": true
+      },
+      {
+        "c": 0.9,
+        "rejected": true
+      }
+    ],
+    "rango_invertido": 0.3,
+    "spearman_constante": null,
+    "q975": [
+      12.5,
+      987.5
+    ],
+    "limpio_JSON": "{\"a\": null, \"b\": null}"
+  }
+}

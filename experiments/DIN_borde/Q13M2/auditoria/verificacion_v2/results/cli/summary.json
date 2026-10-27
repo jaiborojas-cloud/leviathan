@@ -1,0 +1,423 @@
+{
+  "cases": [
+    {
+      "case": "marker_original_CLI",
+      "returncode": 3,
+      "stderr": "ABORTA: la salida ya existe; no se sobrescribe\n",
+      "in_memory_injection": false,
+      "operational_budget": null,
+      "fixture_dir": "/workspace/work/din-q13m2-verificacion-v2-arrays/cli/marker_original_CLI",
+      "source_analyst_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "ABORTA3_no_traceback": true,
+      "marker_preserved": true
+    },
+    {
+      "case": "directory_original_CLI",
+      "returncode": 3,
+      "stderr": "ABORTA: la salida ya existe; no se sobrescribe\n",
+      "in_memory_injection": false,
+      "operational_budget": null,
+      "fixture_dir": "/workspace/work/din-q13m2-verificacion-v2-arrays/cli/directory_original_CLI",
+      "source_analyst_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "ABORTA3_no_traceback": true,
+      "directory_preserved": true
+    },
+    {
+      "case": "dangling_symlink",
+      "returncode": 3,
+      "stderr": "ABORTA: la salida ya existe; no se sobrescribe\n",
+      "in_memory_injection": true,
+      "operational_budget": {
+        "B": 39,
+        "NB": 64
+      },
+      "fixture_dir": "/workspace/work/din-q13m2-verificacion-v2-arrays/cli/dangling_symlink",
+      "source_analyst_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "ABORTA3_no_traceback": true,
+      "symlink_preserved": true
+    },
+    {
+      "case": "exclusive_race",
+      "returncode": 3,
+      "stderr": "ABORTA: la salida ya existe; no se sobrescribe\n",
+      "in_memory_injection": true,
+      "operational_budget": {
+        "B": 39,
+        "NB": 64
+      },
+      "fixture_dir": "/workspace/work/din-q13m2-verificacion-v2-arrays/cli/exclusive_race",
+      "source_analyst_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "ABORTA3_no_traceback": true,
+      "marker_preserved": true
+    },
+    {
+      "case": "LS_failure_main_valid_write",
+      "returncode": 0,
+      "stderr": "",
+      "in_memory_injection": true,
+      "operational_budget": {
+        "B": 39,
+        "NB": 64
+      },
+      "fixture_dir": "/workspace/work/din-q13m2-verificacion-v2-arrays/cli/LS_failure_main_valid_write",
+      "source_analyst_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "target_result": {
+        "manipulacion": {
+          "A0": {
+            "mediana_c250": 0.864,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "LP1": {
+            "mediana_c250": 0.69,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "LP2": {
+            "mediana_c250": 0.61,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "LP3": {
+            "mediana_c250": 0.56,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "LP4": {
+            "mediana_c250": 0.5,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "LP5": {
+            "mediana_c250": 0.4,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "WD1": {
+            "mediana_c250": 0.69,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "WD2": {
+            "mediana_c250": 0.61,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "WD3": {
+            "mediana_c250": 0.56,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "WD4": {
+            "mediana_c250": 0.5,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          },
+          "WD5": {
+            "mediana_c250": 0.44,
+            "mediana_q250": 0.001,
+            "mediana_acc_panel250": 0.93
+          }
+        },
+        "splits_planificados": 20,
+        "splits_comunes": 20,
+        "faltantes": {
+          "A0": 0,
+          "LP1": 0,
+          "LP2": 0,
+          "LP3": 0,
+          "LP4": 0,
+          "LP5": 0,
+          "WD1": 0,
+          "WD2": 0,
+          "WD3": 0,
+          "WD4": 0,
+          "WD5": 0
+        },
+        "motivos_inconclusive": [],
+        "primaria": {
+          "A0": {
+            "D": 0.970740554936026,
+            "p": 0.025,
+            "D_nulo_q95": 0.01722138271088603,
+            "pendiente_X": 0.7983074119836159,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "LP1": {
+            "D": 0.9452278502218986,
+            "p": 0.025,
+            "D_nulo_q95": 0.01411989805674494,
+            "pendiente_X": 0.6027397147330436,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "LP2": {
+            "D": 0.9116478838523464,
+            "p": 0.025,
+            "D_nulo_q95": 0.01792392742428823,
+            "pendiente_X": 0.4528945067857229,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "LP3": {
+            "D": 0.6866842416045325,
+            "p": 0.025,
+            "D_nulo_q95": 0.017245511535426642,
+            "pendiente_X": 0.2484380593049607,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "LP4": {
+            "D": 0.4577041352214388,
+            "p": 0.025,
+            "D_nulo_q95": 0.009029010492968254,
+            "pendiente_X": 0.14437102120454934,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "LP5": {
+            "D": -0.049748100219528135,
+            "p": 0.975,
+            "D_nulo_q95": 0.010933535846246198,
+            "pendiente_X": 0.0031425072758427186,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": false
+          },
+          "WD1": {
+            "D": 0.9399451191127018,
+            "p": 0.025,
+            "D_nulo_q95": 0.016698778896270625,
+            "pendiente_X": 0.5785493277024053,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "WD2": {
+            "D": 0.9168782138522154,
+            "p": 0.025,
+            "D_nulo_q95": 0.005670028944921504,
+            "pendiente_X": 0.45206052484191755,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "WD3": {
+            "D": 0.6988225267947763,
+            "p": 0.025,
+            "D_nulo_q95": 0.025415698194582413,
+            "pendiente_X": 0.22183923300785746,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "WD4": {
+            "D": 0.2009488672458788,
+            "p": 0.025,
+            "D_nulo_q95": 0.028989139721059074,
+            "pendiente_X": 0.07623724623431677,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": true
+          },
+          "WD5": {
+            "D": 0.001756172552769053,
+            "p": 0.225,
+            "D_nulo_q95": 0.03813097117610784,
+            "pendiente_X": 0.027065087833110766,
+            "grado_base": 3,
+            "permutaciones": 39,
+            "pass": false
+          }
+        },
+        "por_manipulador": {
+          "LP": {
+            "beta": 2.098031703684071,
+            "c_comunes": [
+              0.864,
+              0.69,
+              0.61,
+              0.56,
+              0.5,
+              0.4
+            ],
+            "rango_c": 0.46399999999999997,
+            "replicas_fallidas": 0,
+            "fallos": [],
+            "IC975_beta": [
+              1.9143037335265292,
+              2.417210682968949
+            ],
+            "veredicto": "MODULA",
+            "equivalencia_secundaria": "NO_ESTABLECIDA",
+            "margen_dD_equivalencia": 0.00928,
+            "extremo": "INDETERMINADO",
+            "IC95_D": {
+              "A0": [
+                0.9468697459032953,
+                0.9824614998037474
+              ],
+              "LP1": [
+                0.9142249064744756,
+                0.9630471519149484
+              ],
+              "LP2": [
+                0.8619765397199358,
+                0.9384365837645232
+              ],
+              "LP3": [
+                0.5576361282341167,
+                0.7846025946611707
+              ],
+              "LP4": [
+                0.2293943372048772,
+                0.6272304316632149
+              ],
+              "LP5": [
+                -0.14476188110396201,
+                0.03102538289868902
+              ]
+            },
+            "spearman_D_c": 1.0
+          },
+          "WD": {
+            "beta": 2.2893625315436505,
+            "c_comunes": [
+              0.864,
+              0.69,
+              0.61,
+              0.56,
+              0.5,
+              0.44
+            ],
+            "rango_c": 0.424,
+            "replicas_fallidas": 0,
+            "fallos": [],
+            "IC975_beta": [
+              2.0429355631007358,
+              2.5020438953374304
+            ],
+            "veredicto": "MODULA",
+            "equivalencia_secundaria": "NO_ESTABLECIDA",
+            "margen_dD_equivalencia": 0.00848,
+            "extremo": "INDETERMINADO",
+            "IC95_D": {
+              "A0": [
+                0.9468697459032953,
+                0.9824614998037474
+              ],
+              "WD1": [
+                0.9163921948813616,
+                0.9597320059975945
+              ],
+              "WD2": [
+                0.8468625950671634,
+                0.9434073512658165
+              ],
+              "WD3": [
+                0.5097976085558774,
+                0.8003219687465772
+              ],
+              "WD4": [
+                0.0024062883658214195,
+                0.3983312172831688
+              ],
+              "WD5": [
+                -0.13965204296385308,
+                0.0871029830748554
+              ]
+            },
+            "spearman_D_c": 1.0
+          }
+        },
+        "secundarios": {
+          "compatibilidad_LS": {
+            "nota": "referencia LS no definida: FloatingPointError: SYNTHETIC_LS_POINT_FAILURE"
+          },
+          "LP_menos_WD": {
+            "dbeta": -0.19133082785957933,
+            "IC95": [
+              -0.462721704576695,
+              0.12896390554846834
+            ]
+          }
+        },
+        "veredicto_conjunto": "MODULACION_REPRODUCIDA_EN_DOS_VIAS",
+        "modo": "CONFIRMATORIO_Q13M2",
+        "niveles": [
+          {
+            "nivel": "A0",
+            "brazo": "A0",
+            "dosis": 0
+          },
+          {
+            "nivel": "LP1",
+            "brazo": "LP",
+            "dosis": 0.0001
+          },
+          {
+            "nivel": "LP2",
+            "brazo": "LP",
+            "dosis": 0.000352
+          },
+          {
+            "nivel": "LP3",
+            "brazo": "LP",
+            "dosis": 0.000748
+          },
+          {
+            "nivel": "LP4",
+            "brazo": "LP",
+            "dosis": 0.00185
+          },
+          {
+            "nivel": "LP5",
+            "brazo": "LP",
+            "dosis": 0.00722
+          },
+          {
+            "nivel": "WD1",
+            "brazo": "WD",
+            "dosis": 0.709
+          },
+          {
+            "nivel": "WD2",
+            "brazo": "WD",
+            "dosis": 1.56
+          },
+          {
+            "nivel": "WD3",
+            "brazo": "WD",
+            "dosis": 2.19
+          },
+          {
+            "nivel": "WD4",
+            "brazo": "WD",
+            "dosis": 2.94
+          },
+          {
+            "nivel": "WD5",
+            "brazo": "WD",
+            "dosis": 4
+          }
+        ],
+        "tabla_sha256": "995afb37df959b74e24b60cb9b2f20bad594193d5cb71d1369818675bd116379",
+        "plan_sha256": "ccea5ab6e925f57f0c087dac918b9a31c3192a14719d093cb71383bb147b39cc",
+        "tabla_ls_sha256": "ed00364f66d4ac0d312cba63d14d5c5da67006956336c16e7e44336457b5240a",
+        "script_sha256": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+        "alcance": "modulacion de la senal temprana por el colapso con dos intervenciones de entrenamiento adicionales (LP, WD) en la familia gaussiana s=0.8; no identifica al colapso como causa"
+      },
+      "primaries_identical": true,
+      "LS_not_defined": true,
+      "JSON_strict": true
+    }
+  ],
+  "new_real_cohort": false,
+  "real_LS_reference_only": true
+}

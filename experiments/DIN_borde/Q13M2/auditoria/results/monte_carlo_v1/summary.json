@@ -1,0 +1,173 @@
+{
+  "status": "COMPLETED",
+  "cells": [
+    {
+      "rho": 0.0,
+      "N": 320,
+      "replicates": 400,
+      "control_PASS": 400,
+      "control_fail": 0,
+      "global_rates": {
+        "false_MODULA_LP": {
+          "k": 2,
+          "n": 400,
+          "rate": 0.005,
+          "lower": 0.0013722529547103846,
+          "upper": 0.018044918436243156
+        },
+        "false_MODULA_WD": {
+          "k": 4,
+          "n": 400,
+          "rate": 0.01,
+          "lower": 0.003895483794990993,
+          "upper": 0.025426564652619582
+        },
+        "family_error": {
+          "k": 6,
+          "n": 400,
+          "rate": 0.015,
+          "lower": 0.006892291919440893,
+          "upper": 0.03233463358482672
+        },
+        "both_false": {
+          "k": 0,
+          "n": 400,
+          "rate": 0.0,
+          "lower": 8.673617379884035e-19,
+          "upper": 0.009512294334296508
+        }
+      },
+      "conditional_on_control_PASS": {
+        "false_MODULA_LP": {
+          "k": 2,
+          "n": 400,
+          "rate": 0.005,
+          "lower": 0.0013722529547103846,
+          "upper": 0.018044918436243156
+        },
+        "false_MODULA_WD": {
+          "k": 4,
+          "n": 400,
+          "rate": 0.01,
+          "lower": 0.003895483794990993,
+          "upper": 0.025426564652619582
+        },
+        "family_error": {
+          "k": 6,
+          "n": 400,
+          "rate": 0.015,
+          "lower": 0.006892291919440893,
+          "upper": 0.03233463358482672
+        },
+        "both_false": {
+          "k": 0,
+          "n": 400,
+          "rate": 0.0,
+          "lower": 8.673617379884035e-19,
+          "upper": 0.009512294334296508
+        }
+      },
+      "family_reading_vs_005": "COMPATIBLE_EN_MODELO",
+      "labels": {
+        "LP": {
+          "NO_CONCLUYENTE": 398,
+          "MODULA": 2
+        },
+        "WD": {
+          "NO_CONCLUYENTE": 396,
+          "MODULA": 4
+        }
+      }
+    },
+    {
+      "rho": 0.6,
+      "N": 320,
+      "replicates": 400,
+      "control_PASS": 399,
+      "control_fail": 1,
+      "global_rates": {
+        "false_MODULA_LP": {
+          "k": 4,
+          "n": 400,
+          "rate": 0.01,
+          "lower": 0.003895483794990993,
+          "upper": 0.025426564652619582
+        },
+        "false_MODULA_WD": {
+          "k": 6,
+          "n": 400,
+          "rate": 0.015,
+          "lower": 0.006892291919440893,
+          "upper": 0.03233463358482672
+        },
+        "family_error": {
+          "k": 9,
+          "n": 400,
+          "rate": 0.0225,
+          "lower": 0.011881583530495034,
+          "upper": 0.04220265755875813
+        },
+        "both_false": {
+          "k": 1,
+          "n": 400,
+          "rate": 0.0025,
+          "lower": 0.0004414477868016362,
+          "upper": 0.01402328507582339
+        }
+      },
+      "conditional_on_control_PASS": {
+        "false_MODULA_LP": {
+          "k": 4,
+          "n": 399,
+          "rate": 0.010025062656641603,
+          "lower": 0.0039052637568652744,
+          "upper": 0.02548957275117347
+        },
+        "false_MODULA_WD": {
+          "k": 6,
+          "n": 399,
+          "rate": 0.015037593984962405,
+          "lower": 0.00690961045880677,
+          "upper": 0.03241469063738503
+        },
+        "family_error": {
+          "k": 9,
+          "n": 399,
+          "rate": 0.022556390977443608,
+          "lower": 0.011911473214343743,
+          "upper": 0.04230702476407765
+        },
+        "both_false": {
+          "k": 1,
+          "n": 399,
+          "rate": 0.002506265664160401,
+          "lower": 0.00044255451515814916,
+          "upper": 0.01405808511065101
+        }
+      },
+      "family_reading_vs_005": "COMPATIBLE_EN_MODELO",
+      "labels": {
+        "LP": {
+          "NO_CONCLUYENTE": 395,
+          "MODULA": 4,
+          "INCONCLUSIVE_SIN_SENAL_CONTROL": 1
+        },
+        "WD": {
+          "NO_CONCLUYENTE": 393,
+          "MODULA": 6,
+          "INCONCLUSIVE_SIN_SENAL_CONTROL": 1
+        }
+      }
+    }
+  ],
+  "replicates": 800,
+  "seconds": 922.0139731660001,
+  "permutations": 5000,
+  "bootstrap": 2000,
+  "primary_quantiles": [
+    0.0125,
+    0.9875
+  ],
+  "real_data_used": false,
+  "universal_error_control_certified": false
+}

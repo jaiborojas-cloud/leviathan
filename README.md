@@ -62,6 +62,7 @@ Tabla completa, con todas las etapas y su estado oficial: [catálogo de experime
 - **Después de Q13-DR:** separar el colapso del efecto propio de LS con un segundo manipulador de dosis estable; y ver si la modulación se transfiere a Wine.
 - **Q14:** ¿la distancia al borde dice algo en modelos que razonan en latente o cuantizan conceptos? Analogía sin resultado.
 - **E16:** cotas y caminos al borde en familias sintéticas.
+- **Q15, revisión de literatura** (qué es nuevo): pendiente. Es obligatoria antes de cualquier publicación externa, antes de diseñar la transferencia a otros modelos o al cerrar Q13-M2, lo que ocurra primero. Ver [preguntas abiertas](docs/research-notes/open-questions.md).
 
 ## Teoría matemática
 

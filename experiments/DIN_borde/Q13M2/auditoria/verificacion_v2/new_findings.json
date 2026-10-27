@@ -1,0 +1,58 @@
+{
+  "N01": {
+    "severity": "MEDIA_TRAZABILIDAD",
+    "wrong_verdict_demonstrated": false,
+    "description": "Se omiten fallos posteriores de un brazo ya inconcluso",
+    "cases": [
+      {
+        "case": "two_primary_failures_WD",
+        "observed_reasons": [
+          "WD: WD2: primaria no definida: FloatingPointError: SSE_base = 0"
+        ],
+        "omitted_level": "WD3",
+        "healthy_verdict": "MODULA",
+        "joint": "INCONCLUSIVE_PARCIAL"
+      },
+      {
+        "case": "two_malo_levels_WD",
+        "observed_reasons": [
+          "WD: WD2: X sin variacion intra-split"
+        ],
+        "omitted_level": "WD3",
+        "healthy_verdict": "MODULA",
+        "joint": "INCONCLUSIVE_PARCIAL"
+      }
+    ]
+  },
+  "N02": {
+    "severity": "BAJA_DOCUMENTAL",
+    "description": "Persisten dos frases de igualdad exacta de beta_LS pese a la tolerancia de cabecera",
+    "lines": [
+      {
+        "line": 84,
+        "text": "- β_LS es la pendiente de la tabla de Q13-DR (`ed00364f…`) con las funciones de la v3 congeladas: filas comunes y mediana de c. Reproduce exactamente 0.07692466151365258."
+      },
+      {
+        "line": 106,
+        "text": "- el cálculo determinista de β_LS desde la tabla de Q13-DR reproduce exactamente 0.07692466151365258;"
+      }
+    ]
+  },
+  "API_limits": {
+    "bad_size_analyzar_API": {
+      "status": "EXCEPTION",
+      "exception": "ValueError",
+      "message": "replicas M2 y LS de distinto tamano"
+    },
+    "compatibility_equal_shape_(2, 32)": {
+      "status": "RETURNED",
+      "exception": null,
+      "message": null
+    },
+    "compatibility_equal_shape_(0,)": {
+      "status": "EXCEPTION",
+      "exception": "IndexError",
+      "message": "index -1 is out of bounds for axis 0 with size 0"
+    }
+  }
+}

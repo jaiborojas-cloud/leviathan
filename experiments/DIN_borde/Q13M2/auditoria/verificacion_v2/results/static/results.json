@@ -1,0 +1,57 @@
+{
+  "functions_unchanged": {
+    "universo": true,
+    "validar_plan": true,
+    "arreglos": true,
+    "replica": true,
+    "referencia_ls": true,
+    "q": true,
+    "conjunto": true
+  },
+  "bootstrap_and_classification_AST_identical": true,
+  "dependencies_unchanged": {
+    "C1/analisis_C1_v2.py": true,
+    "Q13/analisis_Q13.py": true,
+    "Q13DR/analisis_Q13DR.py": true
+  },
+  "primary_call_AST_identical": true,
+  "constants_identical": {
+    "NIVELES": true,
+    "MANIP": true,
+    "NOMBRES": true,
+    "N_MAX": true,
+    "Q_PRI": true,
+    "Q_SEC": true,
+    "SHAS": true,
+    "LS_TABLA_SHA": true
+  },
+  "F03": {
+    "hashes": {
+      "analyst": "512737ddb3c546f7151deafc51750b1e8deaf8ef39363facf692a8f8eceec865",
+      "tests": "6e7b836ca08f0c7f5123c24ae1b0de7948fe5bd70e7d77f5ee337b5f30445d7e"
+    },
+    "JSON_linked": true,
+    "report_linked": true,
+    "cases_recorded": 25,
+    "all_recorded_ok": true,
+    "pure_rules": {
+      "n": 18,
+      "fallos": []
+    },
+    "failures": [],
+    "author_suite_executed_here": false
+  },
+  "F04_test_uses_1e_12": true,
+  "documentary_exact_wording_remaining": [
+    {
+      "line": 84,
+      "text": "- β_LS es la pendiente de la tabla de Q13-DR (`ed00364f…`) con las funciones de la v3 congeladas: filas comunes y mediana de c. Reproduce exactamente 0.07692466151365258."
+    },
+    {
+      "line": 106,
+      "text": "- el cálculo determinista de β_LS desde la tabla de Q13-DR reproduce exactamente 0.07692466151365258;"
+    }
+  ],
+  "MC_repeated": false,
+  "PASS_static_and_evidence": true
+}

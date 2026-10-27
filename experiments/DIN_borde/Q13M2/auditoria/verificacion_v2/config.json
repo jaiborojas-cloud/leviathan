@@ -1,0 +1,45 @@
+{
+  "version": "v1",
+  "case_seed": 1010100,
+  "control_seed": 1010200,
+  "MC_seed": 1010300,
+  "case_B": 39,
+  "case_NB": 64,
+  "trace_NB": 32,
+  "degenerate_NB": 300,
+  "LS_bootstrap": 2000,
+  "MC_N": 320,
+  "MC_replicates_per_cell": 400,
+  "MC_rhos": [
+    0.0,
+    0.6
+  ],
+  "MC_D_constant": 0.02,
+  "MC_permutations": 5000,
+  "MC_bootstrap": 2000,
+  "c": [
+    0.864,
+    0.69,
+    0.61,
+    0.56,
+    0.5,
+    0.4,
+    0.69,
+    0.61,
+    0.56,
+    0.5,
+    0.44
+  ],
+  "external_root": "/workspace/work/din-q13m2-verificacion-v2-arrays",
+  "workers": 2,
+  "BLAS_threads": 1,
+  "primary_quantiles": [
+    0.0125,
+    0.9875
+  ],
+  "bootstrap_seed": 960001,
+  "LS_seed": 960002,
+  "permutation_seed": 260001,
+  "fold_seed": 260010,
+  "MC_repeated": false
+}

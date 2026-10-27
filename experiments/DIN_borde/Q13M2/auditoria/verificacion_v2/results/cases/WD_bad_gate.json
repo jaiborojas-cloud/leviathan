@@ -1,0 +1,192 @@
+{
+  "case": "WD_bad_gate",
+  "status": "RETURNED",
+  "result": {
+    "manipulacion": {
+      "A0": {
+        "mediana_c250": 0.864,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "LP1": {
+        "mediana_c250": 0.69,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "LP2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "LP3": {
+        "mediana_c250": 0.56,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "LP4": {
+        "mediana_c250": 0.5,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "LP5": {
+        "mediana_c250": 0.4,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "WD1": {
+        "mediana_c250": 0.69,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "WD2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "WD3": {
+        "mediana_c250": 0.72,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "WD4": {
+        "mediana_c250": 0.5,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "WD5": {
+        "mediana_c250": 0.44,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      }
+    },
+    "splits_planificados": 20,
+    "splits_comunes": 20,
+    "faltantes": {
+      "A0": 0,
+      "LP1": 0,
+      "LP2": 0,
+      "LP3": 0,
+      "LP4": 0,
+      "LP5": 0,
+      "WD1": 0,
+      "WD2": 0,
+      "WD3": 0,
+      "WD4": 0,
+      "WD5": 0
+    },
+    "motivos_inconclusive": [],
+    "primaria": {
+      "A0": {
+        "D": 0.970740554936026,
+        "p": 0.025,
+        "D_nulo_q95": 0.01722138271088603,
+        "pendiente_X": 0.7983074119836159,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "LP1": {
+        "D": 0.9452278502218986,
+        "p": 0.025,
+        "D_nulo_q95": 0.01411989805674494,
+        "pendiente_X": 0.6027397147330436,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "LP2": {
+        "D": 0.9116478838523464,
+        "p": 0.025,
+        "D_nulo_q95": 0.01792392742428823,
+        "pendiente_X": 0.4528945067857229,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "LP3": {
+        "D": 0.6866842416045325,
+        "p": 0.025,
+        "D_nulo_q95": 0.017245511535426642,
+        "pendiente_X": 0.2484380593049607,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "LP4": {
+        "D": 0.4577041352214388,
+        "p": 0.025,
+        "D_nulo_q95": 0.009029010492968254,
+        "pendiente_X": 0.14437102120454934,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "LP5": {
+        "D": -0.049748100219528135,
+        "p": 0.975,
+        "D_nulo_q95": 0.010933535846246198,
+        "pendiente_X": 0.0031425072758427186,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": false
+      }
+    },
+    "por_manipulador": {
+      "LP": {
+        "beta": 2.098031703684071,
+        "c_comunes": [
+          0.864,
+          0.69,
+          0.61,
+          0.56,
+          0.5,
+          0.4
+        ],
+        "rango_c": 0.46399999999999997,
+        "replicas_fallidas": 0,
+        "fallos": [],
+        "IC975_beta": [
+          1.9143037335265292,
+          2.417210682968949
+        ],
+        "veredicto": "MODULA",
+        "equivalencia_secundaria": "NO_ESTABLECIDA",
+        "margen_dD_equivalencia": 0.00928,
+        "extremo": "INDETERMINADO",
+        "IC95_D": {
+          "A0": [
+            0.9468697459032953,
+            0.9824614998037474
+          ],
+          "LP1": [
+            0.9142249064744756,
+            0.9630471519149484
+          ],
+          "LP2": [
+            0.8619765397199358,
+            0.9384365837645232
+          ],
+          "LP3": [
+            0.5576361282341167,
+            0.7846025946611707
+          ],
+          "LP4": [
+            0.2293943372048772,
+            0.6272304316632149
+          ],
+          "LP5": [
+            -0.14476188110396201,
+            0.03102538289868902
+          ]
+        },
+        "spearman_D_c": 1.0
+      },
+      "WD": {
+        "veredicto": "INCONCLUSIVE_MANIPULACION"
+      }
+    },
+    "secundarios": {},
+    "veredicto_conjunto": "INCONCLUSIVE_PARCIAL"
+  },
+  "warnings": []
+}
