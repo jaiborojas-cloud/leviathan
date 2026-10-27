@@ -80,7 +80,7 @@ def main():
     g = np.random.default_rng(1); a1 = g.normal(.08, .02, 2000); a2 = g.normal(.08, .02, 2000); a3 = g.normal(-.05, .02, 2000)
     puras.append((M.compatibilidad(a1, a2, .08, .08)["lectura"], "SIN_DIFERENCIA_DETECTADA")); puras.append((M.compatibilidad(a3, a2, -.05, .08)["lectura"], "DIFIERE"))
     plan_ok = dict(n_splits=200, niveles=[dict(nivel=a, brazo=b, dosis=c) for a, b, c in M.NIVELES], ids_sha256="x")
-    for mod, e in [({}, "OK"), (dict(n_splits=219), "Aborta"), (dict(n_splits=True), "Aborta"), (dict(niveles=plan_ok["niveles"][:10]), "Aborta"),
+    for mod, e in [({}, "OK"), (dict(n_splits=321), "Aborta"), (dict(n_splits=320), "OK"), (dict(n_splits=True), "Aborta"), (dict(niveles=plan_ok["niveles"][:10]), "Aborta"),
                    (dict(niveles=[dict(x, dosis=(x["dosis"] * 2 if x["nivel"] == "WD3" else x["dosis"])) for x in plan_ok["niveles"]]), "Aborta"),
                    (dict(niveles=[dict(x, brazo=("LS" if x["nivel"] == "LP1" else x["brazo"])) for x in plan_ok["niveles"]]), "Aborta"),
                    (dict(niveles=[dict(x, dosis=(10 ** 400 if x["nivel"] == "LP5" else x["dosis"])) for x in plan_ok["niveles"]]), "Aborta")]:
@@ -125,7 +125,7 @@ def main():
     esperar("cli:duplicados", cli(out, "dup", full + full[:2], 100), "ABORTA")
     esperar("cli:id_ajeno", cli(out, "ajeno", full + [dict(full[0], trajectory="q13m2_LS1_s0000_k0")], 100), "ABORTA")
     esperar("cli:dosis_distinta", cli(out, "dosis", full, 100, plan_mod=dict(niveles=[dict(nivel=a, brazo=b, dosis=(c * 1.01 if a == "LP2" else c)) for a, b, c in M.NIVELES])), "ABORTA")
-    esperar("cli:n_sobre_tope", cli(out, "n219", full, 100, plan_mod=dict(n_splits=219)), "ABORTA")
+    esperar("cli:n_sobre_tope", cli(out, "n321", full, 100, plan_mod=dict(n_splits=321)), "ABORTA")
     esperar("cli:tabla_LS_otro_sha", cli(out, "lssha", full, 100, ls_sha="0" * 64), "ABORTA")
     esperar("cli:resumen_otra_tabla", cli(out, "resu", full, 100, res_mod=dict(tabla_sha256="0" * 64)), "INCONCLUSIVE")
     res["fallos"] = fallos; res["analisis_sha256"] = sha(H / "analisis_Q13M2.py"); res["pruebas_sha256"] = sha(Path(__file__)); res["fixture_sha256"] = sha(FIX); res["ls_sha256"] = sha(LS)

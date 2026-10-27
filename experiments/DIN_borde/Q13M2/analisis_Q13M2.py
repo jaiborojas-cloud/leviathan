@@ -4,7 +4,7 @@ Q13DR/analisis_Q13DR.py v3 (valida, pendiente, rango_c, clasificar_extremo, equi
 
 Entradas: --tabla/--tabla-sha q13m2_cohorte.csv; --plan/--plan-sha q13m2_plan.json; --resumen RESUMEN_q13m2.json;
 --tabla-ls/--tabla-ls-sha: tabla de Q13-DR (ed00364f...), referencia LS para la compatibilidad.
-PLAN (estricto; si no ABORTA codigo 3): n_splits entero (no bool) en 1..218; niveles = lista EXACTA de 11 objetos
+PLAN (estricto; si no ABORTA codigo 3): n_splits entero (no bool) en 1..320 (tope: decision del responsable 09:23, opcion B); niveles = lista EXACTA de 11 objetos
 {nivel, brazo, dosis} = A0/0, LP1..LP5 = 1e-4, 3.52e-4, 7.48e-4, 1.85e-3, 7.22e-3, WD1..WD5 = 0.709, 1.56, 2.19, 2.94, 4; ids_sha256.
 Universo: q13m2_{nivel}_s{split:04d}_k{k}. Duplicados/ajenos: ABORTA. Dominio de fila: el de Q13DR v3 (valida).
 INCONCLUSIVE (global) si en cualquier nivel faltantes > 5 % de 5N o splits con >= 3 validas < 80 % de N; comunes (>= 3 validas en los
@@ -47,7 +47,7 @@ NIVELES = [("A0", "A0", 0)] + [(f"LP{i + 1}", "LP", d) for i, d in enumerate([1e
     + [(f"WD{i + 1}", "WD", d) for i, d in enumerate([0.709, 1.56, 2.19, 2.94, 4])]
 NOMBRES = [n for n, _, _ in NIVELES]
 MANIP = {"LP": ["A0"] + [f"LP{i}" for i in range(1, 6)], "WD": ["A0"] + [f"WD{i}" for i in range(1, 6)]}
-N_MAX = 218
+N_MAX = 320
 Q_PRI = (0.0125, 0.9875)
 Q_SEC = (0.025, 0.975)
 

@@ -41,7 +41,9 @@ Si las tres vías coinciden, la modulación se atribuye al colapso y no al manip
 ## 3. Cohorte
 - **Universo:** 11 niveles (A0, LP1–LP5 y WD1–WD5) × N splits × 5 inicializaciones, **pareados**: comparten datos, inicialización y lotes.
 - **Semillas nuevas:** split 911000+s, inicialización 921000+5s+k, lote 931000+5s+k.
-- **Tamaño:** **N = 200**, que da 11 000 trayectorias y unos 85 minutos en el equipo del responsable, en dos sesiones. Es el tope que fijó el responsable, hasta 12 000. La potencia lo verifica (§6).
+- **Tamaño (decisión del responsable, 09:23, opción B):** **N = 320**, que da 17 600 trayectorias y unas 2 h 10 min en el equipo del responsable, en dos o tres sesiones con `--limite`.
+  - **Por qué:** la potencia preparatoria (PR #115) mostró que N = 200 no cumple: LP 0.775, WD 0.753 y conjunta 0.685 con ρ = 0.
+  - **Tope del plan:** n_splits ≤ 320.
 - **IDs:** `q13m2_{A0|LP1…LP5|WD1…WD5}_s{split:04d}_k{k}`.
 
 ## 4. Análisis (`Q13M2/analisis_Q13M2.py`)
@@ -93,7 +95,9 @@ Después, **auditoría y verificación** por el otro agente, como en Q13-DR.
 ## 6. Potencia (agente de cohorte, antes de entrenar)
 - **Escenario:** para cada manipulador, la curva D(c) de LS observada en Q13-DR. Es lineal, con β = 0.077, evaluada en las c esperadas de cada manipulador.
 - **Dependencia entre niveles:** ρ = 0, con sensibilidad para ρ = 0.3, 0.6 y la de Q13.
-- **Regla:** Wilson inferior ≥ 0.8 para MODULA_m con N = 200, **en cada manipulador**, con el IC al 97.5 %. Se reporta además la **potencia conjunta** (que ambos den MODULA), sin exigirla. Si WD no llega, por su menor rango de c, se informa y el responsable decide: N mayor dentro del tope, quitar WD o aceptar menos potencia.
+- **Regla:** con **N = 320**, Wilson inferior ≥ 0.8 para MODULA_m **en cada manipulador** (IC al 97.5 %). Se reporta además la **potencia conjunta**, contando directamente que ambos den MODULA; no se exige.
+  - **Si no se cumple con 320:** se informa y el responsable decide. No se busca otro N por cuenta propia.
+  - **Generadora:** max(0, −0.038434071245 + 0.077·c), lineal a tramos, como en el PR #115. Si WD no llega, por su menor rango de c, se informa y el responsable decide: N mayor dentro del tope, quitar WD o aceptar menos potencia.
 
 ## 7. Alcance
 - **Qué apoya:** tres manipuladores con mecanismos distintos (suavizar el objetivo, frenar los logits y encoger los pesos) que dan la misma relación entre D y c. Eso apoya que la modulación es **propiedad del colapso**.
