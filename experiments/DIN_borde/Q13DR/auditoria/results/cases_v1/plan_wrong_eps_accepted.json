@@ -1,0 +1,219 @@
+{
+  "case": "plan_wrong_eps_accepted",
+  "status": "RETURNED",
+  "result": {
+    "returncode": 0,
+    "status": "NO_MODULA",
+    "result": {
+      "manipulacion": {
+        "L0": {
+          "mediana_c250": 0.86,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L1": {
+          "mediana_c250": 0.7,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L3": {
+          "mediana_c250": 0.54,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L4": {
+          "mediana_c250": 0.42,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L5": {
+          "mediana_c250": 0.36,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 20,
+      "splits_comunes": 20,
+      "faltantes": {
+        "L0": 0,
+        "L1": 0,
+        "L2": 0,
+        "L3": 0,
+        "L4": 0,
+        "L5": 0
+      },
+      "motivos_inconclusive": [],
+      "primaria": {
+        "L0": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        },
+        "L1": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        },
+        "L2": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        },
+        "L3": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        },
+        "L4": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        },
+        "L5": {
+          "D": 0.9999960646060863,
+          "p": 0.0001999600079984003,
+          "D_nulo_q95": 0.048628597523366665,
+          "pendiente_X": 1.9999287901495806,
+          "grado_base": 3,
+          "permutaciones": 5000,
+          "pass": true
+        }
+      },
+      "bootstrap": {
+        "beta": 0.0,
+        "IC95_beta": [
+          -3.640627639286692e-32,
+          3.640627639286692e-32
+        ],
+        "IC95_D": {
+          "L0": [
+            0.9999925107318396,
+            0.9999976561361333
+          ],
+          "L1": [
+            0.9999925107318396,
+            0.9999976561361333
+          ],
+          "L2": [
+            0.9999925107318396,
+            0.9999976561361333
+          ],
+          "L3": [
+            0.9999925107318396,
+            0.9999976561361333
+          ],
+          "L4": [
+            0.9999925107318396,
+            0.9999976561361333
+          ],
+          "L5": [
+            0.9999925107318396,
+            0.9999976561361333
+          ]
+        }
+      },
+      "secundarios": {
+        "spearman_D_c": -1.0,
+        "L0": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "L1": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "L2": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "L3": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "L4": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "L5": {
+          "frac_varianza_tras_base": 0.8360772450972913
+        },
+        "D_por_cuartil_c250_en_L0_descriptivo": {
+          "Q1": {
+            "nota": "menos de 10 splits"
+          },
+          "Q2": {
+            "nota": "menos de 10 splits"
+          },
+          "Q3": {
+            "nota": "menos de 10 splits"
+          },
+          "Q4": {
+            "n": 100,
+            "splits": 20,
+            "D": 0.9999960646060863
+          }
+        }
+      },
+      "manipulacion_ok": true,
+      "veredicto": "NO_MODULA",
+      "extremo": "PERSISTE",
+      "modo": "CONFIRMATORIO_Q13DR",
+      "niveles": [
+        {
+          "nivel": 0,
+          "eps": 0.0
+        },
+        {
+          "nivel": 1,
+          "eps": 0.0
+        },
+        {
+          "nivel": 2,
+          "eps": 0.0
+        },
+        {
+          "nivel": 3,
+          "eps": 0.0
+        },
+        {
+          "nivel": 4,
+          "eps": 0.0
+        },
+        {
+          "nivel": 5,
+          "eps": 0.0
+        }
+      ],
+      "tabla_sha256": "420f3d341d876142bdfa75ce301b71a81d6fd5929fec706fa4112565801383e6",
+      "plan_sha256": "469736f75d1f2dfb931a928c62f95b1b2873def70e185815f3d12b01b73a136b",
+      "script_sha256": "c9159325c7f22c6e5ded2977f6d208e0282558094fd34ab6f96fb68c00843b10",
+      "alcance": "dosis-respuesta de la senal temprana con label smoothing en la familia gaussiana s=0.8; un manipulador; no separa colapso de efecto propio de LS"
+    },
+    "stderr": "",
+    "fixture_dir": "/workspace/work/din-q13dr-audit-v1-arrays/cases_v1/wrong_eps",
+    "table_sha256": "420f3d341d876142bdfa75ce301b71a81d6fd5929fec706fa4112565801383e6",
+    "plan_sha256": "469736f75d1f2dfb931a928c62f95b1b2873def70e185815f3d12b01b73a136b",
+    "nominal_CLI_arguments": true
+  },
+  "warnings": []
+}

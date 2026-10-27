@@ -1,0 +1,95 @@
+{
+  "case": "plan_missing_eps_accepted",
+  "status": "RETURNED",
+  "result": {
+    "returncode": 0,
+    "status": "INCONCLUSIVE",
+    "result": {
+      "manipulacion": {
+        "L0": {
+          "mediana_c250": 0.86,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L1": {
+          "mediana_c250": 0.7,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L3": {
+          "mediana_c250": 0.54,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L4": {
+          "mediana_c250": 0.42,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L5": {
+          "mediana_c250": 0.36,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 20,
+      "splits_comunes": 20,
+      "faltantes": {
+        "L0": 0,
+        "L1": 0,
+        "L2": 0,
+        "L3": 0,
+        "L4": 0,
+        "L5": 0
+      },
+      "motivos_inconclusive": [
+        "L0: X sin variacion intra-split",
+        "L1: X sin variacion intra-split",
+        "L2: X sin variacion intra-split",
+        "L3: X sin variacion intra-split",
+        "L4: X sin variacion intra-split",
+        "L5: X sin variacion intra-split"
+      ],
+      "primaria": {},
+      "bootstrap": {},
+      "secundarios": {},
+      "veredicto": "INCONCLUSIVE",
+      "modo": "CONFIRMATORIO_Q13DR",
+      "niveles": [
+        {
+          "nivel": 0
+        },
+        {
+          "nivel": 1
+        },
+        {
+          "nivel": 2
+        },
+        {
+          "nivel": 3
+        },
+        {
+          "nivel": 4
+        },
+        {
+          "nivel": 5
+        }
+      ],
+      "tabla_sha256": "f189c88c4fdffc3e460a1589829d0ab0160baf1fa1b84f8daaecd1a257cfc285",
+      "plan_sha256": "084c39ad2c78c3298820edf77a899195ec9622d8d0232440d27258ced056af70",
+      "script_sha256": "c9159325c7f22c6e5ded2977f6d208e0282558094fd34ab6f96fb68c00843b10",
+      "alcance": "dosis-respuesta de la senal temprana con label smoothing en la familia gaussiana s=0.8; un manipulador; no separa colapso de efecto propio de LS"
+    },
+    "stderr": "",
+    "fixture_dir": "/workspace/work/din-q13dr-audit-v1-arrays/cases_v1/missing_eps",
+    "table_sha256": "f189c88c4fdffc3e460a1589829d0ab0160baf1fa1b84f8daaecd1a257cfc285",
+    "plan_sha256": "084c39ad2c78c3298820edf77a899195ec9622d8d0232440d27258ced056af70",
+    "nominal_CLI_arguments": true
+  },
+  "warnings": []
+}

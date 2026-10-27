@@ -1,0 +1,644 @@
+{
+  "status": "COMPLETE",
+  "cells": [
+    {
+      "cell": {
+        "name": "null_N200",
+        "N": 200,
+        "beta": 0.0,
+        "D_center": 0.02,
+        "reps": 400
+      },
+      "replicates": 400,
+      "control_PASS": 385,
+      "rates": {
+        "MODULA": {
+          "all": {
+            "k": 8,
+            "n": 400,
+            "rate": 0.02,
+            "lower": 0.010168386791664645,
+            "upper": 0.03896341576926
+          },
+          "conditional_control": {
+            "k": 8,
+            "n": 385,
+            "rate": 0.02077922077922078,
+            "lower": 0.010565940747875159,
+            "upper": 0.04046117678447519
+          }
+        },
+        "NO_MODULA": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 385,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.009879241869796428
+          }
+        },
+        "NO_CONCLUYENTE": {
+          "all": {
+            "k": 377,
+            "n": 400,
+            "rate": 0.9425,
+            "lower": 0.9151991622718807,
+            "upper": 0.9613824572422669
+          },
+          "conditional_control": {
+            "k": 377,
+            "n": 385,
+            "rate": 0.9792207792207792,
+            "lower": 0.9595388232155249,
+            "upper": 0.9894340592521249
+          }
+        },
+        "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+          "all": {
+            "k": 15,
+            "n": 400,
+            "rate": 0.0375,
+            "lower": 0.022855029814710867,
+            "upper": 0.060943842444513396
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 385,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.009879241869796428
+          }
+        }
+      },
+      "extreme_rates": {
+        "PERSISTE": {
+          "all": {
+            "k": 378,
+            "n": 400,
+            "rate": 0.945,
+            "lower": 0.9181325521920267,
+            "upper": 0.9634015058504493
+          },
+          "conditional_control": {
+            "k": 378,
+            "n": 385,
+            "rate": 0.9818181818181818,
+            "lower": 0.9629509406876993,
+            "upper": 0.9911654262377696
+          }
+        },
+        "DESAPARECE": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 385,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.009879241869796428
+          }
+        },
+        "INDETERMINADO": {
+          "all": {
+            "k": 7,
+            "n": 400,
+            "rate": 0.0175,
+            "lower": 0.008502291107038103,
+            "upper": 0.03567707292555804
+          },
+          "conditional_control": {
+            "k": 7,
+            "n": 385,
+            "rate": 0.01818181818181818,
+            "lower": 0.008834573762230404,
+            "upper": 0.0370490593123007
+          }
+        }
+      }
+    },
+    {
+      "cell": {
+        "name": "null_N400",
+        "N": 400,
+        "beta": 0.0,
+        "D_center": 0.02,
+        "reps": 400
+      },
+      "replicates": 400,
+      "control_PASS": 400,
+      "rates": {
+        "MODULA": {
+          "all": {
+            "k": 10,
+            "n": 400,
+            "rate": 0.025,
+            "lower": 0.013635091745936023,
+            "upper": 0.045401587871645666
+          },
+          "conditional_control": {
+            "k": 10,
+            "n": 400,
+            "rate": 0.025,
+            "lower": 0.013635091745936023,
+            "upper": 0.045401587871645666
+          }
+        },
+        "NO_MODULA": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          }
+        },
+        "NO_CONCLUYENTE": {
+          "all": {
+            "k": 390,
+            "n": 400,
+            "rate": 0.975,
+            "lower": 0.9545984121283544,
+            "upper": 0.986364908254064
+          },
+          "conditional_control": {
+            "k": 390,
+            "n": 400,
+            "rate": 0.975,
+            "lower": 0.9545984121283544,
+            "upper": 0.986364908254064
+          }
+        },
+        "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          }
+        }
+      },
+      "extreme_rates": {
+        "PERSISTE": {
+          "all": {
+            "k": 400,
+            "n": 400,
+            "rate": 1.0,
+            "lower": 0.9904877056657034,
+            "upper": 0.9999999999999999
+          },
+          "conditional_control": {
+            "k": 400,
+            "n": 400,
+            "rate": 1.0,
+            "lower": 0.9904877056657034,
+            "upper": 0.9999999999999999
+          }
+        },
+        "DESAPARECE": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          }
+        },
+        "INDETERMINADO": {
+          "all": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 400,
+            "rate": 0.0,
+            "lower": 8.673617379884035e-19,
+            "upper": 0.009512294334296508
+          }
+        }
+      }
+    },
+    {
+      "cell": {
+        "name": "zero_N400",
+        "N": 400,
+        "beta": 0.0,
+        "D_center": 0.0,
+        "reps": 200
+      },
+      "replicates": 200,
+      "control_PASS": 6,
+      "rates": {
+        "MODULA": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 6,
+            "rate": 0.0,
+            "lower": 2.7755575615628914e-17,
+            "upper": 0.3903342879021653
+          }
+        },
+        "NO_MODULA": {
+          "all": {
+            "k": 4,
+            "n": 200,
+            "rate": 0.02,
+            "lower": 0.0078044264163494685,
+            "upper": 0.050287086905826436
+          },
+          "conditional_control": {
+            "k": 4,
+            "n": 6,
+            "rate": 0.6666666666666666,
+            "lower": 0.299993315138392,
+            "upper": 0.9032285888942195
+          }
+        },
+        "NO_CONCLUYENTE": {
+          "all": {
+            "k": 2,
+            "n": 200,
+            "rate": 0.01,
+            "lower": 0.0027466581335444384,
+            "upper": 0.0357217617161768
+          },
+          "conditional_control": {
+            "k": 2,
+            "n": 6,
+            "rate": 0.3333333333333333,
+            "lower": 0.09677141110578041,
+            "upper": 0.700006684861608
+          }
+        },
+        "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+          "all": {
+            "k": 194,
+            "n": 200,
+            "rate": 0.97,
+            "lower": 0.9361057075454807,
+            "upper": 0.9861796856598887
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 6,
+            "rate": 0.0,
+            "lower": 2.7755575615628914e-17,
+            "upper": 0.3903342879021653
+          }
+        }
+      },
+      "extreme_rates": {
+        "PERSISTE": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 6,
+            "rate": 0.0,
+            "lower": 2.7755575615628914e-17,
+            "upper": 0.3903342879021653
+          }
+        },
+        "DESAPARECE": {
+          "all": {
+            "k": 5,
+            "n": 200,
+            "rate": 0.025,
+            "lower": 0.010724719651761264,
+            "upper": 0.05717834040664198
+          },
+          "conditional_control": {
+            "k": 5,
+            "n": 6,
+            "rate": 0.8333333333333334,
+            "lower": 0.43649717781352987,
+            "upper": 0.9699466302516935
+          }
+        },
+        "INDETERMINADO": {
+          "all": {
+            "k": 1,
+            "n": 200,
+            "rate": 0.005,
+            "lower": 0.0008831687156009814,
+            "upper": 0.02777370439789293
+          },
+          "conditional_control": {
+            "k": 1,
+            "n": 6,
+            "rate": 0.16666666666666666,
+            "lower": 0.030053369748306635,
+            "upper": 0.5635028221864702
+          }
+        }
+      }
+    },
+    {
+      "cell": {
+        "name": "positive_N400",
+        "N": 400,
+        "beta": 0.03,
+        "D_center": 0.02,
+        "reps": 200
+      },
+      "replicates": 200,
+      "control_PASS": 200,
+      "rates": {
+        "MODULA": {
+          "all": {
+            "k": 74,
+            "n": 200,
+            "rate": 0.37,
+            "lower": 0.30612608409859116,
+            "upper": 0.4387737007594981
+          },
+          "conditional_control": {
+            "k": 74,
+            "n": 200,
+            "rate": 0.37,
+            "lower": 0.30612608409859116,
+            "upper": 0.4387737007594981
+          }
+        },
+        "NO_MODULA": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          }
+        },
+        "NO_CONCLUYENTE": {
+          "all": {
+            "k": 126,
+            "n": 200,
+            "rate": 0.63,
+            "lower": 0.5612262992405018,
+            "upper": 0.6938739159014088
+          },
+          "conditional_control": {
+            "k": 126,
+            "n": 200,
+            "rate": 0.63,
+            "lower": 0.5612262992405018,
+            "upper": 0.6938739159014088
+          }
+        },
+        "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          }
+        }
+      },
+      "extreme_rates": {
+        "PERSISTE": {
+          "all": {
+            "k": 199,
+            "n": 200,
+            "rate": 0.995,
+            "lower": 0.9722262956021069,
+            "upper": 0.9991168312843989
+          },
+          "conditional_control": {
+            "k": 199,
+            "n": 200,
+            "rate": 0.995,
+            "lower": 0.9722262956021069,
+            "upper": 0.9991168312843989
+          }
+        },
+        "DESAPARECE": {
+          "all": {
+            "k": 1,
+            "n": 200,
+            "rate": 0.005,
+            "lower": 0.0008831687156009814,
+            "upper": 0.02777370439789293
+          },
+          "conditional_control": {
+            "k": 1,
+            "n": 200,
+            "rate": 0.005,
+            "lower": 0.0008831687156009814,
+            "upper": 0.02777370439789293
+          }
+        },
+        "INDETERMINADO": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          }
+        }
+      }
+    },
+    {
+      "cell": {
+        "name": "negative_N400",
+        "N": 400,
+        "beta": -0.03,
+        "D_center": 0.02,
+        "reps": 200
+      },
+      "replicates": 200,
+      "control_PASS": 199,
+      "rates": {
+        "MODULA": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 199,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.018938233056634942
+          }
+        },
+        "NO_MODULA": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 199,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.018938233056634942
+          }
+        },
+        "NO_CONCLUYENTE": {
+          "all": {
+            "k": 199,
+            "n": 200,
+            "rate": 0.995,
+            "lower": 0.9722262956021069,
+            "upper": 0.9991168312843989
+          },
+          "conditional_control": {
+            "k": 199,
+            "n": 199,
+            "rate": 1.0,
+            "lower": 0.9810617669433649,
+            "upper": 0.9999999999999999
+          }
+        },
+        "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+          "all": {
+            "k": 1,
+            "n": 200,
+            "rate": 0.005,
+            "lower": 0.0008831687156009814,
+            "upper": 0.02777370439789293
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 199,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.018938233056634942
+          }
+        }
+      },
+      "extreme_rates": {
+        "PERSISTE": {
+          "all": {
+            "k": 199,
+            "n": 200,
+            "rate": 0.995,
+            "lower": 0.9722262956021069,
+            "upper": 0.9991168312843989
+          },
+          "conditional_control": {
+            "k": 199,
+            "n": 199,
+            "rate": 1.0,
+            "lower": 0.9810617669433649,
+            "upper": 0.9999999999999999
+          }
+        },
+        "DESAPARECE": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 199,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.018938233056634942
+          }
+        },
+        "INDETERMINADO": {
+          "all": {
+            "k": 0,
+            "n": 200,
+            "rate": 0.0,
+            "lower": 1.734723475976807e-18,
+            "upper": 0.018845326377266575
+          },
+          "conditional_control": {
+            "k": 0,
+            "n": 199,
+            "rate": 0.0,
+            "lower": 0.0,
+            "upper": 0.018938233056634942
+          }
+        }
+      }
+    }
+  ],
+  "bootstrap": 2000,
+  "permutations": 5000,
+  "seconds": 906.6483360290003,
+  "real_data_read": false
+}
