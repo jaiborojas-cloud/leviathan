@@ -93,8 +93,8 @@ def main():
     print("reglas puras:", len(puras), "fallos", bad, flush=True)
     # referencia LS reproduce Q13-DR
     fls = {r["trajectory"]: r for r in csv.DictReader(open(LS))}; ls = M.referencia_ls(fls, 300)
-    okb = abs(ls["beta"] - 0.07692466151365258) <= 1e-12 and not ls["fallos"]   # F04: tolerancia 1e-12; res["beta_LS_reproduce_Q13DR"] = dict(beta=ls["beta"], ok=okb); print("beta_LS", repr(ls["beta"]), okb, flush=True)
-    if not okb: fallos.append("beta_LS")
+    okb = abs(ls["beta"] - 0.07692466151365258) <= 1e-12 and not ls["fallos"]; res["beta_LS_reproduce_Q13DR"] = dict(beta=ls["beta"], ok=okb); print("beta_LS", repr(ls["beta"]), okb, flush=True)
+    if not okb: fallos.append("beta_LS")   # F04: tolerancia 1e-12
     def run(filas, NN): return resumen(M.analizar(filas, NN, True, "", ls=ls, B=499, NB=300))
     b1 = base(); b8 = base(8)
     # logica
