@@ -1,0 +1,51 @@
+{
+  "status": "PASS_PREPARACION_COHORTE",
+  "n_splits": 200,
+  "planned_trajectories": 6000,
+  "levels": [
+    {
+      "nivel": 0,
+      "eps": 0
+    },
+    {
+      "nivel": 1,
+      "eps": 0.002
+    },
+    {
+      "nivel": 2,
+      "eps": 0.005
+    },
+    {
+      "nivel": 3,
+      "eps": 0.01
+    },
+    {
+      "nivel": 4,
+      "eps": 0.02
+    },
+    {
+      "nivel": 5,
+      "eps": 0.05
+    }
+  ],
+  "plan_sha256": "e7c99a0188abc84cce6504fb6882b9373775f8aaba8d0eebdf597c752c1fed64",
+  "script_sha256": "7b855802d0cf1b4bce7a3ede0a465b876284c847aeb1bec4508af7b1228fc9cb",
+  "design_sha256": "e3ebe06030ca1469f6109ccfb143c72403ca11eb74cb4c72255a56fab3f09dd2",
+  "power_primary": {
+    "success": 395,
+    "n": 400,
+    "rate": 0.9875,
+    "lower": 0.9710762638040326,
+    "upper": 0.9946492492200284
+  },
+  "simulated_only_power": true,
+  "cohort_training_updates": 0,
+  "cohort_trajectories_trained": 0,
+  "real_cohort_D_p_or_X_Y_associations": false,
+  "sensitivity_real_Q13_only": "Authorized A0–LS within-split log-rho250 correlation; no other association",
+  "validation_status": "PASS",
+  "native_Windows_tested": false,
+  "windows_execution_pending": true,
+  "links_checked": 23,
+  "preparation_incident": "PREPARACION_PRODUCTOR.md: first AST authoring attempt failed in memory before files/models; no published scientific implementation corrected"
+}
