@@ -1,0 +1,15 @@
+{
+  "case": "plan_missing_nivel_crash",
+  "status": "RETURNED",
+  "result": {
+    "returncode": 1,
+    "status": "ABORTA",
+    "result": null,
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 160, in <module>\n    main()\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 150, in main\n    if [x[\"nivel\"] for x in plan.get(\"niveles\", [])] != list(range(NIV)): sys.exit(\"ABORTA: niveles del plan\")\n        ~^^^^^^^^^\nKeyError: 'nivel'\n",
+    "fixture_dir": "/workspace/work/din-q13dr-audit-v1-arrays/cases_v1/missing_nivel",
+    "table_sha256": "f189c88c4fdffc3e460a1589829d0ab0160baf1fa1b84f8daaecd1a257cfc285",
+    "plan_sha256": "ebfb39b6149b120ec31b0b8adbf8faa15c119f6ff2c41075a2edbc3dd05a1291",
+    "nominal_CLI_arguments": true
+  },
+  "warnings": []
+}

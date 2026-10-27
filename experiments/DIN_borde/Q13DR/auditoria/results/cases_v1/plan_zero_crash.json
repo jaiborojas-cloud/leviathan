@@ -1,0 +1,15 @@
+{
+  "case": "plan_zero_crash",
+  "status": "RETURNED",
+  "result": {
+    "returncode": 1,
+    "status": "CRASH",
+    "result": null,
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 160, in <module>\n    main()\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 153, in main\n    res = analizar(list(csv.DictReader(open(a.tabla, encoding=\"utf-8\"))), n, gate_ok, \"plan/resumen no vinculados\")\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 100, in analizar\n    mok = m0[\"mediana_c250\"] >= 0.8 and m0[\"mediana_q250\"] <= 0.05 and all(cs[i] > cs[i + 1] for i in range(NIV - 1)) and cs[0] - cs[-1] >= 0.30 \\\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: '>=' not supported between instances of 'NoneType' and 'float'\n",
+    "fixture_dir": "/workspace/work/din-q13dr-audit-v1-arrays/cases_v1/plan_zero",
+    "table_sha256": "6dd77f57963f6409dc51b45d783d790dd278c1779ffb011c206b2ee49498d907",
+    "plan_sha256": "42a3ed4be4dca85d665d5da2d2ea98c3a114a6dfff4e90cbacf6734a395152fc",
+    "nominal_CLI_arguments": true
+  },
+  "warnings": []
+}

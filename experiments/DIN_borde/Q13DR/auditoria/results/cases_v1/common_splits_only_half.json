@@ -1,0 +1,177 @@
+{
+  "case": "common_splits_only_half",
+  "status": "RETURNED",
+  "result": {
+    "manipulacion": {
+      "L0": {
+        "mediana_c250": 0.86,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L1": {
+        "mediana_c250": 0.7,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L3": {
+        "mediana_c250": 0.54,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L4": {
+        "mediana_c250": 0.42,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L5": {
+        "mediana_c250": 0.36,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      }
+    },
+    "splits_planificados": 12,
+    "splits_comunes": 6,
+    "faltantes": {
+      "L0": 3,
+      "L1": 3,
+      "L2": 3,
+      "L3": 3,
+      "L4": 3,
+      "L5": 3
+    },
+    "motivos_inconclusive": [],
+    "primaria": {
+      "L0": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L1": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L2": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L3": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L4": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L5": {
+        "D": 0.9999972687708856,
+        "p": 0.025,
+        "D_nulo_q95": 0.28365951490807995,
+        "pendiente_X": 1.998866547708017,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      }
+    },
+    "bootstrap": {
+      "beta": -3.640627639286692e-32,
+      "IC95_beta": [
+        -3.640627639286692e-32,
+        3.640627639286692e-32
+      ],
+      "IC95_D": {
+        "L0": [
+          0.9999855234063809,
+          0.9999990294980684
+        ],
+        "L1": [
+          0.9999855234063809,
+          0.9999990294980684
+        ],
+        "L2": [
+          0.9999855234063809,
+          0.9999990294980684
+        ],
+        "L3": [
+          0.9999855234063809,
+          0.9999990294980684
+        ],
+        "L4": [
+          0.9999855234063809,
+          0.9999990294980684
+        ],
+        "L5": [
+          0.9999855234063809,
+          0.9999990294980684
+        ]
+      }
+    },
+    "secundarios": {
+      "spearman_D_c": -1.0,
+      "L0": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "L1": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "L2": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "L3": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "L4": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "L5": {
+        "frac_varianza_tras_base": 1.3679018042444189
+      },
+      "D_por_cuartil_c250_en_L0_descriptivo": {
+        "Q1": {
+          "nota": "menos de 10 splits"
+        },
+        "Q2": {
+          "nota": "menos de 10 splits"
+        },
+        "Q3": {
+          "nota": "menos de 10 splits"
+        },
+        "Q4": {
+          "nota": "menos de 10 splits"
+        }
+      }
+    },
+    "manipulacion_ok": true,
+    "veredicto": "NO_MODULA",
+    "extremo": "PERSISTE"
+  },
+  "warnings": []
+}
