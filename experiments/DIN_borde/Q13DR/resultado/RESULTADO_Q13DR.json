@@ -1,0 +1,232 @@
+{
+  "manipulacion": {
+    "L0": {
+      "mediana_c250": 0.8686580952658505,
+      "mediana_q250": 8.648671555119646e-05,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "L1": {
+      "mediana_c250": 0.6937224022081039,
+      "mediana_q250": 0.00014754013331148098,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "L2": {
+      "mediana_c250": 0.6119386223295277,
+      "mediana_q250": 0.00019018421416924392,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "L3": {
+      "mediana_c250": 0.5560013711343522,
+      "mediana_q250": 0.00023237724730487333,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "L4": {
+      "mediana_c250": 0.5013494899814863,
+      "mediana_q250": 0.0002709487407539418,
+      "mediana_acc_panel250": 0.8888888888888888
+    },
+    "L5": {
+      "mediana_c250": 0.39875131496597344,
+      "mediana_q250": 0.0003401900687839543,
+      "mediana_acc_panel250": 0.8888888888888888
+    }
+  },
+  "splits_planificados": 200,
+  "splits_comunes": 200,
+  "faltantes": {
+    "L0": 0,
+    "L1": 0,
+    "L2": 0,
+    "L3": 0,
+    "L4": 0,
+    "L5": 0
+  },
+  "motivos_inconclusive": [],
+  "primaria": {
+    "L0": {
+      "D": 0.034339855933740226,
+      "p": 0.0001999600079984003,
+      "D_nulo_q95": 0.0025579067175729897,
+      "pendiente_X": 1.999258518220303,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": true
+    },
+    "L1": {
+      "D": 0.01101656677152163,
+      "p": 0.0015996800639872025,
+      "D_nulo_q95": 0.002427569564857558,
+      "pendiente_X": 0.6961407804253066,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": true
+    },
+    "L2": {
+      "D": 0.003661574951815072,
+      "p": 0.026394721055788842,
+      "D_nulo_q95": 0.0024154691181909947,
+      "pendiente_X": 0.3622292387197492,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": true
+    },
+    "L3": {
+      "D": 0.001333664426576786,
+      "p": 0.08578284343131373,
+      "D_nulo_q95": 0.0023701366143841066,
+      "pendiente_X": 0.2356077875984383,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": false
+    },
+    "L4": {
+      "D": -0.0003851112366985987,
+      "p": 0.22895420915816836,
+      "D_nulo_q95": 0.0024337538498598174,
+      "pendiente_X": 0.13389202233316977,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": false
+    },
+    "L5": {
+      "D": -0.0010285385337691633,
+      "p": 0.35952809438112376,
+      "D_nulo_q95": 0.002615795625138855,
+      "pendiente_X": 0.08306013734407816,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": false
+    }
+  },
+  "bootstrap": {
+    "beta": 0.07692466151365258,
+    "c_comunes": [
+      0.8686580952658505,
+      0.6937224022081039,
+      0.6119386223295277,
+      0.5560013711343522,
+      0.5013494899814863,
+      0.39875131496597344
+    ],
+    "replicas": 2000,
+    "replicas_fallidas": 0,
+    "fallos": [],
+    "IC95_beta": [
+      0.02775882825116151,
+      0.14033469403040608
+    ],
+    "IC95_D": {
+      "L0": [
+        0.010393719943898507,
+        0.06222342558106366
+      ],
+      "L1": [
+        -0.0020560657688761474,
+        0.028184379306462976
+      ],
+      "L2": [
+        -0.0060605323758840205,
+        0.015721839063003454
+      ],
+      "L3": [
+        -0.007029221589709617,
+        0.012206838282623735
+      ],
+      "L4": [
+        -0.007522932509399227,
+        0.007597095080961554
+      ],
+      "L5": [
+        -0.008680102843411131,
+        0.006110732089631878
+      ]
+    },
+    "rango_c": 0.46990678029987704,
+    "diferencia_c_L0_L5": 0.46990678029987704,
+    "margen_dD_equivalencia": 0.00939813560599754
+  },
+  "secundarios": {
+    "spearman_D_c": 1.0,
+    "L0": {
+      "frac_varianza_tras_base": 1.007950380950061,
+      "D_rho_vert": 0.034342612642584536
+    },
+    "L1": {
+      "frac_varianza_tras_base": 1.0089599347693707,
+      "D_rho_vert": 0.010802011210435558
+    },
+    "L2": {
+      "frac_varianza_tras_base": 1.0070775003850296,
+      "D_rho_vert": 0.0030444716133067873
+    },
+    "L3": {
+      "frac_varianza_tras_base": 1.0053173799418589,
+      "D_rho_vert": 0.0010141457429925227
+    },
+    "L4": {
+      "frac_varianza_tras_base": 1.0022303847267362,
+      "D_rho_vert": -0.00035809520527618766
+    },
+    "L5": {
+      "frac_varianza_tras_base": 0.9975943434796994,
+      "D_rho_vert": -0.001878657300485198
+    },
+    "D_por_cuartil_c250_en_L0_descriptivo": {
+      "Q1": {
+        "n": 124,
+        "splits": 36,
+        "D": -0.023279154336383945
+      },
+      "Q2": {
+        "n": 70,
+        "splits": 21,
+        "D": -0.015845906937517862
+      },
+      "Q3": {
+        "n": 73,
+        "splits": 23,
+        "D": 0.054351085084277106
+      },
+      "Q4": {
+        "n": 156,
+        "splits": 39,
+        "D": 0.127960916979302
+      }
+    }
+  },
+  "manipulacion_ok": true,
+  "veredicto": "MODULA",
+  "equivalencia_secundaria": "NO_ESTABLECIDA",
+  "extremo": "INDETERMINADO",
+  "modo": "CONFIRMATORIO_Q13DR",
+  "niveles": [
+    {
+      "nivel": 0,
+      "eps": 0
+    },
+    {
+      "nivel": 1,
+      "eps": 0.002
+    },
+    {
+      "nivel": 2,
+      "eps": 0.005
+    },
+    {
+      "nivel": 3,
+      "eps": 0.01
+    },
+    {
+      "nivel": 4,
+      "eps": 0.02
+    },
+    {
+      "nivel": 5,
+      "eps": 0.05
+    }
+  ],
+  "tabla_sha256": "ed00364f66d4ac0d312cba63d14d5c5da67006956336c16e7e44336457b5240a",
+  "plan_sha256": "e7c99a0188abc84cce6504fb6882b9373775f8aaba8d0eebdf597c752c1fed64",
+  "script_sha256": "cc5524a781b16ac08ef25b86427f8f36bb43c6425d8cf17753c4ae5a9b534b6a",
+  "alcance": "dosis-respuesta (tendencia lineal, no orden de las seis medias) de la senal temprana con label smoothing en la familia gaussiana s=0.8; un manipulador; no separa colapso de efecto propio de LS"
+}
