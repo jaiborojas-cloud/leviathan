@@ -1,0 +1,27 @@
+{
+  "formato": "DIN-Q13-v2-portable-1",
+  "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3",
+  "script_sha256": "c0577f9f7bbc43f65b79dd6068f1b446a828dc7809edb577ca8fc0d2eaf4b6dc",
+  "fuentes": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho_v2": {
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    }
+  },
+  "recipe_sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6",
+  "support_sha256": "29158f316c8a4b982e206a6588ad49702af8f3d0710326bfac190ebdc52285c1",
+  "versiones": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  }
+}
