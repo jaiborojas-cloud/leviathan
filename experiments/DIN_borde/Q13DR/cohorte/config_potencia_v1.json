@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    200,
+    256,
+    320,
+    400
+  ],
+  "replicates": 400,
+  "frames": 4,
+  "replicates_per_frame": 100,
+  "bootstrap": 500,
+  "permutations": 1999,
+  "c": [
+    0.84,
+    0.7,
+    0.61,
+    0.54,
+    0.42,
+    0.36
+  ],
+  "sensitivities": [
+    0.3,
+    0.6,
+    "Q13_A0_LS"
+  ],
+  "arrays_dir": "/workspace/work/din-q13dr-power-v1-arrays",
+  "sources": {
+    "design": {
+      "path": "experiments/DIN_borde/DISENO_DIN_Q13DR_v3_CONGELADO.md",
+      "sha256": "e3ebe06030ca1469f6109ccfb143c72403ca11eb74cb4c72255a56fab3f09dd2"
+    },
+    "DR": {
+      "path": "experiments/DIN_borde/Q13DR/analisis_Q13DR.py",
+      "sha256": "cc5524a781b16ac08ef25b86427f8f36bb43c6425d8cf17753c4ae5a9b534b6a"
+    },
+    "Q13": {
+      "path": "experiments/DIN_borde/Q13/analisis_Q13.py",
+      "sha256": "9998a1b2f8f37dd0e803c6a4b024f289a23df71eea17a0b1ed6f7c6d15f3c5b3"
+    },
+    "C1": {
+      "path": "experiments/DIN_borde/C1/analisis_C1_v2.py",
+      "sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5"
+    },
+    "C2_engine": {
+      "path": "experiments/DIN_borde/C2/potencia/scripts/power_v1.py",
+      "sha256": "ba26c4ec839b9c55c827d98f7d4c52810926593721ac3e6d6ca4b2edeca4ad5d"
+    },
+    "Q13_power": {
+      "path": "experiments/DIN_borde/Q13/cohorte/potencia_v2/scripts/power_v1.py",
+      "sha256": "0ff06be467305c371019b63c7e0cd15ac515b23be4a7d05dd3b838901fce7cc5"
+    },
+    "pilot": {
+      "path": "experiments/DIN_borde/G3/results/run_v1/trajectories.csv",
+      "sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
+    },
+    "sensitivity": {
+      "path": "experiments/DIN_borde/Q13/cohorte_q13/q13_cohorte.csv",
+      "sha256": "d360b3134b40f206c7005d00606dc7102257a9891087d15f87769bfa25f3bc0c"
+    },
+    "producer": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/cohorte_v2.py",
+      "sha256": "c0577f9f7bbc43f65b79dd6068f1b446a828dc7809edb577ca8fc0d2eaf4b6dc"
+    },
+    "recipe": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    "support": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/support_v1.py",
+      "sha256": "29158f316c8a4b982e206a6588ad49702af8f3d0710326bfac190ebdc52285c1"
+    }
+  }
+}
