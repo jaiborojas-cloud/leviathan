@@ -1,0 +1,164 @@
+{
+  "rho": 0.6,
+  "N": 320,
+  "replicates": 400,
+  "LP": {
+    "success": 350,
+    "n": 400,
+    "rate": 0.875,
+    "lower": 0.8389809024860414,
+    "upper": 0.9038848767632363
+  },
+  "WD": {
+    "success": 359,
+    "n": 400,
+    "rate": 0.8975,
+    "lower": 0.8638965789864277,
+    "upper": 0.9235411470178065
+  },
+  "both_MODULA": {
+    "success": 344,
+    "n": 400,
+    "rate": 0.86,
+    "lower": 0.8225607694538968,
+    "upper": 0.8905903786254097
+  },
+  "counts_LP": {
+    "MODULA": 350,
+    "NO_CONCLUYENTE": 50
+  },
+  "counts_WD": {
+    "MODULA": 359,
+    "NO_CONCLUYENTE": 41
+  },
+  "joint_labels": {
+    "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 344,
+    "NO_REPRODUCIDA": 35,
+    "REPRODUCIDA_SOLO_EN_WD": 15,
+    "REPRODUCIDA_SOLO_EN_LP": 6
+  },
+  "used_for_decision": false,
+  "meets_individual_rule": true,
+  "joint_required": false,
+  "frames": [
+    {
+      "N": 320,
+      "rho": 0.6,
+      "frame": 0,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 88,
+        "NO_CONCLUYENTE": 12
+      },
+      "WD": {
+        "MODULA": 89,
+        "NO_CONCLUYENTE": 11
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 85,
+        "NO_REPRODUCIDA": 8,
+        "REPRODUCIDA_SOLO_EN_WD": 4,
+        "REPRODUCIDA_SOLO_EN_LP": 3
+      },
+      "both_MODULA": 85,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 3.3306690738754696e-16,
+      "seconds": 16.111587626000073,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.6_N320_frame0.npz",
+        "bytes": 34897807,
+        "sha256": "c32f91dfca3f645631cc5619b0a392a9f870f3042b73e943c4393ea4803430b1"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.6,
+      "frame": 1,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 91,
+        "NO_CONCLUYENTE": 9
+      },
+      "WD": {
+        "MODULA": 90,
+        "NO_CONCLUYENTE": 10
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 89,
+        "NO_REPRODUCIDA": 8,
+        "REPRODUCIDA_SOLO_EN_WD": 1,
+        "REPRODUCIDA_SOLO_EN_LP": 2
+      },
+      "both_MODULA": 89,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 4.440892098500626e-16,
+      "seconds": 15.890065577000314,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.6_N320_frame1.npz",
+        "bytes": 34891296,
+        "sha256": "deba2b5640a27d337e4051446fa66f5928f1d52a1a0485ffc1a62171f931a160"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.6,
+      "frame": 2,
+      "replicates": 100,
+      "LP": {
+        "NO_CONCLUYENTE": 14,
+        "MODULA": 86
+      },
+      "WD": {
+        "NO_CONCLUYENTE": 9,
+        "MODULA": 91
+      },
+      "joint_labels": {
+        "NO_REPRODUCIDA": 8,
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 85,
+        "REPRODUCIDA_SOLO_EN_WD": 6,
+        "REPRODUCIDA_SOLO_EN_LP": 1
+      },
+      "both_MODULA": 85,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 3.3306690738754696e-16,
+      "seconds": 16.825851161000173,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.6_N320_frame2.npz",
+        "bytes": 34896734,
+        "sha256": "d4e276c5e334bdb5b805422f5917432f5f8281c7d0775112f6a5c5360254e017"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.6,
+      "frame": 3,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 85,
+        "NO_CONCLUYENTE": 15
+      },
+      "WD": {
+        "MODULA": 89,
+        "NO_CONCLUYENTE": 11
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 85,
+        "REPRODUCIDA_SOLO_EN_WD": 4,
+        "NO_REPRODUCIDA": 11
+      },
+      "both_MODULA": 85,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 2.220446049250313e-16,
+      "seconds": 16.8291238339998,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.6_N320_frame3.npz",
+        "bytes": 34894309,
+        "sha256": "0f606b00c4f24c477092fbc64d736b25abebebd63eb977a3d284fe984291c53c"
+      }
+    }
+  ]
+}

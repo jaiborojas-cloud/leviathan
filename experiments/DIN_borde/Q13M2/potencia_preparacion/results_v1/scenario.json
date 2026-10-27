@@ -1,0 +1,100 @@
+{
+  "formula": "max(0,-0.038434071244996953+0.077*c)",
+  "points": [
+    {
+      "level": "A0",
+      "c": 0.864,
+      "raw": 0.02809392875500305,
+      "target": 0.02809392875500305,
+      "truncated": false
+    },
+    {
+      "level": "LP1",
+      "c": 0.688,
+      "raw": 0.014541928755003042,
+      "target": 0.014541928755003042,
+      "truncated": false
+    },
+    {
+      "level": "LP2",
+      "c": 0.61,
+      "raw": 0.008535928755003044,
+      "target": 0.008535928755003044,
+      "truncated": false
+    },
+    {
+      "level": "LP3",
+      "c": 0.56,
+      "raw": 0.004685928755003052,
+      "target": 0.004685928755003052,
+      "truncated": false
+    },
+    {
+      "level": "LP4",
+      "c": 0.5,
+      "raw": 6.592875500304601e-05,
+      "target": 6.592875500304601e-05,
+      "truncated": false
+    },
+    {
+      "level": "LP5",
+      "c": 0.4,
+      "raw": -0.0076340712449969525,
+      "target": 0.0,
+      "truncated": true
+    },
+    {
+      "level": "WD1",
+      "c": 0.69,
+      "raw": 0.014695928755003043,
+      "target": 0.014695928755003043,
+      "truncated": false
+    },
+    {
+      "level": "WD2",
+      "c": 0.61,
+      "raw": 0.008535928755003044,
+      "target": 0.008535928755003044,
+      "truncated": false
+    },
+    {
+      "level": "WD3",
+      "c": 0.56,
+      "raw": 0.004685928755003052,
+      "target": 0.004685928755003052,
+      "truncated": false
+    },
+    {
+      "level": "WD4",
+      "c": 0.5,
+      "raw": 6.592875500304601e-05,
+      "target": 6.592875500304601e-05,
+      "truncated": false
+    },
+    {
+      "level": "WD5",
+      "c": 0.438,
+      "raw": -0.0047080712449969545,
+      "target": 0.0,
+      "truncated": true
+    }
+  ],
+  "effective": {
+    "LP": {
+      "beta_nominal": 0.077,
+      "beta_effective": 0.06495278262015627,
+      "c_range": 0.46399999999999997,
+      "linear_contrast": 0.03013809113575251,
+      "endpoint_D_difference": 0.02809392875500305
+    },
+    "WD": {
+      "beta_nominal": 0.077,
+      "beta_effective": 0.0699508052937943,
+      "c_range": 0.426,
+      "linear_contrast": 0.02979904305515637,
+      "endpoint_D_difference": 0.02809392875500305
+    }
+  },
+  "D_estimates_never_clipped": true,
+  "piecewise_linear_not_globally_linear": true
+}

@@ -1,0 +1,154 @@
+{
+  "rho": 0.0,
+  "N": 320,
+  "replicates": 400,
+  "LP": {
+    "success": 398,
+    "n": 400,
+    "rate": 0.995,
+    "lower": 0.9819550815637568,
+    "upper": 0.9986277470452896
+  },
+  "WD": {
+    "success": 393,
+    "n": 400,
+    "rate": 0.9825,
+    "lower": 0.964322927074442,
+    "upper": 0.991497708892962
+  },
+  "both_MODULA": {
+    "success": 391,
+    "n": 400,
+    "rate": 0.9775,
+    "lower": 0.9577973424412419,
+    "upper": 0.988118416469505
+  },
+  "counts_LP": {
+    "MODULA": 398,
+    "NO_CONCLUYENTE": 2
+  },
+  "counts_WD": {
+    "MODULA": 393,
+    "NO_CONCLUYENTE": 7
+  },
+  "joint_labels": {
+    "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 391,
+    "REPRODUCIDA_SOLO_EN_LP": 7,
+    "REPRODUCIDA_SOLO_EN_WD": 2
+  },
+  "used_for_decision": true,
+  "meets_individual_rule": true,
+  "joint_required": false,
+  "frames": [
+    {
+      "N": 320,
+      "rho": 0.0,
+      "frame": 0,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 99,
+        "NO_CONCLUYENTE": 1
+      },
+      "WD": {
+        "MODULA": 98,
+        "NO_CONCLUYENTE": 2
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 97,
+        "REPRODUCIDA_SOLO_EN_LP": 2,
+        "REPRODUCIDA_SOLO_EN_WD": 1
+      },
+      "both_MODULA": 97,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 3.3306690738754696e-16,
+      "seconds": 16.668795534999845,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0_N320_frame0.npz",
+        "bytes": 34899030,
+        "sha256": "fe100db1fcfc19e85beaea4ffe5aafbd17f4929bb7b39956f097154caa3ce9f6"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.0,
+      "frame": 1,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 100
+      },
+      "WD": {
+        "MODULA": 99,
+        "NO_CONCLUYENTE": 1
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 99,
+        "REPRODUCIDA_SOLO_EN_LP": 1
+      },
+      "both_MODULA": 99,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 3.3306690738754696e-16,
+      "seconds": 16.547580839000148,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0_N320_frame1.npz",
+        "bytes": 34895285,
+        "sha256": "92dbd0a79487119ac507edb5a69e79cc9179fa61d10db9ab07b05e50341ce564"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.0,
+      "frame": 2,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 99,
+        "NO_CONCLUYENTE": 1
+      },
+      "WD": {
+        "MODULA": 100
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 99,
+        "REPRODUCIDA_SOLO_EN_WD": 1
+      },
+      "both_MODULA": 99,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 4.440892098500626e-16,
+      "seconds": 16.6535773100004,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0_N320_frame2.npz",
+        "bytes": 34896499,
+        "sha256": "2fd609fb3d94fcaa11bac7a7bdb8d2e7bd9670cbe61c61597189b9b4ecb65e11"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.0,
+      "frame": 3,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 100
+      },
+      "WD": {
+        "MODULA": 96,
+        "NO_CONCLUYENTE": 4
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 96,
+        "REPRODUCIDA_SOLO_EN_LP": 4
+      },
+      "both_MODULA": 96,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 4.440892098500626e-16,
+      "seconds": 16.778169109999908,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0_N320_frame3.npz",
+        "bytes": 34900446,
+        "sha256": "2d30b6c6f6a678f3db392d156359c5fcf30abe7eaf5928c0544a57f2a548343e"
+      }
+    }
+  ]
+}
