@@ -1,4 +1,4 @@
-"""pruebas_Q13DR.py v2 - regresiones de analisis_Q13DR.py antes de congelar. Fixture: cohorte G3 s=0.8 (C2/fixtures/G3_trajectories.csv)
+"""pruebas_Q13DR.py v3 - regresiones de analisis_Q13DR.py antes de congelar. Fixture: cohorte G3 s=0.8 (C2/fixtures/G3_trajectories.csv)
 copiada en 6 niveles SINTETICOS (c250 y X manipulados). NO es dato confirmatorio. Semillas fijas. Uso: python3 -I pruebas_Q13DR.py --out <dir>"""
 import argparse, copy, csv, hashlib, json, math, subprocess, sys
 from pathlib import Path
@@ -73,8 +73,12 @@ def main():
     for ic, e in [([-0.01, 0.015], "NO_MODULA"), ([-0.03, 0.01], "NO_ESTABLECIDA"), ([-0.01, 0.03], "NO_ESTABLECIDA"), ([0.001, 0.01], "NO_MODULA"), ([-0.02, 0.02], "NO_MODULA")]: puras.append((R.equivalencia(ic), e))
     for p5, ic, e in [(True, [0.001, 0.02], "PERSISTE"), (False, [-0.004, 0.005], "DESAPARECE"), (False, [-0.004, 0.009], "INDETERMINADO"), (True, [-0.001, 0.004], "PERSISTE")]: puras.append((R.clasificar_extremo(p5, ic), e))
     puras += [(R.spearman([1] * 6, C), None), (R.spearman([.05, .04, .04, .02, .01, .0], C), float(np.corrcoef([6, 4.5, 4.5, 3, 2, 1], [6, 5, 4, 3, 2, 1])[0, 1]))]
-    try: R.pendiente([1, 2, 3, 4, 5, 6], [.5] * 6); puras.append(("sin error", "FloatingPointError"))
+    for cv in (.5, .1, .2, .3, .7, 1.0):   # N01: constantes decimales
+        try: R.pendiente([1, 2, 3, 4, 5, 6], [cv] * 6); puras.append((f"sin error c={cv}", "FloatingPointError"))
+        except FloatingPointError: puras.append(("FloatingPointError", "FloatingPointError"))
+    try: R.pendiente([1, 2, 3, 4, 5, float("nan")], C); puras.append(("sin error nan", "FloatingPointError"))
     except FloatingPointError: puras.append(("FloatingPointError", "FloatingPointError"))
+    puras += [(R.rango_c([.3, .35, .4, .45, .5, .6]), .6 - .3), (R.rango_c(C), C[0] - C[-1])]   # N02
     bad = [(o, e) for o, e in puras if not (o == e or (isinstance(o, float) and isinstance(e, float) and abs(o - e) < 1e-12))]
     res["reglas_puras"] = dict(n=len(puras), fallos=[str(x) for x in bad]); fallos += [f"pura:{x}" for x in bad]; print("reglas puras:", len(puras), "fallos", bad, flush=True)
     b1 = base(); b8 = base(8)
@@ -105,7 +109,9 @@ def main():
     # F02: L constante en replicas
     f2 = cohorte(b1); sdist = sorted({int(r["split"]) for r in f2})[0]
     for r in f2: r["rho_caras_10"] = repr(math.e if int(r["split"]) == sdist else 1.0)
-    o = run(f2, 100); esperar("auditoria:F02_L_constante_en_bootstrap", o, "INCONCLUSIVE", extra_ok=any("bootstrap degenerado" in m or "primaria" in m for m in o["motivos"]))
+    o = run(f2, 100); bt = o.get("bootstrap") or {}
+    esperar("auditoria:F02_N05_L_constante_en_bootstrap", o, "INCONCLUSIVE", extra_ok=any("bootstrap degenerado" in m for m in o["motivos"]) and
+            len(bt.get("fallos", [])) == bt.get("replicas_fallidas", -1) > 20)
     # comunes < 80 %
     f3 = cohorte(b1); spl = sorted({int(r["split"]) for r in f3})
     for l in range(6):
@@ -134,6 +140,12 @@ def main():
     esperar("cli:plan_n_bool", cli(out, "nbool", full, 100, plan_mod=dict(n_splits=True)), "ABORTA")
     esperar("cli:plan_n_sobre_tope", cli(out, "n401", full, 100, plan_mod=dict(n_splits=401)), "ABORTA")
     esperar("cli:plan_ilegible", cli(out, "ilegible", full, 100, plan_raw="{no json"), "ABORTA")
+    esperar("cli:plan_eps_entero_enorme_N03", cli(out, "epsbig", full, 100, plan_raw=json.dumps(dict(n_splits=100, ids_sha256="x",
+            niveles=[dict(nivel=l, eps=e) for l, e in enumerate(R.EPS)])).replace('"eps": 0.05', '"eps": ' + "1" + "0" * 400)), "ABORTA")
+    esperar("cli:plan_ausente_N04", cli_rutas(out, "plan_ausente", full, plan="NO_EXISTE.json"), "ABORTA")
+    esperar("cli:plan_directorio_N04", cli_rutas(out, "plan_dir", full, plan="."), "ABORTA")
+    esperar("cli:tabla_ausente_N04", cli_rutas(out, "tabla_ausente", full, tabla="NO_EXISTE.csv"), "ABORTA")
+    esperar("cli:resumen_ausente_N04", cli_rutas(out, "res_ausente", full, resumen="NO_EXISTE.json"), "ABORTA")
     esperar("cli:plan_otros_ids", cli(out, "plan", full, 100, plan_mod=dict(ids_sha256="0" * 64)), "INCONCLUSIVE")
     esperar("cli:resumen_otra_tabla", cli(out, "resu", full, 100, res_mod=dict(tabla_sha256="0" * 64)), "INCONCLUSIVE")
     xc = copy.deepcopy(full); [r.update(X10="-2") for r in xc if r["nivel"] == "4"]; esperar("cli:L4_X_constante", cli(out, "xc", xc, 100), "INCONCLUSIVE")
@@ -142,6 +154,19 @@ def main():
 
 
 def valida_test(r): return R.valida(r)
+
+
+def cli_rutas(out, nombre, filas, plan=None, tabla=None, resumen=None):
+    """N04: rutas ausentes o directorios en lugar de los archivos."""
+    d = out / nombre; d.mkdir(parents=True, exist_ok=True); t = d / "tabla.csv"
+    with open(t, "w", newline="") as f: w = csv.DictWriter(f, fieldnames=CAMPOS, extrasaction="ignore"); w.writeheader(); w.writerows(filas)
+    pl = dict(n_splits=100, niveles=[dict(nivel=l, eps=e) for l, e in enumerate(R.EPS)], ids_sha256=hashlib.sha256("\n".join(R.universo(100)).encode()).hexdigest())
+    (d / "plan.json").write_text(json.dumps(pl)); (d / "res.json").write_text(json.dumps(dict(tabla_sha256=sha(t), plan_sha256=sha(d / "plan.json"))))
+    P = d / plan if plan else d / "plan.json"; T = d / tabla if tabla else t; Rz = d / resumen if resumen else d / "res.json"
+    p = subprocess.run([sys.executable, "-I", str(H / "analisis_Q13DR.py"), "--tabla", str(T), "--tabla-sha", sha(t), "--plan", str(P), "--plan-sha", sha(d / "plan.json"),
+                        "--resumen", str(Rz), "--out", str(d)], capture_output=True, text=True)
+    aborta = p.returncode == 3 and p.stderr.startswith("ABORTA:") and "Traceback" not in p.stderr
+    return dict(veredicto="ABORTA" if aborta else f"rc={p.returncode}", detalle=(p.stderr or p.stdout)[-300:])
 
 
 def all_ok(filas, s):

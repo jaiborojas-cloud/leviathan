@@ -1,6 +1,6 @@
 {
   "reglas_puras": {
-    "n": 15,
+    "n": 23,
     "fallos": []
   },
   "nucleo:niveles_iguales_N100": {
@@ -20,7 +20,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -52,6 +52,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -94,7 +95,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.023248915927572326,
         0.058857303222449364
@@ -126,6 +127,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -168,7 +170,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.018329439312491595,
         0.047237117103529416
@@ -200,6 +202,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -242,7 +245,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         -0.005451957586763129,
         0.04687294631715199
@@ -274,6 +277,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -426,7 +430,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -458,6 +462,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -522,7 +527,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -554,6 +559,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -625,7 +631,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -657,6 +663,7 @@
         ]
       },
       "rango_c": 0.5001237549218205,
+      "diferencia_c_L0_L5": 0.5001237549218205,
       "margen_dD_equivalencia": 0.01000247509843641
     },
     "D": {
@@ -682,7 +689,7 @@
     ],
     "ok": true
   },
-  "auditoria:F02_L_constante_en_bootstrap": {
+  "auditoria:F02_N05_L_constante_en_bootstrap": {
     "veredicto": "INCONCLUSIVE",
     "equivalencia": null,
     "extremo": null,
@@ -701,7 +708,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 114,
-      "fallos_primeros": [
+      "fallos": [
         {
           "replica": 10,
           "error": "FloatingPointError: L0: L constante en la replica"
@@ -781,6 +788,382 @@
         {
           "replica": 47,
           "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 48,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 50,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 51,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 52,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 55,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 58,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 59,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 63,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 67,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 70,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 79,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 80,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 81,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 83,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 85,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 89,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 90,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 91,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 93,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 94,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 96,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 97,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 99,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 105,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 108,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 110,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 111,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 115,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 119,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 120,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 125,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 126,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 127,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 130,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 131,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 137,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 144,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 145,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 146,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 153,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 154,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 157,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 166,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 169,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 170,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 171,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 175,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 184,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 187,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 188,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 195,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 197,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 199,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 200,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 202,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 204,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 206,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 209,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 217,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 223,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 226,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 227,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 230,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 232,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 235,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 236,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 237,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 243,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 244,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 245,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 246,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 247,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 248,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 249,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 250,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 254,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 255,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 259,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 262,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 263,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 266,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 268,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 271,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 273,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 279,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 281,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 285,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 291,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 292,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 294,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 295,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 296,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 297,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 298,
+          "error": "FloatingPointError: L0: L constante en la replica"
         }
       ]
     },
@@ -848,7 +1231,7 @@
       ],
       "replicas": 300,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         -0.00010441929898213792,
         0.0
@@ -880,6 +1263,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -922,7 +1306,7 @@
       ],
       "replicas": 2000,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -954,6 +1338,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -996,7 +1381,7 @@
       ],
       "replicas": 2000,
       "replicas_fallidas": 0,
-      "fallos_primeros": [],
+      "fallos": [],
       "IC95_beta": [
         -0.002160814878550069,
         0.002378690292965006
@@ -1028,6 +1413,7 @@
         ]
       },
       "rango_c": 0.5,
+      "diferencia_c_L0_L5": 0.5,
       "margen_dD_equivalencia": 0.01
     },
     "D": {
@@ -1179,7 +1565,57 @@
   },
   "cli:plan_ilegible": {
     "veredicto": "ABORTA",
-    "detalle": "ABORTA: plan o resumen ilegible: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n",
+    "detalle": "ABORTA: plan o resumen ilegible: JSONDecodeError\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_eps_entero_enorme_N03": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 5: eps invalido 1000000000000000000000000000000000000000\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_ausente_N04": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: tabla o plan ilegible: FileNotFoundError\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_directorio_N04": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: tabla o plan ilegible: IsADirectoryError\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:tabla_ausente_N04": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: tabla o plan ilegible: FileNotFoundError\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:resumen_ausente_N04": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: plan o resumen ilegible: FileNotFoundError\n",
     "esperado": [
       "ABORTA",
       null,
@@ -1260,7 +1696,7 @@
     "ok": true
   },
   "fallos": [],
-  "analisis_sha256": "afb807aad20830e0402c5fdb8f946f783b2a0835f497855e12364bf1fae356e6",
-  "pruebas_sha256": "7e16fa29737586044feb943d103fd9f5b04cd72420d6e97afaf42b524dba16b9",
+  "analisis_sha256": "cc5524a781b16ac08ef25b86427f8f36bb43c6425d8cf17753c4ae5a9b534b6a",
+  "pruebas_sha256": "03acf7e7729fdd9c0c0f95a73133e8c313bf74ada06be8ad328c244df93815b8",
   "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
 }
