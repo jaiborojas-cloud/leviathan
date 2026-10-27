@@ -9,7 +9,7 @@ Referencia exacta: PR #106, commit `a8da9046cf0b5e4ba64ef24e03999591f899c4e2`. A
 - [Regresión completa F01–F06 y decisiones](MATRIZ_F01_F06.md).
 - [Revisión limitada a los diffs](REVISION_DIFFS.md).
 - [Diseño de verificación, congelado antes del código](DESIGN_FROZEN.md).
-- [Integridad y aserciones](verification.json), [manifest](manifest.csv), [SHA](manifest.sha256).
+- [Integridad y aserciones](verification_r2.json), [manifest](manifest_v2.csv), [SHA](manifest_v2.sha256).
 
 ## Reproducción
 
@@ -23,4 +23,6 @@ python experiments/DIN_borde/Q13DR/auditoria/verificacion_v3/scripts/diffs_v3.py
 
 Estos comandos usan exclusivamente los snapshots y generadores sintéticos archivados. Las escrituras son exclusivas: con los resultados ya presentes se detienen; para una repetición se debe conservar la carpeta original y registrar otra versión con rutas nuevas antes de ejecutar. No se borra esta salida para repetir.
 
-Los CSV de entrada CLI y sus salidas completas se inventarían fuera de Git en [external_manifest.csv](external_manifest.csv); los casos, stderr y resultados relevantes se publican aquí en JSON. No se ejecutó la suite del autor ni se leyó su fixture bajo C2. No hubo Monte Carlo nuevo. [Entorno](environment.json).
+Los CSV de entrada CLI y sus salidas completas se inventarían fuera de Git en [external_manifest.csv](external_manifest_r2.csv); los casos, stderr y resultados relevantes se publican aquí en JSON. No se ejecutó la suite del autor ni se leyó su fixture bajo C2. No hubo Monte Carlo nuevo. [Entorno](environment.json).
+
+El inventario vigente es r2. Se corrigió la inclusión de dos cachés locales ignoradas por Git; el [registro anterior y motivo](ENMIENDA_INVENTARIO_r2_CONGELADA.md) se conserva. Las mediciones científicas no se repitieron ni modificaron. `verification.json` y los manifiestos sin sufijo quedan como históricos del commit51ada0ad.

@@ -12,4 +12,4 @@ En los300 draws del caso original de L constante se conservan116 fallos; en el n
 
 No se repite Monte Carlo porque el cálculo válido no cambió y las comparaciones son exactas. Esta verificación no añade evidencia de tamaño/potencia ni implica una certificación de ausencia de fallos. No se entrenó ni se usaron datos Wine, C2 o Q13 reales; no se ejecutaron las pruebas del autor que acceden a su fixture C2.
 
-Solo se añaden archivos en `auditoria/verificacion_v3/`. Los resultados v1/v2, el diseño y el analista permanecen intactos. Fuentes, hashes, casos y salidas se conservan con [verificación](verification.json) y [manifest](manifest.csv). PR separado en borrador, sin fusionar.
+Solo se añaden archivos en `auditoria/verificacion_v3/`. Los resultados v1/v2, el diseño y el analista permanecen intactos. Fuentes, hashes, casos y salidas se conservan con [verificación](verification_r2.json) y [manifest](manifest_v2.csv). PR separado en borrador, sin fusionar.

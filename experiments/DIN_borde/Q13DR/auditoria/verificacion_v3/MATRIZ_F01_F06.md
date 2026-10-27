@@ -9,7 +9,7 @@ Se reejecutaron los51 contenedores de casos de #105, con los mismos datos sinté
 | F03: plan/dosis/esquema | RESUELTO en la matriz. Rechaza N0, fraccional, bool y401; niveles incorrectos, eps ausente, seis eps0 y clave nivel ausente. También eps enorme y entradas ilegibles. | [CLI original](results/cases/v1_plan_missing_nivel_crash.json), [87 validaciones directas](results/diffs/plans.json) |
 | F04: Spearman con constantes/empates | RESUELTO. Seis D idénticos dan null; cuatro controles coinciden con rangos medios de SciPy. | [D iguales](results/cases/v1_complete_identical_levels.json), [dominio/reglas](results/checks/domain_and_rules.json) |
 | F05: significado del margen | RESUELTO en texto y rango. El límite es .02·rango(c), no un .010 universal; con c común invertida rango=.3 y margen=.006. | [N02](results/cases/new_reversed_common_c_range.json), [borrador aplicable](sources/v3/DISENO_DIN_Q13DR_BORRADOR_v2.md) |
-| F06: confundir ABORTA con crash | RESUELTO. La CLI satisface las tres condiciones estrictas en los casos inválidos; el verificador no acepta la simple aparición de «ABORTA» en un traceback. | [Caso sin nivel](results/cases/v1_plan_missing_nivel_crash.json), [aserciones](verification.json) |
+| F06: confundir ABORTA con crash | RESUELTO. La CLI satisface las tres condiciones estrictas en los casos inválidos; el verificador no acepta la simple aparición de «ABORTA» en un traceback. | [Caso sin nivel](results/cases/v1_plan_missing_nivel_crash.json), [aserciones](verification_r2.json) |
 
 ## Decisiones y ambigüedades anteriores
 
