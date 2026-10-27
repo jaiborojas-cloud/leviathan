@@ -1,4 +1,4 @@
-"""pruebas_Q13M2.py - regresiones de analisis_Q13M2.py antes de congelar. Fixture: G3 s=0.8 (C2/fixtures/G3_trajectories.csv) copiada en
+"""pruebas_Q13M2.py v2 - regresiones de analisis_Q13M2.py antes de congelar. Fixture: G3 s=0.8 (C2/fixtures/G3_trajectories.csv) copiada en
 11 niveles SINTETICOS; referencia LS = tabla real de Q13-DR (ed00364f...), solo para reproducir beta_LS. Semillas fijas.
 Uso: python3 -I pruebas_Q13M2.py --out <dir>"""
 import argparse, copy, csv, hashlib, json, math, subprocess, sys
@@ -79,6 +79,8 @@ def main():
         puras.append((M.conjunto(dict(LP=vv[0], WD=vv[1])), e))
     g = np.random.default_rng(1); a1 = g.normal(.08, .02, 2000); a2 = g.normal(.08, .02, 2000); a3 = g.normal(-.05, .02, 2000)
     puras.append((M.compatibilidad(a1, a2, .08, .08)["lectura"], "SIN_DIFERENCIA_DETECTADA")); puras.append((M.compatibilidad(a3, a2, -.05, .08)["lectura"], "DIFIERE"))
+    try: M.compatibilidad(a1[:10], a2, .08, .08); puras.append(("sin error", "ValueError"))
+    except ValueError: puras.append(("ValueError", "ValueError"))
     plan_ok = dict(n_splits=200, niveles=[dict(nivel=a, brazo=b, dosis=c) for a, b, c in M.NIVELES], ids_sha256="x")
     for mod, e in [({}, "OK"), (dict(n_splits=321), "Aborta"), (dict(n_splits=320), "OK"), (dict(n_splits=True), "Aborta"), (dict(niveles=plan_ok["niveles"][:10]), "Aborta"),
                    (dict(niveles=[dict(x, dosis=(x["dosis"] * 2 if x["nivel"] == "WD3" else x["dosis"])) for x in plan_ok["niveles"]]), "Aborta"),
@@ -91,7 +93,7 @@ def main():
     print("reglas puras:", len(puras), "fallos", bad, flush=True)
     # referencia LS reproduce Q13-DR
     fls = {r["trajectory"]: r for r in csv.DictReader(open(LS))}; ls = M.referencia_ls(fls, 300)
-    okb = ls["beta"] == 0.07692466151365258 and not ls["fallos"]; res["beta_LS_reproduce_Q13DR"] = dict(beta=ls["beta"], ok=okb); print("beta_LS", repr(ls["beta"]), okb, flush=True)
+    okb = abs(ls["beta"] - 0.07692466151365258) <= 1e-12 and not ls["fallos"]   # F04: tolerancia 1e-12; res["beta_LS_reproduce_Q13DR"] = dict(beta=ls["beta"], ok=okb); print("beta_LS", repr(ls["beta"]), okb, flush=True)
     if not okb: fallos.append("beta_LS")
     def run(filas, NN): return resumen(M.analizar(filas, NN, True, "", ls=ls, B=499, NB=300))
     b1 = base(); b8 = base(8)
@@ -114,6 +116,17 @@ def main():
     for r in f:
         if r["nivel"] == "WD4": r["rho_caras_10"] = repr(math.e if int(r["split"]) == s0 else 1.0)
     o = run(f, 100); esperar("WD4_L_degenerado", o, "INCONCLUSIVE_PARCIAL", "NO_CONCLUYENTE", "INCONCLUSIVE", extra=any("WD: bootstrap degenerado" in m for m in o["motivos"]))
+    # auditoria F01: fallo o degeneracion en un nivel exclusivo no borra al otro manipulador; en A0 es global
+    def mod_nivel(nv, campo, valor):
+        f = cohorte(b8, w=dec("LP") if nv.startswith("WD") else dec("WD"))
+        for r in f:
+            if r["nivel"] == nv: r[campo] = valor
+        return f
+    esperar("F01_WD3_Y_constante", run(mod_nivel("WD3", "rho_caras_250", "1.0"), 800), "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE")
+    esperar("F01_LP3_Y_constante", run(mod_nivel("LP3", "rho_caras_250", "1.0"), 800), "INCONCLUSIVE_PARCIAL", "INCONCLUSIVE", "MODULA")
+    esperar("F01_WD3_X_constante", run(mod_nivel("WD3", "X10", "-2"), 800), "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE")
+    esperar("F01_WD3_L_constante", run(mod_nivel("WD3", "rho_caras_10", "0.5"), 800), "INCONCLUSIVE_PARCIAL", "MODULA", "INCONCLUSIVE")
+    esperar("F01_A0_X_constante_global", run(mod_nivel("A0", "X10", "-2"), 800), "INCONCLUSIVE")
     # comunes < 80 %
     f = cohorte(b1); spl = sorted({int(r["split"]) for r in f})
     for i, nv in enumerate(M.NOMBRES):
@@ -127,6 +140,8 @@ def main():
     esperar("cli:dosis_distinta", cli(out, "dosis", full, 100, plan_mod=dict(niveles=[dict(nivel=a, brazo=b, dosis=(c * 1.01 if a == "LP2" else c)) for a, b, c in M.NIVELES])), "ABORTA")
     esperar("cli:n_sobre_tope", cli(out, "n321", full, 100, plan_mod=dict(n_splits=321)), "ABORTA")
     esperar("cli:tabla_LS_otro_sha", cli(out, "lssha", full, 100, ls_sha="0" * 64), "ABORTA")
+    d = out / "colision"; d.mkdir(parents=True, exist_ok=True); (d / "RESULTADO_Q13M2.json").write_text("MARCADOR")
+    o = cli(out, "colision", full, 100); esperar("cli:F02_salida_existente_no_se_sobrescribe", o, "ABORTA", extra=(d / "RESULTADO_Q13M2.json").read_text() == "MARCADOR")
     esperar("cli:resumen_otra_tabla", cli(out, "resu", full, 100, res_mod=dict(tabla_sha256="0" * 64)), "INCONCLUSIVE")
     res["fallos"] = fallos; res["analisis_sha256"] = sha(H / "analisis_Q13M2.py"); res["pruebas_sha256"] = sha(Path(__file__)); res["fixture_sha256"] = sha(FIX); res["ls_sha256"] = sha(LS)
     (out / "pruebas_Q13M2.json").write_text(json.dumps(M.DR.limpio(res), indent=2, ensure_ascii=False, allow_nan=False)); print("FALLOS:", fallos)

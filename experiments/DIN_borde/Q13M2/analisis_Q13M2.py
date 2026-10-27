@@ -1,4 +1,4 @@
-"""analisis_Q13M2.py - analisis UNICO de DIN-Q13-M2 (segundo y tercer manipulador del colapso: LP y WD, A0 compartido, 11 niveles).
+"""analisis_Q13M2.py v2 - analisis UNICO de DIN-Q13-M2 (segundo y tercer manipulador del colapso: LP y WD, A0 compartido, 11 niveles).
 Reutiliza SIN CAMBIOS, con SHA verificado: C1/analisis_C1_v2.py (primaria), Q13/analisis_Q13.py (D_punto, bloques) y
 Q13DR/analisis_Q13DR.py v3 (valida, pendiente, rango_c, clasificar_extremo, equivalencia, spearman, limpio, Aborta).
 
@@ -8,7 +8,9 @@ PLAN (estricto; si no ABORTA codigo 3): n_splits entero (no bool) en 1..320 (top
 {nivel, brazo, dosis} = A0/0, LP1..LP5 = 1e-4, 3.52e-4, 7.48e-4, 1.85e-3, 7.22e-3, WD1..WD5 = 0.709, 1.56, 2.19, 2.94, 4; ids_sha256.
 Universo: q13m2_{nivel}_s{split:04d}_k{k}. Duplicados/ajenos: ABORTA. Dominio de fila: el de Q13DR v3 (valida).
 INCONCLUSIVE (global) si en cualquier nivel faltantes > 5 % de 5N o splits con >= 3 validas < 80 % de N; comunes (>= 3 validas en los
-11 niveles) < 80 % de N; X o L sin variacion en algun nivel; plan/resumen no vinculados.
+11 niveles) < 80 % de N; plan/resumen no vinculados. v2 (auditoria PR #117, F01): X o L sin variacion, o un fallo de la primaria, en un
+nivel EXCLUSIVO de m deja INCONCLUSIVE solo a m (el otro se evalua; veredicto conjunto INCONCLUSIVE_PARCIAL); en A0 es global.
+Salida (F02): RESULTADO_Q13M2.json se crea en exclusiva; si ya existe: ABORTA (no se sobrescribe).
 Por manipulador m en {LP, WD}, niveles (A0, m1..m5):
  1) COMPUERTA: A0 c >= 0.8 y q <= 0.05 (si falla: INCONCLUSIVE_MANIPULACION en ambos); por m: c estrictamente decreciente A0 > m1 > ... > m5,
     rango (c_A0 - c_m5) >= 0.30, |acc_mj - acc_A0| < 0.05 en m1-m3, acc_A0 - acc_mj <= 0.10 en m4-m5 (si falla: INCONCLUSIVE_MANIPULACION en m).
@@ -134,10 +136,12 @@ def analizar(filas, n, gate_ok, gate_nota, ls=None, B=5000, NB=2000):
     if len(comunes) < math.ceil(0.8 * n): inc.append(f"splits comunes {len(comunes)} < 80 % de {n}")
     sid = lambda r: int(r["trajectory"].split("_")[2][1:])
     arr = {nv: arreglos(val, comunes, nv, sid) for nv in NOMBRES}
+    malo = {}
     for nv in NOMBRES:
         a = arr[nv]
-        if len(a["sp"]) and np.allclose(A.cen(a["X"], a["sp"]), 0, atol=1e-8): inc.append(f"{nv}: X sin variacion intra-split")
-        if len(a["sp"]) and np.ptp(a["L"]) == 0: inc.append(f"{nv}: L sin variacion")
+        if len(a["sp"]) and np.allclose(A.cen(a["X"], a["sp"]), 0, atol=1e-8): malo.setdefault(nv, []).append("X sin variacion intra-split")
+        if len(a["sp"]) and np.ptp(a["L"]) == 0: malo.setdefault(nv, []).append("L sin variacion")
+    if "A0" in malo: inc += [f"A0: {x}" for x in malo["A0"]]
     med = lambda nv, c: float(np.median([float(r[c]) for s in val[nv] for r in val[nv][s]])) if val[nv] else None
     manip = {nv: dict(mediana_c250=med(nv, "c250"), mediana_q250=med(nv, "q250"), mediana_acc_panel250=med(nv, "acc_panel250")) for nv in NOMBRES}
     out = dict(manipulacion=manip, splits_planificados=n, splits_comunes=len(comunes), faltantes=falt, motivos_inconclusive=inc,
@@ -150,14 +154,23 @@ def analizar(filas, n, gate_ok, gate_nota, ls=None, B=5000, NB=2000):
         cs = [manip[nv]["mediana_c250"] for nv in nvs]; ac = [manip[nv]["mediana_acc_panel250"] for nv in nvs]
         ok = all(cs[i] > cs[i + 1] for i in range(5)) and cs[0] - cs[-1] >= 0.30 and all(abs(ac[j] - ac[0]) < 0.05 for j in (1, 2, 3)) and all(ac[0] - ac[j] <= 0.10 for j in (4, 5))
         estado[m] = None if ok else "INCONCLUSIVE_MANIPULACION"
+    for m in MANIP:
+        for nv in MANIP[m][1:]:
+            if nv in malo and estado[m] is None:
+                estado[m] = "INCONCLUSIVE"; out["motivos_inconclusive"].append(f"{m}: {nv}: {', '.join(malo[nv])}")
     activos = [m for m in MANIP if estado[m] is None]
     usar = sorted({nv for m in activos for nv in MANIP[m]}, key=NOMBRES.index) or ["A0"]
-    try:
-        for nv in usar:
+    for nv in usar:
+        try:
             a = arr[nv]; p = A.primaria(a["sp"], a["X"], a["L"], a["Y"], 3, 260001, B); p["pass"] = bool(p["p"] < 0.05 and p["D"] > 0 and p["pendiente_X"] > 0)
             out["primaria"][nv] = p
-    except Exception as e:
-        out["motivos_inconclusive"].append(f"primaria no definida: {type(e).__name__}: {e}"); out["veredicto_conjunto"] = "INCONCLUSIVE"; return out
+        except Exception as e:
+            msg = f"{nv}: primaria no definida: {type(e).__name__}: {e}"
+            if nv == "A0":
+                out["motivos_inconclusive"].append(msg); out["veredicto_conjunto"] = "INCONCLUSIVE"; return out
+            for m in MANIP:
+                if nv in MANIP[m] and estado[m] is None: estado[m] = "INCONCLUSIVE"; out["motivos_inconclusive"].append(f"{m}: {msg}")
+    activos = [m for m in activos if estado[m] is None]
     if not out["primaria"]["A0"]["pass"]:
         out["veredicto_conjunto"] = "INCONCLUSIVE_SIN_SENAL_CONTROL"; out["por_manipulador"] = {m: dict(veredicto="INCONCLUSIVE_SIN_SENAL_CONTROL") for m in MANIP}; return out
     beta = {}
@@ -192,7 +205,9 @@ def analizar(filas, n, gate_ok, gate_nota, ls=None, B=5000, NB=2000):
         out["por_manipulador"][m] = r
     ok = [m for m in MANIP if out["por_manipulador"][m].get("veredicto") in ("MODULA", "NO_CONCLUYENTE")]
     # secundarios
-    if ls is not None:
+    if ls is not None and ls.get("error"):
+        out["secundarios"]["compatibilidad_LS"] = dict(nota=f"referencia LS no definida: {ls['error']}")
+    elif ls is not None:
         lsb = ls["replicas"]; sec = dict(beta_LS=ls["beta"], IC95_beta_LS=None, replicas_LS_fallidas=len(ls["fallos"]), fallos_LS=ls["fallos"])
         if not ls["fallos"]:
             sec["IC95_beta_LS"] = q(lsb, Q_SEC)
@@ -213,7 +228,9 @@ def conjunto(v):
 
 
 def compatibilidad(bm_b, bls_b, beta_m, beta_ls):
-    ic = q(np.asarray(bm_b) - np.asarray(bls_b), Q_SEC)
+    bm_b, bls_b = np.asarray(bm_b), np.asarray(bls_b)
+    if bm_b.shape != bls_b.shape: raise ValueError("replicas M2 y LS de distinto tamano")
+    ic = q(bm_b - bls_b, Q_SEC)
     return dict(dbeta=beta_m - beta_ls, IC95_dbeta=ic, lectura="SIN_DIFERENCIA_DETECTADA" if ic[0] <= 0 <= ic[1] else "DIFIERE")
 
 
@@ -236,14 +253,22 @@ def main():
             with open(a.tabla, encoding="utf-8", newline="") as fh: filas = list(csv.DictReader(fh))
             with open(a.tabla_ls, encoding="utf-8", newline="") as fh: fls = {r["trajectory"]: r for r in csv.DictReader(fh)}
         except (OSError, UnicodeDecodeError, csv.Error, KeyError) as e: raise Aborta(f"tabla ilegible: {type(e).__name__}")
-        ls = referencia_ls(fls, 2000)
+        o = Path(a.out)
+        if (o / "RESULTADO_Q13M2.json").exists(): raise Aborta("la salida ya existe; no se sobrescribe")
+        try: ls = referencia_ls(fls, 2000)
+        except Exception as e: ls = dict(error=f"{type(e).__name__}: {e}")
         res = analizar(filas, n, gate_ok, "plan/resumen no vinculados", ls=ls)
     except Aborta as e:
         print(f"ABORTA: {e}", file=sys.stderr); sys.exit(3)
     res.update(modo="CONFIRMATORIO_Q13M2", niveles=plan["niveles"], tabla_sha256=a.tabla_sha, plan_sha256=a.plan_sha, tabla_ls_sha256=sl, script_sha256=sha(Path(__file__)),
                alcance="modulacion de la senal temprana por el colapso con dos intervenciones de entrenamiento adicionales (LP, WD) en la familia gaussiana s=0.8; no identifica al colapso como causa")
     texto = json.dumps(DR.limpio(res), indent=2, ensure_ascii=False, allow_nan=False)
-    o = Path(a.out); o.mkdir(parents=True, exist_ok=True); (o / "RESULTADO_Q13M2.json").write_text(texto); print(texto)
+    o.mkdir(parents=True, exist_ok=True)
+    try:
+        with open(o / "RESULTADO_Q13M2.json", "x", encoding="utf-8") as fh: fh.write(texto)
+    except FileExistsError:
+        print("ABORTA: la salida ya existe; no se sobrescribe", file=sys.stderr); sys.exit(3)
+    print(texto)
 
 
 if __name__ == "__main__":
