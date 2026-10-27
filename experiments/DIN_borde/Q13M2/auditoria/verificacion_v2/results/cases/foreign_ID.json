@@ -1,0 +1,8 @@
+{
+  "case": "foreign_ID",
+  "status": "EXCEPTION",
+  "exception": "Aborta",
+  "message": "1 IDs fuera del universo",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/cases_v1.py\", line 125, in main\n    try:r=dict(case=name,status='RETURNED',result=fn())\n                                                  ^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/cases_v1.py\", line 116, in <lambda>\n    cases.extend([('duplicate_ID',lambda:execute(m,base+[base[0]],20)),('foreign_ID',lambda:execute(m,base+[dict(base[0],trajectory='outside')],20))])\n                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/support.py\", line 71, in execute\n    return m.analizar(rows,n,True,'',**args)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/sources/v2/Q13M2/analisis_Q13M2.py\", line 125, in analizar\n    if extra: raise Aborta(f\"{len(extra)} IDs fuera del universo\")\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nanalisis_Q13DR.Aborta: 1 IDs fuera del universo\n",
+  "warnings": []
+}

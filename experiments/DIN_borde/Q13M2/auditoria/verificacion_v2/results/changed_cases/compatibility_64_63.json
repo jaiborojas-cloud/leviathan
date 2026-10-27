@@ -1,0 +1,7 @@
+{
+  "case": "compatibility_64_63",
+  "status": "EXCEPTION",
+  "exception": "ValueError",
+  "message": "replicas M2 y LS de distinto tamano",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/changed_cases_v1.py\", line 13, in run\n    try:r=dict(case=name,status='RETURNED',result=fn())\n                                                  ^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/scripts/changed_cases_v1.py\", line 41, in <lambda>\n    run(f'compatibility_{a}_{b}',lambda a=a,b=b:m.compatibilidad(np.linspace(.01,.1,a),np.linspace(.02,.09,b),.05,.06))\n                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13M2/auditoria/verificacion_v2/sources/v2/Q13M2/analisis_Q13M2.py\", line 232, in compatibilidad\n    if bm_b.shape != bls_b.shape: raise ValueError(\"replicas M2 y LS de distinto tamano\")\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: replicas M2 y LS de distinto tamano\n"
+}

@@ -1,0 +1,1265 @@
+{
+  "case": "A0_bootstrap_degenerate",
+  "status": "RETURNED",
+  "result": {
+    "target_result": {
+      "manipulacion": {
+        "A0": {
+          "mediana_c250": 0.864,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "LP1": {
+          "mediana_c250": 0.69,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "LP2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "LP3": {
+          "mediana_c250": 0.56,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "LP4": {
+          "mediana_c250": 0.5,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "LP5": {
+          "mediana_c250": 0.4,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "WD1": {
+          "mediana_c250": 0.69,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "WD2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "WD3": {
+          "mediana_c250": 0.56,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "WD4": {
+          "mediana_c250": 0.5,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "WD5": {
+          "mediana_c250": 0.44,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 320,
+      "splits_comunes": 320,
+      "faltantes": {
+        "A0": 0,
+        "LP1": 0,
+        "LP2": 0,
+        "LP3": 0,
+        "LP4": 0,
+        "LP5": 0,
+        "WD1": 0,
+        "WD2": 0,
+        "WD3": 0,
+        "WD4": 0,
+        "WD5": 0
+      },
+      "motivos_inconclusive": [
+        "LP: bootstrap degenerado (94 de 300)",
+        "WD: bootstrap degenerado (94 de 300)"
+      ],
+      "primaria": {
+        "A0": {
+          "D": 0.5050760728535966,
+          "p": 0.025,
+          "D_nulo_q95": 0.0011146609462682872,
+          "pendiente_X": 0.8164563799177127,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "LP1": {
+          "D": 0.939762467043633,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029200914432780957,
+          "pendiente_X": 0.606437997499523,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "LP2": {
+          "D": 0.8873936253031209,
+          "p": 0.025,
+          "D_nulo_q95": 0.0018407657873099731,
+          "pendiente_X": 0.4480038511483803,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "LP3": {
+          "D": 0.7128162768011619,
+          "p": 0.025,
+          "D_nulo_q95": 0.0026650773820750214,
+          "pendiente_X": 0.2538292375265801,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "LP4": {
+          "D": 0.27194340970078856,
+          "p": 0.025,
+          "D_nulo_q95": 0.0012102596317807527,
+          "pendiente_X": 0.09319731986272313,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "LP5": {
+          "D": 0.0001722805070907274,
+          "p": 0.3,
+          "D_nulo_q95": 0.0034780039696296733,
+          "pendiente_X": -0.00464999109102949,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": false
+        },
+        "WD1": {
+          "D": 0.9392060091643136,
+          "p": 0.025,
+          "D_nulo_q95": 0.0022730316514499313,
+          "pendiente_X": 0.6024645718042245,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "WD2": {
+          "D": 0.8954050397608078,
+          "p": 0.025,
+          "D_nulo_q95": 0.0018541064667557242,
+          "pendiente_X": 0.4537087648271579,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "WD3": {
+          "D": 0.7121552756665704,
+          "p": 0.025,
+          "D_nulo_q95": 0.002018301373050635,
+          "pendiente_X": 0.24979934908989568,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "WD4": {
+          "D": 0.2949374070634663,
+          "p": 0.025,
+          "D_nulo_q95": 0.0019070410205589104,
+          "pendiente_X": 0.10094847731055098,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "WD5": {
+          "D": 0.00012115145613822431,
+          "p": 0.125,
+          "D_nulo_q95": 0.0005257941397175067,
+          "pendiente_X": 0.006231478553293225,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": false
+        }
+      },
+      "por_manipulador": {
+        "LP": {
+          "beta": 1.21933954287424,
+          "c_comunes": [
+            0.864,
+            0.69,
+            0.61,
+            0.56,
+            0.5,
+            0.4
+          ],
+          "rango_c": 0.46399999999999997,
+          "replicas_fallidas": 94,
+          "fallos": [
+            {
+              "replica": 0,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 7,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 9,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 13,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 15,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 24,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 25,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 31,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 34,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 35,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 45,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 46,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 51,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 56,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 57,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 63,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 64,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 66,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 72,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 77,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 82,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 86,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 91,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 93,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 94,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 95,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 102,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 103,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 104,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 105,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 107,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 109,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 112,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 118,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 121,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 124,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 129,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 131,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 132,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 139,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 140,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 141,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 143,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 146,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 149,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 151,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 158,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 160,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 163,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 164,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 165,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 172,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 183,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 186,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 188,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 189,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 190,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 192,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 193,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 199,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 207,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 208,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 209,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 211,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 213,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 219,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 222,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 224,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 226,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 229,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 246,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 252,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 254,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 255,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 257,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 259,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 263,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 265,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 268,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 269,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 270,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 275,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 276,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 278,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 279,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 280,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 281,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 285,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 286,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 287,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 289,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 290,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 294,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 299,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            }
+          ],
+          "veredicto": "INCONCLUSIVE"
+        },
+        "WD": {
+          "beta": 1.1635275168348271,
+          "c_comunes": [
+            0.864,
+            0.69,
+            0.61,
+            0.56,
+            0.5,
+            0.44
+          ],
+          "rango_c": 0.424,
+          "replicas_fallidas": 94,
+          "fallos": [
+            {
+              "replica": 0,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 7,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 9,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 13,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 15,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 24,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 25,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 31,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 34,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 35,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 45,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 46,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 51,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 56,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 57,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 63,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 64,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 66,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 72,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 77,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 82,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 86,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 91,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 93,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 94,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 95,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 102,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 103,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 104,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 105,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 107,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 109,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 112,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 118,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 121,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 124,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 129,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 131,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 132,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 139,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 140,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 141,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 143,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 146,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 149,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 151,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 158,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 160,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 163,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 164,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 165,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 172,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 183,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 186,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 188,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 189,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 190,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 192,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 193,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 199,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 207,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 208,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 209,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 211,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 213,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 219,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 222,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 224,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 226,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 229,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 246,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 252,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 254,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 255,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 257,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 259,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 263,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 265,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 268,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 269,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 270,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 275,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 276,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 278,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 279,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 280,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 281,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 285,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 286,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 287,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 289,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 290,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 294,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            },
+            {
+              "replica": 299,
+              "error": "FloatingPointError: A0: L constante en la replica"
+            }
+          ],
+          "veredicto": "INCONCLUSIVE"
+        }
+      },
+      "secundarios": {},
+      "veredicto_conjunto": "INCONCLUSIVE_PARCIAL"
+    },
+    "draw_count": 300,
+    "expected_failed_indices": [
+      0,
+      7,
+      9,
+      13,
+      15,
+      24,
+      25,
+      31,
+      34,
+      35,
+      45,
+      46,
+      51,
+      56,
+      57,
+      63,
+      64,
+      66,
+      72,
+      77,
+      82,
+      86,
+      91,
+      93,
+      94,
+      95,
+      102,
+      103,
+      104,
+      105,
+      107,
+      109,
+      112,
+      118,
+      121,
+      124,
+      129,
+      131,
+      132,
+      139,
+      140,
+      141,
+      143,
+      146,
+      149,
+      151,
+      158,
+      160,
+      163,
+      164,
+      165,
+      172,
+      183,
+      186,
+      188,
+      189,
+      190,
+      192,
+      193,
+      199,
+      207,
+      208,
+      209,
+      211,
+      213,
+      219,
+      222,
+      224,
+      226,
+      229,
+      246,
+      252,
+      254,
+      255,
+      257,
+      259,
+      263,
+      265,
+      268,
+      269,
+      270,
+      275,
+      276,
+      278,
+      279,
+      280,
+      281,
+      285,
+      286,
+      287,
+      289,
+      290,
+      294,
+      299
+    ],
+    "saved": {
+      "LP": [
+        0,
+        7,
+        9,
+        13,
+        15,
+        24,
+        25,
+        31,
+        34,
+        35,
+        45,
+        46,
+        51,
+        56,
+        57,
+        63,
+        64,
+        66,
+        72,
+        77,
+        82,
+        86,
+        91,
+        93,
+        94,
+        95,
+        102,
+        103,
+        104,
+        105,
+        107,
+        109,
+        112,
+        118,
+        121,
+        124,
+        129,
+        131,
+        132,
+        139,
+        140,
+        141,
+        143,
+        146,
+        149,
+        151,
+        158,
+        160,
+        163,
+        164,
+        165,
+        172,
+        183,
+        186,
+        188,
+        189,
+        190,
+        192,
+        193,
+        199,
+        207,
+        208,
+        209,
+        211,
+        213,
+        219,
+        222,
+        224,
+        226,
+        229,
+        246,
+        252,
+        254,
+        255,
+        257,
+        259,
+        263,
+        265,
+        268,
+        269,
+        270,
+        275,
+        276,
+        278,
+        279,
+        280,
+        281,
+        285,
+        286,
+        287,
+        289,
+        290,
+        294,
+        299
+      ],
+      "WD": [
+        0,
+        7,
+        9,
+        13,
+        15,
+        24,
+        25,
+        31,
+        34,
+        35,
+        45,
+        46,
+        51,
+        56,
+        57,
+        63,
+        64,
+        66,
+        72,
+        77,
+        82,
+        86,
+        91,
+        93,
+        94,
+        95,
+        102,
+        103,
+        104,
+        105,
+        107,
+        109,
+        112,
+        118,
+        121,
+        124,
+        129,
+        131,
+        132,
+        139,
+        140,
+        141,
+        143,
+        146,
+        149,
+        151,
+        158,
+        160,
+        163,
+        164,
+        165,
+        172,
+        183,
+        186,
+        188,
+        189,
+        190,
+        192,
+        193,
+        199,
+        207,
+        208,
+        209,
+        211,
+        213,
+        219,
+        222,
+        224,
+        226,
+        229,
+        246,
+        252,
+        254,
+        255,
+        257,
+        259,
+        263,
+        265,
+        268,
+        269,
+        270,
+        275,
+        276,
+        278,
+        279,
+        280,
+        281,
+        285,
+        286,
+        287,
+        289,
+        290,
+        294,
+        299
+      ]
+    }
+  },
+  "warnings": []
+}
