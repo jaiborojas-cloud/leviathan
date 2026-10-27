@@ -50,12 +50,16 @@ La geometría de Fisher describe el modelo estadístico; la familia de funcional
 | ¿Es fiable la medida de distancia al borde? (DIN-I2, R1) | instrumento validado | v1 medía solo rayos a vértices; v2 cubre todas las caras; la reevaluación de 7800 estados de Wine no cambia ningún veredicto | [I2](experiments/DIN_borde/I2/CONCLUSION.md) · [R1](experiments/DIN_borde/R1/RESULTADO_R1_etapa2_2026-10-25.md) |
 | ¿Se replica en otra familia? (DIN-C2, confirmatorio, mezclas gaussianas en régimen de colapso, cohorte nueva de 1000 trayectorias) | **PASS** | D = 0.0295, p = 1/5001, pendiente +1.72; compuerta de régimen cumplida. Con DIN-C1, confirmado en dos familias; no establece que el colapso sea necesario ni transferencia a otras redes | [cierre DIN-C2](experiments/DIN_borde/CIERRE_DIN_C2_v1_CONGELADO.md) |
 
+| ¿La geometría del colapso predice la generalización? (DIN-D9, exploratorio, Wine) | **ninguno pasa** | 11 candidatos geométricos (u10–30) sin incremento sobre pérdida/confianza baratas para la pérdida en test u250 (máx. D = 0.005); solo ≈ 10 % de su varianza es intra-split | [D9](experiments/DIN_borde/RESULTADO_D9_2026-10-26.md) |
+| ¿El colapso es **necesario** para la señal temprana? (DIN-Q13, manipulación pareada, 12 000 trayectorias) | **INCONCLUSIVE_MANIPULACION**; análisis de un manipulador **NO_CONCLUYENTE** | WD no bajó el colapso lo suficiente (c250 = 0.74 > 0.70). Con *label smoothing* (c250 0.86 → 0.60), la señal cae ≈ 79 % pero **sobrevive**: D 0.039 → 0.0083 (p = 0.0002). No apoya necesidad estricta; compatible con que el colapso la amplifique | [Q13 v2](experiments/DIN_borde/Q13/resultado/RESULTADO_Q13_2026-10-26.md) · [Q13-LS](experiments/DIN_borde/Q13/q13_ls/RESULTADO_Q13_LS_2026-10-26.md) |
+
 Tabla completa, con todas las etapas y su estado oficial: [catálogo de experimentos](docs/CATALOGO_EXPERIMENTOS.md).
 
 **Lo que no se ha establecido:** una ley universal del signo de la curvatura, un predictor universal de la generalización o una explicación causal. Los hallazgos de DIN-borde son exploratorios: salen de datos ya usados y solo un confirmatorio con cohorte nueva puede sostenerlos. Todo lo de entrenamiento real es de **una familia** (MLP en Wine, panel de 27 ejemplos); no se afirma que se transfiera a otras redes o datos.
 
 ## En curso
-- **D9:** ¿el colapso de M (cuándo y cuánto) predice la **generalización** (pérdida en test) más allá de la pérdida y la confianza baratas? Es exploratorio, con los datos de descubrimiento de Wine. Si no sale, se mide Q13 (¿el colapso es necesario?).
+- **Q13 reformulada:** ¿el colapso *modula* la intensidad de la señal temprana (relación graduada) en lugar de ser necesario? Pendiente de diseño (varias dosis y control de la varianza del desenlace).
+- **Q14:** ¿la distancia al borde dice algo en modelos que razonan en latente o cuantizan conceptos? Analogía sin resultado.
 - **E16:** cotas y caminos al borde en familias sintéticas.
 
 ## Teoría matemática
