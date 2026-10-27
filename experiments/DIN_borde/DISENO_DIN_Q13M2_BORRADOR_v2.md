@@ -10,7 +10,7 @@
   - X o L sin variación, o un fallo de la primaria (por ejemplo SSE_base = 0), en un nivel **exclusivo** de un manipulador deja INCONCLUSIVE **solo a ese manipulador**. El otro se evalúa normalmente y el veredicto conjunto es INCONCLUSIVE_PARCIAL.
   - Si el problema está en **A0**, compartido, el resultado es INCONCLUSIVE global.
   - Las restricciones globales de faltantes y de splits comunes **no cambian**.
-  - La v1 hacía global cualquier X/L constante; la v2 lo localiza, de acuerdo con la independencia que pide el §4.
+  - La v1 hacía global cualquier X/L constante; la v2 lo localiza, de acuerdo con la independencia que pide el §4. **Aprobado por el responsable a las 10:48** («si localizalo»).
 - **F02, la salida no se sobrescribe:** `RESULTADO_Q13M2.json` se crea en exclusiva. Si ya existe, el resultado es ABORTA.
 - **F03, evidencia vinculada a los archivos finales:** las pruebas se ejecutan contra los SHA finales y se publican en un informe nuevo. El anterior se conserva.
 - **F04, reproducción de β_LS:** se exige |β_LS − 0.07692466151365258| ≤ 1e-12 y no igualdad literal. La auditoría obtuvo 0.07692466151365296, una diferencia de 3.7e-16, en otro entorno. **No cambia ningún umbral científico.**
