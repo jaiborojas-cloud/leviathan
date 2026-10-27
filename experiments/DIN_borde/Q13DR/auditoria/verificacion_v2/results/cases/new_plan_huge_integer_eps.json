@@ -1,0 +1,13 @@
+{
+  "case": "new_plan_huge_integer_eps",
+  "status": "RETURNED",
+  "result": {
+    "returncode": 1,
+    "status": "CRASH",
+    "result": null,
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/verificacion_v2/sources/v2/Q13DR/analisis_Q13DR.py\", line 242, in <module>\n    main()\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/verificacion_v2/sources/v2/Q13DR/analisis_Q13DR.py\", line 229, in main\n    n = validar_plan(plan)\n        ^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/verificacion_v2/sources/v2/Q13DR/analisis_Q13DR.py\", line 69, in validar_plan\n    if isinstance(e, bool) or not isinstance(e, numbers.Real) or not math.isfinite(float(e)) or float(e) != EPS[i]: raise Aborta(f\"nivel {i}: eps invalido {e!r}\")\n                                                                                   ^^^^^^^^\nOverflowError: int too large to convert to float\n",
+    "strict_JSON_no_NaN": false,
+    "fixture_dir": "/workspace/work/din-q13dr-verificacion-v2-arrays/cases/new_huge_eps"
+  },
+  "warnings": []
+}

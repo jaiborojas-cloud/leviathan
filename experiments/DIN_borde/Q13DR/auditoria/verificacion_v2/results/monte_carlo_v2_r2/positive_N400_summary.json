@@ -1,0 +1,147 @@
+{
+  "cell": {
+    "name": "positive_N400",
+    "N": 400,
+    "beta": 0.03,
+    "D_center": 0.02,
+    "reps": 200,
+    "seed_index_v1": 3
+  },
+  "replicates": 200,
+  "control_PASS": 200,
+  "rates": {
+    "MODULA": {
+      "all": {
+        "k": 74,
+        "n": 200,
+        "rate": 0.37,
+        "lower": 0.30612608409859116,
+        "upper": 0.4387737007594981
+      },
+      "conditional_control": {
+        "k": 74,
+        "n": 200,
+        "rate": 0.37,
+        "lower": 0.30612608409859116,
+        "upper": 0.4387737007594981
+      }
+    },
+    "NO_CONCLUYENTE": {
+      "all": {
+        "k": 126,
+        "n": 200,
+        "rate": 0.63,
+        "lower": 0.5612262992405018,
+        "upper": 0.6938739159014088
+      },
+      "conditional_control": {
+        "k": 126,
+        "n": 200,
+        "rate": 0.63,
+        "lower": 0.5612262992405018,
+        "upper": 0.6938739159014088
+      }
+    },
+    "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      }
+    }
+  },
+  "secondary_rates": {
+    "NO_MODULA": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      }
+    },
+    "NO_ESTABLECIDA": {
+      "all": {
+        "k": 200,
+        "n": 200,
+        "rate": 1.0,
+        "lower": 0.9811546736227335,
+        "upper": 1.0
+      },
+      "conditional_control": {
+        "k": 200,
+        "n": 200,
+        "rate": 1.0,
+        "lower": 0.9811546736227335,
+        "upper": 1.0
+      }
+    }
+  },
+  "extreme_rates": {
+    "PERSISTE": {
+      "all": {
+        "k": 199,
+        "n": 200,
+        "rate": 0.995,
+        "lower": 0.9722262956021069,
+        "upper": 0.9991168312843989
+      },
+      "conditional_control": {
+        "k": 199,
+        "n": 200,
+        "rate": 0.995,
+        "lower": 0.9722262956021069,
+        "upper": 0.9991168312843989
+      }
+    },
+    "DESAPARECE": {
+      "all": {
+        "k": 1,
+        "n": 200,
+        "rate": 0.005,
+        "lower": 0.0008831687156009814,
+        "upper": 0.02777370439789293
+      },
+      "conditional_control": {
+        "k": 1,
+        "n": 200,
+        "rate": 0.005,
+        "lower": 0.0008831687156009814,
+        "upper": 0.02777370439789293
+      }
+    },
+    "INDETERMINADO": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      }
+    }
+  },
+  "all_data_and_math_identical_v1": true
+}

@@ -1,0 +1,331 @@
+{
+  "case": "new_degenerate_logging_300",
+  "status": "RETURNED",
+  "result": {
+    "target_result": {
+      "manipulacion": {
+        "L0": {
+          "mediana_c250": 0.86,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L1": {
+          "mediana_c250": 0.7,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L3": {
+          "mediana_c250": 0.54,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L4": {
+          "mediana_c250": 0.42,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L5": {
+          "mediana_c250": 0.36,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 200,
+      "splits_comunes": 200,
+      "faltantes": {
+        "L0": 0,
+        "L1": 0,
+        "L2": 0,
+        "L3": 0,
+        "L4": 0,
+        "L5": 0
+      },
+      "motivos_inconclusive": [
+        "bootstrap degenerado: 116 de 300 replicas (indices [5, 6, 8, 11, 14, 16, 22, 23, 24, 25])"
+      ],
+      "primaria": {
+        "L0": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L1": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L2": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L3": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L4": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L5": {
+          "D": 1.0,
+          "p": 0.025,
+          "D_nulo_q95": 0.0029310798117795035,
+          "pendiente_X": 2.0000000000000004,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        }
+      },
+      "bootstrap": {
+        "beta": 0.0,
+        "c_comunes": [
+          0.86,
+          0.7,
+          0.61,
+          0.54,
+          0.42,
+          0.36
+        ],
+        "replicas": 300,
+        "replicas_fallidas": 116,
+        "fallos_primeros": [
+          {
+            "replica": 5,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 6,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 8,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 11,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 14,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 16,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 22,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 23,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 24,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 25,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 29,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 33,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 34,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 39,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 40,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 41,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 42,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 44,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 45,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          },
+          {
+            "replica": 47,
+            "error": "FloatingPointError: L0: L constante en la replica"
+          }
+        ]
+      },
+      "secundarios": {},
+      "manipulacion_ok": true,
+      "veredicto": "INCONCLUSIVE"
+    },
+    "draw_calls": 300,
+    "expected_draws": 300,
+    "no_redraw": true,
+    "full_failed_indices_by_input": [
+      5,
+      6,
+      8,
+      11,
+      14,
+      16,
+      22,
+      23,
+      24,
+      25,
+      29,
+      33,
+      34,
+      39,
+      40,
+      41,
+      42,
+      44,
+      45,
+      47,
+      48,
+      52,
+      55,
+      57,
+      62,
+      63,
+      65,
+      72,
+      73,
+      75,
+      80,
+      84,
+      85,
+      87,
+      91,
+      92,
+      101,
+      102,
+      103,
+      110,
+      113,
+      114,
+      118,
+      122,
+      123,
+      124,
+      127,
+      131,
+      135,
+      139,
+      147,
+      148,
+      149,
+      151,
+      154,
+      156,
+      159,
+      162,
+      163,
+      164,
+      166,
+      167,
+      168,
+      170,
+      172,
+      173,
+      177,
+      179,
+      181,
+      184,
+      187,
+      188,
+      189,
+      192,
+      195,
+      203,
+      204,
+      205,
+      206,
+      208,
+      212,
+      213,
+      215,
+      217,
+      220,
+      221,
+      222,
+      224,
+      232,
+      235,
+      236,
+      237,
+      240,
+      245,
+      249,
+      250,
+      256,
+      257,
+      262,
+      264,
+      265,
+      266,
+      269,
+      270,
+      272,
+      274,
+      276,
+      277,
+      281,
+      282,
+      286,
+      292,
+      295,
+      297,
+      298,
+      299
+    ],
+    "output_error_records": 20,
+    "output_failed_count": 116
+  },
+  "warnings": []
+}

@@ -1,0 +1,191 @@
+{
+  "case": "new_constant_decimal_c_common80",
+  "status": "RETURNED",
+  "result": {
+    "manipulacion": {
+      "L0": {
+        "mediana_c250": 0.9,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L1": {
+        "mediana_c250": 0.7,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L3": {
+        "mediana_c250": 0.54,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L4": {
+        "mediana_c250": 0.42,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L5": {
+        "mediana_c250": 0.04,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      }
+    },
+    "splits_planificados": 200,
+    "splits_comunes": 160,
+    "faltantes": {
+      "L0": 21,
+      "L1": 21,
+      "L2": 21,
+      "L3": 21,
+      "L4": 18,
+      "L5": 18
+    },
+    "motivos_inconclusive": [],
+    "primaria": {
+      "L0": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L1": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L2": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L3": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L4": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L5": {
+        "D": 0.999996136275096,
+        "p": 0.025,
+        "D_nulo_q95": 0.001444015017539478,
+        "pendiente_X": 2.0003929265027454,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      }
+    },
+    "bootstrap": {
+      "beta": 8.0,
+      "c_comunes": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "replicas": 16,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        -8.0,
+        8.0
+      ],
+      "IC95_D": {
+        "L0": [
+          0.9999958321073839,
+          0.9999967967065367
+        ],
+        "L1": [
+          0.9999958321073839,
+          0.9999967967065367
+        ],
+        "L2": [
+          0.9999958321073839,
+          0.9999967967065367
+        ],
+        "L3": [
+          0.9999958321073839,
+          0.9999967967065367
+        ],
+        "L4": [
+          0.9999958321073839,
+          0.9999967967065367
+        ],
+        "L5": [
+          0.9999958321073839,
+          0.9999967967065367
+        ]
+      },
+      "rango_c": 0.0,
+      "margen_dD_equivalencia": 0.0
+    },
+    "secundarios": {
+      "spearman_D_c": null,
+      "L0": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "L1": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "L2": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "L3": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "L4": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "L5": {
+        "frac_varianza_tras_base": 0.8708828285190425
+      },
+      "D_por_cuartil_c250_en_L0_descriptivo": {
+        "Q1": {
+          "nota": "menos de 10 splits"
+        },
+        "Q2": {
+          "nota": "menos de 10 splits"
+        },
+        "Q3": {
+          "nota": "menos de 10 splits"
+        },
+        "Q4": {
+          "nota": "menos de 10 splits"
+        }
+      }
+    },
+    "manipulacion_ok": true,
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia_secundaria": "NO_ESTABLECIDA",
+    "extremo": "PERSISTE"
+  },
+  "warnings": []
+}

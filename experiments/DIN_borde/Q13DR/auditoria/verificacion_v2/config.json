@@ -1,0 +1,51 @@
+{
+  "version": "v1",
+  "target_revision": "245d735ffae59fa28e6458d1cb8a9bd21387d278",
+  "analysis_sha256": "afb807aad20830e0402c5fdb8f946f783b2a0835f497855e12364bf1fae356e6",
+  "case_seed": 910100,
+  "controls_seed": 910200,
+  "seed_base": 910300,
+  "bootstrap_seed": 860001,
+  "permutation_seed": 260001,
+  "fold_seed": 260010,
+  "bootstrap": 2000,
+  "permutations": 5000,
+  "levels_c": [
+    0.86,
+    0.7,
+    0.61,
+    0.54,
+    0.42,
+    0.36
+  ],
+  "cells": [
+    {
+      "name": "null_N200",
+      "N": 200,
+      "beta": 0.0,
+      "D_center": 0.02,
+      "reps": 400,
+      "seed_index_v1": 0
+    },
+    {
+      "name": "null_N400",
+      "N": 400,
+      "beta": 0.0,
+      "D_center": 0.02,
+      "reps": 400,
+      "seed_index_v1": 1
+    },
+    {
+      "name": "positive_N400",
+      "N": 400,
+      "beta": 0.03,
+      "D_center": 0.02,
+      "reps": 200,
+      "seed_index_v1": 3
+    }
+  ],
+  "arrays_dir": "/workspace/work/din-q13dr-verificacion-v2-arrays",
+  "old_synthetic_arrays": "/workspace/work/din-q13dr-audit-v1-arrays/monte_carlo_v1",
+  "workers": 2,
+  "BLAS_threads": 1
+}

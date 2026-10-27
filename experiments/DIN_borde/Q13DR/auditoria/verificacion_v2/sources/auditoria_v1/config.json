@@ -1,0 +1,61 @@
+{
+  "version": "v1",
+  "target_commit": "e7dfc435ab97cdc8d24bba5d525b193af274f35f",
+  "source_analysis_sha256": "c9159325c7f22c6e5ded2977f6d208e0282558094fd34ab6f96fb68c00843b10",
+  "seed_base": 910300,
+  "bootstrap_seed": 860001,
+  "permutation_seed": 260001,
+  "fold_seed": 260010,
+  "bootstrap": 2000,
+  "permutations": 5000,
+  "levels_c": [
+    0.86,
+    0.7,
+    0.61,
+    0.54,
+    0.42,
+    0.36
+  ],
+  "cells": [
+    {
+      "name": "null_N200",
+      "N": 200,
+      "beta": 0.0,
+      "D_center": 0.02,
+      "reps": 400
+    },
+    {
+      "name": "null_N400",
+      "N": 400,
+      "beta": 0.0,
+      "D_center": 0.02,
+      "reps": 400
+    },
+    {
+      "name": "zero_N400",
+      "N": 400,
+      "beta": 0.0,
+      "D_center": 0.0,
+      "reps": 200
+    },
+    {
+      "name": "positive_N400",
+      "N": 400,
+      "beta": 0.03,
+      "D_center": 0.02,
+      "reps": 200
+    },
+    {
+      "name": "negative_N400",
+      "N": 400,
+      "beta": -0.03,
+      "D_center": 0.02,
+      "reps": 200
+    }
+  ],
+  "workers": 2,
+  "BLAS_threads": 1,
+  "arrays_dir": "/workspace/work/din-q13dr-audit-v1-arrays",
+  "case_seed": 910100,
+  "controls_seed": 910200
+}
