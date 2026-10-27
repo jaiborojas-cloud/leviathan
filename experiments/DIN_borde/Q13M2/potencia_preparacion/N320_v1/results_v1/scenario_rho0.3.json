@@ -1,0 +1,163 @@
+{
+  "rho": 0.3,
+  "N": 320,
+  "replicates": 400,
+  "LP": {
+    "success": 383,
+    "n": 400,
+    "rate": 0.9575,
+    "lower": 0.9329979456752499,
+    "upper": 0.9732983050088689
+  },
+  "WD": {
+    "success": 382,
+    "n": 400,
+    "rate": 0.955,
+    "lower": 0.9299952708096761,
+    "upper": 0.971348541346114
+  },
+  "both_MODULA": {
+    "success": 373,
+    "n": 400,
+    "rate": 0.9325,
+    "lower": 0.9035733345645931,
+    "upper": 0.9531985308362403
+  },
+  "counts_LP": {
+    "MODULA": 383,
+    "NO_CONCLUYENTE": 17
+  },
+  "counts_WD": {
+    "MODULA": 382,
+    "NO_CONCLUYENTE": 18
+  },
+  "joint_labels": {
+    "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 373,
+    "NO_REPRODUCIDA": 8,
+    "REPRODUCIDA_SOLO_EN_WD": 9,
+    "REPRODUCIDA_SOLO_EN_LP": 10
+  },
+  "used_for_decision": false,
+  "meets_individual_rule": true,
+  "joint_required": false,
+  "frames": [
+    {
+      "N": 320,
+      "rho": 0.3,
+      "frame": 0,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 95,
+        "NO_CONCLUYENTE": 5
+      },
+      "WD": {
+        "MODULA": 94,
+        "NO_CONCLUYENTE": 6
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 92,
+        "NO_REPRODUCIDA": 3,
+        "REPRODUCIDA_SOLO_EN_WD": 2,
+        "REPRODUCIDA_SOLO_EN_LP": 3
+      },
+      "both_MODULA": 92,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 2.220446049250313e-16,
+      "seconds": 15.326400090999414,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.3_N320_frame0.npz",
+        "bytes": 34897708,
+        "sha256": "57ec7acdfc2ee2866a4d190923498992010c39f09e67111005a439cc3b5ecb1b"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.3,
+      "frame": 1,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 99,
+        "NO_CONCLUYENTE": 1
+      },
+      "WD": {
+        "MODULA": 97,
+        "NO_CONCLUYENTE": 3
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 97,
+        "REPRODUCIDA_SOLO_EN_LP": 2,
+        "NO_REPRODUCIDA": 1
+      },
+      "both_MODULA": 97,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 4.440892098500626e-16,
+      "seconds": 14.853132245999404,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.3_N320_frame1.npz",
+        "bytes": 34893508,
+        "sha256": "f9ae5ac518f86152768f34ba9cdf1a8058e894cb2db1bb36c1ae518605dd1fdd"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.3,
+      "frame": 2,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 94,
+        "NO_CONCLUYENTE": 6
+      },
+      "WD": {
+        "MODULA": 97,
+        "NO_CONCLUYENTE": 3
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 94,
+        "NO_REPRODUCIDA": 3,
+        "REPRODUCIDA_SOLO_EN_WD": 3
+      },
+      "both_MODULA": 94,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 2.220446049250313e-16,
+      "seconds": 15.924203981999199,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.3_N320_frame2.npz",
+        "bytes": 34898445,
+        "sha256": "2387ff0548939ac0c908d0e4284ec4231c463b3aa8adfb67f6ed79cba764b939"
+      }
+    },
+    {
+      "N": 320,
+      "rho": 0.3,
+      "frame": 3,
+      "replicates": 100,
+      "LP": {
+        "MODULA": 95,
+        "NO_CONCLUYENTE": 5
+      },
+      "WD": {
+        "MODULA": 94,
+        "NO_CONCLUYENTE": 6
+      },
+      "joint_labels": {
+        "MODULACION_REPRODUCIDA_EN_DOS_VIAS": 90,
+        "NO_REPRODUCIDA": 1,
+        "REPRODUCIDA_SOLO_EN_WD": 4,
+        "REPRODUCIDA_SOLO_EN_LP": 5
+      },
+      "both_MODULA": 90,
+      "control_PASS": 100,
+      "A0_unique": true,
+      "max_D_error": 3.3306690738754696e-16,
+      "seconds": 15.735007828000562,
+      "array": {
+        "path": "/workspace/work/din-q13m2-power-preparation-N320-v1-arrays/rho0.3_N320_frame3.npz",
+        "bytes": 34896833,
+        "sha256": "6a893e34d9e994f3478de6859dc6073f08f44166d1d5bf42c7019969b8edb7d9"
+      }
+    }
+  ]
+}
