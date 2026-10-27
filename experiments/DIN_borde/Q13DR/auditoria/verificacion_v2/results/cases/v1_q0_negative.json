@@ -1,0 +1,58 @@
+{
+  "case": "v1_q0_negative",
+  "status": "RETURNED",
+  "result": {
+    "manipulacion": {
+      "L0": {
+        "mediana_c250": null,
+        "mediana_q250": null,
+        "mediana_acc_panel250": null
+      },
+      "L1": {
+        "mediana_c250": 0.7,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L3": {
+        "mediana_c250": 0.54,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L4": {
+        "mediana_c250": 0.42,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L5": {
+        "mediana_c250": 0.36,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      }
+    },
+    "splits_planificados": 20,
+    "splits_comunes": 0,
+    "faltantes": {
+      "L0": 100,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "motivos_inconclusive": [
+      "L0: faltantes 100 > 5 % de 100",
+      "L0: splits validos < 80 % de 20",
+      "splits comunes 0 < 80 % de 20"
+    ],
+    "primaria": {},
+    "bootstrap": {},
+    "secundarios": {},
+    "veredicto": "INCONCLUSIVE"
+  },
+  "warnings": []
+}
