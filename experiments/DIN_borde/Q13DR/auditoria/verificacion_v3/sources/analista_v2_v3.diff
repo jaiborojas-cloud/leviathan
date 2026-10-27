@@ -1,0 +1,90 @@
+diff --git a/experiments/DIN_borde/Q13DR/analisis_Q13DR.py b/experiments/DIN_borde/Q13DR/analisis_Q13DR.py
+index d1626c57..001edf34 100644
+--- a/experiments/DIN_borde/Q13DR/analisis_Q13DR.py
++++ b/experiments/DIN_borde/Q13DR/analisis_Q13DR.py
+@@ -1,6 +1,8 @@
+-"""analisis_Q13DR.py v2 - analisis UNICO de DIN-Q13-DR (dosis-respuesta con label smoothing, 6 niveles). Reutiliza SIN CAMBIOS cen,
++"""analisis_Q13DR.py v3 - analisis UNICO de DIN-Q13-DR (dosis-respuesta con label smoothing, 6 niveles). Reutiliza SIN CAMBIOS cen,
+ D_cv y primaria de C1/analisis_C1_v2.py (SHA verificado) y D_punto/bloques de Q13/analisis_Q13.py (SHA verificado).
+ v2 corrige los defectos F01-F04 de la auditoria (PR #104) y aplica las decisiones del responsable de 2026-10-26 20:53.
++v3 corrige N01-N05 de la verificacion (PR #105): c constante exacta (ptp == 0), rango = max - min, eps enorme y archivos
++ilegibles -> ABORTA, y se conservan TODOS los fallos de bootstrap.
+ 
+ Entradas: --tabla q13dr_cohorte.csv + --tabla-sha; --plan q13dr_plan.json + --plan-sha; --resumen RESUMEN_q13dr.json.
+ PLAN (validacion estricta, si no ABORTA): n_splits entero (no bool) en 1..400; niveles = lista de 6 dict con nivel entero 0..5 en orden
+@@ -66,7 +68,10 @@ def validar_plan(plan):
+         if not isinstance(x, dict): raise Aborta(f"nivel {i} no es objeto")
+         l, e = x.get("nivel"), x.get("eps")
+         if isinstance(l, bool) or not isinstance(l, int) or l != i: raise Aborta(f"nivel {i}: numero invalido {l!r}")
+-        if isinstance(e, bool) or not isinstance(e, numbers.Real) or not math.isfinite(float(e)) or float(e) != EPS[i]: raise Aborta(f"nivel {i}: eps invalido {e!r}")
++        if isinstance(e, bool) or not isinstance(e, numbers.Real): raise Aborta(f"nivel {i}: eps invalido {e!r}")
++        try: ok = (e == EPS[i]) and math.isfinite(float(e))
++        except (OverflowError, ValueError, TypeError): ok = False
++        if not ok: raise Aborta(f"nivel {i}: eps invalido {str(e)[:40]}")
+     if not isinstance(plan.get("ids_sha256"), str): raise Aborta("ids_sha256 ausente")
+     return n
+ 
+@@ -79,13 +84,19 @@ def valida(r):
+ 
+ 
+ def pendiente(D, c):
+-    c = np.asarray(c, float); D = np.asarray(D, float); cc = c - c.mean(); den = float((cc ** 2).sum())
+-    if not (den > 0) or not np.all(np.isfinite(D)) or not np.all(np.isfinite(c)): raise FloatingPointError("beta no identificada (c constante o valores no finitos)")
++    c = np.asarray(c, float); D = np.asarray(D, float)
++    if not np.all(np.isfinite(D)) or not np.all(np.isfinite(c)): raise FloatingPointError("beta no identificada (valores no finitos)")
++    if np.ptp(c) == 0: raise FloatingPointError("beta no identificada (c constante)")
++    cc = c - c.mean(); den = float((cc ** 2).sum())
++    if not (den > 0): raise FloatingPointError("beta no identificada (c constante)")
+     b = float((cc * (D - D.mean())).sum() / den)
+     if not math.isfinite(b): raise FloatingPointError("beta no finita")
+     return b
+ 
+ 
++def rango_c(cs): return float(max(cs) - min(cs))
++
++
+ def clasificar_beta(ic): return "MODULA" if ic[0] > 0 else "NO_CONCLUYENTE"
+ 
+ 
+@@ -190,13 +201,13 @@ def analizar(filas, n, gate_ok, gate_nota, B=5000, NB=2000, B2=2000, BQ=499):
+             bb[i] = pendiente(Db[i], cb[i])
+         except Exception as e:
+             fallos.append(dict(replica=i, error=f"{type(e).__name__}: {e}"))
+-    out["bootstrap"] = dict(beta=beta, c_comunes=cs, replicas=NB, replicas_fallidas=len(fallos), fallos_primeros=fallos[:20])
++    out["bootstrap"] = dict(beta=beta, c_comunes=cs, replicas=NB, replicas_fallidas=len(fallos), fallos=fallos)
+     if fallos:
+         out["motivos_inconclusive"].append(f"bootstrap degenerado: {len(fallos)} de {NB} replicas (indices {[f['replica'] for f in fallos[:10]]})")
+         out["veredicto"] = "INCONCLUSIVE"; return out
+     q = lambda v: [float(np.quantile(v, .025)), float(np.quantile(v, .975))]
+-    ic = q(bb); out["bootstrap"].update(IC95_beta=ic, IC95_D={f"L{l}": q(Db[:, l]) for l in range(NIV)}, rango_c=cs[0] - cs[-1],
+-                                         margen_dD_equivalencia=0.02 * (cs[0] - cs[-1]))
++    ic = q(bb); out["bootstrap"].update(IC95_beta=ic, IC95_D={f"L{l}": q(Db[:, l]) for l in range(NIV)}, rango_c=rango_c(cs), diferencia_c_L0_L5=cs[0] - cs[-1],
++                                         margen_dD_equivalencia=0.02 * rango_c(cs))
+     out["veredicto"] = clasificar_beta(ic)
+     out["equivalencia_secundaria"] = equivalencia(ic)
+     out["extremo"] = clasificar_extremo(out["primaria"]["L5"]["pass"], out["bootstrap"]["IC95_D"]["L5"])
+@@ -222,14 +233,19 @@ def main():
+     ap.add_argument("--plan", required=True); ap.add_argument("--plan-sha", required=True); ap.add_argument("--resumen", required=True); ap.add_argument("--out", required=True)
+     a = ap.parse_args()
+     try:
+-        if sha(a.tabla) != a.tabla_sha: raise Aborta("SHA de la tabla")
+-        if sha(a.plan) != a.plan_sha: raise Aborta("SHA del plan")
+-        try: plan = json.loads(Path(a.plan).read_text()); rs = json.loads(Path(a.resumen).read_text())
+-        except (OSError, ValueError) as e: raise Aborta(f"plan o resumen ilegible: {e}")
++        try: st, sp_ = sha(a.tabla), sha(a.plan)
++        except OSError as e: raise Aborta(f"tabla o plan ilegible: {type(e).__name__}")
++        if st != a.tabla_sha: raise Aborta("SHA de la tabla")
++        if sp_ != a.plan_sha: raise Aborta("SHA del plan")
++        try: plan = json.loads(Path(a.plan).read_text(encoding="utf-8")); rs = json.loads(Path(a.resumen).read_text(encoding="utf-8"))
++        except (OSError, ValueError) as e: raise Aborta(f"plan o resumen ilegible: {type(e).__name__}")
+         n = validar_plan(plan)
+         ids_sha = hashlib.sha256("\n".join(universo(n)).encode()).hexdigest()
+         gate_ok = plan.get("ids_sha256") == ids_sha and isinstance(rs, dict) and rs.get("tabla_sha256") == a.tabla_sha and rs.get("plan_sha256") == a.plan_sha
+-        res = analizar(list(csv.DictReader(open(a.tabla, encoding="utf-8"))), n, gate_ok, "plan/resumen no vinculados")
++        try:
++            with open(a.tabla, encoding="utf-8", newline="") as fh: filas = list(csv.DictReader(fh))
++        except (OSError, UnicodeDecodeError, csv.Error) as e: raise Aborta(f"tabla ilegible: {type(e).__name__}")
++        res = analizar(filas, n, gate_ok, "plan/resumen no vinculados")
+     except Aborta as e:
+         print(f"ABORTA: {e}", file=sys.stderr); sys.exit(3)
+     res.update(modo="CONFIRMATORIO_Q13DR", niveles=plan["niveles"], tabla_sha256=a.tabla_sha, plan_sha256=a.plan_sha, script_sha256=sha(Path(__file__)),

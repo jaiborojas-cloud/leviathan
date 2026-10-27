@@ -1,0 +1,1488 @@
+{
+  "case": "bootstrap_constant_c",
+  "status": "RETURNED",
+  "result": {
+    "target_result": {
+      "manipulacion": {
+        "L0": {
+          "mediana_c250": 0.9,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L1": {
+          "mediana_c250": 0.7,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L2": {
+          "mediana_c250": 0.61,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L3": {
+          "mediana_c250": 0.54,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L4": {
+          "mediana_c250": 0.42,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        },
+        "L5": {
+          "mediana_c250": 0.04,
+          "mediana_q250": 0.001,
+          "mediana_acc_panel250": 0.93
+        }
+      },
+      "splits_planificados": 200,
+      "splits_comunes": 160,
+      "faltantes": {
+        "L0": 21,
+        "L1": 21,
+        "L2": 21,
+        "L3": 21,
+        "L4": 18,
+        "L5": 18
+      },
+      "motivos_inconclusive": [
+        "bootstrap degenerado: 271 de 300 replicas (indices [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])"
+      ],
+      "primaria": {
+        "L0": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L1": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L2": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L3": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L4": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        },
+        "L5": {
+          "D": 0.999996136275096,
+          "p": 0.025,
+          "D_nulo_q95": 0.001444015017539478,
+          "pendiente_X": 2.0003929265027454,
+          "grado_base": 3,
+          "permutaciones": 39,
+          "pass": true
+        }
+      },
+      "bootstrap": {
+        "beta": 0.0,
+        "c_comunes": [
+          0.88,
+          0.8,
+          0.755,
+          0.72,
+          0.66,
+          0.63
+        ],
+        "replicas": 300,
+        "replicas_fallidas": 271,
+        "fallos": [
+          {
+            "replica": 0,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 1,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 2,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 3,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 4,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 5,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 6,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 7,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 8,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 9,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 11,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 12,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 13,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 14,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 15,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 16,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 17,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 18,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 19,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 21,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 22,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 23,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 24,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 25,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 27,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 29,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 30,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 31,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 33,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 34,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 35,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 36,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 37,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 39,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 40,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 41,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 42,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 43,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 44,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 45,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 46,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 47,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 49,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 51,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 52,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 53,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 54,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 55,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 57,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 58,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 60,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 61,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 63,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 64,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 65,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 66,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 68,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 70,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 71,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 72,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 73,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 74,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 75,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 76,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 77,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 78,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 79,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 80,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 81,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 82,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 83,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 85,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 86,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 87,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 88,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 89,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 90,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 91,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 92,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 93,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 94,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 95,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 96,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 97,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 98,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 100,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 101,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 102,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 103,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 104,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 106,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 107,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 108,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 109,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 110,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 111,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 112,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 113,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 114,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 115,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 116,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 117,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 118,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 119,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 120,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 121,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 122,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 123,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 124,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 125,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 126,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 127,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 128,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 129,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 130,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 131,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 132,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 133,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 134,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 135,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 136,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 138,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 139,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 140,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 141,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 142,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 143,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 144,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 145,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 146,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 147,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 148,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 149,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 150,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 151,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 152,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 153,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 154,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 155,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 156,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 157,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 158,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 159,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 160,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 161,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 162,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 163,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 164,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 165,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 166,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 167,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 168,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 169,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 170,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 171,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 172,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 173,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 174,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 175,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 176,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 177,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 178,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 179,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 180,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 181,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 182,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 183,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 184,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 186,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 187,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 188,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 189,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 190,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 191,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 192,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 193,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 194,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 195,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 196,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 197,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 198,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 199,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 200,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 201,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 203,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 204,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 205,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 206,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 207,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 209,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 210,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 211,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 212,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 213,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 214,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 215,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 216,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 217,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 218,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 219,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 220,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 221,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 222,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 223,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 224,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 225,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 226,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 227,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 228,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 229,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 230,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 231,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 232,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 233,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 234,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 235,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 236,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 237,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 238,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 239,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 240,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 241,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 242,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 243,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 244,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 245,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 248,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 249,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 250,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 251,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 252,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 253,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 254,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 256,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 257,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 258,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 259,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 262,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 263,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 264,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 265,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 267,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 269,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 270,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 271,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 272,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 273,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 275,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 276,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 277,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 278,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 279,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 280,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 281,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 282,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 284,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 285,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 286,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 287,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 288,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 289,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 290,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 291,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 292,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 293,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 294,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 295,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 296,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 297,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 298,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          },
+          {
+            "replica": 299,
+            "error": "FloatingPointError: beta no identificada (c constante)"
+          }
+        ]
+      },
+      "secundarios": {},
+      "manipulacion_ok": true,
+      "veredicto": "INCONCLUSIVE"
+    },
+    "expected_constant_c_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      24,
+      25,
+      27,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55,
+      57,
+      58,
+      60,
+      61,
+      63,
+      64,
+      65,
+      66,
+      68,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      100,
+      101,
+      102,
+      103,
+      104,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      203,
+      204,
+      205,
+      206,
+      207,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233,
+      234,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      248,
+      249,
+      250,
+      251,
+      252,
+      253,
+      254,
+      256,
+      257,
+      258,
+      259,
+      262,
+      263,
+      264,
+      265,
+      267,
+      269,
+      270,
+      271,
+      272,
+      273,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      284,
+      285,
+      286,
+      287,
+      288,
+      289,
+      290,
+      291,
+      292,
+      293,
+      294,
+      295,
+      296,
+      297,
+      298,
+      299
+    ],
+    "draw_calls": 300,
+    "exactly_saved_indices": true,
+    "all_errors_are_constant_c": true
+  },
+  "warnings": []
+}

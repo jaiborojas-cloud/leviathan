@@ -1,0 +1,256 @@
+{
+  "status": "PASS",
+  "domain": [
+    {
+      "field": "q250",
+      "value": "-0.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "q250",
+      "value": "0.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "q250",
+      "value": "1.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "q250",
+      "value": "1.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "q250",
+      "value": "nan",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "q250",
+      "value": "inf",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "acc_panel250",
+      "value": "-0.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "acc_panel250",
+      "value": "0.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "acc_panel250",
+      "value": "1.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "acc_panel250",
+      "value": "1.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "c250",
+      "value": "-0.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "c250",
+      "value": "0.0",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "c250",
+      "value": "0.01",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "c250",
+      "value": "1.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "c250",
+      "value": "1.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_10",
+      "value": "-0.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_10",
+      "value": "0.0",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_10",
+      "value": "1e-300",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_10",
+      "value": "inf",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_250",
+      "value": "-0.1",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_250",
+      "value": "0.0",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_250",
+      "value": "1e-300",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    },
+    {
+      "field": "rho_caras_250",
+      "value": "nan",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "X10",
+      "value": "nan",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "X10",
+      "value": "inf",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "X10",
+      "value": "-inf",
+      "expected": false,
+      "actual": false,
+      "pass_test": true
+    },
+    {
+      "field": "X10",
+      "value": "-2.0",
+      "expected": true,
+      "actual": true,
+      "pass_test": true
+    }
+  ],
+  "plan_N400_valid": true,
+  "spearman": [
+    {
+      "a": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "actual": null,
+      "expected": null,
+      "pass_test": true
+    },
+    {
+      "a": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "actual": null,
+      "expected": null,
+      "pass_test": true
+    },
+    {
+      "a": [
+        0.05,
+        0.04,
+        0.04,
+        0.02,
+        0.01,
+        0
+      ],
+      "actual": 0.9856107606091623,
+      "expected": 0.9856107606091624,
+      "pass_test": true
+    },
+    {
+      "a": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "actual": -0.956182887467515,
+      "expected": -0.956182887467515,
+      "pass_test": true
+    }
+  ],
+  "coexistence": {
+    "primary": "MODULA",
+    "secondary": "NO_MODULA"
+  },
+  "strict_JSON": true,
+  "no_tolerance_added": true,
+  "physical_domain_as_declared": true
+}
