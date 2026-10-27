@@ -1,0 +1,39 @@
+{
+  "version": "v1",
+  "candidates": [
+    200,
+    256,
+    320,
+    400,
+    512,
+    640,
+    800
+  ],
+  "targets": [
+    0,
+    0.006,
+    0.012
+  ],
+  "replicates": 400,
+  "bootstrap": 500,
+  "permutations": 1999,
+  "arrays_dir": "/workspace/work/din-q13-power-v2-arrays",
+  "sources": {
+    "Q13": {
+      "path": "experiments/DIN_borde/Q13/analisis_Q13.py",
+      "sha256": "9998a1b2f8f37dd0e803c6a4b024f289a23df71eea17a0b1ed6f7c6d15f3c5b3"
+    },
+    "C1": {
+      "path": "experiments/DIN_borde/C1/analisis_C1_v2.py",
+      "sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5"
+    },
+    "C2_engine": {
+      "path": "experiments/DIN_borde/C2/potencia/scripts/power_v1.py",
+      "sha256": "ba26c4ec839b9c55c827d98f7d4c52810926593721ac3e6d6ca4b2edeca4ad5d"
+    },
+    "pilot": {
+      "path": "experiments/DIN_borde/G3/results/run_v1/trajectories.csv",
+      "sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
+    }
+  }
+}

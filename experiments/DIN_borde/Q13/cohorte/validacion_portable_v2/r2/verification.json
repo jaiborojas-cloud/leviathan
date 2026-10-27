@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "revision": "r2",
+  "tests": [
+    "embedded_recipe_support_exact_bytes",
+    "isolated_spawn_three_untrained_reconstructions",
+    "interrupted_claim_not_retrained",
+    "resume_skips_success_failed_truncated_interrupted",
+    "exclusive_write_race_no_overwrite",
+    "coordinator_lock_exclusive",
+    "wrong_plan_rejected_before_training",
+    "isolated_cli_zero_limit_no_training",
+    "all_12000_rows_missing_and_failed_preserved",
+    "table_idempotent_and_summary_SHA_linked",
+    "publication_terminal_prevents_training"
+  ],
+  "scheduler": {
+    "status": "PASS",
+    "normal_ids_once": 12000,
+    "max_submitted_outstanding": 12,
+    "interrupted_submitted_only": 12,
+    "replacement_after_interrupt": 0,
+    "cohort_function_executed": false,
+    "models_initialized": 0
+  },
+  "platform": "Linux",
+  "Windows_execution_tested": false,
+  "isolated_python": true,
+  "spawn_gate_workers": 3,
+  "untrained_gate_models": 3,
+  "cohort_models_initialized_or_trained": 0,
+  "training_limit_15_executed": false,
+  "fixtures_only": true,
+  "fixture_csv_not_cohort_data": true,
+  "script_sha256": "c0577f9f7bbc43f65b79dd6068f1b446a828dc7809edb577ca8fc0d2eaf4b6dc",
+  "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3"
+}

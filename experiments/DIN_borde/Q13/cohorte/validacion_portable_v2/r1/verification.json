@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "tests": [
+    "fuentes_embebidas_byte_por_byte",
+    "compuerta_spawn_aislado_tres_modelos_sin_entrenar",
+    "interrupcion_preservada_sin_reentrenar",
+    "resume_salta_exito_fallo_truncado_e_interrumpido",
+    "escritura_exclusiva_concurrente_sin_sobreescritura",
+    "bloqueo_de_coordinador_exclusivo",
+    "plan_incorrecto_rechazado_antes_de_entrenar",
+    "cli_aislado_cohorte_limite_cero_sin_entrenamiento",
+    "tabla_12000_incluye_ausentes_y_fallos_sin_excluir_IDs",
+    "tabla_repetida_idempotente_y_resumen_vinculado",
+    "publicacion_terminal_impide_entrenamiento_posterior"
+  ],
+  "platform": "Linux",
+  "Windows_execution_tested": false,
+  "isolated_python": true,
+  "spawn_gate_workers": 3,
+  "untrained_gate_models": 3,
+  "cohort_models_initialized_or_trained": 0,
+  "training_limit_15_executed": false,
+  "fixtures_only": true,
+  "fixture_csv_not_cohort_data": true,
+  "script_sha256": "9ddc8fbca85cad0f7c0814e4fc3bce2d5f7913916046cd3316481b0e3a157c21",
+  "plan_sha256": "e66b81aabe4c05361c2d8c9461fd5dea7c5de049fb5b3411378b76ff2d3669c3"
+}
