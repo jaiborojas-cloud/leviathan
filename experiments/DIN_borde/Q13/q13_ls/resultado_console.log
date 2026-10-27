@@ -1,0 +1,106 @@
+{
+  "brazos": [
+    "A0",
+    "LS"
+  ],
+  "manipulacion": {
+    "A0": {
+      "mediana_c250": 0.8626259929943956,
+      "mediana_q250": 9.337537577235657e-05,
+      "mediana_acc_panel250": 0.9259259259259259
+    },
+    "LS": {
+      "mediana_c250": 0.6005941559647336,
+      "mediana_q250": 0.00020409485842231307,
+      "mediana_acc_panel250": 0.9259259259259259
+    }
+  },
+  "splits_planificados": 800,
+  "splits_comunes": 800,
+  "faltantes": {
+    "A0": 0,
+    "LS": 0
+  },
+  "motivos_inconclusive": [],
+  "primaria": {
+    "A0": {
+      "D": 0.03933513978644465,
+      "p": 0.0001999600079984003,
+      "D_nulo_q95": 0.0006645192933256446,
+      "pendiente_X": 1.9515255155772702,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": true
+    },
+    "LS": {
+      "D": 0.008348349981023517,
+      "p": 0.0001999600079984003,
+      "D_nulo_q95": 0.000590589946399789,
+      "pendiente_X": 0.42766127408339644,
+      "grado_base": 3,
+      "permutaciones": 5000,
+      "pass": true
+    }
+  },
+  "bootstrap": {
+    "A0": {
+      "IC95_D": [
+        0.0255986699473653,
+        0.05353139319146756
+      ]
+    },
+    "LS": {
+      "IC95_D": [
+        0.0021070867769993314,
+        0.015306519014622518
+      ],
+      "IC95_dD": [
+        0.019972251221185136,
+        0.042012821480434455
+      ],
+      "dD_punto": 0.030986789805421133
+    }
+  },
+  "clasificacion": {
+    "LS": "INTERMEDIO"
+  },
+  "secundarios": {
+    "A0": {
+      "DE_intra_Y": 0.6102823958306745,
+      "DE_intra_X": 0.06245273881086185,
+      "pendiente_estandarizada": 0.19970773225596267,
+      "D_rho_vert": {
+        "D": 0.038996931150841685,
+        "p": 0.0004997501249375312,
+        "D_nulo_q95": 0.0006911193643994118,
+        "pendiente_X": 1.9478440223039206,
+        "grado_base": 3,
+        "permutaciones": 2000
+      }
+    },
+    "LS": {
+      "DE_intra_Y": 0.2855895539931552,
+      "DE_intra_X": 0.06239529057710725,
+      "pendiente_estandarizada": 0.09343496319073691,
+      "D_rho_vert": {
+        "D": 0.008247133050610866,
+        "p": 0.0004997501249375312,
+        "D_nulo_q95": 0.0006529367483400991,
+        "pendiente_X": 0.4239770710894701,
+        "grado_base": 3,
+        "permutaciones": 2000
+      }
+    }
+  },
+  "manipulacion_ok": true,
+  "veredicto": "NO_CONCLUYENTE",
+  "modo": "CONFIRMATORIO_Q13",
+  "dosis": {
+    "LS": 0.005
+  },
+  "tabla_sha256": "e88a964f09c2f82b540f72c5721e161c6ba65855833c35cc60b901f3e494a4a3",
+  "plan_sha256": "f0651c42ccf7b5085932c6d829ce7d21fffd6863e9e43678374316057036736d",
+  "script_sha256": "9998a1b2f8f37dd0e803c6a4b024f289a23df71eea17a0b1ed6f7c6d15f3c5b3",
+  "analisis_C1_v2_sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5",
+  "alcance": "efecto de manipular el entrenamiento (LS, WD) sobre la senal temprana en la familia gaussiana s=0.8; no necesidad logica ni transferencia"
+}
