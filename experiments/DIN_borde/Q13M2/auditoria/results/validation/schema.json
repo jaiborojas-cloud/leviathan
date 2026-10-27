@@ -1,0 +1,877 @@
+{
+  "cases": [
+    {
+      "name": "N_1",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "value": 1,
+      "error": null,
+      "ok": true
+    },
+    {
+      "name": "N_200",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "value": 200,
+      "error": null,
+      "ok": true
+    },
+    {
+      "name": "N_320",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "value": 320,
+      "error": null,
+      "ok": true
+    },
+    {
+      "name": "N_321",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: 321",
+      "ok": true
+    },
+    {
+      "name": "N_0",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: 0",
+      "ok": true
+    },
+    {
+      "name": "N_-1",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: -1",
+      "ok": true
+    },
+    {
+      "name": "N_True",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: True",
+      "ok": true
+    },
+    {
+      "name": "N_False",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: False",
+      "ok": true
+    },
+    {
+      "name": "N_320.0",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: 320.0",
+      "ok": true
+    },
+    {
+      "name": "N_320",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: 320",
+      "ok": true
+    },
+    {
+      "name": "N_None",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: None",
+      "ok": true
+    },
+    {
+      "name": "N_100000000000000000000000000000",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "n_splits invalido: 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level0_nivel_12",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 0: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level0_nivel_13",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 0: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level0_brazo_14",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 0: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level0_dosis_15",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel A0: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level0_dosis_16",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel A0: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level0_dosis_17",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel A0: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level0_dosis_18",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel A0: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level0_dosis_19",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel A0: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level1_nivel_20",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 1: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level1_nivel_21",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 1: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level1_brazo_22",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 1: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level1_dosis_23",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP1: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level1_dosis_24",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP1: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level1_dosis_25",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP1: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level1_dosis_26",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP1: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level1_dosis_27",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP1: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level2_nivel_28",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 2: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level2_nivel_29",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 2: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level2_brazo_30",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 2: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level2_dosis_31",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP2: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level2_dosis_32",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP2: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level2_dosis_33",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP2: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level2_dosis_34",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP2: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level2_dosis_35",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP2: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level3_nivel_36",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 3: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level3_nivel_37",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 3: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level3_brazo_38",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 3: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level3_dosis_39",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP3: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level3_dosis_40",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP3: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level3_dosis_41",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP3: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level3_dosis_42",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP3: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level3_dosis_43",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP3: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level4_nivel_44",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 4: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level4_nivel_45",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 4: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level4_brazo_46",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 4: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level4_dosis_47",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP4: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level4_dosis_48",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP4: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level4_dosis_49",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP4: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level4_dosis_50",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP4: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level4_dosis_51",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP4: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level5_nivel_52",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 5: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level5_nivel_53",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 5: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level5_brazo_54",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 5: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level5_dosis_55",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP5: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level5_dosis_56",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP5: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level5_dosis_57",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP5: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level5_dosis_58",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP5: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level5_dosis_59",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel LP5: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level6_nivel_60",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 6: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level6_nivel_61",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 6: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level6_brazo_62",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 6: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level6_dosis_63",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD1: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level6_dosis_64",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD1: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level6_dosis_65",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD1: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level6_dosis_66",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD1: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level6_dosis_67",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD1: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level7_nivel_68",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 7: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level7_nivel_69",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 7: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level7_brazo_70",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 7: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level7_dosis_71",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD2: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level7_dosis_72",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD2: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level7_dosis_73",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD2: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level7_dosis_74",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD2: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level7_dosis_75",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD2: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level8_nivel_76",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 8: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level8_nivel_77",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 8: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level8_brazo_78",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 8: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level8_dosis_79",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD3: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level8_dosis_80",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD3: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level8_dosis_81",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD3: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level8_dosis_82",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD3: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level8_dosis_83",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD3: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level9_nivel_84",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 9: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level9_nivel_85",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 9: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level9_brazo_86",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 9: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level9_dosis_87",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD4: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level9_dosis_88",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD4: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level9_dosis_89",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD4: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level9_dosis_90",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD4: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level9_dosis_91",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD4: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "level10_nivel_92",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 10: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level10_nivel_93",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 10: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level10_brazo_94",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 10: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "level10_dosis_95",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD5: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level10_dosis_96",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD5: dosis invalida",
+      "ok": true
+    },
+    {
+      "name": "level10_dosis_97",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD5: dosis invalida nan",
+      "ok": true
+    },
+    {
+      "name": "level10_dosis_98",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD5: dosis invalida inf",
+      "ok": true
+    },
+    {
+      "name": "level10_dosis_99",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel WD5: dosis invalida 1000000000000000000000000000000000000000",
+      "ok": true
+    },
+    {
+      "name": "levels_100",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "niveles: se esperan 11",
+      "ok": true
+    },
+    {
+      "name": "levels_101",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "nivel 0: nombre o brazo invalido",
+      "ok": true
+    },
+    {
+      "name": "levels_102",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "niveles: se esperan 11",
+      "ok": true
+    },
+    {
+      "name": "levels_103",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "niveles: se esperan 11",
+      "ok": true
+    },
+    {
+      "name": "levels_104",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "niveles: se esperan 11",
+      "ok": true
+    },
+    {
+      "name": "root_105",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "plan no es un objeto",
+      "ok": true
+    },
+    {
+      "name": "root_106",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "plan no es un objeto",
+      "ok": true
+    },
+    {
+      "name": "root_107",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "plan no es un objeto",
+      "ok": true
+    },
+    {
+      "name": "root_108",
+      "expected": "ABORTA",
+      "actual": "ABORTA",
+      "value": null,
+      "error": "plan no es un objeto",
+      "ok": true
+    }
+  ],
+  "all_ok": true
+}
