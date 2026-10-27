@@ -25,6 +25,11 @@ decrecientes de todas las válidas; los seis c de los comunes tienen mediana .5.
 El bootstrap de la pendiente queda sin rango y produce IC=[NaN,NaN], mientras
 el resultado dice NO_CONCLUYENTE y no identifica una degeneración inferencial.
 
+**Confirmado también en N=200**, dentro de la rejilla operativa:
+[beta_bootstrap_singular](results/scale_N200/beta_bootstrap_singular.json) tiene
+48/1000 faltantes por nivel (4.8%), 104 splits comunes, compuerta válida e
+IC=[NaN,NaN]. No depende del tamaño pequeño del caso mínimo.
+
 **Propuesta:** definir explícitamente la población de β. Usar c de las mismas
 filas comunes que D tanto en el punto como en cada réplica, separándola del
 resumen operacional de la compuerta. Si se quiere c sobre todas las válidas,
@@ -40,6 +45,9 @@ N=20, X variable, señal fuerte; rho10=1 salvo un split con rho10=e. Observado
 L no es constante, todas las primarias pasan. Un remuestreo omite el único split
 distinto, L.std()=0 y D_punto genera **LinAlgError: SVD did not converge**.
 El índice/semilla son reproducibles y la tabla cumple las validaciones iniciales.
+
+[La réplica N=200](results/scale_N200/L_bootstrap_constant.json) reproduce el mismo
+LinAlgError. Ambos tamaños se fijaron antes de cada ejecución de confirmación.
 
 F01 aporta otra degeneración: β no identificada en bootstrap. Los NaN pasan a
 quantile y clasificar_beta; el [serializador](sources/Q13DR/analisis_Q13DR.py#L156)

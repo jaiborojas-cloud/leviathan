@@ -1,0 +1,11 @@
+{
+  "status": "EXCEPTION",
+  "exception": "LinAlgError",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/scripts/cases_scale_v1.py\", line 24, in main\n    res=old.execute(rows,200)\n        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/scripts/cases_v1.py\", line 33, in execute\n    return R.analizar(rows,n,True,'',B=39,NB=16,B2=19,BQ=19,**kw)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13DR/analisis_Q13DR.py\", line 120, in analizar\n    Db[i, l] = Q.D_punto(sp, a[\"X\"][ii], a[\"L\"][ii], a[\"Y\"][ii], fo); cb[i, l] = float(np.median(a[\"c\"][ii]))\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/Q13/analisis_Q13.py\", line 53, in D_punto\n    Bm = np.column_stack([A.cen(z ** g, sp) for g in (1, 2, 3)]); return A.D_cv(Yc, Bm, A.cen(X, sp), fo)\n                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/Q13DR/auditoria/sources/C1/analisis_C1_v2.py\", line 52, in D_cv\n    bb = np.linalg.lstsq(Bm[tr], Yc[tr], rcond=None)[0]; bf = np.linalg.lstsq(C[tr], Yc[tr], rcond=None)[0]\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py\", line 2564, in lstsq\n    x, resids, rank, s = _umath_linalg.lstsq(a, b, rcond,\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/linalg/_linalg.py\", line 175, in _raise_linalgerror_lstsq\n    raise LinAlgError(\"SVD did not converge in Linear Least Squares\")\nnumpy.linalg.LinAlgError: SVD did not converge in Linear Least Squares\n",
+  "warnings": [
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in divide"
+    }
+  ]
+}

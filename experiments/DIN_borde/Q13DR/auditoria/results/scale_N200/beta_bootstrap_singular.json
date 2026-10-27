@@ -1,0 +1,222 @@
+{
+  "status": "RETURNED",
+  "result": {
+    "manipulacion": {
+      "L0": {
+        "mediana_c250": 0.8828901734104047,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L1": {
+        "mediana_c250": 0.7,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L2": {
+        "mediana_c250": 0.61,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L3": {
+        "mediana_c250": 0.54,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L4": {
+        "mediana_c250": 0.42,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      },
+      "L5": {
+        "mediana_c250": 0.11710982658959539,
+        "mediana_q250": 0.001,
+        "mediana_acc_panel250": 0.93
+      }
+    },
+    "splits_planificados": 200,
+    "splits_comunes": 104,
+    "faltantes": {
+      "L0": 48,
+      "L1": 48,
+      "L2": 48,
+      "L3": 48,
+      "L4": 48,
+      "L5": 48
+    },
+    "motivos_inconclusive": [],
+    "primaria": {
+      "L0": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L1": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L2": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L3": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L4": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      },
+      "L5": {
+        "D": 0.9999961288425259,
+        "p": 0.025,
+        "D_nulo_q95": 0.006869571444902605,
+        "pendiente_X": 2.000215256110879,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "pass": true
+      }
+    },
+    "bootstrap": {
+      "beta": -7.22591157317273e-32,
+      "IC95_beta": [
+        "nan",
+        "nan"
+      ],
+      "IC95_D": {
+        "L0": [
+          0.9999959954846231,
+          0.999996688373576
+        ],
+        "L1": [
+          0.9999959954846231,
+          0.999996688373576
+        ],
+        "L2": [
+          0.9999959954846231,
+          0.999996688373576
+        ],
+        "L3": [
+          0.9999959954846231,
+          0.999996688373576
+        ],
+        "L4": [
+          0.9999959954846231,
+          0.999996688373576
+        ],
+        "L5": [
+          0.9999959954846231,
+          0.999996688373576
+        ]
+      }
+    },
+    "secundarios": {
+      "spearman_D_c": -1.0,
+      "L0": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "L1": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "L2": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "L3": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "L4": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "L5": {
+        "frac_varianza_tras_base": 0.8509956436375831
+      },
+      "D_por_cuartil_c250_en_L0_descriptivo": {
+        "Q1": {
+          "n": 130,
+          "splits": 26,
+          "D": 0.9999968155140893
+        },
+        "Q2": {
+          "n": 130,
+          "splits": 26,
+          "D": 0.9999960874211199
+        },
+        "Q3": {
+          "n": 130,
+          "splits": 26,
+          "D": 0.9999959037119374
+        },
+        "Q4": {
+          "n": 130,
+          "splits": 26,
+          "D": 0.9999955729376833
+        }
+      }
+    },
+    "manipulacion_ok": true,
+    "veredicto": "NO_CONCLUYENTE",
+    "extremo": "PERSISTE"
+  },
+  "strict_JSON_finite": false,
+  "warnings": [
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    },
+    {
+      "type": "RuntimeWarning",
+      "message": "invalid value encountered in scalar divide"
+    }
+  ]
+}

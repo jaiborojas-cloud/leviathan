@@ -1,0 +1,127 @@
+{
+  "cell": {
+    "name": "negative_N400",
+    "N": 400,
+    "beta": -0.03,
+    "D_center": 0.02,
+    "reps": 200
+  },
+  "replicates": 200,
+  "control_PASS": 199,
+  "rates": {
+    "MODULA": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 199,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.018938233056634942
+      }
+    },
+    "NO_MODULA": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 199,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.018938233056634942
+      }
+    },
+    "NO_CONCLUYENTE": {
+      "all": {
+        "k": 199,
+        "n": 200,
+        "rate": 0.995,
+        "lower": 0.9722262956021069,
+        "upper": 0.9991168312843989
+      },
+      "conditional_control": {
+        "k": 199,
+        "n": 199,
+        "rate": 1.0,
+        "lower": 0.9810617669433649,
+        "upper": 0.9999999999999999
+      }
+    },
+    "INCONCLUSIVE_SIN_SENAL_CONTROL": {
+      "all": {
+        "k": 1,
+        "n": 200,
+        "rate": 0.005,
+        "lower": 0.0008831687156009814,
+        "upper": 0.02777370439789293
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 199,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.018938233056634942
+      }
+    }
+  },
+  "extreme_rates": {
+    "PERSISTE": {
+      "all": {
+        "k": 199,
+        "n": 200,
+        "rate": 0.995,
+        "lower": 0.9722262956021069,
+        "upper": 0.9991168312843989
+      },
+      "conditional_control": {
+        "k": 199,
+        "n": 199,
+        "rate": 1.0,
+        "lower": 0.9810617669433649,
+        "upper": 0.9999999999999999
+      }
+    },
+    "DESAPARECE": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 199,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.018938233056634942
+      }
+    },
+    "INDETERMINADO": {
+      "all": {
+        "k": 0,
+        "n": 200,
+        "rate": 0.0,
+        "lower": 1.734723475976807e-18,
+        "upper": 0.018845326377266575
+      },
+      "conditional_control": {
+        "k": 0,
+        "n": 199,
+        "rate": 0.0,
+        "lower": 0.0,
+        "upper": 0.018938233056634942
+      }
+    }
+  }
+}
