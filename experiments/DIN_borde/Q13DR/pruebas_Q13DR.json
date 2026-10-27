@@ -1,90 +1,26 @@
 {
-  "reglas_beta": [
-    {
-      "ic": [
-        0.001,
-        0.1
-      ],
-      "o": "MODULA",
-      "e": "MODULA"
-    },
-    {
-      "ic": [
-        -0.01,
-        0.015
-      ],
-      "o": "NO_MODULA",
-      "e": "NO_MODULA"
-    },
-    {
-      "ic": [
-        -0.03,
-        0.01
-      ],
-      "o": "NO_CONCLUYENTE",
-      "e": "NO_CONCLUYENTE"
-    },
-    {
-      "ic": [
-        -0.01,
-        0.03
-      ],
-      "o": "NO_CONCLUYENTE",
-      "e": "NO_CONCLUYENTE"
-    },
-    {
-      "ic": [
-        0.0,
-        0.02
-      ],
-      "o": "NO_MODULA",
-      "e": "NO_MODULA"
-    }
-  ],
-  "reglas_extremo": [
-    {
-      "p5": true,
-      "ic": [
-        0.001,
-        0.02
-      ],
-      "o": "PERSISTE",
-      "e": "PERSISTE"
-    },
-    {
-      "p5": false,
-      "ic": [
-        -0.004,
-        0.005
-      ],
-      "o": "DESAPARECE",
-      "e": "DESAPARECE"
-    },
-    {
-      "p5": false,
-      "ic": [
-        -0.004,
-        0.009
-      ],
-      "o": "INDETERMINADO",
-      "e": "INDETERMINADO"
-    },
-    {
-      "p5": true,
-      "ic": [
-        -0.001,
-        0.004
-      ],
-      "o": "PERSISTE",
-      "e": "PERSISTE"
-    }
-  ],
+  "reglas_puras": {
+    "n": 15,
+    "fallos": []
+  },
   "nucleo:niveles_iguales_N100": {
-    "veredicto": "NO_MODULA",
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -114,7 +50,9 @@
           -0.004668154958213311,
           0.04444049705450765
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.017347781869078593,
@@ -124,16 +62,39 @@
       "L4": 0.017347781869078593,
       "L5": 0.017347781869078593
     },
-    "esperado": "NO_MODULA",
-    "esperado_extremo": "PERSISTE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      "PERSISTE"
+    ],
     "ok": true
   },
   "nucleo:N800_modula_y_desaparece": {
     "veredicto": "MODULA",
+    "equivalencia": "NO_ESTABLECIDA",
     "extremo": "DESAPARECE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.039302014920810244,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         0.023248915927572326,
         0.058857303222449364
@@ -163,7 +124,9 @@
           -0.0018025651736547688,
           0.0005927981620214601
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.018405909331147052,
@@ -173,16 +136,39 @@
       "L4": 0.00040228735084391065,
       "L5": -0.00040781586134341907
     },
-    "esperado": "MODULA",
-    "esperado_extremo": "DESAPARECE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "MODULA",
+      null,
+      "DESAPARECE"
+    ],
     "ok": true
   },
   "nucleo:N800_modula_y_persiste": {
     "veredicto": "MODULA",
+    "equivalencia": "NO_ESTABLECIDA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.03146330312850877,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         0.018329439312491595,
         0.047237117103529416
@@ -212,7 +198,9 @@
           -0.0006857858106667225,
           0.006821426334714072
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.018405909331147052,
@@ -222,16 +210,39 @@
       "L4": 0.0061079619394953655,
       "L5": 0.002642515664189715
     },
-    "esperado": "MODULA",
-    "esperado_extremo": "PERSISTE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "MODULA",
+      null,
+      "PERSISTE"
+    ],
     "ok": true
   },
   "nucleo:N100_ruido_independiente_sin_precision": {
     "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_ESTABLECIDA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.017928904580998918,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         -0.005451957586763129,
         0.04687294631715199
@@ -261,7 +272,9 @@
           -0.00772911178260664,
           0.024859394661119933
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.017347781869078593,
@@ -271,56 +284,149 @@
       "L4": 0.015315348128747575,
       "L5": 0.00612755749019489
     },
-    "esperado": "NO_CONCLUYENTE",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_ESTABLECIDA",
+      null
+    ],
     "ok": true
   },
   "nucleo:c_no_monotona": {
     "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE_MANIPULACION",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
     "ok": true
   },
   "nucleo:rango_menor_030": {
     "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE_MANIPULACION",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
     "ok": true
   },
   "nucleo:L0_sin_colapso": {
     "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE_MANIPULACION",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
     "ok": true
   },
-  "nucleo:L2_pierde_acc": {
+  "nucleo:L2_pierde_acc_005": {
     "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE_MANIPULACION",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
     "ok": true
   },
-  "nucleo:L5_pierde_acc_permitido": {
-    "veredicto": "NO_MODULA",
+  "nucleo:L2_gana_acc_005": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L5_pierde_acc_009_permitido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -350,7 +456,9 @@
           -0.004668154958213311,
           0.04444049705450765
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.017347781869078593,
@@ -360,12 +468,120 @@
       "L4": 0.017347781869078593,
       "L5": 0.017347781869078593
     },
-    "esperado": "NO_MODULA",
-    "esperado_extremo": "PERSISTE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L5_pierde_acc_011": {
+    "veredicto": "INCONCLUSIVE_MANIPULACION",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_MANIPULACION",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "nucleo:L4_gana_acc_permitido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L1": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L2": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L3": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L4": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ],
+        "L5": [
+          -0.004668154958213311,
+          0.04444049705450765
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.017347781869078593,
+      "L1": 0.017347781869078593,
+      "L2": 0.017347781869078593,
+      "L3": 0.017347781869078593,
+      "L4": 0.017347781869078593,
+      "L5": 0.017347781869078593
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      null
+    ],
     "ok": true
   },
   "nucleo:L0_sin_senal": {
     "veredicto": "INCONCLUSIVE_SIN_SENAL_CONTROL",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [],
     "bootstrap": {},
@@ -377,16 +593,336 @@
       "L4": 0.017347781869078593,
       "L5": 0.017347781869078593
     },
-    "esperado": "INCONCLUSIVE_SIN_SENAL_CONTROL",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE_SIN_SENAL_CONTROL",
+      null,
+      null
+    ],
     "ok": true
   },
-  "cli:completa": {
-    "veredicto": "NO_MODULA",
+  "auditoria:F01_punto_usa_c_comunes": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 0.0,
+      "c_comunes": [
+        0.8616262294801307,
+        0.7019305625251078,
+        0.6102271675164713,
+        0.540074647876759,
+        0.4153527513887041,
+        0.3615024745583102
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        0.0,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L1": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L2": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L3": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L4": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L5": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ]
+      },
+      "rango_c": 0.5001237549218205,
+      "margen_dD_equivalencia": 0.01000247509843641
+    },
+    "D": {
+      "L0": 0.020285047277373125,
+      "L1": 0.020285047277373125,
+      "L2": 0.020285047277373125,
+      "L3": 0.020285047277373125,
+      "L4": 0.020285047277373125,
+      "L5": 0.020285047277373125
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 3,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "auditoria:F02_L_constante_en_bootstrap": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "bootstrap degenerado: 114 de 300 replicas (indices [10, 11, 12, 15, 16, 17, 21, 23, 24, 29])"
+    ],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 114,
+      "fallos_primeros": [
+        {
+          "replica": 10,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 11,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 12,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 15,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 16,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 17,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 21,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 23,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 24,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 29,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 31,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 32,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 33,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 37,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 38,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 40,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 44,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 45,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 46,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        },
+        {
+          "replica": 47,
+          "error": "FloatingPointError: L0: L constante en la replica"
+        }
+      ]
+    },
+    "D": {
+      "L0": 0.01862350391531331,
+      "L1": 0.01862350391531331,
+      "L2": 0.01862350391531331,
+      "L3": 0.01862350391531331,
+      "L4": 0.01862350391531331,
+      "L5": 0.01862350391531331
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "validacion:comunes_menor_80": {
+    "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
+    "extremo": null,
+    "motivos": [
+      "splits comunes 52 < 80 % de 100"
+    ],
+    "bootstrap": {},
+    "D": {},
+    "faltantes": {
+      "L0": 24,
+      "L1": 24,
+      "L2": 24,
+      "L3": 24,
+      "L4": 24,
+      "L5": 24
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "validacion:dominio_5_invalidos_1_valido": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": -2.7055127912021525e-05,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 300,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
+      "IC95_beta": [
+        -0.00010441929898213792,
+        0.0
+      ],
+      "IC95_D": {
+        "L0": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L1": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L2": [
+          -0.003791195717623413,
+          0.05237472974822105
+        ],
+        "L3": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L4": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ],
+        "L5": [
+          -0.0037235818410014825,
+          0.052481426976636714
+        ]
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
+    },
+    "D": {
+      "L0": 0.020285047277373125,
+      "L1": 0.020285047277373125,
+      "L2": 0.02012340084548936,
+      "L3": 0.020285047277373125,
+      "L4": 0.020285047277373125,
+      "L5": 0.020285047277373125
+    },
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 5,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:completa": {
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
+    "extremo": "PERSISTE",
+    "motivos": [],
+    "bootstrap": {
+      "beta": 0.0,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 2000,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         0.0,
         0.0
@@ -416,7 +952,9 @@
           -0.005260779942042026,
           0.043639237567804495
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.017347781869078593,
@@ -426,16 +964,39 @@
       "L4": 0.017347781869078593,
       "L5": 0.017347781869078593
     },
-    "esperado": "NO_MODULA",
-    "esperado_extremo": "PERSISTE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      "NO_MODULA",
+      "PERSISTE"
+    ],
     "ok": true
   },
   "cli:L3_25_faltantes_limite": {
-    "veredicto": "NO_MODULA",
+    "veredicto": "NO_CONCLUYENTE",
+    "equivalencia": "NO_MODULA",
     "extremo": "PERSISTE",
     "motivos": [],
     "bootstrap": {
       "beta": 4.092121466842638e-06,
+      "c_comunes": [
+        0.86,
+        0.7,
+        0.61,
+        0.54,
+        0.42,
+        0.36
+      ],
+      "replicas": 2000,
+      "replicas_fallidas": 0,
+      "fallos_primeros": [],
       "IC95_beta": [
         -0.002160814878550069,
         0.002378690292965006
@@ -465,7 +1026,9 @@
           -0.007988454963620311,
           0.0452217601230673
         ]
-      }
+      },
+      "rango_c": 0.5,
+      "margen_dD_equivalencia": 0.01
     },
     "D": {
       "L0": 0.015428304298204076,
@@ -475,81 +1038,229 @@
       "L4": 0.015428304298204076,
       "L5": 0.015428304298204076
     },
-    "esperado": "NO_MODULA",
-    "esperado_extremo": "PERSISTE",
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 25,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "NO_CONCLUYENTE",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:L3_26_faltantes": {
     "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [
       "L3: faltantes 26 > 5 % de 500"
     ],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 26,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:duplicados": {
     "veredicto": "ABORTA",
     "detalle": "ABORTA: IDs duplicados\n",
-    "esperado": "ABORTA",
-    "esperado_extremo": null,
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:id_ajeno": {
     "veredicto": "ABORTA",
     "detalle": "ABORTA: 1 IDs fuera del universo\n",
-    "esperado": "ABORTA",
-    "esperado_extremo": null,
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
     "ok": true
   },
-  "cli:niveles_mal_plan": {
+  "cli:plan_niveles_incompletos": {
     "veredicto": "ABORTA",
-    "detalle": "ABORTA: niveles del plan\n",
-    "esperado": "ABORTA",
-    "esperado_extremo": null,
+    "detalle": "ABORTA: niveles: se esperan 6\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_seis_eps_cero": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 1: eps invalido 0\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_sin_eps": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 0: eps invalido None\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_sin_clave_nivel": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: nivel 0: numero invalido None\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_fraccional": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 100.5\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_cero": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 0\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_bool": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: True\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_n_sobre_tope": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: n_splits invalido: 401\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
+    "ok": true
+  },
+  "cli:plan_ilegible": {
+    "veredicto": "ABORTA",
+    "detalle": "ABORTA: plan o resumen ilegible: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n",
+    "esperado": [
+      "ABORTA",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:plan_otros_ids": {
     "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [
       "plan/resumen no vinculados"
     ],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:resumen_otra_tabla": {
     "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [
       "plan/resumen no vinculados"
     ],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
     "ok": true
   },
   "cli:L4_X_constante": {
     "veredicto": "INCONCLUSIVE",
+    "equivalencia": null,
     "extremo": null,
     "motivos": [
       "L4: X sin variacion intra-split"
     ],
     "bootstrap": {},
     "D": {},
-    "esperado": "INCONCLUSIVE",
-    "esperado_extremo": null,
+    "faltantes": {
+      "L0": 0,
+      "L1": 0,
+      "L2": 0,
+      "L3": 0,
+      "L4": 0,
+      "L5": 0
+    },
+    "esperado": [
+      "INCONCLUSIVE",
+      null,
+      null
+    ],
     "ok": true
   },
   "fallos": [],
-  "analisis_sha256": "c9159325c7f22c6e5ded2977f6d208e0282558094fd34ab6f96fb68c00843b10",
-  "pruebas_sha256": "b8d3544bb621723025621fe632cf5f13e135f27d2f4faca50ba0681e93a92af6",
+  "analisis_sha256": "afb807aad20830e0402c5fdb8f946f783b2a0835f497855e12364bf1fae356e6",
+  "pruebas_sha256": "7e16fa29737586044feb943d103fd9f5b04cd72420d6e97afaf42b524dba16b9",
   "fixture_sha256": "1364e8e73ab0832a60116d46ca5b9ea797ca6d2e4e41623dd25d51f077a9c794"
 }
