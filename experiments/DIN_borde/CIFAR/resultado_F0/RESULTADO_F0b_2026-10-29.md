@@ -27,7 +27,9 @@
 | CPU ≤ 60 s por trayectoria | cumple (36.3 s) |
 | compuerta y reproducción | cumplen |
 
-**Cumple todos los criterios.** No hace falta F0c. La configuración para F1 es la del plan v2 (lr = 0.003). El paso a F1 lo decide el responsable.
+**Cumple todos los criterios.** No hace falta F0c. La configuración para F1 es la del plan v2 (lr = 0.003).
+
+**Decisión del responsable (2026-10-29):** pasar a F1 con esta configuración («si pasamos a f1 con la configuracion»). Según el reparto del plan v1 §1, el otro agente diseña F1 y su análisis antes de que se implemente el productor.
 
 ## Notas descriptivas (no son criterios)
 - **La generalización no mejoró:** el panel y el test siguen en 0.556, mientras el entrenamiento llega a 0.91. La brecha es grande, como cabe esperar con 900 imágenes y clases que se confunden entre sí.
