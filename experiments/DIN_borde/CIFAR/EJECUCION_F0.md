@@ -23,3 +23,17 @@ D:\RIPG_DATA\venv_q13\Scripts\python.exe experiments\DIN_borde\CIFAR\f0_factibil
 - **Reanudable:** si se interrumpe, se repite el mismo comando del paso 3. Las trayectorias ya escritas (incluidas las fallidas) se conservan y no se repiten.
 - **Qué devolver:** lo que imprime la consola en los pasos 2 y 3, y los archivos `compuerta.json`, `corrida\resumen_F0.json` y `corrida\tabla_F0.csv`.
 - **Qué NO contiene la salida:** X10, ρ ni M. F0 no mide la señal temprana.
+
+## F0b (enmienda v2: lr = 0.003, semillas nuevas)
+
+Se corre después de fusionar el PR de la enmienda. Usa la misma compuerta y el mismo CIFAR. La salida va en una **carpeta nueva**: la de F0 no se toca.
+
+```powershell
+cd D:\leviathan-q13
+git checkout main
+git pull
+D:\RIPG_DATA\venv_q13\Scripts\python.exe experiments\DIN_borde\CIFAR\f0_factibilidad.py --fase F0b --cifar D:\RIPG_DATA\cifar-10-python.tar.gz --compuerta D:\RIPG_DATA\DIN_CIFAR_F0\compuerta.json --salida D:\RIPG_DATA\DIN_CIFAR_F0\corrida_F0b --procesos 12
+```
+
+- **Duración:** unos 5 minutos; el costo por trayectoria es el mismo que en F0.
+- **Qué devolver:** la consola, que ahora imprime la precisión de entrenamiento, del panel y de test, c por visita y la memoria. Además, `corrida_F0b\resumen_F0.json`.

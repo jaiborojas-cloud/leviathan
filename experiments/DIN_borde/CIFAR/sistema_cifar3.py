@@ -107,10 +107,10 @@ def red(torch):
     return CNN3().double()
 
 
-def iniciar(torch, semilla_init):
+def iniciar(torch, semilla_init, lr=LR):
     torch.manual_seed(semilla_init)
     modelo = red(torch)
-    opt = torch.optim.Adam(modelo.parameters(), lr=LR)
+    opt = torch.optim.Adam(modelo.parameters(), lr=lr)
     return modelo, opt
 
 

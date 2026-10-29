@@ -1,4 +1,4 @@
-"""Productor de F0 (factibilidad) de DIN-CIFAR, plan v1 §4.
+"""Productor de F0 y F0b (factibilidad) de DIN-CIFAR, plan v1 §4 y enmienda v2.
 
 Mide por trayectoria: c y q en cada visita; precisión en entrenamiento, panel
 y test en u250; tiempos (entrenamiento, geometría por visita, una llamada a
@@ -8,7 +8,7 @@ NO guarda ni reporta X10, log(1-p_min), ρ ni M.
 Uso (en el equipo del responsable):
   python f0_factibilidad.py --cifar D:\\RIPG_DATA\\cifar-10-python.tar.gz \\
       --compuerta D:\\RIPG_DATA\\DIN_CIFAR_F0\\compuerta.json \\
-      --salida D:\\RIPG_DATA\\DIN_CIFAR_F0\\corrida --procesos 12
+      --salida D:\\RIPG_DATA\\DIN_CIFAR_F0\\corrida --procesos 12 [--fase F0b]
 
 Reanudable: las trayectorias ya escritas (incluidas las fallidas) se conservan
 y no se repiten. Ninguna falla se reemplaza.
@@ -37,7 +37,11 @@ import sistema_cifar3 as s3  # noqa: E402
 
 FORMATO = 'DIN-CIFAR-F0-v1'
 N_SPLITS, N_INITS = 20, 5
-SEMILLA_SPLIT, SEMILLA_INIT, SEMILLA_LOTE = 1_010_000, 1_020_000, 1_030_000
+# Cada fase tiene semillas propias que no se reutilizan en ninguna otra fase.
+FASES = {
+    'F0':  dict(semillas=(1_010_000, 1_020_000, 1_030_000), lr=1e-3, acc_train_min=None),   # plan v1
+    'F0b': dict(semillas=(1_040_000, 1_050_000, 1_060_000), lr=3e-3, acc_train_min=0.90),   # enmienda v2
+}
 VERSIONES = {'torch': '2.9.1+cpu', 'numpy': '2.3.5', 'scipy': '1.17.0', 'scikit-learn': '1.8.0'}
 REPETIDAS = ((0, 0), (1, 3))   # se re-ejecutan para comprobar reproducción exacta
 CODIGO = ('instrumento_general.py', 'sistema_cifar3.py', 'f0_factibilidad.py')
@@ -56,6 +60,7 @@ def versiones():
 
 
 def memoria_pico_mb():
+    """Pico de memoria del proceso en MB; None si no se puede medir (nunca 0 silencioso)."""
     if os.name == 'nt':
         import ctypes
         from ctypes import wintypes
@@ -66,11 +71,15 @@ def memoria_pico_mb():
                         ('QuotaPeakPagedPoolUsage', ctypes.c_size_t), ('QuotaPagedPoolUsage', ctypes.c_size_t),
                         ('QuotaPeakNonPagedPoolUsage', ctypes.c_size_t), ('QuotaNonPagedPoolUsage', ctypes.c_size_t),
                         ('PagefileUsage', ctypes.c_size_t), ('PeakPagefileUsage', ctypes.c_size_t)]
+        k32 = ctypes.WinDLL('kernel32', use_last_error=True)
+        k32.GetCurrentProcess.restype = wintypes.HANDLE
+        k32.K32GetProcessMemoryInfo.argtypes = [wintypes.HANDLE, ctypes.POINTER(PMC), wintypes.DWORD]
+        k32.K32GetProcessMemoryInfo.restype = wintypes.BOOL
         pmc = PMC()
         pmc.cb = ctypes.sizeof(PMC)
-        h = ctypes.windll.kernel32.GetCurrentProcess()
-        ctypes.windll.psapi.GetProcessMemoryInfo(h, ctypes.byref(pmc), pmc.cb)
-        return pmc.PeakWorkingSetSize/2**20
+        if not k32.K32GetProcessMemoryInfo(k32.GetCurrentProcess(), ctypes.byref(pmc), pmc.cb):
+            return None
+        return pmc.PeakWorkingSetSize/2**20 if pmc.PeakWorkingSetSize > 0 else None
     import resource
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024
 
@@ -82,20 +91,22 @@ def _iniciar_trabajador():
     ig.congelado('rho_v2')
 
 
-def trayectoria(d, s, k):
-    """Una trayectoria de F0 sobre el split preparado `d`. Devuelve el registro."""
+def trayectoria(d, s, k, fase='F0'):
+    """Una trayectoria de la fase sobre el split preparado `d`. Devuelve el registro."""
     import torch
+    cfg = FASES[fase]
+    s_split, s_init, s_lote = cfg['semillas']
     rho = ig.congelado('rho_v2')
     t_cpu0, t0 = time.process_time(), time.perf_counter()
     xt, yt = torch.tensor(d['xtr']), torch.tensor(d['ytr'])
     xp, yp = torch.tensor(d['xpa']), torch.tensor(d['ypa'])
     xe, ye = torch.tensor(d['xte']), torch.tensor(d['yte'])
     f, _ = ig.perspectivas_pca(d['xpa'])
-    modelo, opt = s3.iniciar(torch, SEMILLA_INIT+5*s+k)
+    modelo, opt = s3.iniciar(torch, s_init+5*s+k, lr=cfg['lr'])
     inicial = hashlib.sha256(b''.join(p.detach().numpy().tobytes() for p in modelo.parameters())).hexdigest()
-    rng = np.random.default_rng(SEMILLA_LOTE+5*s+k)
-    reg = dict(split=s, k=k, semilla_split=SEMILLA_SPLIT+s, semilla_init=SEMILLA_INIT+5*s+k,
-               semilla_lote=SEMILLA_LOTE+5*s+k, sha_parametros_iniciales=inicial,
+    rng = np.random.default_rng(s_lote+5*s+k)
+    reg = dict(fase=fase, lr=cfg['lr'], split=s, k=k, semilla_split=s_split+s, semilla_init=s_init+5*s+k,
+               semilla_lote=s_lote+5*s+k, sha_parametros_iniciales=inicial,
                sha_panel=hashlib.sha256(d['ipa'].tobytes()).hexdigest(),
                visitas={}, t_entrenamiento=0.0)
     u = 0
@@ -125,12 +136,12 @@ def trayectoria(d, s, k):
     return reg
 
 
-def _tarea(s, pendientes, d):
+def _tarea(s, pendientes, d, fase):
     """Las trayectorias pendientes de un split; `d` lo prepara el proceso principal."""
     hechos = []
     for k, destino in pendientes:
         try:
-            reg = trayectoria(d, s, k)
+            reg = trayectoria(d, s, k, fase)
             reg['estado'] = 'MEDIDA'
         except Exception:
             reg = dict(split=s, k=k, estado='FALLIDA', error=traceback.format_exc())
@@ -150,8 +161,12 @@ def resumir(regs):
         res[f'u{v:03d}'] = dict(c_mediana=med(cs), c_cuantiles=[float(x) for x in np.quantile(cs, [0, .1, .25, .5, .75, .9, 1])] if cs else None,
                                 q_mediana=med(qs))
     for k in ('acc_train250', 'acc_panel250', 'acc_test250', 'cpu_total', 't_total', 't_entrenamiento',
-              't_rho250', 'memoria_pico_mb'):
+              't_rho250'):
         res[k+'_mediana'] = med([r[k] for r in ok])
+    mem = [r['memoria_pico_mb'] for r in ok if r.get('memoria_pico_mb')]
+    res['memoria_pico_mb_mediana'] = med(mem)            # None = sin medir
+    res['memoria_pico_mb_max'] = max(mem, default=None)
+    res['memoria_sin_medir'] = len(ok)-len(mem)
     res['cpu_total_max'] = max((r['cpu_total'] for r in ok), default=None)
     res['t_geometria_mediana'] = med([vv['t_geometria'] for r in ok for vv in r['visitas'].values()])
     res['rho250_status'] = {st: sum(r['rho250_status'] == st for r in ok) for st in sorted({r['rho250_status'] for r in ok})}
@@ -165,7 +180,10 @@ def main():
     ap.add_argument('--salida', required=True)
     ap.add_argument('--procesos', type=int, default=12)
     ap.add_argument('--permitir-versiones', action='store_true', help='solo desarrollo: queda registrado')
+    ap.add_argument('--fase', choices=sorted(FASES), default='F0')
     a = ap.parse_args()
+    cfg = FASES[a.fase]
+    s_split = cfg['semillas'][0]
 
     v = versiones()
     if v != VERSIONES and not a.permitir_versiones:
@@ -178,7 +196,7 @@ def main():
     Xtr, ytr, Xte, yte, md5, sha = s3.cargar_cifar10(a.cifar)
     out = Path(a.salida)
     (out/'trayectorias').mkdir(parents=True, exist_ok=True)
-    meta = dict(formato=FORMATO, cifar_md5=md5, cifar_sha256=sha, versiones=v, versiones_fijadas=VERSIONES,
+    meta = dict(formato=FORMATO, fase=a.fase, configuracion=cfg, cifar_md5=md5, cifar_sha256=sha, versiones=v, versiones_fijadas=VERSIONES,
                 permitir_versiones=a.permitir_versiones, compuerta_sha256=sha_archivo(a.compuerta),
                 codigo={n: sha_archivo(AQUI/n) for n in CODIGO}, fuentes={k: x[1] for k, x in ig.FUENTES.items()},
                 python=platform.python_version(), plataforma=platform.platform(), procesos=a.procesos,
@@ -186,8 +204,8 @@ def main():
     pm = out/'meta.json'
     if pm.exists():
         previo = json.loads(pm.read_text(encoding='utf-8'))
-        if {k: previo.get(k) for k in ('formato', 'cifar_sha256', 'codigo', 'fuentes', 'versiones')} != \
-           {k: meta[k] for k in ('formato', 'cifar_sha256', 'codigo', 'fuentes', 'versiones')}:
+        claves = ('formato', 'fase', 'cifar_sha256', 'codigo', 'fuentes', 'versiones')
+        if {k: previo.get(k) for k in claves} != {k: json.loads(json.dumps(meta[k])) for k in claves}:
             raise SystemExit('La carpeta de salida es de otra configuración; usa otra carpeta')
     else:
         pm.write_text(json.dumps(meta, indent=1), encoding='utf-8')
@@ -200,7 +218,7 @@ def main():
     for s, k, destino in pend:
         por_split.setdefault(s, []).append((k, destino))
     with cf.ProcessPoolExecutor(a.procesos, initializer=_iniciar_trabajador) as ex:
-        futs = [ex.submit(_tarea, s, items, s3.preparar(Xtr, ytr, Xte, yte, SEMILLA_SPLIT+s))
+        futs = [ex.submit(_tarea, s, items, s3.preparar(Xtr, ytr, Xte, yte, s_split+s), a.fase)
                 for s, items in sorted(por_split.items())]
         for fu in cf.as_completed(futs):
             s, hechos = fu.result()
@@ -216,7 +234,7 @@ def main():
         if orig['estado'] != 'MEDIDA':
             repro.append(dict(split=s, k=k, identica=None, nota='original fallida'))
             continue
-        nuevo = trayectoria(s3.preparar(Xtr, ytr, Xte, yte, SEMILLA_SPLIT+s), s, k)
+        nuevo = trayectoria(s3.preparar(Xtr, ytr, Xte, yte, s_split+s), s, k, a.fase)
         campos = lambda r: ([r['sha_parametros_iniciales'], r['sha_parametros_finales'], r['acc_test250']] +
                             [(x['c'], x['q'], x['acc_panel']) for x in r['visitas'].values()])
         repro.append(dict(split=s, k=k, identica=campos(nuevo) == campos(orig)))
@@ -228,8 +246,13 @@ def main():
         cpu_por_trayectoria_mediana_le_60s=res['cpu_total_mediana'] is not None and res['cpu_total_mediana'] <= 60,
         compuerta_pasa=True,
         reproduccion_exacta=all(r['identica'] for r in repro))
+    if cfg['acc_train_min'] is not None:
+        regla['acc_train250_mediana_ge_%03d' % round(100*cfg['acc_train_min'])] = (
+            res['acc_train250_mediana'] is not None and res['acc_train250_mediana'] >= cfg['acc_train_min'])
+    res['fase'] = a.fase
+    res['configuracion'] = cfg
     res['regla_descriptiva_F1'] = regla
-    res['nota'] = 'Descriptivo: el responsable decide si se pasa a F1 (plan v1 §4).'
+    res['nota'] = 'Descriptivo: el responsable decide si se pasa a F1 (plan v1 §4; enmienda v2).'
     with open(out/'resumen_F0.json', 'w', encoding='utf-8') as fh:
         json.dump(res, fh, indent=1)
     with open(out/'tabla_F0.csv', 'w', newline='', encoding='utf-8') as fh:
@@ -244,8 +267,10 @@ def main():
                 fila += [r['acc_train250'], r['acc_test250'], r['cpu_total'], r['t_rho250'], r['rho250_status'],
                          r['memoria_pico_mb']]
             w.writerow(fila)
-    print(json.dumps({k: res[k] for k in ('medidas', 'fallidas', 'acc_panel250_mediana', 'cpu_total_mediana',
-                                          'memoria_pico_mb_mediana')}, indent=1))
+    print(json.dumps({k: res[k] for k in ('fase', 'medidas', 'fallidas', 'acc_train250_mediana', 'acc_panel250_mediana',
+                                          'acc_test250_mediana', 'cpu_total_mediana', 'memoria_pico_mb_mediana',
+                                          'memoria_pico_mb_max', 'memoria_sin_medir')}, indent=1))
+    print('c por visita:', {f'u{v:03d}': res[f'u{v:03d}']['c_mediana'] for v in s3.VISITAS})
     print('c250:', res['u250']['c_cuantiles'])
     for k, x in regla.items():
         print(('OK  ' if x else 'NO  ')+k)
