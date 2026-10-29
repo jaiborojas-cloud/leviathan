@@ -62,7 +62,7 @@ Tabla completa, con todas las etapas y su estado oficial: [catálogo de experime
 **Lo que no se ha establecido:** una ley universal del signo de la curvatura, un predictor universal de la generalización o una explicación causal. Los hallazgos de DIN-borde son exploratorios: salen de datos ya usados y solo un confirmatorio con cohorte nueva puede sostenerlos. Todo lo de entrenamiento real es de **una familia** (MLP en Wine, panel de 27 ejemplos); no se afirma que se transfiera a otras redes o datos.
 
 ## En curso
-- **Después de Q13-M2:** la revisión de literatura (Q15) es ahora obligatoria. Después: transferencia a otros modelos y datos, y separar el colapso de la escala de los logits, que LS y LP fijan por el mismo mecanismo ([revisión Q15](docs/research-notes/revision-literatura-Q15.md)).
+- **Después de Q13-M2:** primera pasada de la revisión de literatura (Q15) hecha; falta la sistemática antes de publicar. Siguiente: transferencia a otros modelos y datos, y separar el colapso de la escala de los logits, que LS y LP fijan por el mismo mecanismo ([revisión Q15](docs/research-notes/revision-literatura-Q15.md)).
 - **Q14:** ¿la distancia al borde dice algo en modelos que razonan en latente o cuantizan conceptos? Analogía sin resultado.
 - **E16:** cotas y caminos al borde en familias sintéticas.
 - **Q15, revisión de literatura** (qué es nuevo): [primera pasada hecha](docs/research-notes/revision-literatura-Q15.md) (D no es nueva; el resultado DIN no se encontró publicado); falta la búsqueda sistemática. Es obligatoria antes de cualquier publicación externa, antes de diseñar la transferencia a otros modelos o al cerrar Q13-M2, lo que ocurra primero. Ver [preguntas abiertas](docs/research-notes/open-questions.md).
