@@ -1,0 +1,45 @@
+{
+  "formato": "DIN-Q13M2-v2-portable-1",
+  "plan_sha256": "4b0aa95f16518fe0854e16540c38494884fbe76201c20df837015548786d90d7",
+  "script_sha256": "87dbc9ee05ad3fdabeb5a0dc21307c81a2a95898159c298dbb8ac4a07c24bbe1",
+  "design_sha256": "5c6c238e6536c24c4188f82d69c947327a590bfdca9d7068519a885e52945814",
+  "analyst_sha256": "190e3e878b9e5516d51480cc4f5af79a2ac214f69f94a686e9085fbb868fb2d4",
+  "frozen_manifest_sha256": "badbc22159a3e9ecf91902c6af76c6890628be0044bfcdd6a2a520ec9b8b8071",
+  "fuentes": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho_v2": {
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    }
+  },
+  "originales": {
+    "recipe": {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    "support": {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/fuentes/support_v1.py",
+      "sha256": "29158f316c8a4b982e206a6588ad49702af8f3d0710326bfac190ebdc52285c1"
+    },
+    "LP": {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/scripts/recipe_m2.py",
+      "sha256": "7d043934eacf2aa81d59b4c46ee80954623343f12de391e1cbc5e8d467f040a7"
+    }
+  },
+  "recipe_sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6",
+  "support_sha256": "29158f316c8a4b982e206a6588ad49702af8f3d0710326bfac190ebdc52285c1",
+  "LP_sha256": "7d043934eacf2aa81d59b4c46ee80954623343f12de391e1cbc5e8d467f040a7",
+  "versiones": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  }
+}

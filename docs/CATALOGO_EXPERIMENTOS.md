@@ -71,6 +71,7 @@ Corte: `main` del 2026-10-23 (hasta el PR #56). Una fila por experimento: qué p
 | Q13 v1/v2 | ¿el colapso es necesario? (manipulación pareada con LS y WD) | **INCONCLUSIVE_MANIPULACION** | v1: sin dosis en la rejilla; v2: WD c250 = 0.740 > 0.70 en la cohorte de 12 000 | [v2](../experiments/DIN_borde/Q13/resultado/RESULTADO_Q13_2026-10-26.md) |
 | Q13-LS | A0 frente a LS (un manipulador; decidido tras la compuerta, antes de D) | **NO_CONCLUYENTE** | D 0.039 → 0.0083 (p = 0.0002); señal atenuada, no eliminada | [Q13-LS](../experiments/DIN_borde/Q13/q13_ls/RESULTADO_Q13_LS_2026-10-26.md) |
 | **Q13-DR** | ¿el colapso modula la intensidad de la señal? (6 dosis de LS, cohorte nueva, diseño auditado dos veces) | **MODULA** (confirmatorio) | β = 0.077 [0.028, 0.140]; D 0.034 → −0.001, monótona; extremo INDETERMINADO | [Q13-DR](../experiments/DIN_borde/Q13DR/resultado/RESULTADO_Q13DR_2026-10-26.md) |
+| **Q13-M2** | ¿la modulación se reproduce con otros manipuladores? (LP y WD, A0 compartido, auditado y verificado antes de congelar) | **MODULACION_REPRODUCIDA_EN_DOS_VIAS** (confirmatorio) | LP β = 0.051, WD β = 0.056, compatibles con LS | [Q13-M2](../experiments/DIN_borde/Q13M2/resultado/RESULTADO_Q13M2_2026-10-28.md) |
 
 ## 6. E16 — composición, métricas y caminos (sintético 2→2→1, sin entrenamiento)
 Línea independiente: no continúa E15/T2. Todo es exploratorio o de validación instrumental.
