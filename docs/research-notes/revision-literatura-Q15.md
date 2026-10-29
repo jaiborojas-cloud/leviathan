@@ -66,8 +66,8 @@ Hay una literatura amplia sobre «lo temprano anticipa lo final», pero **no se 
 | «El colapso causa la señal» | **No.** Las intervenciones lo mueven, pero también la escala de los logits |
 
 ## 7. Implicaciones para el plan
-1. **Reformular A31 y la portada:** decir «tres intervenciones de **dos familias de mecanismo**» (Beck et al.).
-2. **Renombrar el «colapso de M»** en los textos externos, o distinguirlo explícitamente del *neural collapse*.
+1. **Reformular A31 y la portada:** decir «tres intervenciones de **dos familias de mecanismo**» (Beck et al.). **Hecho el 2026-10-28.**
+2. **Renombrar el «colapso de M»** en los textos externos, o distinguirlo explícitamente del *neural collapse*. **Hecho el 2026-10-28:** nota de terminología en la portada («concentración perspectival»). Los documentos congelados no se modifican.
 3. **Nuevo control posible:** la escala de los logits como variable rival del colapso. Beck et al. indican que LS y LP fijan logits objetivo finitos. Un diseño que mueva el colapso **sin** mover la escala de los logits, o al revés, separaría las dos.
 4. **Transferencia:** CIFAR con una ResNet pequeña es el terreno de la literatura relacionada (Bernstein, Jastrzębski, Paul), y por eso el paso natural.
 5. **Antes de publicar:**
