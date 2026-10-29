@@ -1,0 +1,122 @@
+{
+  "protocol": "DIN-CIFAR-F1-v2",
+  "estado": "BORRADOR",
+  "n_splits": 100,
+  "n_inits": 5,
+  "visitas": [
+    5,
+    10,
+    30,
+    250
+  ],
+  "seed_bases": {
+    "split": 1100000,
+    "init": 1110000,
+    "lote": 1120000
+  },
+  "F2_reserved": {
+    "split_base": 1200000,
+    "init_base": 1300000,
+    "lote_base": 1400000,
+    "max_splits": 10000
+  },
+  "entrenamiento": {
+    "clases": [
+      3,
+      4,
+      5
+    ],
+    "referencia": 5,
+    "train_por_clase": 300,
+    "panel_por_clase": 9,
+    "test_por_clase": 9,
+    "parametros": 26067,
+    "lr": 0.003,
+    "lote": 64,
+    "updates": 250,
+    "optimizer": "Adam",
+    "aumentos": false,
+    "dtype": "float64",
+    "f": "PCA_PANEL_2_FIJA_POR_SPLIT_PLAN_V1"
+  },
+  "rho": {
+    "version": "r3",
+    "visitas": [
+      10,
+      250
+    ],
+    "options": {
+      "grid": 9,
+      "starts": 3,
+      "margin": 1e-08,
+      "order": 12,
+      "log_step": 4.0,
+      "maxiter": 40,
+      "xatol": 1e-09,
+      "max_evaluations": 4096,
+      "seconds": 60.0
+    },
+    "outer_timeout_seconds": 120.0,
+    "relative_error_max": 1e-06,
+    "retries": 0
+  },
+  "analisis": {
+    "grado": 3,
+    "fold_seed": 260010,
+    "permutation_seed": 260001,
+    "permutations": 5000,
+    "max_missing_fraction": 0.05,
+    "min_split_fraction": 0.8,
+    "min_valid_per_split": 3,
+    "X_atol": 1e-08,
+    "X_positive_tolerance": 1e-12,
+    "secondary_min_splits": 20,
+    "c_strata": [
+      0.0,
+      0.4,
+      0.8,
+      1.0
+    ],
+    "primary": "rho_caras",
+    "secondary": "rho_vert",
+    "c_strata_assignment": "split_median_c250_primary_eligible"
+  },
+  "fuentes": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho": {
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    },
+    "C1": {
+      "path": "experiments/DIN_borde/C1/analisis_C1_v2.py",
+      "sha256": "8711f468d0df110a94c9cfdf6a1d0777f495537546cdce516929f0cb129858d5"
+    },
+    "instrumento": {
+      "path": "experiments/DIN_borde/CIFAR/instrumento_general.py",
+      "sha256": "54da1c5602c1e03dc2bc049245547e976f82cf864c32648eac913028a5af412f"
+    },
+    "sistema": {
+      "path": "experiments/DIN_borde/CIFAR/sistema_cifar3.py",
+      "sha256": "a0bf33c9bfc3fe524079e04e734e67b836fc1647fe565b04867d7949fb4d0d54"
+    },
+    "compuerta": {
+      "path": "experiments/DIN_borde/CIFAR/compuerta_equivalencia.py",
+      "sha256": "68921b1b192f9254ddcfd679d9964e9de1011bdb1e31900211414afa09ebb29a"
+    }
+  },
+  "versiones": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sklearn": "1.8.0"
+  },
+  "dataset_md5": "c58f30108f718f92721af3b95e74349a",
+  "ids_sha256": "c807dd830a70b904253ada6784134d9f8984f14270c6c9cd97054f79ce719987"
+}
