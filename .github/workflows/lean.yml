@@ -1,0 +1,152 @@
+# Compila el proyecto Lean de DIN (carpeta lean/) con la caché oficial de Mathlib.
+# Autorizado por el responsable el 2026-11-02 («eligo las actions»).
+# Solo se activa con cambios en lean/ o en este archivo. Publica el final del registro de
+# compilación como un comentario único (que se actualiza) en el PR, para poder leer los
+# errores sin acceso a los registros de Actions.
+name: lean
+
+on:
+  pull_request:
+    paths:
+      - "lean/**"
+      - ".github/workflows/lean.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+
+      # Toolchain de Lean (~300 MB): se guarda por versión de lean-toolchain.
+      - name: Restaurar elan y toolchain
+        id: elan-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain') }}
+
+      - name: Instalar elan
+        run: |
+          if [ ! -x "$HOME/.elan/bin/lake" ]; then
+            curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          fi
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      # Mathlib y sus dependencias ya compiladas (~5 GB). La clave solo depende de la versión
+      # fijada (lean-toolchain y lakefile.toml), así que se descarga una sola vez y se reutiliza
+      # en todas las corridas hasta que se cambie de versión. Los cambios en DIN/ no la invalidan.
+      - name: Restaurar Mathlib precompilada
+        id: mathlib-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            lean/.lake/packages
+            lean/lake-manifest.json
+          key: mathlib-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}
+
+      - name: Descargar Mathlib precompilada (solo si no estaba guardada)
+        if: steps.mathlib-cache.outputs.cache-hit != 'true'
+        run: |
+          t0=$(date +%s)
+          lake exe cache get
+          echo "cache get: $(( $(date +%s) - t0 )) s" >> ../tiempos.txt
+
+      # Se guardan justo después de la descarga, antes de compilar, para que una prueba
+      # con errores no impida guardar la caché.
+      - name: Guardar toolchain
+        if: steps.elan-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain') }}
+
+      - name: Guardar Mathlib precompilada
+        if: steps.mathlib-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            lean/.lake/packages
+            lean/lake-manifest.json
+          key: mathlib-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}
+
+      - name: Compilar
+        id: build
+        run: |
+          set -o pipefail
+          t0=$(date +%s)
+          lake build 2>&1 | tee build.log
+          echo "lake build: $(( $(date +%s) - t0 )) s" >> ../tiempos.txt
+          if grep -n "declaration uses 'sorry'" build.log; then
+            echo "Hay pruebas incompletas (sorry)" | tee -a build.log
+            exit 1
+          fi
+          echo "COMPILACION_OK sin sorry" | tee -a build.log
+
+      # Lean puede aceptar «pruebas» que se apoyan en axiomas añadidos a mano o en atajos.
+      # Aquí se exige que cada teorema de DIN dependa solo de los tres axiomas estándar de
+      # Mathlib (propext, Classical.choice, Quot.sound): sin sorryAx, sin axiomas propios.
+      # La lista de teoremas se genera de los archivos para que no pueda quedar desactualizada.
+      - name: Verificar axiomas
+        id: axiomas
+        if: steps.build.outcome == 'success'
+        run: |
+          set -o pipefail
+          { echo "import DIN"; grep -ho "^theorem [A-Za-z0-9_']*" DIN/*.lean | awk '{print "#print axioms DIN." $2}'; } > Axiomas.lean
+          lake env lean Axiomas.lean 2>&1 | tee axiomas.log
+          python3 - <<'PY' 2>&1 | tee -a build.log
+          import re, sys
+          permitidos = {'propext', 'Classical.choice', 'Quot.sound'}
+          esperados = [l.split()[2] for l in open('Axiomas.lean') if l.startswith('#print axioms')]
+          texto = ' '.join(open('axiomas.log').read().split())
+          hallados = {}
+          for m in re.finditer(r"'([^']+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)", texto):
+              hallados[m.group(1)] = {a.strip() for a in (m.group(2) or '').split(',') if a.strip()}
+          fallas = [t for t in esperados if t not in hallados] + \
+                   [f"{t}: {sorted(a - permitidos)}" for t, a in hallados.items() if a - permitidos]
+          print(f"AXIOMAS: {len(hallados)}/{len(esperados)} teoremas revisados; permitidos {sorted(permitidos)}")
+          for t in esperados:
+              print(f"  {t}: {sorted(hallados.get(t, {'NO_ENCONTRADO'}))}")
+          if fallas:
+              print('AXIOMAS_FALLA:', fallas)
+              sys.exit(1)
+          print('AXIOMAS_OK')
+          PY
+
+      - name: Publicar el registro en el PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          RESULT: ${{ steps.build.outcome }} / axiomas ${{ steps.axiomas.outcome }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          MARK="<!-- lean-build-log -->"
+          {
+            echo "$MARK"
+            echo "**Lean build:** \`$RESULT\` · commit \`$SHA\` · caché de Mathlib: \`${{ steps.mathlib-cache.outputs.cache-hit || 'false' }}\`"
+            echo
+            [ -f ../tiempos.txt ] && sed 's/^/- /' ../tiempos.txt && echo
+            echo '```text'
+            if [ -f build.log ]; then tail -n 200 build.log; else echo "(sin build.log: falló antes de compilar)"; fi
+            echo '```'
+          } > comment.md
+          ID=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR}/comments" --paginate \
+                 --jq ".[] | select(.body | startswith(\"$MARK\")) | .id" | head -n 1)
+          if [ -n "$ID" ]; then
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${ID}" -F body=@comment.md > /dev/null
+          else
+            gh api "repos/${GITHUB_REPOSITORY}/issues/${PR}/comments" -F body=@comment.md > /dev/null
+          fi
