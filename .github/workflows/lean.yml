@@ -95,12 +95,42 @@ jobs:
           fi
           echo "COMPILACION_OK sin sorry" | tee -a build.log
 
+      # Lean puede aceptar «pruebas» que se apoyan en axiomas añadidos a mano o en atajos.
+      # Aquí se exige que cada teorema de DIN dependa solo de los tres axiomas estándar de
+      # Mathlib (propext, Classical.choice, Quot.sound): sin sorryAx, sin axiomas propios.
+      # La lista de teoremas se genera de los archivos para que no pueda quedar desactualizada.
+      - name: Verificar axiomas
+        id: axiomas
+        if: steps.build.outcome == 'success'
+        run: |
+          set -o pipefail
+          { echo "import DIN"; grep -ho "^theorem [A-Za-z0-9_']*" DIN/*.lean | awk '{print "#print axioms DIN." $2}'; } > Axiomas.lean
+          lake env lean Axiomas.lean 2>&1 | tee axiomas.log
+          python3 - <<'PY' 2>&1 | tee -a build.log
+          import re, sys
+          permitidos = {'propext', 'Classical.choice', 'Quot.sound'}
+          esperados = [l.split()[2] for l in open('Axiomas.lean') if l.startswith('#print axioms')]
+          texto = ' '.join(open('axiomas.log').read().split())
+          hallados = {}
+          for m in re.finditer(r"'([^']+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)", texto):
+              hallados[m.group(1)] = {a.strip() for a in (m.group(2) or '').split(',') if a.strip()}
+          fallas = [t for t in esperados if t not in hallados] + \
+                   [f"{t}: {sorted(a - permitidos)}" for t, a in hallados.items() if a - permitidos]
+          print(f"AXIOMAS: {len(hallados)}/{len(esperados)} teoremas revisados; permitidos {sorted(permitidos)}")
+          for t in esperados:
+              print(f"  {t}: {sorted(hallados.get(t, {'NO_ENCONTRADO'}))}")
+          if fallas:
+              print('AXIOMAS_FALLA:', fallas)
+              sys.exit(1)
+          print('AXIOMAS_OK')
+          PY
+
       - name: Publicar el registro en el PR
         if: always() && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
-          RESULT: ${{ steps.build.outcome }}
+          RESULT: ${{ steps.build.outcome }} / axiomas ${{ steps.axiomas.outcome }}
           SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           MARK="<!-- lean-build-log -->"

@@ -19,3 +19,7 @@ Lean v4.35.0 con Mathlib v4.35.0 (commit `56a005855ea17e0b0958f73ec801ae140b0a16
 - L5: la identidad de Woodbury.
 - L6: invariancia afín de la base.
 - L8: validez del p de permutación.
+
+**Verificación de axiomas:** además de rechazar `sorry`, la compilación ejecuta `#print axioms` sobre cada teorema (la lista se genera a partir de los archivos) y falla si alguno depende de algo distinto de los tres axiomas estándar (`propext`, `Classical.choice`, `Quot.sound`). Así se bloquean las pruebas que se apoyan en `sorryAx` o en axiomas añadidos a mano. Motivación: la advertencia de T. Tao (2026) sobre IA que aprovechan resquicios de Lean.
+
+**Criterio de uso (2026-11-02):** se conserva el piloto, pero no se agregan más lemas de DIN solo por formalizar. Lean se retoma cuando haya una afirmación matemática no trivial de RIPG que convenga certificar antes de publicarla. Un certificado en Lean garantiza que un enunciado es correcto, no que se entienda.
