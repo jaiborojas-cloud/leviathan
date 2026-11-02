@@ -1,0 +1,225 @@
+{
+  "tipo": "SOLO_RESPUESTAS_SIMULADAS",
+  "estado": "PASS",
+  "tests": 51,
+  "casos": [
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_actas_orden_ano_desc_y_desempates_antes_tope",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_autor_es_postfiltro_y_no_rellena_cupo",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_booleano_literal_sin_stemming_y_sin_frase_entre_campos",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_din_limites_de_palabra_guiones_unicode_y_campos",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_fechas_parciales_no_inventan_dia",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_indice_vacio_es_error_no_catalogo_vacio",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_openreview_aceptados_v1_v2_y_no_workshops",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_openreview_publication_date_y_borrado",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_parser_html_inline_y_abstract_heading",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_pmlr_contexto_fuera_del_enlace_y_solo_icml",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.FiltersAndCatalogues.test_resumen_ausente_no_es_cero_coincidencias_certificado",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.GraphAndCLI.test_cli_preparar_python_aislado_sin_red",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.GraphAndCLI.test_cli_solo_s2_deja_enmienda_y_exit2_sin_http",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.GraphAndCLI.test_grafo_conteo_500_sin_filtro_y_501_con_filtro",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.GraphAndCLI.test_resolver_s0_no_toma_titulo_cercano_distinto",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.GraphAndCLI.test_s0_snapshot_precede_toda_expansion_y_no_recursion",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_google_scholar_omitida_55",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_input_alterado_no_se_acepta",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_inputs_reales_son_solo_documentos_congelados",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_s2_guardado_como_incompatibilidad_sin_red",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_url_s2_no_quita_booleanos_ni_cambia_a_bulk",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.InputsAndURLs.test_urls_arxiv_conservan_consulta_y_orden",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_501_declara_tope_200_sin_recuperar_501",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_arxiv_atom_y_cero_legitimo",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_desconocido_con_fin_real_menor_de_500",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_duplicados_consumen_posiciones",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_exactamente_500_se_conservan_todos",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_fallo_de_segunda_pagina_conserva_primera",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_fin_prematuro_no_es_catalogo_completo",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_html_login_no_pasa_como_atom_vacio",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_pagina_repetida_y_sin_avance",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_s2_esquema_y_vecino_nulo_conserva_posicion",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_sondeo_desconocido_hasta_501_no_600",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.PaginationAndParsers.test_total_cambiante_no_declara_completa",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_403_sin_reintento_y_reanudacion_explicita",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_429_agotado_no_se_vuelve_cero_resultados",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_429_retry_after_y_cuerpos_preservados",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_bloqueo_evitar_dos_productores",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_cabeceras_no_guardan_api_key",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_escritura_exclusiva_preserva_marcador",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_fixture_ausente_nunca_recurre_a_red",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_huerfano_de_cuerpo_reserva_indice",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_identidad_impide_mezclar_simulado_y_real",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_json_nan_infinity_y_overflow_rechazados",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_pausa_arxiv_tres_segundos",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_pausa_semantic_minimo_un_segundo",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_respuesta_cache_no_hace_solicitud_ni_sobrescribe",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_resultado_fallido_se_conserva_al_corregir",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_resultado_tamper_se_detecta",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_resultado_terminado_no_repite_trabajo",
+      "estado": "PASS"
+    },
+    {
+      "caso": "__main__.StorageAndHTTP.test_sha_crudo_alterado_aborta",
+      "estado": "PASS"
+    }
+  ],
+  "fallos": 0,
+  "errores": 0,
+  "script_sha256": "0ef5f00ce580e90bc9c1a0284cd1fbd055663f4e1a711fc30654cfb1d9d7a9fc",
+  "pruebas_sha256": "f8413bbbff947214a9c61603a9ddd8dff7715f000e16c49a7f4c876610e01f4e",
+  "inputs_sha256": {
+    "consultas_v2.csv": "a9d8425a1d807b3ebdf2d3984bc3781de55d53279202d788c094b4102aa6d64f",
+    "plan_busquedas_v3.csv": "12399c4f0addd436f0e4bd11a79411086928c840d3848f8c1f8bf93d861baf93",
+    "LIMITES_v3.json": "d48b1ad8805e258b219ef3e799031945616a023e3b43023d55e0184a365aaecd",
+    "PROTOCOLO_OPERATIVO_v3.md": "3e39ccb87c53bb85465274515547751bf558cdd71edabe3354314136250f47ae",
+    "ejecucion/anclas_verificadas_S0_v1.csv": "2f66f78ed2b480a184e246ccaf0ad68cb85e06c6bfeb97dc9b4c854bad0deb1e"
+  },
+  "sin_conexiones_de_red": true,
+  "fecha_utc": "2026-11-02T23:47:53.240146+00:00",
+  "fecha_mexico": "2026-11-02T17:47:53.240146-06:00"
+}
