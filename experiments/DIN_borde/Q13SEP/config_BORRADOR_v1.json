@@ -1,0 +1,352 @@
+{
+  "protocolo": "DIN-Q13SEP-v1",
+  "estado": "BORRADOR",
+  "solo_diseno": true,
+  "base_main": "259fac77c21190c0753fd7087062d1578e58ef0d",
+  "familia": {
+    "d": 13,
+    "s": 0.8,
+    "clases": 3,
+    "train_por_clase": 30,
+    "panel_por_clase": 9,
+    "red": [
+      13,
+      64,
+      32,
+      3
+    ],
+    "dtype": "float64",
+    "f": "Xpanel_estandarizado_primeras_dos_columnas",
+    "referencia_reducida": 2,
+    "normalizacion": "StandardScaler_ajustado_solo_en_train"
+  },
+  "receta": {
+    "optimizer": "Adam",
+    "lr": 0.006,
+    "batch": 64,
+    "batch_replace": false,
+    "updates": 250,
+    "visitas": [
+      10,
+      250
+    ],
+    "A0": "cross_entropy(z,y)",
+    "LP": "cross_entropy(z,y)+lambda*(z**2).sum(dim=1).mean()",
+    "pareado": [
+      "split",
+      "init",
+      "lote"
+    ],
+    "temperatura_solo_medida": true
+  },
+  "temperaturas": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "codigos_T": [
+    "T05",
+    "T10",
+    "T20"
+  ],
+  "transformacion_T": "copia_fresca_checkpoint; l3.weight/=T; l3.bias/=T; recomputar_core_y_subset_M_completos",
+  "calibracion": {
+    "n_splits": 10,
+    "n_inits": 5,
+    "LP_grid": [
+      0.0001,
+      0.0003,
+      0.001,
+      0.003
+    ],
+    "condiciones": [
+      "A0",
+      "LP01",
+      "LP02",
+      "LP03",
+      "LP04"
+    ],
+    "seed_bases": {
+      "split": 71000000,
+      "init": 71100000,
+      "lote": 71200000
+    },
+    "n_entrenamientos": 250,
+    "n_celdas": 750,
+    "n_medidas_M": 1500
+  },
+  "validacion": {
+    "n_splits": 20,
+    "n_inits": 5,
+    "condiciones": [
+      "A0",
+      "LP"
+    ],
+    "LP": "seleccion_calibracion_publicada_por_SHA_sin_reeleccion",
+    "seed_bases": {
+      "split": 72000000,
+      "init": 72100000,
+      "lote": 72200000
+    },
+    "n_entrenamientos": 200,
+    "n_celdas": 600,
+    "n_medidas_M": 1200
+  },
+  "formula_semillas": {
+    "split": "base+s",
+    "init": "base+5*s+k",
+    "lote": "base+5*s+k"
+  },
+  "reserva_senal_sin_N": {
+    "max_splits": 10000,
+    "n_inits": 5,
+    "seed_bases": {
+      "split": 73000000,
+      "init": 73100000,
+      "lote": 73200000
+    }
+  },
+  "medidas": [
+    "c",
+    "q",
+    "tr_M",
+    "S_panel",
+    "S_train",
+    "conf_media_verdadera_panel",
+    "conf_media_maxima_panel",
+    "acc_train",
+    "acc_panel"
+  ],
+  "prohibidas": [
+    "X",
+    "X10",
+    "R_del_ejemplo_dificil",
+    "min_p_y",
+    "rho_caras",
+    "rho_vert",
+    "L_log_rho_10",
+    "Y_log_rho_250",
+    "D",
+    "p_valor_de_senal",
+    "W",
+    "asociaciones_de_senal"
+  ],
+  "separabilidad": {
+    "misma_S_factor": 1.1,
+    "distinta_c_min": 0.15,
+    "misma_c_max": 0.05,
+    "distinta_S_factor_min": 1.5,
+    "visitas_conjuntas": [
+      10,
+      250
+    ],
+    "min_unidades_por_split": 3,
+    "denominador_unidades_por_split": 5,
+    "min_splits_calibracion": 8,
+    "denominador_splits_calibracion": 10,
+    "min_splits_validacion": 16,
+    "denominador_splits_validacion": 20,
+    "E": "ambas_visitas: abs(log(S_A/S_LP))<=log(1.10) y sigma*(c_A-c_LP)>=.15",
+    "C": "ambas_visitas: abs(c_A-c_LP)<=.05 y sigma*log(S_A/S_LP)>=log(1.5)",
+    "pares_entre_brazos_ordenados": [
+      [
+        1,
+        1
+      ],
+      [
+        0.5,
+        0.5
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        1,
+        0.5
+      ],
+      [
+        0.5,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        0.5,
+        2
+      ],
+      [
+        2,
+        0.5
+      ]
+    ],
+    "orientaciones_ordenadas": [
+      1,
+      -1
+    ],
+    "seleccion": "menor_lambda_apta_para_E_y_C; primer_par_y_orientacion_aptos_por_pregunta",
+    "solo_temperatura_pares": [
+      [
+        0.5,
+        1
+      ],
+      [
+        0.5,
+        2
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "solo_temperatura_rescata": false,
+    "veredicto_si_ambas_principales_validan": "SEPARABILIDAD_LOGRADA",
+    "en_otro_caso": "NO_IDENTIFICABLE",
+    "etiquetas_origen": [
+      "ENTRE_BRAZOS_T_FIJA",
+      "ENTRE_BRAZOS_T_DISTINTA",
+      "SOLO_TEMPERATURA"
+    ],
+    "inclusivo": true,
+    "comparar_sin_redondeo": true,
+    "log_ratio_estable": "log(S_A)-log(S_LP)"
+  },
+  "calidad": {
+    "no_aprendio_acc_train_final_menor": 0.5,
+    "T_referencia_acc": 1.0,
+    "no_aprendio_no_reescribe_visitas": true,
+    "unidad_completa": "todos_los_brazos_de_fase_x_todas_T_x_ambas_visitas",
+    "min_unidades_completas_calibracion": 48,
+    "denominador_calibracion": 50,
+    "min_unidades_completas_validacion": 95,
+    "denominador_validacion": 100,
+    "min_splits_con_tres_completas_calibracion": 8,
+    "min_splits_con_tres_completas_validacion": 16,
+    "calibracion_calidad_falla_toda_la_fase_no_solo_dosis": true
+  },
+  "controles": {
+    "T1_error_rel_max": 1e-12,
+    "z_T_error_normalizado_max": 1e-12,
+    "S_T_error_normalizado_max": 1e-12,
+    "precisiones_identicas_entre_T": true,
+    "f_identica": true,
+    "reconstruccion_error_rel": 0.0,
+    "reconstrucciones_prefijadas": [
+      [
+        "cal",
+        0,
+        0,
+        "A0",
+        10,
+        1
+      ],
+      [
+        "cal",
+        0,
+        0,
+        "A0",
+        250,
+        1
+      ],
+      [
+        "cal",
+        0,
+        0,
+        "LP01",
+        250,
+        1
+      ]
+    ]
+  },
+  "operacion": {
+    "equipo": "PC_responsable_Windows",
+    "procesos": 12,
+    "hilos_por_proceso": 1,
+    "spawn": true,
+    "reanudable_exclusivo": true,
+    "reintentos": 0,
+    "referencia_latencia_individual_s": 33,
+    "referencia_throughput_global_s_por_finalizacion": 2.8,
+    "prueba_corta": {
+      "fase": "calibracion",
+      "splits": [
+        0
+      ],
+      "k": [
+        0,
+        1,
+        2
+      ],
+      "condiciones": "las_cinco",
+      "entrenamientos": 15,
+      "celdas": 45,
+      "medidas_M": 90,
+      "pertenece_al_universo": true,
+      "llamadas_M_control": 3,
+      "llamadas_M_total": 93
+    },
+    "presupuesto_orientativo_minutos": [
+      30,
+      60
+    ],
+    "detener_si_proyeccion_supera_minutos": 90,
+    "unidad_tarea_pool": "un_entrenamiento_split_k_condicion"
+  },
+  "versiones": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "senal_futura": {
+    "solo_si_separabilidad": true,
+    "datos_nuevos": true,
+    "n_contrastes_primarios": 2,
+    "multiplicidad": "Holm",
+    "alpha_familiar": 0.05,
+    "N_y_potencia": "pendientes_de_diseno_senal",
+    "analista_PR": 132,
+    "analista_sha256": "1e2d903bfba8fa18a5eb6ecf5d93a759bc247009365c56ac561bc9b46604114d",
+    "analista_estado_actual": "BORRADOR",
+    "congelar_ahora": false
+  },
+  "sources": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho_r3": {
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    },
+    "recipe": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    "LP_adapter": {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/scripts/recipe_m2.py",
+      "sha256": "7d043934eacf2aa81d59b4c46ee80954623343f12de391e1cbc5e8d467f040a7"
+    },
+    "G3": {
+      "path": "experiments/DIN_borde/G3/scripts/run_v1.py",
+      "sha256": "79634f22acd081ab4500464d1e88e348ec1fdbd5219a241321c91e662ef767f7"
+    }
+  },
+  "totales": {
+    "n_entrenamientos_max": 450,
+    "n_celdas_max": 1350,
+    "n_medidas_M_principales_max": 2700,
+    "n_llamadas_M_control": 3,
+    "n_llamadas_M_max": 2703
+  }
+}

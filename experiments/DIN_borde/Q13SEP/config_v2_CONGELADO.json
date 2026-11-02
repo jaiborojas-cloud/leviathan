@@ -1,0 +1,423 @@
+{
+  "protocolo": "DIN-Q13SEP-v2",
+  "estado": "CONGELADO",
+  "solo_diseno": true,
+  "base_main": "259fac77c21190c0753fd7087062d1578e58ef0d",
+  "familia": {
+    "d": 13,
+    "s": 0.8,
+    "clases": 3,
+    "train_por_clase": 30,
+    "panel_por_clase": 9,
+    "red": [
+      13,
+      64,
+      32,
+      3
+    ],
+    "dtype": "float64",
+    "f": "Xpanel_estandarizado_primeras_dos_columnas",
+    "referencia_reducida": 2,
+    "normalizacion": "StandardScaler_ajustado_solo_en_train"
+  },
+  "receta": {
+    "optimizer": "Adam",
+    "lr": 0.006,
+    "batch": 64,
+    "batch_replace": false,
+    "updates": 250,
+    "visitas": [
+      10,
+      250
+    ],
+    "A0": "cross_entropy(z,y)",
+    "LP": "cross_entropy(z,y)+lambda*(z**2).sum(dim=1).mean()",
+    "pareado": [
+      "split",
+      "init",
+      "lote"
+    ],
+    "temperatura_solo_medida": true
+  },
+  "transformacion_T": "copia_fresca_checkpoint; l3.weight/=T; l3.bias/=T; recomputar_core_y_subset_M_completos",
+  "calibracion": {
+    "n_splits": 10,
+    "n_inits": 5,
+    "LP_grid": [
+      0.0001,
+      0.0003,
+      0.001,
+      0.003
+    ],
+    "condiciones": [
+      "A0",
+      "LP01",
+      "LP02",
+      "LP03",
+      "LP04"
+    ],
+    "seed_bases": {
+      "split": 71000000,
+      "init": 71100000,
+      "lote": 71200000
+    },
+    "n_entrenamientos": 250,
+    "n_celdas_de_visita": 13700,
+    "n_medidas_M_principales_u250": 6850,
+    "n_medidas_M_descriptivas_u10": 6850
+  },
+  "validacion": {
+    "n_splits": 20,
+    "n_inits": 5,
+    "condiciones": [
+      "A0",
+      "LP"
+    ],
+    "LP": "seleccion_calibracion_publicada_por_SHA_sin_reeleccion",
+    "seed_bases": {
+      "split": 72000000,
+      "init": 72100000,
+      "lote": 72200000
+    },
+    "n_entrenamientos": 200,
+    "n_celdas_de_visita": 7000,
+    "n_medidas_M_principales_u250": 3500,
+    "n_medidas_M_descriptivas_u10": 3500
+  },
+  "formula_semillas": {
+    "split": "base+s",
+    "init": "base+5*s+k",
+    "lote": "base+5*s+k"
+  },
+  "reserva_senal_sin_N": {
+    "max_splits": 10000,
+    "n_inits": 5,
+    "seed_bases": {
+      "split": 73000000,
+      "init": 73100000,
+      "lote": 73200000
+    }
+  },
+  "medidas": [
+    "c",
+    "q",
+    "tr_M",
+    "S_panel",
+    "S_train",
+    "conf_media_verdadera_panel",
+    "conf_media_maxima_panel",
+    "acc_train",
+    "acc_panel"
+  ],
+  "prohibidas": [
+    "X",
+    "X10",
+    "R_del_ejemplo_dificil",
+    "min_p_y",
+    "rho_caras",
+    "rho_vert",
+    "L_log_rho_10",
+    "Y_log_rho_250",
+    "D",
+    "p_valor_de_senal",
+    "W",
+    "asociaciones_de_senal"
+  ],
+  "separabilidad": {
+    "visita_principal": 250,
+    "visita_descriptiva": 10,
+    "u10_elige_dosis": false,
+    "u10_veta_principal": false,
+    "E_misma_S_tolerancia_relativa": 1e-12,
+    "distinta_c_min": 0.15,
+    "misma_c_max": 0.05,
+    "distinta_S_factor_min": 1.5,
+    "E": "u250: emparejamiento_S_valido y sigma_E*(c_A0_1-c_LP_Tstar)>=.15",
+    "C": "u250: argmin_c_valido y abs(c_A0_1-c_LP_TC)<=.05 y sigma_C*(log(S_A0_1)-log(S_LP_TC))>=log(1.5)",
+    "C_minimizar": "abs(c_LP_GRID-c_A0_1)",
+    "C_desempate_clave": [
+      "abs_delta_c",
+      "abs(j)",
+      "j"
+    ],
+    "C_seleccion_usa_S": false,
+    "C_fallback_al_segundo_mejor": false,
+    "C_requiere_33_c_validas": true,
+    "orientaciones_ordenadas": [
+      1,
+      -1
+    ],
+    "seleccion_calibracion": "menor_lambda_apta_para_E_y_C_en_u250; primera_orientacion_apta_por_pregunta",
+    "artefacto_decision": "DOSIS_Y_REGLAS_Q13SEP_v2.json",
+    "fijar_algoritmos_no_T_constantes": true,
+    "min_unidades_por_split": 3,
+    "denominador_unidades_por_split": 5,
+    "min_splits_calibracion": 8,
+    "denominador_splits_calibracion": 10,
+    "min_splits_validacion": 16,
+    "denominador_splits_validacion": 20,
+    "u10_reglas_por_visita_independientes": true,
+    "u10_orientaciones_fijadas_por_u250": true,
+    "solo_temperatura": "descriptivo_LP_T1_frente_cada_LP_GRID_distinto_de_1_con_ambas_orientaciones",
+    "solo_temperatura_rescata": false,
+    "etiquetas_origen": [
+      "ENTRE_BRAZOS_T_FIJA",
+      "ENTRE_BRAZOS_T_EMPAREJADA",
+      "SOLO_TEMPERATURA"
+    ],
+    "veredicto_si_ambas_principales_validan": "SEPARABILIDAD_LOGRADA",
+    "en_otro_caso": "NO_IDENTIFICABLE",
+    "inclusivo": true,
+    "comparar_sin_redondeo": true,
+    "log_ratio_estable": "log(S_A0_1)-log(S_LP)"
+  },
+  "calidad": {
+    "no_aprendio_acc_train_final_menor": 0.5,
+    "T_referencia_acc": 1.0,
+    "no_aprendio_no_reescribe_visitas": true,
+    "unidad_completa": "solo_u250_todos_los_brazos_y_puntos_de_fase_sin_NO_APRENDIO",
+    "min_unidades_completas_calibracion": 48,
+    "denominador_calibracion": 50,
+    "min_unidades_completas_validacion": 95,
+    "denominador_validacion": 100,
+    "min_splits_con_tres_completas_calibracion": 8,
+    "min_splits_con_tres_completas_validacion": 16,
+    "calibracion_calidad_falla_toda_la_fase_no_solo_dosis": true,
+    "u10_fallos_puntuales_vetan": false
+  },
+  "controles": {
+    "T1_error_rel_max": 1e-12,
+    "z_T_error_normalizado_max": 1e-12,
+    "S_T_error_normalizado_max": 1e-12,
+    "precisiones_identicas_entre_T": true,
+    "f_identica": true,
+    "reconstruccion_error_rel": 0.0,
+    "reconstrucciones_prefijadas": [
+      {
+        "phase": "cal",
+        "split": 0,
+        "k": 0,
+        "condition": "A0",
+        "update": 250,
+        "role": "A0_ANCHOR",
+        "j": null,
+        "T": 1.0
+      },
+      {
+        "phase": "cal",
+        "split": 0,
+        "k": 0,
+        "condition": "LP01",
+        "update": 250,
+        "role": "GRID",
+        "j": 0,
+        "T": 1.0
+      },
+      {
+        "phase": "cal",
+        "split": 0,
+        "k": 0,
+        "condition": "LP01",
+        "update": 250,
+        "role": "GRID",
+        "j": -16,
+        "T": 0.25
+      }
+    ],
+    "E_igualdad_S_error_rel_max": 1e-12,
+    "T1_definicion": "comparacion_de_rutas_rel_Frobenius_M<=1e-12; f_identica",
+    "reconstruccion_definicion": "misma_ruta_y_bytes_float64_lossless; error_rel_Frobenius_0"
+  },
+  "operacion": {
+    "equipo": "PC_responsable_Windows",
+    "procesos": 12,
+    "hilos_por_proceso": 1,
+    "spawn": true,
+    "reanudable_exclusivo": true,
+    "reintentos": 0,
+    "referencia_latencia_individual_s": 33,
+    "referencia_throughput_global_s_por_finalizacion": 2.8,
+    "prueba_corta": {
+      "fase": "calibracion",
+      "splits": [
+        0
+      ],
+      "k": [
+        0,
+        1,
+        2
+      ],
+      "condiciones": "las_cinco",
+      "entrenamientos": 15,
+      "pertenece_al_universo": true,
+      "llamadas_M_control": 3,
+      "llamadas_M_total": 825,
+      "celdas_de_visita": 822
+    },
+    "presupuesto_orientativo_minutos": [
+      30,
+      75
+    ],
+    "detener_si_proyeccion_supera_minutos": 90,
+    "unidad_tarea_pool": "un_entrenamiento_split_k_condicion",
+    "escenarios_aritmeticos": {
+      "t_train_proxy_s": 33,
+      "eficiencia_ilustrativa": 0.8,
+      "t_M_s": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "minutos_sin_IO": [
+        29.375520833333326,
+        43.75260416666666,
+        61.72395833333332
+      ]
+    },
+    "desglosar_tiempos": [
+      "train_sin_medidas",
+      "M_por_rol_visita",
+      "medidas_IO",
+      "latencia_individual_sin_cola",
+      "elapsed_global_con_spawn"
+    ]
+  },
+  "versiones": {
+    "torch": "2.9.1+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "senal_futura": {
+    "solo_si_separabilidad": true,
+    "datos_nuevos": true,
+    "n_contrastes_primarios": 2,
+    "multiplicidad": "Holm",
+    "alpha_familiar": 0.05,
+    "N_y_potencia": "pendientes_de_diseno_senal",
+    "analista_PR": 132,
+    "analista_sha256": "1e2d903bfba8fa18a5eb6ecf5d93a759bc247009365c56ac561bc9b46604114d",
+    "analista_estado_actual": "BORRADOR",
+    "congelar_ahora": false,
+    "X10_L_Y_cambian_con_temperatura": true,
+    "recomputar_X_M_rho_por_celda": true,
+    "T10_sin_informacion_futura_de_u250": true,
+    "definir_politica_T_por_visita_antes_de_datos": true
+  },
+  "sources": {
+    "core": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    "geometry": {
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    "rho_r3": {
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    },
+    "recipe": {
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    "LP_adapter": {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/scripts/recipe_m2.py",
+      "sha256": "7d043934eacf2aa81d59b4c46ee80954623343f12de391e1cbc5e8d467f040a7"
+    },
+    "G3": {
+      "path": "experiments/DIN_borde/G3/scripts/run_v1.py",
+      "sha256": "79634f22acd081ab4500464d1e88e348ec1fdbd5219a241321c91e662ef767f7"
+    }
+  },
+  "totales": {
+    "n_entrenamientos_max": 450,
+    "n_celdas_de_visita_max": 20700,
+    "n_medidas_M_principales_u250_max": 10350,
+    "n_medidas_M_descriptivas_u10_max": 10350,
+    "n_llamadas_M_control": 3,
+    "n_llamadas_M_max": 20703
+  },
+  "version_anterior": "54cccf0b190077f1063b2131e21523993628a41f",
+  "temperaturas": {
+    "ancla_A0": 1.0,
+    "LP_grid_j": [
+      -16,
+      -15,
+      -14,
+      -13,
+      -12,
+      -11,
+      -10,
+      -9,
+      -8,
+      -7,
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "LP_grid_formula": "2**(j/8)",
+    "LP_grid_T": [
+      0.25,
+      0.2726269331663144,
+      0.29730177875068026,
+      0.3242098886627524,
+      0.3535533905932738,
+      0.3855527063519852,
+      0.42044820762685725,
+      0.4585020216023356,
+      0.5,
+      0.5452538663326288,
+      0.5946035575013605,
+      0.6484197773255048,
+      0.7071067811865476,
+      0.7711054127039704,
+      0.8408964152537145,
+      0.9170040432046712,
+      1.0,
+      1.0905077326652577,
+      1.189207115002721,
+      1.2968395546510096,
+      1.4142135623730951,
+      1.5422108254079407,
+      1.681792830507429,
+      1.8340080864093424,
+      2.0,
+      2.1810154653305154,
+      2.378414230005442,
+      2.5936791093020193,
+      2.8284271247461903,
+      3.0844216508158815,
+      3.363585661014858,
+      3.668016172818685,
+      4.0
+    ],
+    "E_match_formula": "T_star=exp(log(S_LP_1)-log(S_A0_1)); aplicado_a_LP",
+    "E_match_por_unidad_y_visita": true,
+    "E_match_redondear_a_grid": false,
+    "E_match_recortar_T": false,
+    "E_match_rol_adicional_siempre_se_mide": true,
+    "C_seleccion_referencia_fila_GRID_sin_repetir_M": true,
+    "medir_grid_A0": false
+  }
+}
