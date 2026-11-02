@@ -30,27 +30,65 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Toolchain de Lean (~300 MB): se guarda por versión de lean-toolchain.
+      - name: Restaurar elan y toolchain
+        id: elan-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain') }}
+
       - name: Instalar elan
         run: |
-          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          if [ ! -x "$HOME/.elan/bin/lake" ]; then
+            curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          fi
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      - name: Caché de .lake
-        uses: actions/cache@v4
+      # Mathlib y sus dependencias ya compiladas (~5 GB). La clave solo depende de la versión
+      # fijada (lean-toolchain y lakefile.toml), así que se descarga una sola vez y se reutiliza
+      # en todas las corridas hasta que se cambie de versión. Los cambios en DIN/ no la invalidan.
+      - name: Restaurar Mathlib precompilada
+        id: mathlib-cache
+        uses: actions/cache/restore@v4
         with:
-          path: lean/.lake
-          key: lake-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}-${{ hashFiles('lean/DIN/**', 'lean/DIN.lean') }}
-          restore-keys: |
-            lake-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}-
+          path: |
+            lean/.lake/packages
+            lean/lake-manifest.json
+          key: mathlib-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}
 
-      - name: Descargar Mathlib precompilada
-        run: lake exe cache get
+      - name: Descargar Mathlib precompilada (solo si no estaba guardada)
+        if: steps.mathlib-cache.outputs.cache-hit != 'true'
+        run: |
+          t0=$(date +%s)
+          lake exe cache get
+          echo "cache get: $(( $(date +%s) - t0 )) s" >> ../tiempos.txt
+
+      # Se guardan justo después de la descarga, antes de compilar, para que una prueba
+      # con errores no impida guardar la caché.
+      - name: Guardar toolchain
+        if: steps.elan-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain') }}
+
+      - name: Guardar Mathlib precompilada
+        if: steps.mathlib-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            lean/.lake/packages
+            lean/lake-manifest.json
+          key: mathlib-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}
 
       - name: Compilar
         id: build
         run: |
           set -o pipefail
+          t0=$(date +%s)
           lake build 2>&1 | tee build.log
+          echo "lake build: $(( $(date +%s) - t0 )) s" >> ../tiempos.txt
           if grep -n "declaration uses 'sorry'" build.log; then
             echo "Hay pruebas incompletas (sorry)" | tee -a build.log
             exit 1
@@ -68,8 +106,9 @@ jobs:
           MARK="<!-- lean-build-log -->"
           {
             echo "$MARK"
-            echo "**Lean build:** \`$RESULT\` · commit \`$SHA\`"
+            echo "**Lean build:** \`$RESULT\` · commit \`$SHA\` · caché de Mathlib: \`${{ steps.mathlib-cache.outputs.cache-hit || 'false' }}\`"
             echo
+            [ -f ../tiempos.txt ] && sed 's/^/- /' ../tiempos.txt && echo
             echo '```text'
             if [ -f build.log ]; then tail -n 200 build.log; else echo "(sin build.log: falló antes de compilar)"; fi
             echo '```'
