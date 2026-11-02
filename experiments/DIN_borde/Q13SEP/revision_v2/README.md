@@ -10,3 +10,5 @@
 - Máximo **450 entrenamientos y 20.703 llamadas M**; prueba corta integrada de 15 con 825 llamadas máximas. Presupuesto inicial 30–75 min a confirmar, no un benchmark.
 
 Se aclara el control 0 frente a ≤1e−12 y que una futura señal con temperatura cambia X10/L/Y, con una política temporal predeclarada que evite información futura en u10. La primaria robusta no se congela aquí. Solo verificaciones documentales y de aritmética, no resultados científicos.
+
+[Verificación documental](verification.json), [fuentes y preservación v1](provenance.json), [progreso](progress.md) y [manifest v2](manifest.sha256). Ningún control de instrumento se ejecutó en esta revisión.
