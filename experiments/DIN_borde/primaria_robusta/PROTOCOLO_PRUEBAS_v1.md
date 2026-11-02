@@ -1,0 +1,14 @@
+# Pruebas sintéticas prospectivas de A1
+
+2026-11-02. Se compromete antes del analista y de medir sus pruebas. Diseño BORRADOR, no congelación científica ni autorización de cohortes reales. Semillas propias de fixtures: 20261102 y 20261200 + i. No se leen datasets, tablas reales, estados o checkpoints.
+
+Pruebas obligatorias:
+
+1. **NO_APRENDIO:** una trayectoria con acc_train_final = .49 cuenta como un faltante, con ID y motivo, sin sustitución. Comparar .5 exacto y su vecino representable inferior. Varias causas deben conservarse sin contar el ID dos veces. Límites exactos de 5 % y 80 %, y splits con 2/3 elegibles.
+2. **L extrema:** insertar una L con |z| > 10 en una trayectoria que sí aprende. Comprobar recorte de su z al rango de entrenamiento en su bloque, antes de potencias y centrado. No se excluye por L ni se recortan X/Y. Transformación de la base independiente de X/Y. Sin extrapolación en cada bloque y sin contaminación entre splits.
+3. **C1 sin recorte:** ≥ 20 fixtures con extremos de L repetidos entre splits para que no haya recorte. Comparación exacta de D, p, beta y percentil 95 con C1 SHA `8711f468…`, mismas permutaciones. Comparación de un fixture general en modo diagnóstico sin recorte, e independencia del orden CSV. Comparación con reimplementación independiente por al menos 20 tablas, tolerancia de D ≤ 1e−10, p idéntico.
+4. **Influencia:** residuos y g_i de cada observación frente a cálculo independiente, fracción, ID máximo, empates deterministas y D_sin_max con bloques y escala recalculados. Se conserva el split si pasa de 3 a 2. Reglas PASS, NO_ROBUSTO, NOT_MET e INCONCLUSIVE mediante casos de decisión mínimos reproducibles, incluidos cero y NaN. Una fracción > 1 no se trunca; suma no positiva se reporta como no definida. La salida conserva errores de un diagnóstico degenerado.
+5. **Casos adversos:** X constante intra-split, L o Y constantes, SSE_base nulo, dominios no finitos y rho ≤ 0 antes de log, filas ausentes, error/estado inválido, IDs/plan duplicados o ajenos, split discordante, tipos booleanos, n_clases distinto de 3, filas permutadas y múltiples causas de falta. No hay filtrado por D, c ni precisión de panel.
+6. **E/S:** CLI sintética de 5.000 permutaciones, enlaces de SHA y compuerta, rechazo de datos reales, columnas, plan/tabla ausente o directorio, JSON inválido/no finito, salida existente y colisión final; nunca sobrescribir. JSON estricto y nombres de archivos portables en Windows. Sin afirmar prueba nativa de Windows si se ejecuta en Linux.
+
+B reducida (39 o 99) solo en APIs de pruebas, siempre declarada; la CLI mantiene 5.000. No Monte Carlo de potencia ni de tamaño nominal en esta tarea. Fixtures completos y salidas CLI se guardan fuera de Git por SHA; código, casos/resúmenes y manifest dentro. Se conservan fallos y versiones; no repetir una corrida sobre su ruta anterior. El umbral de influencia se prueba como regla, no se inventa una garantía universal de robustez.
