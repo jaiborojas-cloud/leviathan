@@ -1,0 +1,83 @@
+# Compila el proyecto Lean de DIN (carpeta lean/) con la caché oficial de Mathlib.
+# Autorizado por el responsable el 2026-11-02 («eligo las actions»).
+# Solo se activa con cambios en lean/ o en este archivo. Publica el final del registro de
+# compilación como un comentario único (que se actualiza) en el PR, para poder leer los
+# errores sin acceso a los registros de Actions.
+name: lean
+
+on:
+  pull_request:
+    paths:
+      - "lean/**"
+      - ".github/workflows/lean.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Caché de .lake
+        uses: actions/cache@v4
+        with:
+          path: lean/.lake
+          key: lake-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}-${{ hashFiles('lean/DIN/**', 'lean/DIN.lean') }}
+          restore-keys: |
+            lake-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.toml') }}-
+
+      - name: Descargar Mathlib precompilada
+        run: lake exe cache get
+
+      - name: Compilar
+        id: build
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee build.log
+          if grep -n "declaration uses 'sorry'" build.log; then
+            echo "Hay pruebas incompletas (sorry)" | tee -a build.log
+            exit 1
+          fi
+          echo "COMPILACION_OK sin sorry" | tee -a build.log
+
+      - name: Publicar el registro en el PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          RESULT: ${{ steps.build.outcome }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          MARK="<!-- lean-build-log -->"
+          {
+            echo "$MARK"
+            echo "**Lean build:** \`$RESULT\` · commit \`$SHA\`"
+            echo
+            echo '```text'
+            if [ -f build.log ]; then tail -n 200 build.log; else echo "(sin build.log: falló antes de compilar)"; fi
+            echo '```'
+          } > comment.md
+          ID=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR}/comments" --paginate \
+                 --jq ".[] | select(.body | startswith(\"$MARK\")) | .id" | head -n 1)
+          if [ -n "$ID" ]; then
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${ID}" -F body=@comment.md > /dev/null
+          else
+            gh api "repos/${GITHUB_REPOSITORY}/issues/${PR}/comments" -F body=@comment.md > /dev/null
+          fi
