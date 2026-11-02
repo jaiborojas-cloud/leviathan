@@ -22,6 +22,6 @@ Control algebraico: M → aM conserva c/q y da rho → √a · rho. Para a comú
 
 ## Costes y decisión
 
-Referencia del PC: [CIFAR F1](../CIFAR/F1/resultado/RESULTADO_F1_2026-10-29.md), 500 trayectorias en 1.394 s con 12 procesos, **2,8 s de pared por trayectoria** y dos llamadas rho. Los presupuestos extrapolan aproximadamente una a dos veces esa tasa, redondeada; las gaussianas y el entrenamiento compartido podrían abaratarla. No se midieron las opciones ni se usó tiempo del contenedor como tiempo del PC. Una prueba corta deberá actualizar el presupuesto antes de lanzar la muestra.
+Referencia del PC: [CIFAR F1](../CIFAR/F1/resultado/RESULTADO_F1_2026-10-29.md), 500 trayectorias en 1.394 s con 12 procesos: **rendimiento global equivalente a una trayectoria completada cada 2,8 s de pared con 12 procesos concurrentes**. La duración individual fue de **unos 33 s de pared por trayectoria**, con dos llamadas rho. Los presupuestos extrapolan aproximadamente una a dos veces esa tasa, redondeada; las gaussianas y el entrenamiento compartido podrían abaratarla. No se midieron las opciones ni se usó tiempo del contenedor como tiempo del PC. Una prueba corta deberá actualizar el presupuesto antes de lanzar la muestra.
 
 **Recomendación:** opción 1, limitada primero a separación operacional, por la pregunta explicativa abierta de Q13; opción 2 si se prioriza otra familia. Literatura y diseño auditado antes de novedad o transferencia. El responsable elige; Claude implementa el productor después de congelar. No se invade el piloto Lean de su reparto.

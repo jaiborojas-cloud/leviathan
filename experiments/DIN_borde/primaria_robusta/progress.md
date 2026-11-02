@@ -7,3 +7,7 @@ Leídos AGENTS.md, adopción robusta, revisión metodológica y cierre CIFAR-3, 
 A2 ofrece dos opciones sin datos nuevos: piloto para separar concentración y escala de logits en gaussianas, o una nueva familia Digits-3. Costes orientativos extrapolados del PC, no benchmarks ni promesa de potencia. El responsable elige y congela; Claude audita y luego implementa el productor. No se toca el piloto Lean.
 
 Se entregan ambas versiones de pruebas, fallo, logs, fuentes, hashes y manifest en un PR de borrador. No se cambia la especificación adoptada, ningún estado previo ni instrumento; no se congela esta implementación, no se ejecuta una cohorte y no se fija un N confirmatorio.
+
+## Auditoría aprobada y corrección editorial · 2026-11-02
+
+El responsable comunica la aprobación de Claude del PR #132 y la coincidencia del analista con la especificación adoptada y su SHA. Se aclara en A2 que 2,8 s es el rendimiento global por trayectoria completada con 12 procesos concurrentes; la duración individual es de unos 33 s de pared. No cambian los presupuestos orientativos ni se generan mediciones. Se actualizan solo los hashes documentales del manifiesto. Analista, configuración, pruebas y resultados intactos; no se repiten pruebas. El PR se marca listo para revisión, mientras el analista permanece en BORRADOR hasta que lo congele el primer diseño que lo use.
