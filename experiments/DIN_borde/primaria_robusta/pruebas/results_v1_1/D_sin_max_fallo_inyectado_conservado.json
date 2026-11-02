@@ -1,0 +1,32 @@
+{
+  "case": "D_sin_max_fallo_inyectado_conservado",
+  "ok": true,
+  "result": {
+    "tipo": "inyeccion_unitaria_de_fallo_numerico_no_degeneracion_de_cohorte",
+    "summary": {
+      "veredicto": "INCONCLUSIVE",
+      "faltantes": 0,
+      "no_aprendio": 0,
+      "motivos": [
+        "D_SIN_MAX_NO_DEFINIDO: FloatingPointError: FALLO_NUMERICO_INYECTADO_SOLO_D_SIN_MAX"
+      ],
+      "primaria": {
+        "D": 0.6498045597557729,
+        "SSE_base": 2.9742984401640022,
+        "SSE_completo": 1.0415857516709506,
+        "pendiente_X": 0.578317220786759,
+        "p": 0.025,
+        "D_nulo_q95": 0.024222018454065367,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "permutaciones_completadas": 39,
+        "error_permutacion": null,
+        "recorte": true,
+        "nulo_mayor_igual": 0
+      },
+      "id_max": "syn_s0014_k2",
+      "D_sin_max": null
+    },
+    "error": "FloatingPointError: FALLO_NUMERICO_INYECTADO_SOLO_D_SIN_MAX"
+  }
+}
