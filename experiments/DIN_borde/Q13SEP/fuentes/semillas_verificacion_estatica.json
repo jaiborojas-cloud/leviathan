@@ -1,0 +1,82 @@
+{
+  "status": "PASS_STATIC_LITERAL_AND_INTERVAL_CHECK_ONLY",
+  "base_main": "259fac77c21190c0753fd7087062d1578e58ef0d",
+  "main_source_files": 1362,
+  "PR132_sources": 4,
+  "seed_mention_lines": 1486,
+  "numeric_literals_checked": 3502,
+  "ranges": [
+    {
+      "phase": "calibracion",
+      "role": "split",
+      "start": 71000000,
+      "end": 71000009
+    },
+    {
+      "phase": "calibracion",
+      "role": "init",
+      "start": 71100000,
+      "end": 71100049
+    },
+    {
+      "phase": "calibracion",
+      "role": "lote",
+      "start": 71200000,
+      "end": 71200049
+    },
+    {
+      "phase": "validacion",
+      "role": "split",
+      "start": 72000000,
+      "end": 72000019
+    },
+    {
+      "phase": "validacion",
+      "role": "init",
+      "start": 72100000,
+      "end": 72100099
+    },
+    {
+      "phase": "validacion",
+      "role": "lote",
+      "start": 72200000,
+      "end": 72200099
+    },
+    {
+      "phase": "reserva_senal",
+      "role": "split",
+      "start": 73000000,
+      "end": 73009999
+    },
+    {
+      "phase": "reserva_senal",
+      "role": "init",
+      "start": 73100000,
+      "end": 73149999
+    },
+    {
+      "phase": "reserva_senal",
+      "role": "lote",
+      "start": 73200000,
+      "end": 73249999
+    }
+  ],
+  "unique_proposed_or_reserved_scalar_inputs": 110330,
+  "calibration_and_validation_unique_scalar_inputs": 330,
+  "collisions_with_numeric_literals": [],
+  "proposed_intervals_mutually_disjoint": true,
+  "conservative_avoided_band": [
+    0,
+    30000000
+  ],
+  "PR132_fixture_interval_avoided": [
+    20261200,
+    20261219
+  ],
+  "CIFAR_F2_reserve_not_used": true,
+  "no_raw_tables_states_or_checkpoints_read": true,
+  "PRNG_streams_generated": false,
+  "method": "AST de literales Python, JSON de configuración/planes y tokens numéricos de protocolos; sin ejecutar código. Intervalos y fórmulas documentados aparte.",
+  "limits": "No es una prueba formal de evaluación de todo código dinámico ni de independencia PRNG. Cotejar de nuevo los registros publicados antes de congelar; semillas derivadas de SeedSequence se conservan con su entrada estructurada, no se confunden con un escalar nuevo.",
+  "python_AST_fallback_count": 0
+}
