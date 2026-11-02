@@ -13,3 +13,5 @@ El criterio exige ambos sentidos entre brazos: misma escala (factor 1.10) y c di
 Máximo 250 + 200 entrenamientos; 1.350 celdas y 2.700 medidas M principales más tres reconstrucciones de control. La prueba corta de 15 entrenamientos forma parte de calibración. Presupuesto orientativo 30–60 min en el PC con 12 procesos, usando **33 s individuales**, no el rendimiento global de 2,8 s como latencia. Medir y publicar tiempos antes de continuar; límite operacional 90 min proyectados.
 
 Si hay separación, el responsable decidirá un experimento de señal con datos nuevos, primaria robusta del PR #132 congelada entonces y dos contrastes principales con Holm α=.05. No se usa el piloto para estimar D o su potencia. Esta entrega no altera estados, instrumentos, semillas reservadas o resultados previos, ni implementa el trabajo de Claude.
+
+[Fuentes por SHA](fuentes/provenance.json), [verificación documental](verification.json), [progreso](progress.md) y [manifest](manifest.sha256). Los controles del productor siguen pendientes; esta verificación no es una corrida del piloto.

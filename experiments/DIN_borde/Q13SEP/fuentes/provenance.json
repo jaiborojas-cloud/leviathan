@@ -1,0 +1,77 @@
+{
+  "base_main": "259fac77c21190c0753fd7087062d1578e58ef0d",
+  "design_draft_commit": "8bea162438e15bc3bb5c30f5c267b69b6af6f57e",
+  "sources": [
+    {
+      "name": "core",
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/core.py",
+      "sha256": "b5251d2f1f082ae014596574e9ab827dde04aec785bf76091005f8149ba31ffd"
+    },
+    {
+      "name": "geometry",
+      "path": "docs/archive/import-2026-10-17/extracted/j7_update25_execution_sources/instrument/geometry.py",
+      "sha256": "b4d1e0e413170a337411af82231b3e072565f515521e98b2f33e8bdb44e0bdf3"
+    },
+    {
+      "name": "rho_r3",
+      "path": "experiments/DIN_borde/I2/rho_borde_v2.py",
+      "sha256": "2ac015a263afb44616de0fceebd3b1d2a36ad0a76cd466adcdcc7e3adb8b8df0"
+    },
+    {
+      "name": "recipe",
+      "path": "experiments/DIN_borde/Q13/cohorte/scripts/recipe_v1.py",
+      "sha256": "3e3a7653889afde63a379ef2390a7b14faea0187358fe814348af70418d311b6"
+    },
+    {
+      "name": "LP_adapter",
+      "path": "experiments/DIN_borde/Q13M2/calibracion/scripts/recipe_m2.py",
+      "sha256": "7d043934eacf2aa81d59b4c46ee80954623343f12de391e1cbc5e8d467f040a7"
+    },
+    {
+      "name": "G3",
+      "path": "experiments/DIN_borde/G3/scripts/run_v1.py",
+      "sha256": "79634f22acd081ab4500464d1e88e348ec1fdbd5219a241321c91e662ef767f7"
+    }
+  ],
+  "references": [
+    {
+      "path": "experiments/DIN_borde/PRIMARIA_ROBUSTA_v1.md",
+      "sha256": "493a5eabe15028a3522ce5971a07343a806f8379c84288c7a2c2446efe8ad49a"
+    },
+    {
+      "path": "experiments/DIN_borde/Q13M2/calibracion/RESULTADO_v1.md",
+      "sha256": "67b201bbd48ad7ed827782d214890dc3e479c28a888758f0ec270e257b2e490f"
+    },
+    {
+      "path": "experiments/DIN_borde/Q13M2/resultado/RESULTADO_Q13M2_2026-10-28.md",
+      "sha256": "26914ce3020d77eacdd57f4513f947c74e0e9777dea723ee5c6d4876a43d16e7"
+    },
+    {
+      "path": "experiments/DIN_borde/CIFAR/F1/resultado/RESULTADO_F1_2026-10-29.md",
+      "sha256": "b8e3bb7a3fb4215ae5a22aaa0588e15ec16ef5d6936f1d367186ec7e5d9b01a0"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "c72c169780b994122630b8af12ab8757fd7c0ac3b0a073937289c72212808187"
+    }
+  ],
+  "decision_PR133": {
+    "pr": 133,
+    "revision": "168352e84bfb9b45610ba3e66836ad455751fe44",
+    "git_blob_sha": "850a51d05fbe208fe3b56505c13360ffb0ca2b74",
+    "snapshot": "decision_PR133.md",
+    "snapshot_sha256": "f583a055581b8fa4192e69af3d7501cb809a22e4619a6577b79aa7b9e949a7c3",
+    "merged_at_initial_read": false
+  },
+  "analyst_PR132": {
+    "pr": 132,
+    "revision": "1faf1b7530d7b29a796a7ad55f0b949e763fbbdd",
+    "path": "experiments/DIN_borde/primaria_robusta/analisis_robusta_v1.py",
+    "sha256": "1e2d903bfba8fa18a5eb6ecf5d93a759bc247009365c56ac561bc9b46604114d",
+    "state": "BORRADOR_auditado",
+    "merged_at_initial_read": false,
+    "imported_or_executed": false
+  },
+  "timing_reference": "Nota del responsable/auditoría PR132 y OPCIONES en 1faf1b75: ~33 s individuales, ~2.8 s globales por finalización con 12 procesos. No medición nueva.",
+  "no_models_or_raw_cohort_data_read": true
+}
