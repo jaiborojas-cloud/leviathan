@@ -1,0 +1,75 @@
+{
+ "config_sha256": "e8074d509f1e5d22e8463d0d7fc00201eb9d6d35207115e1c4dceb60db1f9bf3",
+ "controles_sha256": "8970df120705bca516a461e11844b456ca51641f1089ff9c5a9c817320268310",
+ "dosis_sha256": null,
+ "estados": {
+  "MEDIDA": 13700
+ },
+ "fase": "cal",
+ "formato": "DIN-Q13SEP-productor-v1",
+ "ids_sha256": "a76dfac1c9395f0cdb8c160622c346d997a07f19193c189419e5991d24be42ea",
+ "lambda_validacion": null,
+ "n_entrenamientos": 250,
+ "n_medidas": 13700,
+ "nota": "Operacional: sin X, ρ ni D. La decisión la calcula analisis_q13sep.py.",
+ "permitir_versiones": false,
+ "plataforma": "Windows-11-10.0.26300-SP0",
+ "productor_sha256": "f6ba5faf1fe0fbb41037d08153bc6bb3375482c10fc4c84f2c0ce1a423ab800d",
+ "python": "3.12.10",
+ "tabla_sha256": "94c842c87d2e6b0eadf41284dfa899f75cb562b5e4ade6764f9b20e962ea4e08",
+ "tiempos": {
+  "detener_si_supera_min": 90,
+  "elapsed_global_s": 123.20366379999996,
+  "entrenamientos": 250,
+  "latencia_tarea_max": 16.21523019999995,
+  "latencia_tarea_mediana": 6.7151708500000495,
+  "medidas": 13700,
+  "memoria_pico_mb_max": 343.828125,
+  "memoria_pico_mb_mediana": 337.4765625,
+  "procesos": 12,
+  "proyeccion_dos_fases_min": 4.417354226426124,
+  "proyeccion_supera_limite": false,
+  "t_M_max": 0.3275505000001431,
+  "t_M_mediana": 0.09753915000055713,
+  "t_M_por_rol": {
+   "A0_ANCHOR_u010": {
+    "max": 0.27293260000033115,
+    "mediana": 0.09585855000023003,
+    "n": 50
+   },
+   "A0_ANCHOR_u250": {
+    "max": 0.2546766000000389,
+    "mediana": 0.09410834999971485,
+    "n": 50
+   },
+   "E_MATCH_u010": {
+    "max": 0.26359080000020185,
+    "mediana": 0.09819724999988466,
+    "n": 200
+   },
+   "E_MATCH_u250": {
+    "max": 0.2831949999999779,
+    "mediana": 0.09572374999970634,
+    "n": 200
+   },
+   "GRID_u010": {
+    "max": 0.3275505000001431,
+    "mediana": 0.09758684999997058,
+    "n": 6600
+   },
+   "GRID_u250": {
+    "max": 0.2668495999996594,
+    "mediana": 0.09758749999991778,
+    "n": 6600
+   }
+  },
+  "t_train_max": 1.0945918999996138,
+  "t_train_mediana": 0.3859302499995465
+ },
+ "versiones": {
+  "numpy": "2.3.5",
+  "scikit-learn": "1.8.0",
+  "scipy": "1.17.0",
+  "torch": "2.9.1+cpu"
+ }
+}
