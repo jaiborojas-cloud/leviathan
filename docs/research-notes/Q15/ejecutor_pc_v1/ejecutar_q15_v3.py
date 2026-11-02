@@ -21,6 +21,7 @@ import platform
 import re
 import sys
 import time
+import traceback
 import unicodedata
 import uuid
 import xml.etree.ElementTree as ET
@@ -31,7 +32,7 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, urlencode, urljoin, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import Request, HTTPRedirectHandler, build_opener
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 VERSION = "BORRADOR_EJECUTOR_PC_v1"
@@ -197,8 +198,11 @@ class Store:
         # Las excepciones de integridad abortan. Las de acceso/esquema se conservan por job.
         try:
             result = function()
-        except (AccessError, SchemaError, ValueError) as exc:
+        except IntegrityError:
+            raise
+        except Exception as exc:
             result = {"estado": "PENDIENTE_ACCESO_O_ESQUEMA", "error": str(exc),
+                      "tipo_error": type(exc).__name__, "traceback": traceback.format_exc(),
                       "evidencia": getattr(exc, "evidence", "")}
         name = self.next_name(directory, "result_")
         self.put(name, {"job": ident, "result": result, "result_sha256": digest(json_bytes(result)), **stamp()})
@@ -210,14 +214,35 @@ class Clock:
     sleep = staticmethod(time.sleep)
 
 
+class SafeRedirect(HTTPRedirectHandler):
+    def __init__(self):
+        super().__init__()
+        self.events = []
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        old, new = urlparse(req.full_url), urlparse(newurl)
+        self.events.append({"status": code, "desde": req.full_url, "hacia": newurl})
+        # S2: cada petición debe pasar por el limitador, no redirecciones ocultas.
+        if new.scheme != "https" or old.hostname.endswith("semanticscholar.org"):
+            return None
+        request = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if request is not None and old.hostname != new.hostname:
+            for name, _ in list(request.header_items()):
+                if name.lower() in ("x-api-key", "authorization", "cookie"):
+                    request.remove_header(name)
+        return request
+
+
 class NetworkTransport:
     def __call__(self, url: str, headers: dict, timeout: float) -> tuple[int, dict, bytes]:
         request = Request(url, headers=headers)
+        redirect = SafeRedirect()
+        opener = build_opener(redirect)
         try:
-            with urlopen(request, timeout=timeout) as r:
-                return r.status, dict(r.headers), r.read(MAX_BYTES + 1)
+            with opener.open(request, timeout=timeout) as r:
+                return r.status, dict(r.headers), r.read(MAX_BYTES + 1), {"url_final": r.url, "redirects": redirect.events}
         except HTTPError as exc:
-            return exc.code, dict(exc.headers), exc.read(MAX_BYTES + 1)
+            return exc.code, dict(exc.headers), exc.read(MAX_BYTES + 1), {"url_final": exc.url, "redirects": redirect.events}
 
 
 class FixtureTransport:
@@ -267,7 +292,7 @@ class Http:
 
     def throttle(self, host: str):
         delay = 3.0 if host.endswith("arxiv.org") else self.s2_pause if host.endswith("semanticscholar.org") else 1.0
-        remaining = self.last.get(host, -math.inf) + delay - self.clock.monotonic()
+        remaining = self.last[host] + delay - self.clock.monotonic() if host in self.last else delay
         self.wait(max(0.0, remaining))
         self.last[host] = self.clock.monotonic()
 
@@ -298,7 +323,9 @@ class Http:
             self.throttle(parsed.hostname)
             info = {"url": url, **stamp()}
             try:
-                status, response_headers, body = self.transport(url, headers, self.timeout)
+                response = self.transport(url, headers, self.timeout)
+                status, response_headers, body = response[:3]
+                info.update(response[3] if len(response) == 4 else {"url_final": url, "redirects": []})
                 info.update(status=status, error=None)
             except (URLError, OSError, TimeoutError) as exc:
                 status, response_headers, body = None, {}, b""
@@ -370,6 +397,8 @@ class Page:
 
 def collect_pages(fetch: Callable[[int, int], Page], known_total: int | None = None, forced_cap: int | None = None) -> dict:
     """Conserva posiciones; no deduplica ni repone cupos. Nunca pide más de 501."""
+    if forced_cap is not None and (type(forced_cap) is not int or forced_cap != K):
+        raise ValueError("La ruta de citantes solo permite forced_cap=200")
     records, evidence, totals, issues, seen_pages = [], [], [], [], set()
     offset, end, total = 0, False, known_total
     if total is not None:
@@ -1001,6 +1030,40 @@ def execute(runner: Runner, phase: str, bases: set[str]) -> dict:
     return {"queries": outcomes, "graphs": graphs}
 
 
+def export_tables(store: Store, run_name: str, payload: dict):
+    """Índices humanos derivados; cada run conserva sus CSV sin reemplazar."""
+    prefix = run_name.removesuffix(".json") + "/"
+    searches, records, graph_rows = [], [], []
+    for ident, result in payload.get("result", {}).get("queries", {}).items():
+        searches.append({"busqueda_id": ident, "estado": result["estado"],
+            "total_declarado": result.get("total_declarado"), "n_recuperados": result.get("n_recuperados"),
+            "n_seleccionados": result.get("n_seleccionados"), "estado_tope": result.get("estado_tope"),
+            "error": result.get("error", result.get("motivo", "")), "fecha_utc": payload["fecha_utc"],
+            "protocolo_commit": PROTOCOL_COMMIT})
+        for item in result.get("records", []):
+            r = item["record"]
+            records.append({"busqueda_id": ident, "position": item["position"], "selected": item["selected"],
+                "id": r.get("id", r.get("paperId")), "title": r.get("title"), "url": r.get("url"),
+                "fecha_estado": item.get("fecha_estado"), "autoria_estado": item.get("autoria_estado"),
+                "incluible_para_cribado": item.get("incluible_para_cribado")})
+    for ident, result in payload.get("result", {}).get("graphs", {}).items():
+        graph_rows.append({"job": ident, "estado": result["estado"], "conteo_bruto_ancla": result.get("conteo_bruto_ancla"),
+            "n_recuperados": result.get("n_recuperados"), "n_seleccionados": result.get("n_seleccionados"),
+            "filtro_DIN_activado": result.get("filtro_DIN_activado"), "ruta": result.get("ruta"),
+            "S0_snapshot": result.get("S0_snapshot"), "S0_sha256": result.get("S0_sha256")})
+    schemas = {
+        "busquedas.csv": (searches, ["busqueda_id", "estado", "total_declarado", "n_recuperados", "n_seleccionados", "estado_tope", "error", "fecha_utc", "protocolo_commit"]),
+        "registros.csv": (records, ["busqueda_id", "position", "selected", "id", "title", "url", "fecha_estado", "autoria_estado", "incluible_para_cribado"]),
+        "citas.csv": (graph_rows, ["job", "estado", "conteo_bruto_ancla", "n_recuperados", "n_seleccionados", "filtro_DIN_activado", "ruta", "S0_snapshot", "S0_sha256"]),
+    }
+    for name, (rows, fields) in schemas.items():
+        stream = io.StringIO(newline="")
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+        exclusive_write(store.root / (prefix + name), stream.getvalue().encode("utf-8-sig"))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", required=True, type=Path)
@@ -1017,6 +1080,8 @@ def main(argv=None):
         ZoneInfo("America/Mexico_City")
         if not 0 <= args.reintentos <= 20 or not math.isfinite(args.timeout) or args.timeout <= 0:
             raise Q15Error("Reintentos/timeout fuera de dominio")
+        if not math.isfinite(args.pausa_s2) or args.pausa_s2 < 1:
+            raise Q15Error("Pausa S2 debe ser finita y >=1 s")
         bases = set(args.bases.split(","))
         if not bases or bases - set(BASES):
             raise Q15Error("Bases no reconocidas; GoogleScholar está fuera")
@@ -1047,6 +1112,7 @@ def main(argv=None):
                 "modo": "SIMULADO" if fixture is not None else "RED", "result": result,
                 "conteos": states, "google_scholar": "OMITIDA_OPCIONAL", "sin_experimentos_DIN": True}
             store.put(name, payload)
+            export_tables(store, name, payload)
             print(json.dumps({"archivo_run": name, "conteos": states, "modo": payload["modo"]}, ensure_ascii=False, allow_nan=False), flush=True)
             incomplete = any(s not in TERMINAL for s in states)
             incomplete |= any(r.get("estado") not in TERMINAL for r in result.get("graphs", {}).values())
