@@ -24,8 +24,10 @@ theorem concentracion_mem {n : ℕ} (hn : 0 < n) (d : Fin n → ℝ) (hd : ∀ i
   set m := (univ : Finset (Fin n)).sup' hne d with hm
   -- el máximo es positivo: si fuera ≤ 0, todos los términos serían 0 y la traza también
   have hmpos : 0 < m := by
-    by_contra hneg
-    push_neg at hneg
+    rcases le_or_lt m 0 with hneg | hpos
+    swap
+    · exact hpos
+    exfalso
     have hall : ∀ i, d i = 0 := fun i =>
       le_antisymm ((Finset.le_sup' d (Finset.mem_univ i)).trans hneg) (hd i)
     have : ∑ i, d i = 0 := by simp [hall]

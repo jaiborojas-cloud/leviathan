@@ -36,9 +36,15 @@ noncomputable def margen {n : ℕ} (z : Fin n → ℝ) (y : Fin n) : ℝ :=
 theorem margen_nonpos {n : ℕ} (z : Fin n → ℝ) (y : Fin n) (hn : 2 ≤ n) :
     margen z y ≤ 0 := by
   have hne : (univ.erase y).Nonempty := by
-    rw [Finset.erase_nonempty (Finset.mem_univ y)]
-    rw [Finset.nontrivial_univ_iff]
-    exact Fin.nontrivial_iff_two_le.mpr hn
+    by_cases hy : y.val = 0
+    · refine ⟨⟨1, by omega⟩, Finset.mem_erase.mpr ⟨?_, Finset.mem_univ _⟩⟩
+      intro h
+      have h1 : (1 : ℕ) = y.val := congrArg Fin.val h
+      omega
+    · refine ⟨⟨0, by omega⟩, Finset.mem_erase.mpr ⟨?_, Finset.mem_univ _⟩⟩
+      intro h
+      have h0 : (0 : ℕ) = y.val := congrArg Fin.val h
+      omega
   unfold margen
   linarith [lse_le_lse_univ z (univ.erase y) hne]
 
