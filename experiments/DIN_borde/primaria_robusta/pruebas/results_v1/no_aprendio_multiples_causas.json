@@ -1,0 +1,37 @@
+{
+  "case": "no_aprendio_multiples_causas",
+  "ok": true,
+  "result": {
+    "summary": {
+      "veredicto": "PASS",
+      "faltantes": 1,
+      "no_aprendio": 1,
+      "motivos": [],
+      "primaria": {
+        "D": 0.646740131455028,
+        "SSE_base": 2.9453050360798434,
+        "SSE_completo": 1.0404580698704096,
+        "pendiente_X": 0.5769826886518561,
+        "p": 0.025,
+        "D_nulo_q95": 0.006646658621397241,
+        "grado_base": 3,
+        "permutaciones": 39,
+        "permutaciones_completadas": 39,
+        "error_permutacion": null,
+        "recorte": true,
+        "nulo_mayor_igual": 0
+      },
+      "id_max": "syn_s0014_k2",
+      "D_sin_max": 0.6428173178889685
+    },
+    "entry": {
+      "split": 0,
+      "elegible": false,
+      "motivos": [
+        "ERROR_DECLARADO: SYNTHETIC_FAILURE",
+        "NO_APRENDIO",
+        "rho_caras_10: NO_POSITIVA_FINITA"
+      ]
+    }
+  }
+}
