@@ -1,0 +1,72 @@
+{
+  "case": "regla_PASS_NO_ROBUSTO",
+  "ok": true,
+  "result": {
+    "tipo": "casos_minimos_de_regla_no_cohorte",
+    "cases": [
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": 1.0,
+        "D_sin_max": 0.01,
+        "veredicto": "PASS"
+      },
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": 1.0,
+        "D_sin_max": 0.0,
+        "veredicto": "NO_ROBUSTO"
+      },
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": 1.0,
+        "D_sin_max": -0.1,
+        "veredicto": "NO_ROBUSTO"
+      },
+      {
+        "D": 0.1,
+        "p": 0.05,
+        "beta": 1.0,
+        "D_sin_max": 0.01,
+        "veredicto": "NOT_MET"
+      },
+      {
+        "D": -0.1,
+        "p": 0.01,
+        "beta": 1.0,
+        "D_sin_max": 0.01,
+        "veredicto": "NOT_MET"
+      },
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": -1.0,
+        "D_sin_max": 0.01,
+        "veredicto": "NOT_MET"
+      },
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": 0.0,
+        "D_sin_max": 0.01,
+        "veredicto": "NOT_MET"
+      },
+      {
+        "D": 0.1,
+        "p": 0.01,
+        "beta": 1.0,
+        "D_sin_max": null,
+        "veredicto": "INCONCLUSIVE"
+      },
+      {
+        "D": 0.1,
+        "p": "NaN_input",
+        "beta": 1.0,
+        "D_sin_max": 0.01,
+        "veredicto": "INCONCLUSIVE"
+      }
+    ]
+  }
+}

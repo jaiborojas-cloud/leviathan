@@ -1,0 +1,6 @@
+{
+  "case": "D_sin_max_degenerado_conserva_fallo",
+  "ok": false,
+  "error": "AssertionError: ",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/leviathan/experiments/DIN_borde/primaria_robusta/pruebas_robusta_v1.py\", line 155, in test\n    try:r=dict(case=name,ok=True,result=fn())\n                                        ^^^^\n  File \"/workspace/leviathan/experiments/DIN_borde/primaria_robusta/pruebas_robusta_v1.py\", line 291, in degenerate_minus\n    assert r['influencia']['id_max']==rows[0]['trajectory'] and r['influencia']['D_sin_max'] is None\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}
