@@ -1,0 +1,90 @@
+{
+  "version": "3.1",
+  "estado": "OPERATIVA_AUTORIZADA",
+  "corte_bibliografico": "2026-11-02",
+  "consultas": {
+    "N_umbral": 500,
+    "K_si_supera_N": 200,
+    "regla": "n<=500: todos; n>500: primeros 200; desconocido: sondeo hasta 501",
+    "estado_por_tope": "TRUNCADA_DECLARADA",
+    "duplicados_y_postfiltros_no_reponen_cupos": true,
+    "orden_por_base": {
+      "arXiv": "relevance descending (sortBy=relevance; sortOrder=descending)",
+      "SemanticScholar": "bulk: citationCount:desc; desempate nativo por paperId",
+      "GoogleScholar": "relevancia nativa; sort por fecha desactivado; patentes desactivadas",
+      "NeurIPS": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente",
+      "ICML": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente",
+      "ICLR": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente"
+    },
+    "semantic_scholar": {
+      "endpoint": "/graph/v1/paper/search/bulk",
+      "campos_busqueda": [
+        "title",
+        "abstract"
+      ],
+      "analizador": "stemming ingles del proveedor; no equivale al substring local de actas",
+      "sort": "citationCount:desc",
+      "desempate": "paperId nativo del proveedor; no reordenar localmente",
+      "paginacion": "token opaco, sin offset ni limit no documentados",
+      "max_respuesta_proveedor": 1000,
+      "tipo_total": "estimacion del proveedor",
+      "sin_total": "sondeo por tokens hasta agotar o recuperar al menos 501 posiciones",
+      "seleccion": "<=500: todos; >500 estimados u observados: primeras 200 posiciones; no reponer postfiltros",
+      "total_incoherente": "si la estimacion y las posiciones observadas discrepan de lado del umbral: PARCIAL con evidencia; no declarar cobertura completa",
+      "respuesta_grande": "conservar todas las posiciones devueltas; solo selected se criba; no pedir otro token si ya se alcanzo el tope",
+      "orden_cambiante": "IDs repetidos o citationCount creciente durante la paginacion: PARCIAL, conservar posiciones, sin deduplicar ni rellenar"
+    }
+  },
+  "citantes": {
+    "umbral_citas_ancla": 500,
+    "condicion": ">500 o conteo desconocido: filtro DIN",
+    "campos_filtro": [
+      "titulo",
+      "resumen"
+    ],
+    "operador": "OR",
+    "terminos": [
+      "early",
+      "Fisher",
+      "training dynamics",
+      "confidence",
+      "calibration",
+      "overconfidence",
+      "logit",
+      "logits",
+      "LogitNorm",
+      "softmax",
+      "implicit bias",
+      "max margin",
+      "maximum margin",
+      "neural tangent",
+      "learning curve",
+      "learning curves",
+      "forgetting",
+      "difficulty",
+      "information geometry"
+    ],
+    "filtro_logico_literal": "(\"early\" OR \"Fisher\" OR \"training dynamics\" OR \"confidence\" OR \"calibration\" OR \"overconfidence\" OR \"logit\" OR \"logits\" OR \"LogitNorm\" OR \"softmax\" OR \"implicit bias\" OR \"max margin\" OR \"maximum margin\" OR \"neural tangent\" OR \"learning curve\" OR \"learning curves\" OR \"forgetting\" OR \"difficulty\" OR \"information geometry\")",
+    "filtro_semantic_scholar": "(\"early\" | \"Fisher\" | \"training dynamics\" | \"confidence\" | \"calibration\" | \"overconfidence\" | \"logit\" | \"logits\" | \"LogitNorm\" | \"softmax\" | \"implicit bias\" | \"max margin\" | \"maximum margin\" | \"neural tangent\" | \"learning curve\" | \"learning curves\" | \"forgetting\" | \"difficulty\" | \"information geometry\")",
+    "filtro_google_scholar": "(\"early\" OR \"Fisher\" OR \"training dynamics\" OR \"confidence\" OR \"calibration\" OR \"overconfidence\" OR \"logit\" OR \"logits\" OR \"LogitNorm\" OR \"softmax\" OR \"implicit bias\" OR \"max margin\" OR \"maximum margin\" OR \"neural tangent\" OR \"learning curve\" OR \"learning curves\" OR \"forgetting\" OR \"difficulty\" OR \"information geometry\")",
+    "normalizacion": "Unicode NFKC, casefold, guiones ASCII/Unicode a espacio y colapso de espacios",
+    "coincidencia": "frase literal con limites de palabra Unicode",
+    "sin_resumen_y_sin_coincidencia_titulo": "PENDIENTE_FILTRO",
+    "orden_nativo": "orden recibido del grafo; sin ranking por citas ni seleccion manual",
+    "N_umbral": 500,
+    "K_si_supera_N": 200,
+    "servidor_sin_filtro": "limitar primero lista nativa; aplicar filtro local; TRUNCADA_DECLARADA; no reponer candidatos",
+    "total_citas_no_es_total_de_resultados_filtrados": true
+  },
+  "referencias_atras": {
+    "filtro_DIN": false,
+    "N_umbral": 500,
+    "K_si_supera_N": 200
+  },
+  "acceso": {
+    "bloqueo": "BLOQUEADA",
+    "tope_no_planificado": "TRUNCADA_ACCESO",
+    "falta_datos": "PARCIAL o PENDIENTE; nunca cero inventado"
+  },
+  "inferencia": "revision sistematica acotada; novedad solo dentro de cobertura efectiva; no exhaustividad universal"
+}
