@@ -1,0 +1,8 @@
+# Progreso del ejecutor Q15 v2
+
+- 2026-11-03 UTC / 2026-11-02 México: el responsable comunica la aprobación de Claude del ejecutor v1 y autoriza la enmienda S2 v3.1, bulk booleano con orden por citas. Se verifica el contrato en la documentación oficial indexada; los accesos directos 429/403 quedan declarados. No se ejecutan consultas bibliográficas.
+- Se preservan los archivos de protocolo v3 y ejecutor v1. Se publican enmienda, límites, plan de 294 filas y manifiesto en `7e668f81cf6f7beeecb28a4541d06311a21f233d`. La comparación confirma que solo cambian interfaz/orden de las 55 filas S2; ninguna cadena cambia.
+- Después de esa publicación se crea `ejecutor_pc_v2/`: tokens bulk, respuesta completa frente a posiciones seleccionadas, total estimado y diagnóstico de inconsistencias/orden. Se corrigen el HTTP 200 inválido no recuperable y la omisión de comprobación de evidencia cruda al reanudar; se fijan como regresiones sintéticas.
+- Desarrollo: 89/89 PASS y después 91/91 PASS; informes y fuentes anteriores conservados. Preparación local correcta: 294 unidades y ninguna solicitud HTTP. Se comprueban íntegros los manifiestos de v3, v1 y de la enmienda.
+- Publicación del ejecutor, requisitos y suite final: `5259d942d4f54c3d28f917f6e4a41ed9bd890a42`, hijo de la enmienda. Documentación PowerShell y manifiesto se publican después, sin cambiar el código probado. La publicación se realiza con el conector GitHub porque el transporte Git del entorno no alcanza el proxy; los árboles Git publicados coinciden con los árboles locales.
+- Pendiente operacional: el responsable corre primero las 91 pruebas y la preparación en Windows, y después la red. No se añaden fuentes, estados de lectura ni conclusiones de novedad a partir de fixtures.
