@@ -18,6 +18,7 @@ from unittest.mock import patch
 from urllib.parse import parse_qs, urlencode, urlparse
 from urllib.request import Request
 
+sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 SPEC = importlib.util.spec_from_file_location("q15_executor_audit", HERE / "ejecutar_q15_v3.py")
 Q = importlib.util.module_from_spec(SPEC)
@@ -463,6 +464,38 @@ class GraphAndCLI(Offline):
 
 
 class AdditionalIntegration(Offline):
+    def test_indice_con_un_solo_ano_no_se_declara_historia_completa(self):
+        root='https://proceedings.neurips.cc/'
+        volume=root+'paper_files/paper/2025'
+        paper=root+'paper_files/paper/2025/hash/fixture-Abstract-Conference.html'
+        mapping={root:{'body':'<li><a href="/paper_files/paper/2025">NeurIPS 2025 Main Conference</a></li>'},
+                 volume:{'body':'<a href="/paper_files/paper/2025/hash/fixture-Abstract-Conference.html">Fisher</a>'},
+                 paper:{'body':'<h1>Fisher</h1><h4>Abstract</h4><p>early</p>'}}
+        http,_=self.client(mapping)
+        with contextlib_stdout():result=Q.Runner(self.inputs(),self.store,http).html_catalogue('NeurIPS')
+        self.assertEqual(result['estado'],'PARCIAL_CATALOGO')
+        self.assertIn(1987,result['anios_no_listados'])
+        self.assertIn(2026,result['anios_no_listados'])
+        self.assertEqual(len(result['records']),1)
+
+    def test_rama_publicacion_windows_no_reemplaza_destino_simulada(self):
+        def windows_rename(source,target):
+            # Simula la semántica exclusiva de os.rename en Windows, sin pretender ejecutarlo allí.
+            Q.os.link(source,target)
+            source.unlink()
+        destination=self.path/'windows-marker'
+        with patch.object(Q.os,'name','nt'),patch.object(Q.os,'rename',side_effect=windows_rename):
+            Q.exclusive_write(destination,b'marcador')
+            with self.assertRaises(FileExistsError):Q.exclusive_write(destination,b'no reemplazar')
+        self.assertEqual(destination.read_bytes(),b'marcador')
+
+    def test_catalogo_fecha_desconocida_no_declara_total_exacto(self):
+        query={'grupos_json':'[["Fisher"]]','fecha_desde':'1900-01-01','fecha_hasta':'2026-11-02'}
+        result=Q.catalogue_result([rec(0,'Fisher',2026)],query,[])
+        self.assertEqual(result['estado'],'PARCIAL_CATALOGO')
+        self.assertIsNone(result['total_declarado'])
+        self.assertEqual(result['n_fecha_pendiente'],1)
+        self.assertFalse(result['records'][0]['incluible_para_cribado'])
     def test_redireccion_s2_se_declara_sin_seguir_solicitud_oculta(self):
         handler=Q.SafeRedirect()
         req=Request('https://api.semanticscholar.org/p',headers={'x-api-key':'SECRETO_SINTETICO'})

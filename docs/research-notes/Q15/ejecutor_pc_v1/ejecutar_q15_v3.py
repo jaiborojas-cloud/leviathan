@@ -35,7 +35,7 @@ from urllib.parse import parse_qs, quote, urlencode, urljoin, urlparse
 from urllib.request import Request, HTTPRedirectHandler, build_opener
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-VERSION = "BORRADOR_EJECUTOR_PC_v1"
+VERSION = "BORRADOR_EJECUTOR_PC_v1.1"
 PROTOCOL_COMMIT = "a9b85e64dc9d32bd99a593765a40b74019e7ab7d"
 N, K, PROBE = 500, 200, 501
 CUTOFF = date(2026, 11, 2)
@@ -234,7 +234,7 @@ class SafeRedirect(HTTPRedirectHandler):
 
 
 class NetworkTransport:
-    def __call__(self, url: str, headers: dict, timeout: float) -> tuple[int, dict, bytes]:
+    def __call__(self, url: str, headers: dict, timeout: float) -> tuple[int, dict, bytes, dict]:
         request = Request(url, headers=headers)
         redirect = SafeRedirect()
         opener = build_opener(redirect)
@@ -281,6 +281,8 @@ class Http:
         self.s2_pause, self.retries, self.timeout = s2_pause, retries, timeout
         self.retry_failed = retry_failed
         self.last: dict[str, float] = {}
+        self.script_sha256 = digest(Path(__file__).read_bytes())
+        self.network_requests = 0
 
     def wait(self, seconds: float):
         if seconds > 60:
@@ -321,7 +323,7 @@ class Http:
             headers["x-api-key"] = os.environ["S2_API_KEY"]
         for attempt in range(self.retries + 1):
             self.throttle(parsed.hostname)
-            info = {"url": url, **stamp()}
+            info = {"url": url, "script_sha256": self.script_sha256, **stamp()}
             try:
                 response = self.transport(url, headers, self.timeout)
                 status, response_headers, body = response[:3]
@@ -343,6 +345,9 @@ class Http:
             info["body_file"] = body_name
             meta_name = body_name.removesuffix(".body") + ".json"
             self.store.put(meta_name, info)
+            self.network_requests += 1
+            if self.network_requests % 50 == 0:
+                print(f"HTTP {self.network_requests}: {parsed.hostname}, estado={status}; {meta_name}", flush=True)
             if info["ok"]:
                 return self.decode(body, info), info, meta_name
             transient = status in (None, 408, 429, 500, 502, 503, 504)
@@ -691,13 +696,15 @@ def parse_article(body: bytes, url: str, year: int) -> dict:
 
 def catalogue_result(records: list[dict], query: dict, issues: list[str]) -> dict:
     groups = json.loads(query["grupos_json"])
-    matches, unknown = [], []
+    matches, unknown, date_unknown = [], [], []
     for record in records:
         if record_date_status(record, query["fecha_desde"], query["fecha_hasta"]) == "FUERA_FECHA":
             continue
         status = boolean_status(record, groups)
         if status == "COINCIDE":
             matches.append(record)
+            if record_date_status(record, query["fecha_desde"], query["fecha_hasta"]) == "PENDIENTE_FECHA":
+                date_unknown.append(record)
         elif status == "PENDIENTE_RESUMEN":
             unknown.append(record)
     def order(r):
@@ -709,10 +716,12 @@ def catalogue_result(records: list[dict], query: dict, issues: list[str]) -> dic
     gaps = list(issues)
     if unknown:
         gaps.append(f"{len(unknown)} registros sin resumen impiden descartar coincidencias")
+    if date_unknown:
+        gaps.append(f"{len(date_unknown)} candidatos con fecha pendiente; cupo antes del postfiltro, sin reponer")
     result = {"estado": "PARCIAL_CATALOGO" if gaps else "TRUNCADA_DECLARADA" if truncated else "COMPLETA",
         "estado_tope": "TRUNCADA_DECLARADA" if truncated else "SIN_TOPE_ACTIVADO", "N": N, "K": K,
         "orden": "anio DESC; titulo NFKC/casefold ASC; ID ASC", "total_declarado": None if gaps else len(matches),
-        "coincidencias_conocidas": len(matches), "n_seleccionados": take,
+        "coincidencias_titulo_resumen": len(matches), "n_fecha_pendiente": len(date_unknown), "n_seleccionados": take,
         "records": [{"position": i+1, "selected": i < take, "record": r} for i, r in enumerate(matches)],
         "pendientes_concordancia": unknown, "issues": gaps}
     return annotate_selected(result, query)
@@ -800,6 +809,10 @@ class Runner:
         if not volumes:
             raise SchemaError("Índice sin volúmenes reconocidos; no es catálogo de cero resultados")
         records, issues = [], []
+        first_year = 1987 if base == "NeurIPS" else 2013
+        missing_years = sorted(set(range(first_year, CUTOFF.year + 1)) - set(volumes.values()))
+        if missing_years:
+            issues.append("ANIOS_NO_LISTADOS_PENDIENTES_DE_COMPROBAR: " + ",".join(map(str, missing_years)))
         if base == "ICML":
             issues.append("HISTORICO_ICML_ANTERIOR_A_PMLR_NO_RECUPERADO")
         for volume_url, year in sorted(volumes.items(), key=lambda item: (-item[1], item[0])):
@@ -820,12 +833,13 @@ class Runner:
             if result["estado"] != "COMPLETA":
                 issues.append("Volumen pendiente: " + volume_url)
                 continue
+            print(f"Volumen {base} {year}: {len(result['links'])} artículos indexados", flush=True)
             for url, title in result["links"].items():
                 record, gaps = self.article(url, year, "" if norm(title) == "abs" else title)
                 records.append(record)
                 issues.extend(gaps)
         return {"estado": "PARCIAL_CATALOGO" if issues else "COMPLETA", "records": records,
-                "issues": issues, "volumes": volumes, "evidence": [evidence],
+                "issues": issues, "volumes": volumes, "anios_no_listados": missing_years, "evidence": [evidence],
                 "nota": "Sin tope de catálogo previo al matching; las consultas aplican N/K después."}
 
     def openreview_catalogue(self):
