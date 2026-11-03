@@ -1,5 +1,26 @@
 # Estado científico documentado
 
+## Actualización 2026-11-02 (prevalece sobre las anteriores en lo que toca)
+
+**Síntesis de la línea DIN.** Objetivo: comprobar si la geometría perspectival (M, ρ_borde) captura algo real del aprendizaje, es decir, si lo temprano anticipa la geometría final, cuándo, por qué y con qué generalidad.
+
+| pregunta | estado al 2026-11-02 | fuentes |
+|---|---|---|
+| ¿Existe la señal? | **Sí**, en dos familias pequeñas: C1 (Wine) y C2 (gaussianas), confirmatorias. No depende de la base del ajuste (revisión exploratoria con cuatro bases: D idéntico ±0.001) | [revisión de la primaria](../experiments/DIN_borde/revision_primaria/REVISION_PRIMARIA_2026-10-29.md) |
+| ¿Cuándo? | Se **modula** con la concentración de M: Q13-DR (LS) y Q13-M2 (LP, WD), confirmatorios | ver la tabla de 2026-10-26 |
+| ¿Por qué? | **No identificado.** Con intervenciones sobre los logits, la concentración c y la escala de los logits se mueven casi juntas (E-escala, exploratorio; **Q13-SEP v2: NO_IDENTIFICABLE**, sin dosis apta; con la escala igualada, la mediana de Δc es casi 0) | [Q13-SEP](../experiments/DIN_borde/Q13SEP/resultado_cal/RESULTADO_Q13SEP_CAL_2026-11-02.md) |
+| ¿Es general? | **Sin evidencia.** Iris (G1) sin señal. **CIFAR-3 con CNN:** F1 dio PASS_DESCRIPTIVO, pero producido por una trayectoria que no aprendió; con bases robustas la señal es pequeña y frágil, y la rama se cerró sin F2 | [cierre de CIFAR-3](../experiments/DIN_borde/CIFAR/CIERRE_CIFAR3_2026-11-02.md) |
+| ¿Es nuevo? | **Sin confirmar.** Solo hay una primera pasada (Q15). Q13-SEP acerca la lectura a la escala de los logits y la sobreconfianza, que es literatura extensa | [Q15](research-notes/revision-literatura-Q15.md) |
+
+**Método adoptado:** la [primaria robusta](../experiments/DIN_borde/PRIMARIA_ROBUSTA_v1.md), con criterio de «no aprendió», base recortada y compuerta de influencia, para todo diseño nuevo. El analista está en borrador (PR #132).
+
+**Herramientas:** instrumento generalizado para redes cuerpo + cabeza (compuerta con error 0). Piloto de [Lean](../lean/README.md), con 15 teoremas sobre los dominios y las invariancias, sin axiomas extra; se retoma solo para afirmaciones nuevas no triviales de RIPG.
+
+**Orden decidido por el responsable (2026-11-02):**
+1. **Q15 sistemática**, antes de más experimentos y de cualquier publicación;
+2. generalidad barata (Digits-3 con la primaria robusta);
+3. el mecanismo, solo si lo anterior lo justifica.
+
 ## Actualización 2026-10-26 (prevalece sobre el corte anterior en lo que toca)
 | Etapa | Estado respaldado | Fuente |
 |---|---|---|
