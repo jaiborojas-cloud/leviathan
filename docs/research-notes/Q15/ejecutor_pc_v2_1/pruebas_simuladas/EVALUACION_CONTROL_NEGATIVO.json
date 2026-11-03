@@ -1,0 +1,11 @@
+{
+  "estado": "REGRESION_DETECTADA_EN_V2",
+  "fuente": "control_negativo_v2.json",
+  "fuente_sha256": "762ea9352c18237ee04264ab115cea6356523dfe0c07a58a5beac4c39850c7b5",
+  "tests": 7,
+  "pasan": 0,
+  "fallos": 1,
+  "errores": 6,
+  "interpretacion": "Las 7 pruebas nuevas rechazan la v2 anterior. En Linux, forzar rutas léxicas Windows produce además FileNotFoundError por separadores, no solo los FAIL del Windows real. El indicador REVISAR del arnés original esperaba 7 FAIL y no contaba ERROR; se conserva sin cambiarlo. Esta evaluación distingue ambos tipos y no es una ejecución nativa en Windows.",
+  "sin_red": true
+}
