@@ -1,0 +1,8 @@
+# Corrección de rutas Windows — ejecutor v2.1
+
+1. El responsable comunicó 87/91 PASS en Windows para v2, con cuatro fallos por separadores. Se registra la incidencia sin leer, mover ni sobrescribir su JSON/log del PC; no se inventan sus hashes.
+2. La búsqueda completa del ejecutor identificó los tres `str(...relative_to(...))` reportados y un `str(Path(evidence).parent)` adicional. Los cuatro se cambian por `.as_posix()` en una carpeta nueva. Cambia la etiqueta de versión, no el protocolo Q15 v3.1.
+3. Se conservan las 91 pruebas y se añaden siete que fuerzan rutas relativas `PureWindowsPath` mientras ejercitan caché, recuperación y dependencias con archivos temporales reales. Resultado: 98/98 PASS local, sin red. La preparación local valida las 294 unidades sin HTTP.
+4. El control negativo contra el ejecutor v2 anterior arroja 0/7 PASS (1 FAIL y 6 ERROR por rutas Windows sobre E/S Linux). El primer indicador del arnés, `REVISAR`, esperaba exclusivamente FAIL; se conserva. La evaluación registra correctamente ambos tipos de rechazo, sin afirmar una ejecución Windows nativa.
+5. Publicados código y suite corregidos: `505e4239e7343bc73dffb838351da56d39039703`, hijo del estado anterior del PR `377fa60b…`. Se publican después documentación, verificación y manifiesto, sin cambiar los bytes probados. Se usa el conector GitHub y se comprueba coincidencia de árboles con el checkout.
+6. El procedimiento fija ese commit y los SHA nuevos, clon `D:\leviathan-q15-v31-1` y salidas `D:\RIPG_DATA\Q15_v31_1_*`. Los directorios `Q15_v31_*` quedan intactos. El responsable debe repetir paso 2 antes de paso 3. No se ejecutó red bibliográfica desde este entorno.
