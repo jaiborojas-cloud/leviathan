@@ -9,9 +9,10 @@ Lo redactó Claude a partir de las salidas que el responsable copió de su PC. E
   - `pruebas_001` en esa misma carpeta se corrió por error con la suite v2 (91 pruebas, 4 fallos de separadores ya conocidos). Se conserva.
 - **Preparación:** `Q15_v31_1_PREPARACION_B`, con código 0.
   - `Q15_v31_1_PREPARACION` la llenó por error el ejecutor v2; el ejecutor v2.1 la rechazó por identidad. Se conserva.
-- **Salida de red:** `D:\RIPG_DATA\Q15_v31_1_RED`, fuera de Git. Las corridas van de `run_000001` a `run_000011`:
+- **Salida de red:** `D:\RIPG_DATA\Q15_v31_1_RED`, fuera de Git. Las corridas van de `run_000001` a `run_000012`:
   - el último run completo de `--fase todo` es **`run_000009`**;
-  - el último de `--fase citas`, que es el final, es **`run_000011`**.
+  - el último de `--fase citas`, que es el final, es **`run_000012`** (escrito a las 09:15:32).
+  - `run_000010` (08:55) y `run_000011` (09:05) son reintentos intermedios de citas.
 - **Sin clave S2:** el formulario de Semantic Scholar rechaza correos de dominio gratuito.
 
 ## Desviaciones operativas (no tocan consultas, topes, orden ni insumos)
@@ -19,7 +20,7 @@ Lo redactó Claude a partir de las salidas que el responsable copió de su PC. E
 2. **`--fase citas --reintentar-fallos`** para reintentar solo las anclas, sin recalcular los catálogos.
 3. **Interrupciones con Ctrl+C** (código de Windows -1073741510) y reanudación sobre la misma salida, como dice el procedimiento.
 
-## Inventario (run_000009 y run_000010)
+## Inventario (run_000009 y run_000012)
 **Búsquedas (294 unidades):**
 - COMPLETA 104;
 - TRUNCADA_DECLARADA 5;
@@ -35,7 +36,7 @@ Lo redactó Claude a partir de las salidas que el responsable copió de su PC. E
 | ICML (PMLR) | 20 905 | `HISTORICO_ICML_ANTERIOR_A_PMLR_NO_RECUPERADO` |
 | ICLR (OpenReview) | **0** | ver decisión abajo |
 
-**Citas (19 anclas, una por dirección), según el run final `run_000011`:**
+**Citas (19 anclas, una por dirección), según el run final `run_000012`:**
 - COMPLETA 22, TRUNCADA_DECLARADA 7, PARCIAL 5, PENDIENTE_RESOLUCION_ANCLA 4 (2 anclas). **Hay 17 de 19 anclas resueltas.**
 - **Anclas sin resolver:**
   - **S03**: **429** de S2 en todos los intentos.
@@ -59,5 +60,10 @@ Lo redactó Claude a partir de las salidas que el responsable copió de su PC. E
 
 ## Pendiente para el otro agente
 1. Registrar en el PR #138 este cierre, las desviaciones 1–3 y la decisión sobre ICLR.
-2. Hacer el cribado y la extracción según el protocolo v3 sobre `Q15_v31_1_RED` (`run_000009` para las búsquedas, `run_000011` para las citas). Claude lo audita.
+2. Hacer el cribado y la extracción según el protocolo v3 sobre `Q15_v31_1_RED` (`run_000009` para las búsquedas, `run_000012` para las citas). Claude lo audita.
 3. **Google Scholar** sigue como OMITIDA_OPCIONAL, como dice el protocolo. Si el otro agente lo cree necesario para S20 o S03, puede proponer una consulta manual complementaria **registrada antes**, con consulta, fecha y campos anotados. Esa consulta no sería parte de la búsqueda sistemática.
+
+## Corrección (2026-11-05, 09:50)
+La primera versión de este reporte (commit `caf78c94`) atribuía el inventario final de citas a `run_000011`. **Es un error de Claude.** Esas cifras (17/19 anclas, pendientes S03 y S20) salen de **`run_000012`**: el comando de resumen tomaba el run más reciente y no se verificó su nombre.
+
+Lo detectó el otro agente al revisar el primer paquete, `Q15_v31_1_ENTREGA.zip` (SHA `8428591b…2b4e`). Ese paquete trae `run_000011`, que tiene 18 COMPLETA y 8 PENDIENTE_RESOLUCION_ANCLA (S03, S06, S07 y S20). El paquete se conserva, pero queda **sustituido** para las citas por `Q15_v31_1_ENTREGA_B.zip`, que incluye `run_000012`. Su SHA se publica en el PR #138.
