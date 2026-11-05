@@ -123,6 +123,7 @@ Estos scripts comprueban los hashes de las fuentes históricas y de los cierres 
 
 **© 2026 Jair Ivan Rojas Ruiz (Jaibo Rojas). Todos los derechos reservados.**
 - **Autor:** ORCID [0009-0003-1109-4583](https://orcid.org/0009-0003-1109-4583).
+- **Archivo y DOI:** la versión `v1.0` está archivada en Zenodo con el DOI [10.5281/zenodo.23987416](https://doi.org/10.5281/zenodo.23987416).
 - **Licencia:** no se concede ninguna. Copiar, modificar, redistribuir o reutilizar cualquier parte de este repositorio requiere autorización previa y por escrito; los detalles están en [LICENSE](LICENSE).
 - **Cita:** para referenciar el trabajo, usa [CITATION.cff](CITATION.cff). Citarlo no concede permiso de reproducción.
 
