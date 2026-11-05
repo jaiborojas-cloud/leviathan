@@ -121,7 +121,8 @@ Estos scripts comprueban los hashes de las fuentes históricas y de los cierres 
 
 ## Licencia y cita
 
-**© 2026 Jair Rojas. Todos los derechos reservados.**
+**© 2026 Jair Ivan Rojas Ruiz (Jaibo Rojas). Todos los derechos reservados.**
+- **Autor:** ORCID [0009-0003-1109-4583](https://orcid.org/0009-0003-1109-4583).
 - **Licencia:** no se concede ninguna. Copiar, modificar, redistribuir o reutilizar cualquier parte de este repositorio requiere autorización previa y por escrito; los detalles están en [LICENSE](LICENSE).
 - **Cita:** para referenciar el trabajo, usa [CITATION.cff](CITATION.cff). Citarlo no concede permiso de reproducción.
 
