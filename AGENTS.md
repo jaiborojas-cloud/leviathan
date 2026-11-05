@@ -21,9 +21,9 @@ Esta sección se añadió el 2026-11-05. No cambia ninguna de las reglas anterio
 
 ## Quién hace qué
 - **Responsable (humano):** ejecuta en su PC, aprueba diseños y decisiones, y fusiona los PR. Es el único que decide exclusiones, cambios de alcance y borrados.
-- **Codex:** diseña y audita. Hace el cribado y la extracción de Q15.
+- **Codex:** diseña y audita. Desde el 2026-11-05 ya no participa en Q15.
 - **Claude:** implementa y audita. Abre los PR. Al revisar PR de otro agente, lee el código sin correr sus pruebas.
-- **Argon:** agente nuevo, en periodo de prueba (ver abajo).
+- **Argon:** hace el cribado y la extracción de Q15 por decisión del responsable del 2026-11-05. Fuera de Q15 sigue en periodo de prueba (ver abajo).
 
 Ningún agente fusiona PR ni hace push a `main`.
 
@@ -42,11 +42,13 @@ Argon trabaja por niveles. Cada nivel lo califica Claude contra respuestas conoc
 | Nivel | Qué hace | Permisos | Estado |
 |---|---|---|---|
 | 0 | Lectura con respuestas conocidas y una trampa | Solo lectura | Aprobado (2026-11-05) |
-| 1 | Auditoría a ciegas de un entregable ya auditado | Solo lectura | Pendiente |
+| 1 | Auditoría a ciegas de un entregable ya auditado | Solo lectura | Aprobado (2026-11-05). Halló hallazgos que la auditoría previa no vio, sin inventar datos; tuvo errores de conteo, así que sus cifras se recalculan siempre. |
 | 2 | Tarea con verificador mecánico (por ejemplo, un lema en `lean/`) | Rama propia, sin fusionar | Pendiente |
 | 3 | Tareas de la ruta crítica | Según lo apruebe el responsable | Pendiente |
 
-Mientras no apruebe el nivel 3, Argon:
+**Excepción, Q15:** el responsable asignó a Argon el cribado y la extracción de Q15 el 2026-11-05, sin pasar los niveles 2 y 3. En esa tarea Argon trabaja en su propia carpeta, por lotes fijados antes de leer, y Claude audita cada lote recalculando los conteos antes de seguir.
+
+Fuera de Q15, mientras no apruebe el nivel 3, Argon:
 - no escribe en `D:\RIPG_DATA\` ni en carpetas donde trabaje otro agente;
 - no toca rutas críticas abiertas (por ejemplo, el cribado de Q15);
 - trabaja solo en ramas `argon/…`, y sus resultados los revisa Claude antes de que el responsable los considere.
