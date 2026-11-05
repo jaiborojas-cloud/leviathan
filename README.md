@@ -6,6 +6,8 @@
 
 <p align="center"><em>Mathematical Leviathan Rising</em></p>
 
+<p align="center"><a href="https://doi.org/10.5281/zenodo.23987415"><img src="https://zenodo.org/badge/1380595228.svg" alt="DOI"></a></p>
+
 **RIPG** (*Relevance-Induced Perspective Geometry*) estudia la **geometría que inducen las perspectivas** sobre una red neuronal. Una perspectiva es un funcional escalar: qué se evalúa del modelo. Su relevancia es un covector sobre los parámetros, y la forma en que esa relevancia cambia de una perspectiva a otra define una métrica, con su curvatura, sus geodésicas y su borde:
 
 $$
@@ -123,7 +125,7 @@ Estos scripts comprueban los hashes de las fuentes históricas y de los cierres 
 
 **© 2026 Jair Ivan Rojas Ruiz (Jaibo Rojas). Todos los derechos reservados.**
 - **Autor:** ORCID [0009-0003-1109-4583](https://orcid.org/0009-0003-1109-4583).
-- **Archivo y DOI:** [![DOI](https://zenodo.org/badge/1380595228.svg)](https://doi.org/10.5281/zenodo.23987415) El repositorio está archivado en Zenodo. El DOI concepto [10.5281/zenodo.23987415](https://doi.org/10.5281/zenodo.23987415) apunta siempre a la versión más reciente; la versión `v1.0` tiene el DOI [10.5281/zenodo.23987416](https://doi.org/10.5281/zenodo.23987416).
+- **Archivo y DOI:** el repositorio está archivado en Zenodo. El DOI concepto [10.5281/zenodo.23987415](https://doi.org/10.5281/zenodo.23987415) apunta siempre a la versión más reciente; la versión `v1.0` tiene el DOI [10.5281/zenodo.23987416](https://doi.org/10.5281/zenodo.23987416).
 - **Licencia:** no se concede ninguna. Copiar, modificar, redistribuir o reutilizar cualquier parte de este repositorio requiere autorización previa y por escrito; los detalles están en [LICENSE](LICENSE).
 - **Cita:** para referenciar el trabajo, usa [CITATION.cff](CITATION.cff). Citarlo no concede permiso de reproducción.
 
