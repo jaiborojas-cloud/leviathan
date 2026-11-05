@@ -14,3 +14,39 @@
 - Versionar código, protocolos, manifests, hashes, reportes y documentación. Mantener ZIP, checkpoints y arrays diagnósticos fuera de Git.
 - No borrar ni mover datos existentes innecesariamente; no publicar ni hacer push automáticamente.
 - No inventar fuentes, resultados, fechas, hashes ni acceso a conversaciones o bibliotecas externas.
+
+# Roles y flujo de trabajo
+
+Esta sección se añadió el 2026-11-05. No cambia ninguna de las reglas anteriores; las aplica a cada agente.
+
+## Quién hace qué
+- **Responsable (humano):** ejecuta en su PC, aprueba diseños y decisiones, y fusiona los PR. Es el único que decide exclusiones, cambios de alcance y borrados.
+- **Codex:** diseña y audita. Hace el cribado y la extracción de Q15.
+- **Claude:** implementa y audita. Abre los PR. Al revisar PR de otro agente, lee el código sin correr sus pruebas.
+- **Argon:** agente nuevo, en periodo de prueba (ver abajo).
+
+Ningún agente fusiona PR ni hace push a `main`.
+
+## Reglas comunes a todos los agentes
+- Los diseños se congelan antes de ver datos, y se hace un solo análisis confirmatorio por diseño.
+- Cada afirmación lleva su respaldo: archivo y línea, commit o comando. Si algo no se encuentra, se dice explícitamente; no se deduce.
+- Si dos documentos se contradicen, se reporta la contradicción en lugar de elegir uno en silencio.
+- Los procesos largos los ejecuta el responsable en PowerShell, en sesiones de alrededor de una hora. El agente entrega el script y el comando exacto, con ruta completa y `python -I`; no los lanza en segundo plano.
+- Los datos pesados viven fuera de Git, en `D:\RIPG_DATA\`. Un agente no escribe ahí salvo instrucción explícita del responsable.
+- Borrar algo, en el repo o en `D:\RIPG_DATA\`, requiere aprobación previa del responsable.
+- Dos agentes no escriben a la vez en la misma carpeta ni en la misma rama.
+
+## Argon: periodo de prueba
+Argon trabaja por niveles. Cada nivel lo califica Claude contra respuestas conocidas, y el responsable aprueba el paso al siguiente.
+
+| Nivel | Qué hace | Permisos | Estado |
+|---|---|---|---|
+| 0 | Lectura con respuestas conocidas y una trampa | Solo lectura | Aprobado (2026-11-05) |
+| 1 | Auditoría a ciegas de un entregable ya auditado | Solo lectura | Pendiente |
+| 2 | Tarea con verificador mecánico (por ejemplo, un lema en `lean/`) | Rama propia, sin fusionar | Pendiente |
+| 3 | Tareas de la ruta crítica | Según lo apruebe el responsable | Pendiente |
+
+Mientras no apruebe el nivel 3, Argon:
+- no escribe en `D:\RIPG_DATA\` ni en carpetas donde trabaje otro agente;
+- no toca rutas críticas abiertas (por ejemplo, el cribado de Q15);
+- trabaja solo en ramas `argon/…`, y sus resultados los revisa Claude antes de que el responsable los considere.
