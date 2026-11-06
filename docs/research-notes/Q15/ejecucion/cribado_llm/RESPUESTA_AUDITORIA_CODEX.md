@@ -23,6 +23,26 @@ Las correcciones forman la **enmienda 2** del [preregistro](PREREGISTRO_CRIBADO_
 | **D2** referencia no aleatoria | Se acepta como límite y queda escrito en el preregistro. La defensa es la auditoría de producción. | — |
 | **D3** potencia | **Decisión del responsable:** la auditoría de producción pasa a 100 exclusiones por lote y suspende con un solo error. El preregistro actualiza la potencia de la validación con 27 protegidas. | — |
 
+## Reauditoría de `d580da24` (enmienda 3)
+
+[REAUDITORIA_CODEX_d580da24.md](auditoria_codex_d580da24/REAUDITORIA_CODEX_d580da24.md), SHA-256 `7efad3af77a6078a9544ca3790e657a1bf9a15bc38f877e3b29488e339192e38`, con sus arneses en la misma carpeta. Codex dio por resueltos G1, G2, M1, M3 y D1, y encontró residuos en los mecanismos nuevos de la enmienda 2. **Todos se confirmaron**: Claude reprodujo R2, R3, R4 y los menores 2 y 4, y verificó R1 y R5 leyendo el código.
+
+| Hallazgo | Corrección (enmienda 3) | Prueba |
+|---|---|---|
+| **R1** el evaluador no fijaba la versión ni la coherencia | Exige el hash del script congelado (el mismo que evalúa); cada fila debe ser coherente con `crudo` y con `modelo_respuesta`; se rechazan obras repetidas o ajenas; comparación estricta de tipos. | Script desconocido, modelo distinto, crudo no JSON, decisión distinta de la cruda, `think=0`/`simulado=0`, obra repetida: todos INCONCLUSIVO. |
+| **R2** un JSON roto dejaba vigente un APTO viejo | `elegir` y `validar` capturan cualquier excepción y escriben INCONCLUSIVO con el motivo. | `eleccion.json = "{"` → veredicto vigente INCONCLUSIVO con `JSONDecodeError`. |
+| **R3** colisión del historial en el mismo segundo | Nombre con hora e identificador único, escritura exclusiva (`"x"`) y reemplazo atómico del vigente. | Dos intentos con el reloj fijo → dos copias. |
+| **R4** corte a mitad de un carácter UTF-8 | Las salidas se leen en bytes, línea por línea; una línea que no decodifica se descarta y su obra se rehace. | Cola `{"razon":"\xc3` y obra cortada a mitad de `é` → se reanuda y el veredicto es APTO. |
+| **R5** el `timeout` relativo podía rebasar el límite | `lanzar` genera `correr.sh` con el límite como hora absoluta; el restante se calcula en la VM al arrancar; `etiquetar --hasta` no empieza obras pasado el límite. | `--hasta` vencido → se detiene sin filas. `correr.sh` real con bash: termina con `codigo=0`, corta en 65 s exactos con `codigo=124`, `SIN_TIEMPO` con el límite vencido. |
+| Menor 1 desempate | Se agrega el número de configuración como último criterio. | `validas=[C2, C1]` con empate total → C1. |
+| Menor 2 `\w` acepta `_` | `tiene_texto` exige letra o dígito. La partición real no cambia (`2598b7dc…dc20`). | `"___"` no cuenta. |
+| Menor 3 esquema enviado | `additionalProperties: false` en el esquema de Ollama. No se agregó `minLength`, porque no está claro que la gramática de Ollama lo soporte; lo cubre la validación local. | Esquema verificado. |
+| Menor 4 tipos | Comparación por JSON canónico. | `think=0`, `simulado=0` → INCONCLUSIVO. |
+| Menor 5 `curl \| sh` | `set -o pipefail` antes de la instalación. | Revisión del comando; sin ejecutar en Azure. |
+| Menor 6 auditoría con menos de 100 | Marco ordenado por `obra_id`, semilla `20261106 + número de lote`, censo si hay 100 exclusiones o menos. | — (regla de producción). |
+
+La suite de Claude (52 pruebas) pasa en el contenedor de Claude y en la PC del responsable, en ambos casos con un servidor HTTP local real. En la PC, `preparar` con los paquetes reales reproduce la partición congelada.
+
 ## Lo que sigue sin verificarse
 - La ejecución real contra Azure y Ollama: drivers, descarga de modelos, salida estructurada con `think` y la memoria de la A100. Para eso está `probar`, que no ve datos de la referencia.
 - La semántica exacta de `tmux`, `timeout` y `PIPESTATUS` en la VM: se revisó la construcción del comando, no su ejecución.

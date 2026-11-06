@@ -1,0 +1,1024 @@
+{
+  "semilla": 20261105,
+  "obras": 156,
+  "fuera": {
+    "PENDIENTE_ACCESO": 1
+  },
+  "por_mitad": {
+    "seleccion": {
+      "CONTEXTO": 27,
+      "EXCLUIR_FUERA_TEMA": 26,
+      "INCLUIR_PARA_TEXTO": 26
+    },
+    "validacion": {
+      "EXCLUIR_FUERA_TEMA": 25,
+      "INCLUIR_PARA_TEXTO": 26,
+      "CONTEXTO": 26
+    }
+  },
+  "grupos_con_mas_de_una_obra": 1,
+  "sha256": {
+    "entrada_seleccion.jsonl": "f96e95e40b50ab8e08763db9016b2c7b9f55dc20ae8b13cd41b4ffb19d8bce2a",
+    "entrada_validacion.jsonl": "149e1a9b4a83b72bccda8e0b0d6e2e2d3883e33e539391635ea2a38ce303dff9",
+    "referencia.jsonl": "85403ca035ff570fab43b2e10624c8759db833a08892cb575a0e7423c5651360"
+  },
+  "insumos_sha256": {
+    "l1.zip": "8fb3b26bc28c51cace8a6d59422b9ddfe1b2958e3c8240c6a75cfaeee59424da",
+    "l2.zip": "9efc3b2b3710f3cfe283cf50a28779b5e23f37fa0baacd0c4c7795fa8faa0469",
+    "l3.zip": "ebd25c214cf50d75c28d0edcdc883f63b79ab57b1bdeed4b973e7ce18051cffd"
+  }
+}
+
+== G1: el mensaje de sistema es el prompt completo
+OK     tiene más de 8 000 caracteres
+OK     empieza con las instrucciones
+OK     contiene secciones 1 y 6 y los dos criterios
+OK     un prompt alterado se rechaza
+
+== G2: validación completa del esquema
+OK     acepta una respuesta correcta
+OK     rechaza sin puntos
+OK     rechaza puntos no lista
+OK     rechaza punto inexistente
+OK     rechaza clave extra
+OK     rechaza razón vacía
+OK     rechaza dudoso no booleano
+OK     rechaza decisión fuera de la lista
+
+== M1: clasificación de errores
+    intento 1/3 fallo: HTTPError: HTTP Error 500: synthetic HTTP failure
+    intento 2/3 fallo: HTTPError: HTTP Error 500: synthetic HTTP failure
+    intento 3/3 fallo: HTTPError: HTTP Error 500: synthetic HTTP failure
+OK     HTTP 500 -> INVALIDA con error
+    intento 1/3 fallo: respuesta no JSON: Expecting value: line 1 column 1 (char 0)
+    intento 2/3 fallo: respuesta no JSON: Expecting value: line 1 column 1 (char 0)
+    intento 3/3 fallo: respuesta no JSON: Expecting value: line 1 column 1 (char 0)
+OK     cuerpo no JSON -> INVALIDA con error
+OK     URLError(timeout) cuenta como timeout del modelo
+    intento 1/3 fallo: URLError: <urlopen error synthetic refusal>
+    intento 2/3 fallo: URLError: <urlopen error synthetic refusal>
+    intento 3/3 fallo: URLError: <urlopen error synthetic refusal>
+OK     sin conexión -> se detiene
+
+== M2: extractor de resúmenes
+OK     el resumen ',' no cuenta y su obra queda fuera
+OK     un resumen corto con texto sí cuenta
+OK     una estructura inesperada se rechaza
+OK     los duplicados de título quedan en la misma mitad
+
+== M3: mediana
+OK     mediana([1, 100]) = 50.5
+OK     mediana([3, 1, 2]) = 2
+
+== Flujo oficial completo con un modelo que reproduce la referencia
+C1 True EXCLUIR_FUERA_TEMA 0.0 s
+C2 True EXCLUIR_FUERA_TEMA 0.0 s
+C3 True EXCLUIR_FUERA_TEMA 0.0 s
+C4 True EXCLUIR_FUERA_TEMA 0.0 s
+VALIDAS: C1 C2 C3 C4
+C1 {'modelo': 'qwen3.8:27b', 'think': False}: 0 de 79 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_seleccion_C1.jsonl
+  1/79 W00001 CONTEXTO 0.0s
+  2/79 W00002 EXCLUIR_FUERA_TEMA 0.0s
+  3/79 W00003 INCLUIR_PARA_TEXTO 0.0s
+  4/79 W00004 CONTEXTO 0.0s
+  5/79 W00010 CONTEXTO 0.0s
+  6/79 W00011 INCLUIR_PARA_TEXTO 0.0s
+  7/79 W00015 INCLUIR_PARA_TEXTO 0.0s
+  8/79 W00017 EXCLUIR_FUERA_TEMA 0.0s
+  9/79 W00020 EXCLUIR_FUERA_TEMA 0.0s
+  10/79 W00023 EXCLUIR_FUERA_TEMA 0.0s
+  11/79 W00025 CONTEXTO 0.0s
+  12/79 W00026 EXCLUIR_FUERA_TEMA 0.0s
+  13/79 W00030 INCLUIR_PARA_TEXTO 0.0s
+  14/79 W00031 CONTEXTO 0.0s
+  15/79 W00033 INCLUIR_PARA_TEXTO 0.0s
+  16/79 W00034 CONTEXTO 0.0s
+  17/79 W00035 EXCLUIR_FUERA_TEMA 0.0s
+  18/79 W00039 INCLUIR_PARA_TEXTO 0.0s
+  19/79 W00045 INCLUIR_PARA_TEXTO 0.0s
+  20/79 W00046 CONTEXTO 0.0s
+  21/79 W00047 EXCLUIR_FUERA_TEMA 0.0s
+  22/79 W00049 CONTEXTO 0.0s
+  23/79 W00051 INCLUIR_PARA_TEXTO 0.0s
+  24/79 W00052 CONTEXTO 0.0s
+  25/79 W00056 EXCLUIR_FUERA_TEMA 0.0s
+  26/79 W00057 INCLUIR_PARA_TEXTO 0.0s
+  27/79 W00058 CONTEXTO 0.0s
+  28/79 W00100 CONTEXTO 0.0s
+  29/79 W00101 EXCLUIR_FUERA_TEMA 0.0s
+  30/79 W00102 INCLUIR_PARA_TEXTO 0.0s
+  31/79 W00103 CONTEXTO 0.0s
+  32/79 W00106 CONTEXTO 0.0s
+  33/79 W00107 EXCLUIR_FUERA_TEMA 0.0s
+  34/79 W00113 EXCLUIR_FUERA_TEMA 0.0s
+  35/79 W00114 INCLUIR_PARA_TEXTO 0.0s
+  36/79 W00118 CONTEXTO 0.0s
+  37/79 W00122 EXCLUIR_FUERA_TEMA 0.0s
+  38/79 W00125 EXCLUIR_FUERA_TEMA 0.0s
+  39/79 W00127 CONTEXTO 0.0s
+  40/79 W00132 INCLUIR_PARA_TEXTO 0.0s
+  41/79 W00133 CONTEXTO 0.0s
+  42/79 W00134 EXCLUIR_FUERA_TEMA 0.0s
+  43/79 W00136 CONTEXTO 0.0s
+  44/79 W00137 EXCLUIR_FUERA_TEMA 0.0s
+  45/79 W00140 EXCLUIR_FUERA_TEMA 0.0s
+  46/79 W00141 INCLUIR_PARA_TEXTO 0.0s
+  47/79 W00142 CONTEXTO 0.0s
+  48/79 W00143 EXCLUIR_FUERA_TEMA 0.0s
+  49/79 W00144 INCLUIR_PARA_TEXTO 0.0s
+  50/79 W00145 CONTEXTO 0.0s
+  51/79 W00147 INCLUIR_PARA_TEXTO 0.0s
+  52/79 W00149 EXCLUIR_FUERA_TEMA 0.0s
+  53/79 W00152 EXCLUIR_FUERA_TEMA 0.0s
+  54/79 W00153 INCLUIR_PARA_TEXTO 0.0s
+  55/79 W00155 EXCLUIR_FUERA_TEMA 0.0s
+  56/79 W00160 CONTEXTO 0.0s
+  57/79 W00162 INCLUIR_PARA_TEXTO 0.0s
+  58/79 W00163 CONTEXTO 0.0s
+  59/79 W00166 CONTEXTO 0.0s
+  60/79 W00168 INCLUIR_PARA_TEXTO 0.0s
+  61/79 W00169 CONTEXTO 0.0s
+  62/79 W00171 INCLUIR_PARA_TEXTO 0.0s
+  63/79 W00174 INCLUIR_PARA_TEXTO 0.0s
+  64/79 W00176 EXCLUIR_FUERA_TEMA 0.0s
+  65/79 W00177 INCLUIR_PARA_TEXTO 0.0s
+  66/79 W00179 EXCLUIR_FUERA_TEMA 0.0s
+  67/79 W00180 INCLUIR_PARA_TEXTO 0.0s
+  68/79 W00181 CONTEXTO 0.0s
+  69/79 W00184 CONTEXTO 0.0s
+  70/79 W00185 EXCLUIR_FUERA_TEMA 0.0s
+  71/79 W00186 INCLUIR_PARA_TEXTO 0.0s
+  72/79 W00189 INCLUIR_PARA_TEXTO 0.0s
+  73/79 W00191 EXCLUIR_FUERA_TEMA 0.0s
+  74/79 W00192 INCLUIR_PARA_TEXTO 0.0s
+  75/79 W00193 CONTEXTO 0.0s
+  76/79 W00194 EXCLUIR_FUERA_TEMA 0.0s
+  77/79 W00197 EXCLUIR_FUERA_TEMA 0.0s
+  78/79 W00198 INCLUIR_PARA_TEXTO 0.0s
+  79/79 W00199 CONTEXTO 0.0s
+C2 {'modelo': 'qwen3.8:27b', 'think': True}: 0 de 79 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_seleccion_C2.jsonl
+  1/79 W00001 CONTEXTO 0.0s
+  2/79 W00002 EXCLUIR_FUERA_TEMA 0.0s
+  3/79 W00003 INCLUIR_PARA_TEXTO 0.0s
+  4/79 W00004 CONTEXTO 0.0s
+  5/79 W00010 CONTEXTO 0.0s
+  6/79 W00011 INCLUIR_PARA_TEXTO 0.0s
+  7/79 W00015 INCLUIR_PARA_TEXTO 0.0s
+  8/79 W00017 EXCLUIR_FUERA_TEMA 0.0s
+  9/79 W00020 EXCLUIR_FUERA_TEMA 0.0s
+  10/79 W00023 EXCLUIR_FUERA_TEMA 0.0s
+  11/79 W00025 CONTEXTO 0.0s
+  12/79 W00026 EXCLUIR_FUERA_TEMA 0.0s
+  13/79 W00030 INCLUIR_PARA_TEXTO 0.0s
+  14/79 W00031 CONTEXTO 0.0s
+  15/79 W00033 INCLUIR_PARA_TEXTO 0.0s
+  16/79 W00034 CONTEXTO 0.0s
+  17/79 W00035 EXCLUIR_FUERA_TEMA 0.0s
+  18/79 W00039 INCLUIR_PARA_TEXTO 0.0s
+  19/79 W00045 INCLUIR_PARA_TEXTO 0.0s
+  20/79 W00046 CONTEXTO 0.0s
+  21/79 W00047 EXCLUIR_FUERA_TEMA 0.0s
+  22/79 W00049 CONTEXTO 0.0s
+  23/79 W00051 INCLUIR_PARA_TEXTO 0.0s
+  24/79 W00052 CONTEXTO 0.0s
+  25/79 W00056 EXCLUIR_FUERA_TEMA 0.0s
+  26/79 W00057 INCLUIR_PARA_TEXTO 0.0s
+  27/79 W00058 CONTEXTO 0.0s
+  28/79 W00100 CONTEXTO 0.0s
+  29/79 W00101 EXCLUIR_FUERA_TEMA 0.0s
+  30/79 W00102 INCLUIR_PARA_TEXTO 0.0s
+  31/79 W00103 CONTEXTO 0.0s
+  32/79 W00106 CONTEXTO 0.0s
+  33/79 W00107 EXCLUIR_FUERA_TEMA 0.0s
+  34/79 W00113 EXCLUIR_FUERA_TEMA 0.0s
+  35/79 W00114 INCLUIR_PARA_TEXTO 0.0s
+  36/79 W00118 CONTEXTO 0.0s
+  37/79 W00122 EXCLUIR_FUERA_TEMA 0.0s
+  38/79 W00125 EXCLUIR_FUERA_TEMA 0.0s
+  39/79 W00127 CONTEXTO 0.0s
+  40/79 W00132 INCLUIR_PARA_TEXTO 0.0s
+  41/79 W00133 CONTEXTO 0.0s
+  42/79 W00134 EXCLUIR_FUERA_TEMA 0.0s
+  43/79 W00136 CONTEXTO 0.0s
+  44/79 W00137 EXCLUIR_FUERA_TEMA 0.0s
+  45/79 W00140 EXCLUIR_FUERA_TEMA 0.0s
+  46/79 W00141 INCLUIR_PARA_TEXTO 0.0s
+  47/79 W00142 CONTEXTO 0.0s
+  48/79 W00143 EXCLUIR_FUERA_TEMA 0.0s
+  49/79 W00144 INCLUIR_PARA_TEXTO 0.0s
+  50/79 W00145 CONTEXTO 0.0s
+  51/79 W00147 INCLUIR_PARA_TEXTO 0.0s
+  52/79 W00149 EXCLUIR_FUERA_TEMA 0.0s
+  53/79 W00152 EXCLUIR_FUERA_TEMA 0.0s
+  54/79 W00153 INCLUIR_PARA_TEXTO 0.0s
+  55/79 W00155 EXCLUIR_FUERA_TEMA 0.0s
+  56/79 W00160 CONTEXTO 0.0s
+  57/79 W00162 INCLUIR_PARA_TEXTO 0.0s
+  58/79 W00163 CONTEXTO 0.0s
+  59/79 W00166 CONTEXTO 0.0s
+  60/79 W00168 INCLUIR_PARA_TEXTO 0.0s
+  61/79 W00169 CONTEXTO 0.0s
+  62/79 W00171 INCLUIR_PARA_TEXTO 0.0s
+  63/79 W00174 INCLUIR_PARA_TEXTO 0.0s
+  64/79 W00176 EXCLUIR_FUERA_TEMA 0.0s
+  65/79 W00177 INCLUIR_PARA_TEXTO 0.0s
+  66/79 W00179 EXCLUIR_FUERA_TEMA 0.0s
+  67/79 W00180 INCLUIR_PARA_TEXTO 0.0s
+  68/79 W00181 CONTEXTO 0.0s
+  69/79 W00184 CONTEXTO 0.0s
+  70/79 W00185 EXCLUIR_FUERA_TEMA 0.0s
+  71/79 W00186 INCLUIR_PARA_TEXTO 0.0s
+  72/79 W00189 INCLUIR_PARA_TEXTO 0.0s
+  73/79 W00191 EXCLUIR_FUERA_TEMA 0.0s
+  74/79 W00192 INCLUIR_PARA_TEXTO 0.0s
+  75/79 W00193 CONTEXTO 0.0s
+  76/79 W00194 EXCLUIR_FUERA_TEMA 0.0s
+  77/79 W00197 EXCLUIR_FUERA_TEMA 0.0s
+  78/79 W00198 INCLUIR_PARA_TEXTO 0.0s
+  79/79 W00199 CONTEXTO 0.0s
+C3 {'modelo': 'gemma4:31b', 'think': None}: 0 de 79 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_seleccion_C3.jsonl
+  1/79 W00001 CONTEXTO 0.0s
+  2/79 W00002 EXCLUIR_FUERA_TEMA 0.0s
+  3/79 W00003 INCLUIR_PARA_TEXTO 0.0s
+  4/79 W00004 CONTEXTO 0.0s
+  5/79 W00010 CONTEXTO 0.0s
+  6/79 W00011 INCLUIR_PARA_TEXTO 0.0s
+  7/79 W00015 INCLUIR_PARA_TEXTO 0.0s
+  8/79 W00017 EXCLUIR_FUERA_TEMA 0.0s
+  9/79 W00020 EXCLUIR_FUERA_TEMA 0.0s
+  10/79 W00023 EXCLUIR_FUERA_TEMA 0.0s
+  11/79 W00025 CONTEXTO 0.0s
+  12/79 W00026 EXCLUIR_FUERA_TEMA 0.0s
+  13/79 W00030 INCLUIR_PARA_TEXTO 0.0s
+  14/79 W00031 CONTEXTO 0.0s
+  15/79 W00033 INCLUIR_PARA_TEXTO 0.0s
+  16/79 W00034 CONTEXTO 0.0s
+  17/79 W00035 EXCLUIR_FUERA_TEMA 0.0s
+  18/79 W00039 INCLUIR_PARA_TEXTO 0.0s
+  19/79 W00045 INCLUIR_PARA_TEXTO 0.0s
+  20/79 W00046 CONTEXTO 0.0s
+  21/79 W00047 EXCLUIR_FUERA_TEMA 0.0s
+  22/79 W00049 CONTEXTO 0.0s
+  23/79 W00051 INCLUIR_PARA_TEXTO 0.0s
+  24/79 W00052 CONTEXTO 0.0s
+  25/79 W00056 EXCLUIR_FUERA_TEMA 0.0s
+  26/79 W00057 INCLUIR_PARA_TEXTO 0.0s
+  27/79 W00058 CONTEXTO 0.0s
+  28/79 W00100 CONTEXTO 0.0s
+  29/79 W00101 EXCLUIR_FUERA_TEMA 0.0s
+  30/79 W00102 INCLUIR_PARA_TEXTO 0.0s
+  31/79 W00103 CONTEXTO 0.0s
+  32/79 W00106 CONTEXTO 0.0s
+  33/79 W00107 EXCLUIR_FUERA_TEMA 0.0s
+  34/79 W00113 EXCLUIR_FUERA_TEMA 0.0s
+  35/79 W00114 INCLUIR_PARA_TEXTO 0.0s
+  36/79 W00118 CONTEXTO 0.0s
+  37/79 W00122 EXCLUIR_FUERA_TEMA 0.0s
+  38/79 W00125 EXCLUIR_FUERA_TEMA 0.0s
+  39/79 W00127 CONTEXTO 0.0s
+  40/79 W00132 INCLUIR_PARA_TEXTO 0.0s
+  41/79 W00133 CONTEXTO 0.0s
+  42/79 W00134 EXCLUIR_FUERA_TEMA 0.0s
+  43/79 W00136 CONTEXTO 0.0s
+  44/79 W00137 EXCLUIR_FUERA_TEMA 0.0s
+  45/79 W00140 EXCLUIR_FUERA_TEMA 0.0s
+  46/79 W00141 INCLUIR_PARA_TEXTO 0.0s
+  47/79 W00142 CONTEXTO 0.0s
+  48/79 W00143 EXCLUIR_FUERA_TEMA 0.0s
+  49/79 W00144 INCLUIR_PARA_TEXTO 0.0s
+  50/79 W00145 CONTEXTO 0.0s
+  51/79 W00147 INCLUIR_PARA_TEXTO 0.0s
+  52/79 W00149 EXCLUIR_FUERA_TEMA 0.0s
+  53/79 W00152 EXCLUIR_FUERA_TEMA 0.0s
+  54/79 W00153 INCLUIR_PARA_TEXTO 0.0s
+  55/79 W00155 EXCLUIR_FUERA_TEMA 0.0s
+  56/79 W00160 CONTEXTO 0.0s
+  57/79 W00162 INCLUIR_PARA_TEXTO 0.0s
+  58/79 W00163 CONTEXTO 0.0s
+  59/79 W00166 CONTEXTO 0.0s
+  60/79 W00168 INCLUIR_PARA_TEXTO 0.0s
+  61/79 W00169 CONTEXTO 0.0s
+  62/79 W00171 INCLUIR_PARA_TEXTO 0.0s
+  63/79 W00174 INCLUIR_PARA_TEXTO 0.0s
+  64/79 W00176 EXCLUIR_FUERA_TEMA 0.0s
+  65/79 W00177 INCLUIR_PARA_TEXTO 0.0s
+  66/79 W00179 EXCLUIR_FUERA_TEMA 0.0s
+  67/79 W00180 INCLUIR_PARA_TEXTO 0.0s
+  68/79 W00181 CONTEXTO 0.0s
+  69/79 W00184 CONTEXTO 0.0s
+  70/79 W00185 EXCLUIR_FUERA_TEMA 0.0s
+  71/79 W00186 INCLUIR_PARA_TEXTO 0.0s
+  72/79 W00189 INCLUIR_PARA_TEXTO 0.0s
+  73/79 W00191 EXCLUIR_FUERA_TEMA 0.0s
+  74/79 W00192 INCLUIR_PARA_TEXTO 0.0s
+  75/79 W00193 CONTEXTO 0.0s
+  76/79 W00194 EXCLUIR_FUERA_TEMA 0.0s
+  77/79 W00197 EXCLUIR_FUERA_TEMA 0.0s
+  78/79 W00198 INCLUIR_PARA_TEXTO 0.0s
+  79/79 W00199 CONTEXTO 0.0s
+C4 {'modelo': 'gpt-oss:120b', 'think': 'medium'}: 0 de 79 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_seleccion_C4.jsonl
+  1/79 W00001 CONTEXTO 0.0s
+  2/79 W00002 EXCLUIR_FUERA_TEMA 0.0s
+  3/79 W00003 INCLUIR_PARA_TEXTO 0.0s
+  4/79 W00004 CONTEXTO 0.0s
+  5/79 W00010 CONTEXTO 0.0s
+  6/79 W00011 INCLUIR_PARA_TEXTO 0.0s
+  7/79 W00015 INCLUIR_PARA_TEXTO 0.0s
+  8/79 W00017 EXCLUIR_FUERA_TEMA 0.0s
+  9/79 W00020 EXCLUIR_FUERA_TEMA 0.0s
+  10/79 W00023 EXCLUIR_FUERA_TEMA 0.0s
+  11/79 W00025 CONTEXTO 0.0s
+  12/79 W00026 EXCLUIR_FUERA_TEMA 0.0s
+  13/79 W00030 INCLUIR_PARA_TEXTO 0.0s
+  14/79 W00031 CONTEXTO 0.0s
+  15/79 W00033 INCLUIR_PARA_TEXTO 0.0s
+  16/79 W00034 CONTEXTO 0.0s
+  17/79 W00035 EXCLUIR_FUERA_TEMA 0.0s
+  18/79 W00039 INCLUIR_PARA_TEXTO 0.0s
+  19/79 W00045 INCLUIR_PARA_TEXTO 0.0s
+  20/79 W00046 CONTEXTO 0.0s
+  21/79 W00047 EXCLUIR_FUERA_TEMA 0.0s
+  22/79 W00049 CONTEXTO 0.0s
+  23/79 W00051 INCLUIR_PARA_TEXTO 0.0s
+  24/79 W00052 CONTEXTO 0.0s
+  25/79 W00056 EXCLUIR_FUERA_TEMA 0.0s
+  26/79 W00057 INCLUIR_PARA_TEXTO 0.0s
+  27/79 W00058 CONTEXTO 0.0s
+  28/79 W00100 CONTEXTO 0.0s
+  29/79 W00101 EXCLUIR_FUERA_TEMA 0.0s
+  30/79 W00102 INCLUIR_PARA_TEXTO 0.0s
+  31/79 W00103 CONTEXTO 0.0s
+  32/79 W00106 CONTEXTO 0.0s
+  33/79 W00107 EXCLUIR_FUERA_TEMA 0.0s
+  34/79 W00113 EXCLUIR_FUERA_TEMA 0.0s
+  35/79 W00114 INCLUIR_PARA_TEXTO 0.0s
+  36/79 W00118 CONTEXTO 0.0s
+  37/79 W00122 EXCLUIR_FUERA_TEMA 0.0s
+  38/79 W00125 EXCLUIR_FUERA_TEMA 0.0s
+  39/79 W00127 CONTEXTO 0.0s
+  40/79 W00132 INCLUIR_PARA_TEXTO 0.0s
+  41/79 W00133 CONTEXTO 0.0s
+  42/79 W00134 EXCLUIR_FUERA_TEMA 0.0s
+  43/79 W00136 CONTEXTO 0.0s
+  44/79 W00137 EXCLUIR_FUERA_TEMA 0.0s
+  45/79 W00140 EXCLUIR_FUERA_TEMA 0.0s
+  46/79 W00141 INCLUIR_PARA_TEXTO 0.0s
+  47/79 W00142 CONTEXTO 0.0s
+  48/79 W00143 EXCLUIR_FUERA_TEMA 0.0s
+  49/79 W00144 INCLUIR_PARA_TEXTO 0.0s
+  50/79 W00145 CONTEXTO 0.0s
+  51/79 W00147 INCLUIR_PARA_TEXTO 0.0s
+  52/79 W00149 EXCLUIR_FUERA_TEMA 0.0s
+  53/79 W00152 EXCLUIR_FUERA_TEMA 0.0s
+  54/79 W00153 INCLUIR_PARA_TEXTO 0.0s
+  55/79 W00155 EXCLUIR_FUERA_TEMA 0.0s
+  56/79 W00160 CONTEXTO 0.0s
+  57/79 W00162 INCLUIR_PARA_TEXTO 0.0s
+  58/79 W00163 CONTEXTO 0.0s
+  59/79 W00166 CONTEXTO 0.0s
+  60/79 W00168 INCLUIR_PARA_TEXTO 0.0s
+  61/79 W00169 CONTEXTO 0.0s
+  62/79 W00171 INCLUIR_PARA_TEXTO 0.0s
+  63/79 W00174 INCLUIR_PARA_TEXTO 0.0s
+  64/79 W00176 EXCLUIR_FUERA_TEMA 0.0s
+  65/79 W00177 INCLUIR_PARA_TEXTO 0.0s
+  66/79 W00179 EXCLUIR_FUERA_TEMA 0.0s
+  67/79 W00180 INCLUIR_PARA_TEXTO 0.0s
+  68/79 W00181 CONTEXTO 0.0s
+  69/79 W00184 CONTEXTO 0.0s
+  70/79 W00185 EXCLUIR_FUERA_TEMA 0.0s
+  71/79 W00186 INCLUIR_PARA_TEXTO 0.0s
+  72/79 W00189 INCLUIR_PARA_TEXTO 0.0s
+  73/79 W00191 EXCLUIR_FUERA_TEMA 0.0s
+  74/79 W00192 INCLUIR_PARA_TEXTO 0.0s
+  75/79 W00193 CONTEXTO 0.0s
+  76/79 W00194 EXCLUIR_FUERA_TEMA 0.0s
+  77/79 W00197 EXCLUIR_FUERA_TEMA 0.0s
+  78/79 W00198 INCLUIR_PARA_TEXTO 0.0s
+  79/79 W00199 CONTEXTO 0.0s
+{
+  "utc": "2026-11-06T18:44:03Z",
+  "mitad": "seleccion",
+  "prueba": false,
+  "veredicto": "ELEGIDA",
+  "motivo": null,
+  "evaluadas": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "no_evaluadas": [],
+  "compiten": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "elegida": "C1",
+  "config_elegida": {
+    "modelo": "qwen3.8:27b",
+    "think": false
+  },
+  "metricas": {
+    "C1": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    },
+    "C2": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    },
+    "C3": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    },
+    "C4": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    }
+  }
+}
+OK     elegir termina
+OK     eleccion: ELEGIDA C1 (empate perfecto -> primer criterio que desempata)
+C1 {'modelo': 'qwen3.8:27b', 'think': False}: 0 de 77 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_validacion_C1.jsonl
+  1/77 W00005 EXCLUIR_FUERA_TEMA 0.0s
+  2/77 W00012 INCLUIR_PARA_TEXTO 0.0s
+  3/77 W00013 CONTEXTO 0.0s
+  4/77 W00014 EXCLUIR_FUERA_TEMA 0.0s
+  5/77 W00016 CONTEXTO 0.0s
+  6/77 W00018 INCLUIR_PARA_TEXTO 0.0s
+  7/77 W00019 CONTEXTO 0.0s
+  8/77 W00021 INCLUIR_PARA_TEXTO 0.0s
+  9/77 W00022 CONTEXTO 0.0s
+  10/77 W00024 INCLUIR_PARA_TEXTO 0.0s
+  11/77 W00027 INCLUIR_PARA_TEXTO 0.0s
+  12/77 W00028 CONTEXTO 0.0s
+  13/77 W00029 EXCLUIR_FUERA_TEMA 0.0s
+  14/77 W00032 EXCLUIR_FUERA_TEMA 0.0s
+  15/77 W00036 INCLUIR_PARA_TEXTO 0.0s
+  16/77 W00037 CONTEXTO 0.0s
+  17/77 W00038 EXCLUIR_FUERA_TEMA 0.0s
+  18/77 W00040 CONTEXTO 0.0s
+  19/77 W00041 EXCLUIR_FUERA_TEMA 0.0s
+  20/77 W00042 INCLUIR_PARA_TEXTO 0.0s
+  21/77 W00043 CONTEXTO 0.0s
+  22/77 W00044 EXCLUIR_FUERA_TEMA 0.0s
+  23/77 W00048 INCLUIR_PARA_TEXTO 0.0s
+  24/77 W00050 EXCLUIR_FUERA_TEMA 0.0s
+  25/77 W00053 EXCLUIR_FUERA_TEMA 0.0s
+  26/77 W00054 INCLUIR_PARA_TEXTO 0.0s
+  27/77 W00055 CONTEXTO 0.0s
+  28/77 W00059 EXCLUIR_FUERA_TEMA 0.0s
+  29/77 W00104 EXCLUIR_FUERA_TEMA 0.0s
+  30/77 W00105 INCLUIR_PARA_TEXTO 0.0s
+  31/77 W00108 INCLUIR_PARA_TEXTO 0.0s
+  32/77 W00109 CONTEXTO 0.0s
+  33/77 W00110 EXCLUIR_FUERA_TEMA 0.0s
+  34/77 W00111 INCLUIR_PARA_TEXTO 0.0s
+  35/77 W00112 CONTEXTO 0.0s
+  36/77 W00115 CONTEXTO 0.0s
+  37/77 W00116 EXCLUIR_FUERA_TEMA 0.0s
+  38/77 W00117 INCLUIR_PARA_TEXTO 0.0s
+  39/77 W00119 EXCLUIR_FUERA_TEMA 0.0s
+  40/77 W00120 INCLUIR_PARA_TEXTO 0.0s
+  41/77 W00121 CONTEXTO 0.0s
+  42/77 W00123 INCLUIR_PARA_TEXTO 0.0s
+  43/77 W00124 CONTEXTO 0.0s
+  44/77 W00126 INCLUIR_PARA_TEXTO 0.0s
+  45/77 W00128 EXCLUIR_FUERA_TEMA 0.0s
+  46/77 W00129 INCLUIR_PARA_TEXTO 0.0s
+  47/77 W00130 CONTEXTO 0.0s
+  48/77 W00131 EXCLUIR_FUERA_TEMA 0.0s
+  49/77 W00135 INCLUIR_PARA_TEXTO 0.0s
+  50/77 W00138 INCLUIR_PARA_TEXTO 0.0s
+  51/77 W00139 CONTEXTO 0.0s
+  52/77 W00146 EXCLUIR_FUERA_TEMA 0.0s
+  53/77 W00148 CONTEXTO 0.0s
+  54/77 W00150 INCLUIR_PARA_TEXTO 0.0s
+  55/77 W00151 CONTEXTO 0.0s
+  56/77 W00154 CONTEXTO 0.0s
+  57/77 W00156 INCLUIR_PARA_TEXTO 0.0s
+  58/77 W00157 CONTEXTO 0.0s
+  59/77 W00158 EXCLUIR_FUERA_TEMA 0.0s
+  60/77 W00159 INCLUIR_PARA_TEXTO 0.0s
+  61/77 W00161 EXCLUIR_FUERA_TEMA 0.0s
+  62/77 W00164 EXCLUIR_FUERA_TEMA 0.0s
+  63/77 W00165 INCLUIR_PARA_TEXTO 0.0s
+  64/77 W00167 EXCLUIR_FUERA_TEMA 0.0s
+  65/77 W00170 EXCLUIR_FUERA_TEMA 0.0s
+  66/77 W00172 CONTEXTO 0.0s
+  67/77 W00173 EXCLUIR_FUERA_TEMA 0.0s
+  68/77 W00175 CONTEXTO 0.0s
+  69/77 W00178 CONTEXTO 0.0s
+  70/77 W00182 EXCLUIR_FUERA_TEMA 0.0s
+  71/77 W00183 INCLUIR_PARA_TEXTO 0.0s
+  72/77 W00187 CONTEXTO 0.0s
+  73/77 W00188 EXCLUIR_FUERA_TEMA 0.0s
+  74/77 W00190 CONTEXTO 0.0s
+  75/77 W00195 INCLUIR_PARA_TEXTO 0.0s
+  76/77 W00196 CONTEXTO 0.0s
+  77/77 W00300 INCLUIR_PARA_TEXTO 0.0s
+{
+  "utc": "2026-11-06T18:44:03Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "config": "C1",
+  "modelo": {
+    "modelo": "qwen3.8:27b",
+    "think": false
+  },
+  "metricas": {
+    "n": 77,
+    "protegidas_ref": 52,
+    "omisiones": 0,
+    "omisiones_ids": [],
+    "sensibilidad": 1.0,
+    "acuerdo": 1.0,
+    "invalidas": 0,
+    "frac_invalidas": 0.0,
+    "mediana_segundos": 0.0,
+    "matriz": {
+      "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 25,
+      "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26,
+      "CONTEXTO->CONTEXTO": 26
+    }
+  },
+  "compuertas": {
+    "omisiones": "PASA",
+    "acuerdo": "PASA",
+    "invalidas": "PASA"
+  },
+  "veredicto": "APTO"
+}
+OK     veredicto APTO
+OK     se guardó una copia con fecha
+
+== G3: no se mezclan corridas ni simulaciones
+OK     reanudar con una fila de otra configuración se detiene
+{
+  "utc": "2026-11-06T18:44:03Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "salida_validacion_C1.jsonl, línea 1: metadatos distintos de los oficiales: {'config': ('C4', 'C1')}"
+}
+OK     validar con una fila ajena da INCONCLUSIVO
+C1 {'modelo': 'qwen3.8:27b', 'think': False}: 0 de 77 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_validacion_C1.jsonl
+  1/77 W00005 EXCLUIR_FUERA_TEMA 0.0s
+  2/77 W00012 EXCLUIR_FUERA_TEMA 0.0s
+  3/77 W00013 EXCLUIR_FUERA_TEMA 0.0s
+  4/77 W00014 EXCLUIR_FUERA_TEMA 0.0s
+  5/77 W00016 EXCLUIR_FUERA_TEMA 0.0s
+  6/77 W00018 EXCLUIR_FUERA_TEMA 0.0s
+  7/77 W00019 EXCLUIR_FUERA_TEMA 0.0s
+  8/77 W00021 EXCLUIR_FUERA_TEMA 0.0s
+  9/77 W00022 EXCLUIR_FUERA_TEMA 0.0s
+  10/77 W00024 EXCLUIR_FUERA_TEMA 0.0s
+  11/77 W00027 EXCLUIR_FUERA_TEMA 0.0s
+  12/77 W00028 EXCLUIR_FUERA_TEMA 0.0s
+  13/77 W00029 EXCLUIR_FUERA_TEMA 0.0s
+  14/77 W00032 EXCLUIR_FUERA_TEMA 0.0s
+  15/77 W00036 EXCLUIR_FUERA_TEMA 0.0s
+  16/77 W00037 EXCLUIR_FUERA_TEMA 0.0s
+  17/77 W00038 EXCLUIR_FUERA_TEMA 0.0s
+  18/77 W00040 EXCLUIR_FUERA_TEMA 0.0s
+  19/77 W00041 EXCLUIR_FUERA_TEMA 0.0s
+  20/77 W00042 EXCLUIR_FUERA_TEMA 0.0s
+  21/77 W00043 EXCLUIR_FUERA_TEMA 0.0s
+  22/77 W00044 EXCLUIR_FUERA_TEMA 0.0s
+  23/77 W00048 EXCLUIR_FUERA_TEMA 0.0s
+  24/77 W00050 EXCLUIR_FUERA_TEMA 0.0s
+  25/77 W00053 EXCLUIR_FUERA_TEMA 0.0s
+  26/77 W00054 EXCLUIR_FUERA_TEMA 0.0s
+  27/77 W00055 EXCLUIR_FUERA_TEMA 0.0s
+  28/77 W00059 EXCLUIR_FUERA_TEMA 0.0s
+  29/77 W00104 EXCLUIR_FUERA_TEMA 0.0s
+  30/77 W00105 EXCLUIR_FUERA_TEMA 0.0s
+  31/77 W00108 EXCLUIR_FUERA_TEMA 0.0s
+  32/77 W00109 EXCLUIR_FUERA_TEMA 0.0s
+  33/77 W00110 EXCLUIR_FUERA_TEMA 0.0s
+  34/77 W00111 EXCLUIR_FUERA_TEMA 0.0s
+  35/77 W00112 EXCLUIR_FUERA_TEMA 0.0s
+  36/77 W00115 EXCLUIR_FUERA_TEMA 0.0s
+  37/77 W00116 EXCLUIR_FUERA_TEMA 0.0s
+  38/77 W00117 EXCLUIR_FUERA_TEMA 0.0s
+  39/77 W00119 EXCLUIR_FUERA_TEMA 0.0s
+  40/77 W00120 EXCLUIR_FUERA_TEMA 0.0s
+  41/77 W00121 EXCLUIR_FUERA_TEMA 0.0s
+  42/77 W00123 EXCLUIR_FUERA_TEMA 0.0s
+  43/77 W00124 EXCLUIR_FUERA_TEMA 0.0s
+  44/77 W00126 EXCLUIR_FUERA_TEMA 0.0s
+  45/77 W00128 EXCLUIR_FUERA_TEMA 0.0s
+  46/77 W00129 EXCLUIR_FUERA_TEMA 0.0s
+  47/77 W00130 EXCLUIR_FUERA_TEMA 0.0s
+  48/77 W00131 EXCLUIR_FUERA_TEMA 0.0s
+  49/77 W00135 EXCLUIR_FUERA_TEMA 0.0s
+  50/77 W00138 EXCLUIR_FUERA_TEMA 0.0s
+  51/77 W00139 EXCLUIR_FUERA_TEMA 0.0s
+  52/77 W00146 EXCLUIR_FUERA_TEMA 0.0s
+  53/77 W00148 EXCLUIR_FUERA_TEMA 0.0s
+  54/77 W00150 EXCLUIR_FUERA_TEMA 0.0s
+  55/77 W00151 EXCLUIR_FUERA_TEMA 0.0s
+  56/77 W00154 EXCLUIR_FUERA_TEMA 0.0s
+  57/77 W00156 EXCLUIR_FUERA_TEMA 0.0s
+  58/77 W00157 EXCLUIR_FUERA_TEMA 0.0s
+  59/77 W00158 EXCLUIR_FUERA_TEMA 0.0s
+  60/77 W00159 EXCLUIR_FUERA_TEMA 0.0s
+  61/77 W00161 EXCLUIR_FUERA_TEMA 0.0s
+  62/77 W00164 EXCLUIR_FUERA_TEMA 0.0s
+  63/77 W00165 EXCLUIR_FUERA_TEMA 0.0s
+  64/77 W00167 EXCLUIR_FUERA_TEMA 0.0s
+  65/77 W00170 EXCLUIR_FUERA_TEMA 0.0s
+  66/77 W00172 EXCLUIR_FUERA_TEMA 0.0s
+  67/77 W00173 EXCLUIR_FUERA_TEMA 0.0s
+  68/77 W00175 EXCLUIR_FUERA_TEMA 0.0s
+  69/77 W00178 EXCLUIR_FUERA_TEMA 0.0s
+  70/77 W00182 EXCLUIR_FUERA_TEMA 0.0s
+  71/77 W00183 EXCLUIR_FUERA_TEMA 0.0s
+  72/77 W00187 EXCLUIR_FUERA_TEMA 0.0s
+  73/77 W00188 EXCLUIR_FUERA_TEMA 0.0s
+  74/77 W00190 EXCLUIR_FUERA_TEMA 0.0s
+  75/77 W00195 EXCLUIR_FUERA_TEMA 0.0s
+  76/77 W00196 EXCLUIR_FUERA_TEMA 0.0s
+  77/77 W00300 EXCLUIR_FUERA_TEMA 0.0s
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "salida_validacion_C1.jsonl, línea 1: metadatos distintos de los oficiales: {'simulado': (True, False)}"
+}
+OK     una salida simulada da INCONCLUSIVO en modo oficial
+
+== G4: un intento fallido reemplaza el veredicto anterior
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "config": "C1",
+  "modelo": {
+    "modelo": "qwen3.8:27b",
+    "think": false
+  },
+  "metricas": {
+    "n": 77,
+    "protegidas_ref": 52,
+    "omisiones": 0,
+    "omisiones_ids": [],
+    "sensibilidad": 1.0,
+    "acuerdo": 1.0,
+    "invalidas": 0,
+    "frac_invalidas": 0.0,
+    "mediana_segundos": 0.0,
+    "matriz": {
+      "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 25,
+      "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26,
+      "CONTEXTO->CONTEXTO": 26
+    }
+  },
+  "compuertas": {
+    "omisiones": "PASA",
+    "acuerdo": "PASA",
+    "invalidas": "PASA"
+  },
+  "veredicto": "APTO"
+}
+OK     antes: APTO
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "falta salida_validacion_C1.jsonl"
+}
+OK     falta la salida: el veredicto vigente pasa a INCONCLUSIVO
+
+== M5: referencia alterada
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "referencia.jsonl no coincide con la partición congelada"
+}
+OK     una referencia que no es la congelada da INCONCLUSIVO
+
+== G6: presupuesto de tiempo
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "salida_validacion_C1.jsonl, línea 1: etiquetada después del límite de tiempo 2000-01-02T00:00:00Z"
+}
+OK     filas etiquetadas después del límite dan INCONCLUSIVO
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "veredicto": "INCONCLUSIVO",
+  "motivo": "falta presupuesto.json (lo escribe el primer 'lanzar')"
+}
+OK     sin presupuesto.json, INCONCLUSIVO en modo oficial
+
+== D1: excluir CONTEXTO cuenta como omisión
+C1 {'modelo': 'qwen3.8:27b', 'think': False}: 0 de 77 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_validacion_C1.jsonl
+  1/77 W00005 EXCLUIR_FUERA_TEMA 0.0s
+  2/77 W00012 INCLUIR_PARA_TEXTO 0.0s
+  3/77 W00013 EXCLUIR_FUERA_TEMA 0.0s
+  4/77 W00014 EXCLUIR_FUERA_TEMA 0.0s
+  5/77 W00016 EXCLUIR_FUERA_TEMA 0.0s
+  6/77 W00018 INCLUIR_PARA_TEXTO 0.0s
+  7/77 W00019 EXCLUIR_FUERA_TEMA 0.0s
+  8/77 W00021 INCLUIR_PARA_TEXTO 0.0s
+  9/77 W00022 EXCLUIR_FUERA_TEMA 0.0s
+  10/77 W00024 INCLUIR_PARA_TEXTO 0.0s
+  11/77 W00027 INCLUIR_PARA_TEXTO 0.0s
+  12/77 W00028 EXCLUIR_FUERA_TEMA 0.0s
+  13/77 W00029 EXCLUIR_FUERA_TEMA 0.0s
+  14/77 W00032 EXCLUIR_FUERA_TEMA 0.0s
+  15/77 W00036 INCLUIR_PARA_TEXTO 0.0s
+  16/77 W00037 EXCLUIR_FUERA_TEMA 0.0s
+  17/77 W00038 EXCLUIR_FUERA_TEMA 0.0s
+  18/77 W00040 EXCLUIR_FUERA_TEMA 0.0s
+  19/77 W00041 EXCLUIR_FUERA_TEMA 0.0s
+  20/77 W00042 INCLUIR_PARA_TEXTO 0.0s
+  21/77 W00043 EXCLUIR_FUERA_TEMA 0.0s
+  22/77 W00044 EXCLUIR_FUERA_TEMA 0.0s
+  23/77 W00048 INCLUIR_PARA_TEXTO 0.0s
+  24/77 W00050 EXCLUIR_FUERA_TEMA 0.0s
+  25/77 W00053 EXCLUIR_FUERA_TEMA 0.0s
+  26/77 W00054 INCLUIR_PARA_TEXTO 0.0s
+  27/77 W00055 EXCLUIR_FUERA_TEMA 0.0s
+  28/77 W00059 EXCLUIR_FUERA_TEMA 0.0s
+  29/77 W00104 EXCLUIR_FUERA_TEMA 0.0s
+  30/77 W00105 INCLUIR_PARA_TEXTO 0.0s
+  31/77 W00108 INCLUIR_PARA_TEXTO 0.0s
+  32/77 W00109 EXCLUIR_FUERA_TEMA 0.0s
+  33/77 W00110 EXCLUIR_FUERA_TEMA 0.0s
+  34/77 W00111 INCLUIR_PARA_TEXTO 0.0s
+  35/77 W00112 EXCLUIR_FUERA_TEMA 0.0s
+  36/77 W00115 EXCLUIR_FUERA_TEMA 0.0s
+  37/77 W00116 EXCLUIR_FUERA_TEMA 0.0s
+  38/77 W00117 INCLUIR_PARA_TEXTO 0.0s
+  39/77 W00119 EXCLUIR_FUERA_TEMA 0.0s
+  40/77 W00120 INCLUIR_PARA_TEXTO 0.0s
+  41/77 W00121 EXCLUIR_FUERA_TEMA 0.0s
+  42/77 W00123 INCLUIR_PARA_TEXTO 0.0s
+  43/77 W00124 EXCLUIR_FUERA_TEMA 0.0s
+  44/77 W00126 INCLUIR_PARA_TEXTO 0.0s
+  45/77 W00128 EXCLUIR_FUERA_TEMA 0.0s
+  46/77 W00129 INCLUIR_PARA_TEXTO 0.0s
+  47/77 W00130 EXCLUIR_FUERA_TEMA 0.0s
+  48/77 W00131 EXCLUIR_FUERA_TEMA 0.0s
+  49/77 W00135 INCLUIR_PARA_TEXTO 0.0s
+  50/77 W00138 INCLUIR_PARA_TEXTO 0.0s
+  51/77 W00139 EXCLUIR_FUERA_TEMA 0.0s
+  52/77 W00146 EXCLUIR_FUERA_TEMA 0.0s
+  53/77 W00148 EXCLUIR_FUERA_TEMA 0.0s
+  54/77 W00150 INCLUIR_PARA_TEXTO 0.0s
+  55/77 W00151 EXCLUIR_FUERA_TEMA 0.0s
+  56/77 W00154 EXCLUIR_FUERA_TEMA 0.0s
+  57/77 W00156 INCLUIR_PARA_TEXTO 0.0s
+  58/77 W00157 EXCLUIR_FUERA_TEMA 0.0s
+  59/77 W00158 EXCLUIR_FUERA_TEMA 0.0s
+  60/77 W00159 INCLUIR_PARA_TEXTO 0.0s
+  61/77 W00161 EXCLUIR_FUERA_TEMA 0.0s
+  62/77 W00164 EXCLUIR_FUERA_TEMA 0.0s
+  63/77 W00165 INCLUIR_PARA_TEXTO 0.0s
+  64/77 W00167 EXCLUIR_FUERA_TEMA 0.0s
+  65/77 W00170 EXCLUIR_FUERA_TEMA 0.0s
+  66/77 W00172 EXCLUIR_FUERA_TEMA 0.0s
+  67/77 W00173 EXCLUIR_FUERA_TEMA 0.0s
+  68/77 W00175 EXCLUIR_FUERA_TEMA 0.0s
+  69/77 W00178 EXCLUIR_FUERA_TEMA 0.0s
+  70/77 W00182 EXCLUIR_FUERA_TEMA 0.0s
+  71/77 W00183 INCLUIR_PARA_TEXTO 0.0s
+  72/77 W00187 EXCLUIR_FUERA_TEMA 0.0s
+  73/77 W00188 EXCLUIR_FUERA_TEMA 0.0s
+  74/77 W00190 EXCLUIR_FUERA_TEMA 0.0s
+  75/77 W00195 INCLUIR_PARA_TEXTO 0.0s
+  76/77 W00196 EXCLUIR_FUERA_TEMA 0.0s
+  77/77 W00300 INCLUIR_PARA_TEXTO 0.0s
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "validacion",
+  "prueba": false,
+  "umbrales": {
+    "omisiones_max": 0,
+    "acuerdo_min": 0.85,
+    "invalidas_max": 0.02
+  },
+  "config": "C1",
+  "modelo": {
+    "modelo": "qwen3.8:27b",
+    "think": false
+  },
+  "metricas": {
+    "n": 77,
+    "protegidas_ref": 52,
+    "omisiones": 26,
+    "omisiones_ids": [
+      "W00013",
+      "W00016",
+      "W00019",
+      "W00022",
+      "W00028",
+      "W00037",
+      "W00040",
+      "W00043",
+      "W00055",
+      "W00109",
+      "W00112",
+      "W00115",
+      "W00121",
+      "W00124",
+      "W00130",
+      "W00139",
+      "W00148",
+      "W00151",
+      "W00154",
+      "W00157",
+      "W00172",
+      "W00175",
+      "W00178",
+      "W00187",
+      "W00190",
+      "W00196"
+    ],
+    "sensibilidad": 0.5,
+    "acuerdo": 0.6623376623376623,
+    "invalidas": 0,
+    "frac_invalidas": 0.0,
+    "mediana_segundos": 0.0,
+    "matriz": {
+      "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 25,
+      "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26,
+      "CONTEXTO->EXCLUIR_FUERA_TEMA": 26
+    }
+  },
+  "compuertas": {
+    "omisiones": "FALLA",
+    "acuerdo": "FALLA",
+    "invalidas": "PASA"
+  },
+  "veredicto": "NO_APTO"
+}
+OK     26 CONTEXTO excluidas -> 26 omisiones y NO_APTO
+
+== Desalojo: línea cortada a la mitad
+C1 {'modelo': 'qwen3.8:27b', 'think': False}: 76 de 77 ya hechas -> C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5\datos\salida_validacion_C1.jsonl
+  77/77 W00300 INCLUIR_PARA_TEXTO 0.0s
+OK     se rehace la obra cortada sin pegarla a la línea rota
+
+== NO_EVALUADAS: una configuración que no pasa 'probar' no compite
+{
+  "utc": "2026-11-06T18:44:04Z",
+  "mitad": "seleccion",
+  "prueba": false,
+  "veredicto": "ELEGIDA",
+  "motivo": null,
+  "evaluadas": [
+    "C2",
+    "C3"
+  ],
+  "no_evaluadas": [
+    "C1",
+    "C4"
+  ],
+  "compiten": [
+    "C2",
+    "C3"
+  ],
+  "elegida": "C2",
+  "config_elegida": {
+    "modelo": "qwen3.8:27b",
+    "think": true
+  },
+  "metricas": {
+    "C2": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    },
+    "C3": {
+      "n": 79,
+      "protegidas_ref": 53,
+      "omisiones": 0,
+      "omisiones_ids": [],
+      "sensibilidad": 1.0,
+      "acuerdo": 1.0,
+      "invalidas": 0,
+      "frac_invalidas": 0.0,
+      "mediana_segundos": 0.0,
+      "matriz": {
+        "CONTEXTO->CONTEXTO": 27,
+        "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 26,
+        "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 26
+      }
+    }
+  }
+}
+OK     C1 y C4 quedan NO_EVALUADAS; elige entre C2 y C3
+
+TODAS LAS PRUEBAS PASAN  (carpeta: C:\Users\jaibo\AppData\Local\Packages\openai.codex_2p2nqsd0c76g0\AC\#!sandbox.{c7ccd2ce-af18-4a2e-9ae3-3fb3e178254d}\Temp\q15_pruebas_rz3vioz5)
