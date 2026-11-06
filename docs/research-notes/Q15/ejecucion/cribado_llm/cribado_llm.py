@@ -10,7 +10,7 @@ Subcomandos, en orden:
 
 Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md.
 """
-import argparse, csv, hashlib, io, json, random, re, sys, time, unicodedata, urllib.request, zipfile
+import argparse, csv, hashlib, io, json, random, re, sys, time, unicodedata, urllib.error, urllib.request, zipfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -38,6 +38,7 @@ ESQUEMA = {
 UMBRAL_ACUERDO = 0.85      # acuerdo exacto en 3 clases, validación
 MAX_INVALIDAS = 0.02       # fracción máxima de respuestas inválidas, validación
 MAX_OMISIONES = 0          # obras INCLUIR de la referencia que el modelo EXCLUYE, validación
+REINTENTOS = 3             # por obra; si el servidor responde con error, queda INVALIDA; si no hay conexión, se detiene
 PROMPT = Path(__file__).with_name("PROMPT_CRIBADO_LLM.md")
 # --------------------------------------------------------
 
@@ -174,8 +175,21 @@ def llamar(host, cfg, sistema, usuario, simular):
     if cfg["think"] is not None:
         cuerpo["think"] = cfg["think"]
     req = urllib.request.Request(host.rstrip("/") + "/api/chat", data=json.dumps(cuerpo).encode(), headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=1800) as r:
-        return json.loads(r.read())
+    error, del_modelo = None, False
+    for intento in range(REINTENTOS):
+        try:
+            with urllib.request.urlopen(req, timeout=1800) as r:
+                return json.loads(r.read())
+        except (urllib.error.HTTPError, TimeoutError) as e:  # el servidor respondió con error, o la respuesta tardó más de 30 min
+            error, del_modelo = f"{type(e).__name__}: {e}", True
+        except Exception as e:  # sin conexión con Ollama
+            error, del_modelo = f"{type(e).__name__}: {e}", False
+        print(f"    intento {intento + 1}/{REINTENTOS} fallo: {error}", flush=True)
+        time.sleep(30 * (intento + 1))
+    if not del_modelo:
+        # una falla de infraestructura no se cuenta contra el modelo: se detiene y se reanuda con 'lanzar'
+        sys.exit(f"Sin conexión con Ollama tras {REINTENTOS} intentos ({error}). Se detiene; al relanzar sigue donde iba.")
+    return {"message": {"content": ""}, "model": cfg["modelo"], "error": error}
 
 
 def interpretar(contenido):
@@ -219,7 +233,7 @@ def cmd_etiquetar(a):
                 "decision": j["decision"] if j else "INVALIDA", "dudoso": j["dudoso"] if j else None,
                 "puntos": j.get("puntos", []) if j else [], "razon": j["razon"] if j else "",
                 "crudo": contenido, "pensamiento": r.get("message", {}).get("thinking", ""),
-                "segundos": round(time.time() - t0, 2), "total_duration_ns": r.get("total_duration"), "done_reason": r.get("done_reason"),
+                "segundos": round(time.time() - t0, 2), "total_duration_ns": r.get("total_duration"), "done_reason": r.get("done_reason"), "error": r.get("error"),
                 "prompt_sha256": sha_prompt, "opciones": OPCIONES,
             }, ensure_ascii=False) + "\n")
             fo.flush()
@@ -240,11 +254,11 @@ def cmd_probar(a):
         contenido = r.get("message", {}).get("content", "")
         j = interpretar(contenido)
         res[c] = {"modelo": r.get("model"), "valida": j is not None, "decision": j["decision"] if j else None,
-                  "done_reason": r.get("done_reason"), "segundos": round(time.time() - t0, 1), "crudo": contenido[:300]}
+                  "done_reason": r.get("done_reason"), "error": r.get("error"), "segundos": round(time.time() - t0, 1), "crudo": contenido[:300]}
         print(c, res[c]["valida"], res[c]["decision"], res[c]["segundos"], "s", flush=True)
-    escribir(Path(a.datos) / "probar.json", {"prompt_sha256": sha_prompt, "resultados": res})
-    if not all(v["valida"] for v in res.values()):
-        sys.exit("Alguna configuración no devolvió el formato pedido: revisar antes de lanzar.")
+    validas = [c for c in CONFIGS if res[c]["valida"]]
+    escribir(Path(a.datos) / "probar.json", {"prompt_sha256": sha_prompt, "resultados": res, "validas": validas})
+    print("VALIDAS:", " ".join(validas) or "(ninguna)")
 
 
 def leer_salida(p):
@@ -284,11 +298,15 @@ def cmd_verificar(a):
 
 def cmd_elegir(a):
     ref = referencia(a.datos, "seleccion")
+    pp = Path(a.datos) / "probar.json"
+    if not pp.exists():
+        sys.exit("Falta probar.json: la prueba de formato define qué configuraciones se evalúan.")
+    evaluadas = json.loads(pp.read_text(encoding="utf-8"))["validas"]
     res = {}
-    for c in CONFIGS:
+    for c in evaluadas:
         p = Path(a.datos) / f"salida_seleccion_{c}.jsonl"
         if not p.exists():
-            sys.exit(f"Falta {p.name}: la regla exige las cuatro configuraciones completas.")
+            sys.exit(f"Falta {p.name}: la regla exige completas todas las configuraciones que pasaron la prueba de formato.")
         m = metricas(ref, leer_salida(p))
         if m["faltantes"]:
             sys.exit(f"{c}: faltan {m['faltantes']} obras.")
@@ -298,7 +316,7 @@ def cmd_elegir(a):
     # regla fija: mayor sensibilidad; luego mayor acuerdo; luego menos inválidas; luego menor mediana de tiempo
     orden = sorted(aptas, key=lambda c: (-res[c]["sensibilidad"], -res[c]["acuerdo"], res[c]["invalidas"], res[c]["mediana_segundos"]))
     elegida = orden[0] if orden else None
-    out = {"mitad": "seleccion", "metricas": res, "compiten": aptas, "elegida": elegida,
+    out = {"mitad": "seleccion", "evaluadas": evaluadas, "no_evaluadas": [c for c in CONFIGS if c not in evaluadas], "metricas": res, "compiten": aptas, "elegida": elegida,
            "config_elegida": CONFIGS[elegida] if elegida else None,
            "veredicto": None if elegida else "NO_APTO (ninguna configuracion con inválidas <= MAX_INVALIDAS)"}
     escribir(Path(a.datos) / "eleccion.json", out)
