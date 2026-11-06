@@ -1,6 +1,6 @@
 # Cribado de Q15 con modelos abiertos: cómo correrlo
 
-El diseño está en [PREREGISTRO_CRIBADO_LLM.md](PREREGISTRO_CRIBADO_LLM.md), congelado el 2026-11-06 con la enmienda 1. Tu clon de `leviathan` debe estar en la versión congelada: el script de Azure revisa los SHA-256 y no sube nada si no coinciden.
+El diseño está en [PREREGISTRO_CRIBADO_LLM.md](PREREGISTRO_CRIBADO_LLM.md), congelado el 2026-11-06 con las enmiendas 1 y 2. **No se corre nada hasta que Codex reaudite la enmienda 2.** Tu clon de `leviathan` debe estar en la versión congelada: el script de Azure revisa los SHA-256 y no sube nada si no coinciden.
 
 En PowerShell, ajusta la primera línea a la ruta de tu clon de `leviathan`:
 
@@ -25,4 +25,6 @@ $L3 = "C:\Users\jaibo\.gemini\antigravity\brain\65cdfae4-b3b1-4d1c-a52b-e841159f
 | 8. Veredicto | `python -I "$R\cribado_llm.py" validar --datos $D` | tu PC |
 | 9. Apagar | `& "$R\cribado_llm_azure.ps1" -Fase borrar` | Azure |
 
-Si Azure desaloja la VM, o el registro dice "Sin conexión con Ollama", repite el `lanzar` del paso en curso con los mismos argumentos: continúa donde iba. Después de cada `bajar` puedes revisar una salida con `python -I "$R\cribado_llm.py" verificar --salida $D\salida_seleccion_C1.jsonl`.
+Si Azure desaloja la VM, o el registro dice "Sin conexión con Ollama", repite el `lanzar` del paso en curso con los mismos argumentos: continúa donde iba.
+
+El primer `lanzar` fija un presupuesto de 24 h de reloj (`$D\presupuesto.json`); pasado ese límite ya no se lanza nada y lo que falte deja el piloto INCONCLUSIVO. Para revisar el código sin tocar nada real: `python -I "$R\pruebas_sinteticas.py"`. Después de cada `bajar` puedes revisar una salida con `python -I "$R\cribado_llm.py" verificar --salida $D\salida_seleccion_C1.jsonl`.

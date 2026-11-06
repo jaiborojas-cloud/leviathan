@@ -1,0 +1,64 @@
+{
+  "prompt": "'` y `'",
+  "prompt_length": 5,
+  "schema_cases": [
+    {
+      "input": {
+        "decision": "CONTEXTO",
+        "razon": "Sintetica",
+        "dudoso": false
+      },
+      "accepted": true
+    },
+    {
+      "input": {
+        "decision": "CONTEXTO",
+        "puntos": "INVALID",
+        "razon": "Sintetica",
+        "dudoso": false
+      },
+      "accepted": true
+    },
+    {
+      "input": {
+        "decision": "CONTEXTO",
+        "puntos": [
+          "99"
+        ],
+        "razon": "Sintetica",
+        "dudoso": false
+      },
+      "accepted": true
+    }
+  ],
+  "simulation_can_be_APTO": "APTO",
+  "wrong_provenance_reused_and_APTO": "APTO",
+  "truncated_line_recovery": [
+    "S1"
+  ],
+  "missing_validation": "Falta salida_validacion_C1.jsonl.",
+  "stale_verdict_after_missing": "APTO",
+  "evidence_short_or_nested": {
+    "S1": {
+      "titulo": "Synthetic",
+      "resumenes": []
+    }
+  },
+  "all_context_excluded": {
+    "n": 75,
+    "faltantes": 0,
+    "incluidas_ref": 24,
+    "omisiones": 0,
+    "omisiones_ids": [],
+    "sensibilidad": 1.0,
+    "acuerdo": 0.96,
+    "invalidas": 0,
+    "frac_invalidas": 0.0,
+    "mediana_segundos": 1,
+    "matriz": {
+      "INCLUIR_PARA_TEXTO->INCLUIR_PARA_TEXTO": 24,
+      "CONTEXTO->EXCLUIR_FUERA_TEMA": 3,
+      "EXCLUIR_FUERA_TEMA->EXCLUIR_FUERA_TEMA": 48
+    }
+  }
+}

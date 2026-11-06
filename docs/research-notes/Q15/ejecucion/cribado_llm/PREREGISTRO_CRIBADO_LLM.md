@@ -1,6 +1,6 @@
 # Preregistro: piloto de cribado de Q15 con modelos abiertos
 
-**Estado: CONGELADO, 2026-11-06, hora de México, con la enmienda 1 (ver el historial).** Aprobado por el responsable. Lo que se cambie desde aquí va como enmienda, antes de usarse. Autor: Claude. Decide: el responsable.
+**Estado: CONGELADO, 2026-11-06, hora de México, con las enmiendas 1 y 2 (ver el historial). La enmienda 2 está pendiente de la reauditoría de Codex; no se ejecuta nada antes.** Aprobado por el responsable. Lo que se cambie desde aquí va como enmienda, antes de usarse. Autor: Claude. Decide: el responsable.
 
 ## Pregunta
 ¿Puede un modelo abierto, corriendo en una VM spot de Azure, hacer el cribado por título y resumen de Q15 con la calidad que ya aceptamos en los lotes auditados, sin excluir obras que debían incluirse?
@@ -40,34 +40,40 @@ Mismo prompt, mismas opciones y misma salida para todas.
 | C3 | `gemma4:31b` | por defecto del modelo |
 | C4 | `gpt-oss:120b` | medio (`think: "medium"`) |
 
-- **Prompt:** [`PROMPT_CRIBADO_LLM.md`](PROMPT_CRIBADO_LLM.md), SHA-256 `0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0`. Contiene, copiados sin cambios, la sección 1 (preguntas y diccionario) y la sección 6 (elegibilidad) del protocolo, y los dos criterios del responsable. No contiene ejemplos de la referencia.
-- **Entrada por obra:** título y todos los resúmenes distintos de sus posiciones elegibles.
+- **Prompt:** [`PROMPT_CRIBADO_LLM.md`](PROMPT_CRIBADO_LLM.md), SHA-256 del archivo `0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0`. El mensaje de sistema es el texto entre las líneas que son exactamente `<<<INICIO>>>` y `<<<FIN>>>` (una de cada una): **8 954 caracteres, SHA-256 `4659f18ddde2d7634ffc2aa4ec0db857c955d1176993f5b5dacb97307cd42727`**. El script se niega a correr si el texto efectivo no tiene ese hash, y cada fila de salida lo registra. Contiene, copiados sin cambios, la sección 1 (preguntas y diccionario) y la sección 6 (elegibilidad) del protocolo, y los dos criterios del responsable. No contiene ejemplos de la referencia.
+- **Entrada por obra:** título y todos los resúmenes distintos de sus posiciones elegibles. Un resumen cuenta si tiene al menos un carácter alfanumérico (por ejemplo, el resumen `","` de W00126 no cuenta). La evidencia debe ser una lista de `{obra_id, record: {title, abstract}}`; otra estructura detiene `preparar`.
 - **Opciones:** temperatura 0, semilla 0, contexto de 32 768 tokens y hasta 16 384 tokens de salida, incluido el razonamiento. Cada respuesta registra `done_reason`, para distinguir una respuesta truncada de una mal formada.
-- **Salida:** JSON con esquema obligatorio: `decision` (una de las tres), `puntos`, `razon` y `dudoso`. Una respuesta que no cumpla el esquema queda como **INVALIDA**; nunca se interpreta ni se adivina.
+- **Salida:** JSON con esquema obligatorio: `decision` (una de las tres), `puntos` (lista de puntos válidos), `razon` (no vacía) y `dudoso` (booleano), sin otras claves. El script lo valida por su cuenta, además de pedírselo a Ollama. Una respuesta que no cumpla, o que venga de un modelo distinto del pedido, queda como **INVALIDA**; nunca se interpreta ni se adivina.
 - **Prueba de formato:** antes de etiquetar, `probar` manda a cada configuración una obra inventada (no pertenece a la referencia ni al corpus) y registra en `probar.json` cuáles responden con el esquema. Esta prueba no ve datos de la referencia.
   - Si una configuración falla, se puede corregir **la instalación** (versión de Ollama, descarga del modelo) y repetir `probar`; el prompt, las opciones y las configuraciones no se tocan. Cuenta la última corrida de `probar` antes de `lanzar`.
   - Las configuraciones que no pasen quedan **NO_EVALUADAS**: no se etiquetan ni compiten, y se reportan como tales. Si ninguna pasa, el piloto es NO APTO.
-- **Errores al llamar al modelo:** se reintenta 3 veces. Si Ollama responde con un error, o tarda más de 30 minutos, la obra queda INVALIDA con el error registrado. Si no hay conexión con Ollama (una falla de infraestructura), el proceso se detiene sin registrar nada y se reanuda con `lanzar`; esa falla no se cuenta contra el modelo.
-- **Entorno:** `Standard_NC24ads_A100_v4` spot (una A100 de 80 GB), con la versión de Ollama de la PC del responsable. Tope de 1 USD/h y apagado automático a las 6 h. Después de `instalar` y antes de `lanzar`, se registran en el PR la versión de Ollama y el ID y la cuantización de cada modelo, tal como los imprimen `ollama list` y `ollama show`.
+- **Errores al llamar al modelo:** 3 intentos en total por obra. Si Ollama responde con un error HTTP, con un cuerpo que no es JSON, o tarda más de 30 minutos, la obra queda INVALIDA con el error registrado. Si no hay conexión con Ollama (una falla de infraestructura), el proceso se detiene sin registrar nada y se reanuda con `lanzar`; esa falla no se cuenta contra el modelo.
+- **Integridad de las salidas:** cada fila lleva su firma: configuración, modelo pedido, `think`, opciones, hash del mensaje de sistema, hash del script, hash de la entrada, `simulado` y hora UTC. Para reanudar, todas las filas existentes deben tener la firma de la corrida; si no, se detiene. `elegir` y `validar` exigen la firma oficial (entrada congelada, `simulado: false`, una sola versión del script), que `referencia.jsonl` tenga el hash congelado, y que ninguna fila sea posterior al límite de tiempo; si algo falla, el resultado es INCONCLUSIVO. `--prueba` existe solo para las pruebas sintéticas y marca el resultado como no oficial.
+- **Estados:** `elegir` y `validar` siempre escriben su estado vigente (`eleccion.json`, `veredicto.json`), también cuando terminan en INCONCLUSIVO, y guardan una copia con fecha de cada intento. Un veredicto anterior nunca queda como vigente.
+- **Presupuesto de tiempo:** **24 horas de reloj desde el primer `lanzar`** (decisión del responsable, 2026-11-06). El primer `lanzar` escribe `presupuesto.json`; cada `lanzar` posterior corta su trabajo en el límite (`timeout`) y no arranca si queda menos de un minuto. Lo que no esté etiquetado al llegar al límite deja el piloto INCONCLUSIVO. Costo máximo aproximado: 24 USD con el tope de 1 USD/h. Además, Azure apaga la VM una vez al día como medida de seguridad; esa hora no es el presupuesto.
+- **Entorno:** `Standard_NC24ads_A100_v4` spot (una A100 de 80 GB), con la versión de Ollama de la PC del responsable. Tope de 1 USD/h. Después de `instalar` y antes de `lanzar`, se registran en el PR la versión de Ollama y el ID y la cuantización de cada modelo, tal como los imprimen `ollama list` y `ollama show`.
 
 ## Elección (solo en la mitad de selección)
 Se etiquetan en la mitad de selección todas las configuraciones que pasaron `probar`. Solo compiten las configuraciones con **2 % o menos** de respuestas inválidas; así, un modelo que falla el formato no puede ganar por "sensibilidad". Si ninguna cumple, el piloto es NO APTO. Entre las que compiten, `elegir` aplica esta regla, en orden:
-1. mayor **sensibilidad**: fracción de obras INCLUIR de la referencia que el modelo no excluye (INCLUIR, CONTEXTO o INVALIDA cuentan como no excluidas);
+1. mayor **sensibilidad**: fracción de obras **protegidas** de la referencia (INCLUIR_PARA_TEXTO o CONTEXTO) que el modelo no excluye;
 2. mayor **acuerdo exacto** en las tres clases;
 3. menos respuestas inválidas;
-4. menor mediana de segundos por obra.
+4. menor mediana de segundos por obra;
+5. si aún hay empate, el número de configuración menor (C1 antes que C2, etc.).
 
 ## Validación (solo la configuración elegida, en la otra mitad)
 Se etiqueta la mitad de validación solo con la configuración elegida. `validar` aplica tres compuertas:
 
 | Compuerta | Pasa si |
 |---|---|
-| Omisiones | **0** obras INCLUIR de la referencia excluidas por el modelo |
+| Omisiones | **0** obras protegidas de la referencia (INCLUIR_PARA_TEXTO o CONTEXTO) excluidas por el modelo |
 | Acuerdo | acuerdo exacto en tres clases **≥ 0.85** |
 | Inválidas | **≤ 2 %** de respuestas inválidas |
 
-- **APTO** si pasan las tres. **NO APTO** si falla alguna. **INCONCLUSIVO** si la corrida no se completa (por ejemplo, por desalojos que agoten el tope de horas).
-- Con 24 obras INCLUIR en la validación, cero omisiones no prueba que la tasa real de omisión sea cero. Con la regla de tres, solo la acota por debajo de aproximadamente 12.5 % con 95 % de confianza. Por eso el uso en producción lleva la auditoría de abajo.
+- **APTO** si pasan las tres. **NO APTO** si falla alguna. **INCONCLUSIVO** si la corrida no se completa dentro del presupuesto de tiempo o si alguna verificación de integridad falla.
+- **CONTEXTO protegida** (decisión del responsable, 2026-11-06, a partir del hallazgo D1 de Codex): excluir una obra CONTEXTO cuenta como omisión igual que excluir una INCLUIR. Sin esto, un modelo podía excluir las 3 CONTEXTO de la validación y salir APTO.
+- **Límite de potencia:** hay 27 obras protegidas en la validación (24 INCLUIR y 3 CONTEXTO). Cero omisiones no prueba que la tasa real sea cero; con la regla de tres solo la acota por debajo de aproximadamente 11 % con 95 % de confianza. Con una tasa real de 10 %, la probabilidad de ver cero omisiones en 27 es de 0.9^27 ≈ 0.06. Por eso el uso en producción lleva la auditoría de abajo.
+- **Límite de representatividad (D2):** la referencia son los primeros 155 `obra_id` en orden, no una muestra aleatoria de las 2 998 pendientes. Una familia temática que solo aparezca en obras posteriores no queda probada por el piloto. La auditoría de producción es la defensa contra eso.
 - Si el resultado es NO APTO o INCONCLUSIVO, no se cambian el prompt, las configuraciones ni los umbrales para repetir el piloto con estos mismos datos. Un intento nuevo necesitaría una enmienda y una referencia nueva.
 
 ## Uso si sale APTO
@@ -78,7 +84,7 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
   - EXCLUIR_FUERA_TEMA con `dudoso: false` queda excluida.
   - EXCLUIR_FUERA_TEMA con `dudoso: true`, e INVALIDA, pasan a una cola de revisión para Argon.
   - Las obras sin resumen siguen la regla del protocolo: PENDIENTE_ACCESO, sin pasar por el modelo.
-- **Auditoría:** en cada lote de 500, Claude lee todas las inclusiones de frontera y una muestra al azar de 50 exclusiones, con semilla fija. Si en la muestra aparecen **2 o más** exclusiones de obras que debían incluirse, se suspende el uso del modelo y lo que falte vuelve a la cola de Argon.
+- **Auditoría** (endurecida por decisión del responsable, 2026-11-06, a partir del hallazgo D3 de Codex): en cada lote de 500, Claude lee todas las inclusiones de frontera y una **muestra al azar de 100 exclusiones**, con semilla fija. **Una sola** exclusión de una obra que debía quedar protegida suspende el uso del modelo, y lo que falte vuelve a la cola de Argon. Con una tasa real de 5 % de exclusiones erróneas, la probabilidad de no detectarlo en un lote es de 0.95^100 ≈ 0.006.
 - El revisor se registra como "modelo abierto `<etiqueta>` (ID `<id>`), lector IA único, sin cribado doble". Ninguna decisión del modelo se presenta como lectura humana ni de Argon.
 
 ## Lo que no hace este piloto
@@ -86,8 +92,9 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
 - No reabre las 410 exclusiones de B ni la adenda: siguen pendientes para la consolidación final.
 
 ## Archivos y comandos
-- [`cribado_llm.py`](cribado_llm.py), SHA-256 `a7d9a718af41966587cdd04944d5b5fa0e751c1eb3a53bf7833c66edd047fb40`, con los subcomandos `preparar`, `probar`, `etiquetar`, `verificar`, `elegir` y `validar`. Se probó de punta a punta con datos sintéticos y `--simular`, incluidos una configuración con todas sus respuestas inválidas, una línea cortada por desalojo, una configuración que no pasa `probar`, un error HTTP del modelo y una caída de Ollama. `preparar` se probó además con los tres paquetes reales, con las dos versiones del script, y reproduce la partición congelada.
-- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `38dbb19616089d3af0e0ebe0f77469c21d7bff2d2104f2ceef6cc4001009c30f`, adaptado del E001 de `experimentos-aislados`. Lleva escritos los SHA-256 congelados del script y del prompt, y lee de `particion.json` los de las entradas: **no sube nada a la VM si alguno no coincide**. En selección etiqueta solo las configuraciones de `probar.json`; en validación, solo la de `eleccion.json`, y se niega a correr si no hay elegida. Se revisó su sintaxis con PowerShell 7.4 y se probaron estas rutas con `az`, `ssh` y `scp` simulados; no se ha ejecutado contra Azure.
+- [`cribado_llm.py`](cribado_llm.py), SHA-256 `93efe6b00f5a27639aad070743321dd53c9925335b250d7cea76056f6bccf703`, con los subcomandos `preparar`, `probar`, `etiquetar`, `verificar`, `elegir` y `validar`. `preparar` se probó con los tres paquetes reales y reproduce la partición congelada; en la PC del responsable el mensaje de sistema efectivo mide 8 954 caracteres.
+- [`pruebas_sinteticas.py`](pruebas_sinteticas.py), SHA-256 `4c095b53827b94551dab9c7ec6f772e68205bb8303c80816f7de2171a0c1fb0f`: 37 pruebas, una o más por hallazgo de la auditoría de Codex, con un servidor local que imita a Ollama. Se corre con `python -I pruebas_sinteticas.py`; todas pasan.
+- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `dd3c7bbb1a23a3beb377518f840c9a95813c18b20c0c845c17c667ed1fc8bee0`, adaptado del E001 de `experimentos-aislados`. Todo comando nativo (`az`, `ssh`, `scp`) pasa por una función que se detiene si el código de salida no es cero. `lanzar` se niega a correr si ya hay una sesión en la VM, y `bajar` compara los hashes de lo descargado con los de la VM. Lleva escritos los SHA-256 congelados del script y del prompt, y lee de `particion.json` los de las entradas: **no sube nada a la VM si alguno no coincide**. En selección etiqueta solo las configuraciones de `probar.json`; en validación, solo la de `eleccion.json`, y se niega a correr si no hay elegida. Se revisó su sintaxis con PowerShell 7.4 y se probaron con `az`, `ssh` y `scp` simulados las rutas de `probar`, `lanzar` (selección, validación, sin elección, NO APTO, sesión activa, presupuesto agotado, script alterado), `bajar` (hashes correctos y archivo corrompido) y fallas de `az`. No se ha ejecutado contra Azure.
 - Los datos viven en `D:\RIPG_DATA\Q15_CRIBADO_LLM\`, fuera de Git. Al repo solo entran `particion.json`, `eleccion.json`, `veredicto.json` y los hashes.
 
 ## Historial
@@ -104,3 +111,8 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
   - una configuración que no pase `probar` queda NO_EVALUADA y no compite, en lugar de detener todo el piloto;
   - el script de Azure verifica los SHA-256 congelados antes de subir nada y toma las configuraciones de `probar.json` y de `eleccion.json`, en vez de una lista escrita a mano;
   - `bajar` copia solo las salidas de la mitad indicada.
+- 2026-11-06, **enmienda 2**, respuesta a la [auditoría independiente de Codex](auditoria_codex_baa6f061/AUDITORIA_INDEPENDIENTE_CRIBADO_LLM_baa6f061.md) sobre `baa6f061`, **antes de cualquier ejecución**. El detalle, hallazgo por hallazgo, está en [RESPUESTA_AUDITORIA_CODEX.md](RESPUESTA_AUDITORIA_CODEX.md). No cambia el prompt, las configuraciones, las opciones ni la partición. Cambia, por decisión del responsable:
+  - CONTEXTO pasa a ser protegida en la sensibilidad y en la compuerta de omisiones (D1);
+  - el presupuesto de tiempo es de 24 h de reloj desde el primer `lanzar` (G6);
+  - la auditoría de producción usa 100 exclusiones por lote y suspende con un solo error (D3).
+  Además corrige la extracción del prompt (G1: el modelo habría recibido 5 caracteres), la validación del esquema (G2), la mezcla de corridas y simulaciones (G3), los estados vigentes (G4), las fallas de comandos nativos (G5) y M1 a M5.
