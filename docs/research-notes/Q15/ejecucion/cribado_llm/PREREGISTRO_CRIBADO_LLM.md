@@ -1,6 +1,6 @@
 # Preregistro: piloto de cribado de Q15 con modelos abiertos
 
-**Estado: CONGELADO, 2026-11-06, hora de México.** Aprobado por el responsable. Lo que se cambie desde aquí va como enmienda, antes de usarse. Autor: Claude. Decide: el responsable.
+**Estado: CONGELADO, 2026-11-06, hora de México, con la enmienda 1 (ver el historial).** Aprobado por el responsable. Lo que se cambie desde aquí va como enmienda, antes de usarse. Autor: Claude. Decide: el responsable.
 
 ## Pregunta
 ¿Puede un modelo abierto, corriendo en una VM spot de Azure, hacer el cribado por título y resumen de Q15 con la calidad que ya aceptamos en los lotes auditados, sin excluir obras que debían incluirse?
@@ -44,11 +44,14 @@ Mismo prompt, mismas opciones y misma salida para todas.
 - **Entrada por obra:** título y todos los resúmenes distintos de sus posiciones elegibles.
 - **Opciones:** temperatura 0, semilla 0, contexto de 32 768 tokens y hasta 16 384 tokens de salida, incluido el razonamiento. Cada respuesta registra `done_reason`, para distinguir una respuesta truncada de una mal formada.
 - **Salida:** JSON con esquema obligatorio: `decision` (una de las tres), `puntos`, `razon` y `dudoso`. Una respuesta que no cumpla el esquema queda como **INVALIDA**; nunca se interpreta ni se adivina.
-- **Prueba de formato:** antes de etiquetar, `probar` manda a cada configuración una obra inventada (no pertenece a la referencia ni al corpus) y exige una respuesta que cumpla el esquema. Si alguna falla, no se lanza y se revisa la instalación. Esta prueba no ve datos de la referencia.
+- **Prueba de formato:** antes de etiquetar, `probar` manda a cada configuración una obra inventada (no pertenece a la referencia ni al corpus) y registra en `probar.json` cuáles responden con el esquema. Esta prueba no ve datos de la referencia.
+  - Si una configuración falla, se puede corregir **la instalación** (versión de Ollama, descarga del modelo) y repetir `probar`; el prompt, las opciones y las configuraciones no se tocan. Cuenta la última corrida de `probar` antes de `lanzar`.
+  - Las configuraciones que no pasen quedan **NO_EVALUADAS**: no se etiquetan ni compiten, y se reportan como tales. Si ninguna pasa, el piloto es NO APTO.
+- **Errores al llamar al modelo:** se reintenta 3 veces. Si Ollama responde con un error, o tarda más de 30 minutos, la obra queda INVALIDA con el error registrado. Si no hay conexión con Ollama (una falla de infraestructura), el proceso se detiene sin registrar nada y se reanuda con `lanzar`; esa falla no se cuenta contra el modelo.
 - **Entorno:** `Standard_NC24ads_A100_v4` spot (una A100 de 80 GB), con la versión de Ollama de la PC del responsable. Tope de 1 USD/h y apagado automático a las 6 h. Después de `instalar` y antes de `lanzar`, se registran en el PR la versión de Ollama y el ID y la cuantización de cada modelo, tal como los imprimen `ollama list` y `ollama show`.
 
 ## Elección (solo en la mitad de selección)
-Se etiquetan las 4 configuraciones en la mitad de selección. Solo compiten las configuraciones con **2 % o menos** de respuestas inválidas; así, un modelo que falla el formato no puede ganar por "sensibilidad". Si ninguna cumple, el piloto es NO APTO. Entre las que compiten, `elegir` aplica esta regla, en orden:
+Se etiquetan en la mitad de selección todas las configuraciones que pasaron `probar`. Solo compiten las configuraciones con **2 % o menos** de respuestas inválidas; así, un modelo que falla el formato no puede ganar por "sensibilidad". Si ninguna cumple, el piloto es NO APTO. Entre las que compiten, `elegir` aplica esta regla, en orden:
 1. mayor **sensibilidad**: fracción de obras INCLUIR de la referencia que el modelo no excluye (INCLUIR, CONTEXTO o INVALIDA cuentan como no excluidas);
 2. mayor **acuerdo exacto** en las tres clases;
 3. menos respuestas inválidas;
@@ -83,8 +86,8 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
 - No reabre las 410 exclusiones de B ni la adenda: siguen pendientes para la consolidación final.
 
 ## Archivos y comandos
-- [`cribado_llm.py`](cribado_llm.py), SHA-256 `db00cc414ea0852031732cff13a8b440df0e71d422fb3b2f50b81f42b786ba44`, con los subcomandos `preparar`, `probar`, `etiquetar`, `verificar`, `elegir` y `validar`. Se probó de punta a punta con datos sintéticos y `--simular`, incluidos una configuración con todas sus respuestas inválidas y una línea cortada por desalojo. `preparar` se probó además con los tres paquetes reales.
-- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `9b0134f9dd1010aef62aa8b9608e5f42a5fa8b48acbe2798cc56c6fb32831d49`, adaptado del E001 de `experimentos-aislados`. No se ha ejecutado.
+- [`cribado_llm.py`](cribado_llm.py), SHA-256 `a7d9a718af41966587cdd04944d5b5fa0e751c1eb3a53bf7833c66edd047fb40`, con los subcomandos `preparar`, `probar`, `etiquetar`, `verificar`, `elegir` y `validar`. Se probó de punta a punta con datos sintéticos y `--simular`, incluidos una configuración con todas sus respuestas inválidas, una línea cortada por desalojo, una configuración que no pasa `probar`, un error HTTP del modelo y una caída de Ollama. `preparar` se probó además con los tres paquetes reales, con las dos versiones del script, y reproduce la partición congelada.
+- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `38dbb19616089d3af0e0ebe0f77469c21d7bff2d2104f2ceef6cc4001009c30f`, adaptado del E001 de `experimentos-aislados`. Lleva escritos los SHA-256 congelados del script y del prompt, y lee de `particion.json` los de las entradas: **no sube nada a la VM si alguno no coincide**. En selección etiqueta solo las configuraciones de `probar.json`; en validación, solo la de `eleccion.json`, y se niega a correr si no hay elegida. Se revisó su sintaxis con PowerShell 7.4 y se probaron estas rutas con `az`, `ssh` y `scp` simulados; no se ha ejecutado contra Azure.
 - Los datos viven en `D:\RIPG_DATA\Q15_CRIBADO_LLM\`, fuera de Git. Al repo solo entran `particion.json`, `eleccion.json`, `veredicto.json` y los hashes.
 
 ## Historial
@@ -95,4 +98,9 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
   - solo compiten en la elección las configuraciones con 2 % o menos de inválidas;
   - el límite de salida sube de 8 192 a 16 384 tokens, y se registra `done_reason`;
   - se agregó la prueba de formato `probar`, con una obra inventada.
-- 2026-11-06: congelado por aprobación del responsable, con la partición generada a partir de los paquetes reales.
+- 2026-11-06: congelado por aprobación del responsable (`747f348e`), con la partición generada a partir de los paquetes reales.
+- 2026-11-06, **enmienda 1**, segunda revisión de Claude a petición del responsable, **antes de cualquier ejecución** (no se había creado la VM ni etiquetado nada). No cambia el prompt, las configuraciones, las opciones, la partición, la regla de elección ni las compuertas. Cambios:
+  - errores al llamar al modelo: un error del modelo queda INVALIDA tras 3 intentos; una caída de Ollama detiene el proceso para reanudarlo, en vez de contarse contra el modelo;
+  - una configuración que no pase `probar` queda NO_EVALUADA y no compite, en lugar de detener todo el piloto;
+  - el script de Azure verifica los SHA-256 congelados antes de subir nada y toma las configuraciones de `probar.json` y de `eleccion.json`, en vez de una lista escrita a mano;
+  - `bajar` copia solo las salidas de la mitad indicada.
