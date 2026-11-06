@@ -1,6 +1,6 @@
 # Preregistro: piloto de cribado de Q15 con modelos abiertos
 
-**Estado: BORRADOR, 2026-11-05, hora de México.** Se congela cuando el responsable lo apruebe y se confirme en git. Nada se etiqueta antes de eso. Autor: Claude. Decide: el responsable.
+**Estado: CONGELADO, 2026-11-06, hora de México.** Aprobado por el responsable. Lo que se cambie desde aquí va como enmienda, antes de usarse. Autor: Claude. Decide: el responsable.
 
 ## Pregunta
 ¿Puede un modelo abierto, corriendo en una VM spot de Azure, hacer el cribado por título y resumen de Q15 con la calidad que ya aceptamos en los lotes auditados, sin excluir obras que debían incluirse?
@@ -12,14 +12,23 @@ Si la respuesta es sí, el modelo criba las 2 998 obras que siguen en `PENDIENTE
   - `Q15_C_LOTE01_D01_SemanticScholar_2026-11-05.zip`, SHA-256 `56a1bb737e583652cce1ba979b2e36045a039eb369f3cf905518641fbe057ad6`;
   - `Q15_C_LOTE02_2026-11-05.zip`, SHA-256 `8c6a9a1e1dd348885a68b262dda7ce303bac5c2a0324439610204229dcf559a8`;
   - `Q15_C_LOTE03_2026-11-05.zip`, SHA-256 `46354f8361951c13c868c422f210ed9ee174d8e2ee7a63f1fd77565ee3ef3cff`.
-- Entran solo las obras con resumen y con decisión INCLUIR_PARA_TEXTO, CONTEXTO o EXCLUIR_FUERA_TEMA. W00126 (PENDIENTE_ACCESO) queda fuera. Se esperan 154 obras.
+- Entran solo las obras con resumen y con decisión INCLUIR_PARA_TEXTO, CONTEXTO o EXCLUIR_FUERA_TEMA. W00126 (PENDIENTE_ACCESO) queda fuera. Son **154 obras**.
+- CONTEXTO tiene solo 6 obras en total (3 por mitad). El acuerdo en esa clase pesa poco y no se analiza por separado.
 - **Limitación declarada:** la referencia la hicieron agentes de IA y la auditó Claude; no es una referencia humana. Mide si el modelo reproduce el criterio aceptado, no si acierta en un sentido absoluto. Además, la mayoría de las decisiones son de Argon, que es de Google: un modelo Gemma podría coincidir por parecido de familia. Esto se tendrá en cuenta al leer los resultados de C3, pero no cambia la regla.
 
 ## Partición
 - Se agrupan las obras con el mismo título normalizado, para que un duplicado no quede en las dos mitades.
 - Cada grupo se asigna a un estrato según la decisión más conservadora de sus miembros (INCLUIR antes que CONTEXTO, y CONTEXTO antes que EXCLUIR).
 - Dentro de cada estrato, los grupos se barajan con la semilla `20261105` y se alternan entre la mitad de **selección** y la de **validación**.
-- `preparar` escribe la referencia, las dos entradas sin etiquetas y `particion.json` con los conteos y los hashes. **`particion.json` se confirma en git antes de crear la VM.** A la VM solo viaja la entrada, nunca la referencia.
+- `preparar` escribe la referencia, las dos entradas sin etiquetas y `particion.json` con los conteos y los hashes. A la VM solo viaja la entrada, nunca la referencia.
+- **Partición congelada:** [`particion.json`](particion.json), SHA-256 `2598b7dc6a03026d55e0e7b45b4644035132ea50bb857d62920d512052fddc20`. Claude la generó el 2026-11-06 en una carpeta temporal de la PC del responsable, a partir de los tres paquetes sellados. Es determinista: la corrida oficial del responsable debe reproducir los mismos hashes; si no, se detiene todo.
+
+| mitad | INCLUIR_PARA_TEXTO | CONTEXTO | EXCLUIR_FUERA_TEMA | total |
+|---|---:|---:|---:|---:|
+| selección | 25 | 3 | 51 | 79 |
+| validación | 24 | 3 | 48 | 75 |
+
+- Los cuatro grupos de título duplicado quedaron enteros en una sola mitad: TG000 (W00098 y W00135) en validación; TG001, TG002 y TG006 en selección.
 
 ## Configuraciones
 Mismo prompt, mismas opciones y misma salida para todas.
@@ -33,12 +42,13 @@ Mismo prompt, mismas opciones y misma salida para todas.
 
 - **Prompt:** [`PROMPT_CRIBADO_LLM.md`](PROMPT_CRIBADO_LLM.md), SHA-256 `0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0`. Contiene, copiados sin cambios, la sección 1 (preguntas y diccionario) y la sección 6 (elegibilidad) del protocolo, y los dos criterios del responsable. No contiene ejemplos de la referencia.
 - **Entrada por obra:** título y todos los resúmenes distintos de sus posiciones elegibles.
-- **Opciones:** temperatura 0, semilla 0, contexto de 32 768 tokens y hasta 8 192 tokens de salida.
+- **Opciones:** temperatura 0, semilla 0, contexto de 32 768 tokens y hasta 16 384 tokens de salida, incluido el razonamiento. Cada respuesta registra `done_reason`, para distinguir una respuesta truncada de una mal formada.
 - **Salida:** JSON con esquema obligatorio: `decision` (una de las tres), `puntos`, `razon` y `dudoso`. Una respuesta que no cumpla el esquema queda como **INVALIDA**; nunca se interpreta ni se adivina.
+- **Prueba de formato:** antes de etiquetar, `probar` manda a cada configuración una obra inventada (no pertenece a la referencia ni al corpus) y exige una respuesta que cumpla el esquema. Si alguna falla, no se lanza y se revisa la instalación. Esta prueba no ve datos de la referencia.
 - **Entorno:** `Standard_NC24ads_A100_v4` spot (una A100 de 80 GB), con la versión de Ollama de la PC del responsable. Tope de 1 USD/h y apagado automático a las 6 h. Después de `instalar` y antes de `lanzar`, se registran en el PR la versión de Ollama y el ID y la cuantización de cada modelo, tal como los imprimen `ollama list` y `ollama show`.
 
 ## Elección (solo en la mitad de selección)
-Se etiquetan las 4 configuraciones en la mitad de selección. `elegir` aplica esta regla, en orden:
+Se etiquetan las 4 configuraciones en la mitad de selección. Solo compiten las configuraciones con **2 % o menos** de respuestas inválidas; así, un modelo que falla el formato no puede ganar por "sensibilidad". Si ninguna cumple, el piloto es NO APTO. Entre las que compiten, `elegir` aplica esta regla, en orden:
 1. mayor **sensibilidad**: fracción de obras INCLUIR de la referencia que el modelo no excluye (INCLUIR, CONTEXTO o INVALIDA cuentan como no excluidas);
 2. mayor **acuerdo exacto** en las tres clases;
 3. menos respuestas inválidas;
@@ -54,7 +64,7 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
 | Inválidas | **≤ 2 %** de respuestas inválidas |
 
 - **APTO** si pasan las tres. **NO APTO** si falla alguna. **INCONCLUSIVO** si la corrida no se completa (por ejemplo, por desalojos que agoten el tope de horas).
-- Con unas 25 obras INCLUIR en la validación, cero omisiones no prueba que la tasa real de omisión sea cero. Con la regla de tres, solo la acota por debajo de aproximadamente 12 % con 95 % de confianza. Por eso el uso en producción lleva la auditoría de abajo.
+- Con 24 obras INCLUIR en la validación, cero omisiones no prueba que la tasa real de omisión sea cero. Con la regla de tres, solo la acota por debajo de aproximadamente 12.5 % con 95 % de confianza. Por eso el uso en producción lleva la auditoría de abajo.
 - Si el resultado es NO APTO o INCONCLUSIVO, no se cambian el prompt, las configuraciones ni los umbrales para repetir el piloto con estos mismos datos. Un intento nuevo necesitaría una enmienda y una referencia nueva.
 
 ## Uso si sale APTO
@@ -73,9 +83,16 @@ Se etiqueta la mitad de validación solo con la configuración elegida. `validar
 - No reabre las 410 exclusiones de B ni la adenda: siguen pendientes para la consolidación final.
 
 ## Archivos y comandos
-- [`cribado_llm.py`](cribado_llm.py), SHA-256 `df67608a50973edaac1b1d0ab5e32a2047cd888f19360cc02bb0c72afd07da31`, con los subcomandos `preparar`, `etiquetar`, `verificar`, `elegir` y `validar`. Se probó con datos sintéticos y `--simular`.
-- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `b84f7d4a28d8e22cb1d8df1b513039c9984bb12d0529368588233eabafce8225`, adaptado del E001 de `experimentos-aislados`.
+- [`cribado_llm.py`](cribado_llm.py), SHA-256 `db00cc414ea0852031732cff13a8b440df0e71d422fb3b2f50b81f42b786ba44`, con los subcomandos `preparar`, `probar`, `etiquetar`, `verificar`, `elegir` y `validar`. Se probó de punta a punta con datos sintéticos y `--simular`, incluidos una configuración con todas sus respuestas inválidas y una línea cortada por desalojo. `preparar` se probó además con los tres paquetes reales.
+- [`cribado_llm_azure.ps1`](cribado_llm_azure.ps1), SHA-256 `9b0134f9dd1010aef62aa8b9608e5f42a5fa8b48acbe2798cc56c6fb32831d49`, adaptado del E001 de `experimentos-aislados`. No se ha ejecutado.
 - Los datos viven en `D:\RIPG_DATA\Q15_CRIBADO_LLM\`, fuera de Git. Al repo solo entran `particion.json`, `eleccion.json`, `veredicto.json` y los hashes.
 
 ## Historial
-- 2026-11-05: borrador.
+- 2026-11-05: borrador (`a4d6d9c9`).
+- 2026-11-06: revisión de Claude antes de congelar (`7f342bcb`). Cambios:
+  - las escrituras usan LF, para que los hashes coincidan en Windows y Linux;
+  - una línea cortada por un desalojo ya no se pega a la respuesta siguiente;
+  - solo compiten en la elección las configuraciones con 2 % o menos de inválidas;
+  - el límite de salida sube de 8 192 a 16 384 tokens, y se registra `done_reason`;
+  - se agregó la prueba de formato `probar`, con una obra inventada.
+- 2026-11-06: congelado por aprobación del responsable, con la partición generada a partir de los paquetes reales.
