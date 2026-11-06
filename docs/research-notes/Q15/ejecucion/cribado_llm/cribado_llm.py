@@ -8,7 +8,7 @@ Subcomandos, en orden:
   elegir     compara las configuraciones SOLO en la mitad de selección y aplica la regla fija
   validar    aplica las compuertas a la configuración elegida en la mitad de validación
 
-Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 4).
+Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 5).
 """
 import argparse, csv, hashlib, io, json, math, os, random, re, socket, sys, time, unicodedata, urllib.error, urllib.request, uuid, zipfile
 from collections import Counter, defaultdict
@@ -407,8 +407,16 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
     inicio, limite = leer_presupuesto(datos, prueba)
     if not prueba:
         esperado["script_sha256"] = sha(Path(__file__).read_bytes())   # la misma versión congelada que evalúa
-    s = {}
     filas, descartadas = lineas_json(p)
+    try:
+        return _validar_filas(p, c, ref, filas, esperado, inicio, limite), descartadas
+    except Inconclusivo as e:
+        e.descartadas = {p.name: descartadas}   # las líneas descartadas acompañan al INCONCLUSIVO
+        raise
+
+
+def _validar_filas(p, c, ref, filas, esperado, inicio, limite):
+    s = {}
     for n, d in filas:
         mal = {k: (d.get(k), v) for k, v in esperado.items() if not igual(d.get(k), v)}
         if mal:
@@ -441,7 +449,7 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
     falt = [o for o in ref if o not in s]
     if falt:
         raise Inconclusivo(f"{p.name}: faltan {len(falt)} obras: {', '.join(sorted(falt)[:20])}{' …' if len(falt) > 20 else ''}")
-    return s, descartadas
+    return s
 
 
 def metricas(ref, leido):
@@ -485,7 +493,8 @@ def cmd_elegir(a):
             raise Inconclusivo("probar.json tiene una lista de configuraciones válidas mal formada")
         res = {c: metricas(ref, leer_salida_oficial(a.datos, "seleccion", c, ref, a.prueba)) for c in evaluadas}
     except Exception as e:  # cualquier falla deja un estado INCONCLUSIVO vigente, nunca uno anterior
-        escribir_estado(a.datos, "eleccion", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}", "elegida": None})
+        escribir_estado(a.datos, "eleccion", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}", "elegida": None,
+                                              "lineas_descartadas": getattr(e, "descartadas", None)})
         sys.exit(1)
     aptas = [c for c in res if res[c]["frac_invalidas"] <= MAX_INVALIDAS]
     # regla fija: mayor sensibilidad; mayor acuerdo; menos inválidas; menor mediana de tiempo; menor número de configuración
@@ -513,7 +522,8 @@ def cmd_validar(a):
             raise Inconclusivo(f"eleccion.json nombra una configuración desconocida: {c!r}")
         m = metricas(ref, leer_salida_oficial(a.datos, "validacion", c, ref, a.prueba))
     except Exception as e:  # cualquier falla deja un estado INCONCLUSIVO vigente, nunca uno anterior
-        escribir_estado(a.datos, "veredicto", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}"})
+        escribir_estado(a.datos, "veredicto", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}",
+                                               "lineas_descartadas": getattr(e, "descartadas", None)})
         sys.exit(1)
     comp = {"omisiones": "PASA" if m["omisiones"] <= MAX_OMISIONES else "FALLA",
             "acuerdo": "PASA" if m["acuerdo"] >= UMBRAL_ACUERDO else "FALLA",

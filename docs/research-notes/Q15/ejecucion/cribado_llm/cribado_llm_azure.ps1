@@ -1,5 +1,5 @@
 # cribado_llm_azure.ps1 - Q15: piloto de cribado con modelos abiertos en Azure spot (Standard_NC24ads_A100_v4)
-# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 4.
+# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 5.
 #
 # Fases, en orden:
 #   cuota     revisa la cuota spot (24 vCPU "Low-priority") en la region
@@ -41,7 +41,7 @@ $Prompt = Join-Path $Aqui "PROMPT_CRIBADO_LLM.md"
 $Particion = Join-Path $Aqui "particion.json"
 $Presupuesto = Join-Path $Datos "presupuesto.json"
 # hashes congelados (PREREGISTRO_CRIBADO_LLM.md); si tu copia difiere, no se sube nada
-$ShaScript = "d9288eaba8fcc94aa34cb07eb489cbf804cec0dc0ca4a0445720405bf8d29475"
+$ShaScript = "0206cd3f296b3d501fcfa1097cf76ec7d9be951581d9bdf8c0fbb501076dac81"
 $ShaPrompt = "0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0"
 
 # Todo comando nativo pasa por aqui: un codigo distinto de cero detiene el script (PowerShell no lo hace solo).

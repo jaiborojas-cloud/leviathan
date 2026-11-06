@@ -1,4 +1,4 @@
-"""Pruebas sintéticas de cribado_llm.py (enmienda 4). No usan datos reales, Azure ni modelos.
+"""Pruebas sintéticas de cribado_llm.py (enmienda 5). No usan datos reales, Azure ni modelos.
 
 Uso:  python -I pruebas_sinteticas.py
 Crea todo en una carpeta temporal y levanta un servidor HTTP local que imita /api/chat de Ollama.
@@ -320,6 +320,13 @@ chequeo("una línea basura queda en metricas.lineas_descartadas con número, has
         ve["veredicto"] == "APTO" and len(ve["metricas"]["lineas_descartadas"]) == 1 and ve["metricas"]["lineas_descartadas"][0]["linea"] == 1
         and len(ve["metricas"]["lineas_descartadas"][0]["sha256"]) == 64)
 sv.write_bytes(original)
+
+print("\n== Revisión acotada: un INCONCLUSIVO por obras faltantes conserva las líneas descartadas")
+sv.write_bytes(b"{garbage}\n" + b"".join(original.splitlines(True)[1:])); sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+ve = json.loads((DAT / "veredicto.json").read_text(encoding="utf-8")); sv.write_bytes(original)
+d = (ve.get("lineas_descartadas") or {}).get(sv.name, [])
+chequeo("INCONCLUSIVO por 1 obra faltante, con la línea basura descartada en el estado",
+        ve["veredicto"] == "INCONCLUSIVO" and "faltan 1 obras" in ve["motivo"] and len(d) == 1 and d[0]["linea"] == 1 and len(d[0]["sha256"]) == 64)
 
 print(f"\n{'TODAS LAS PRUEBAS PASAN' if not FALLAS else 'FALLAN: ' + ', '.join(FALLAS)}  (carpeta: {T})")
 sys.exit(1 if FALLAS else 0)
