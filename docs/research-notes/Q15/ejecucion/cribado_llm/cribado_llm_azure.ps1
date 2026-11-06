@@ -1,5 +1,5 @@
 # cribado_llm_azure.ps1 - Q15: piloto de cribado con modelos abiertos en Azure spot (Standard_NC24ads_A100_v4)
-# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 3.
+# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 4.
 #
 # Fases, en orden:
 #   cuota     revisa la cuota spot (24 vCPU "Low-priority") en la region
@@ -41,7 +41,7 @@ $Prompt = Join-Path $Aqui "PROMPT_CRIBADO_LLM.md"
 $Particion = Join-Path $Aqui "particion.json"
 $Presupuesto = Join-Path $Datos "presupuesto.json"
 # hashes congelados (PREREGISTRO_CRIBADO_LLM.md); si tu copia difiere, no se sube nada
-$ShaScript = "a2825a37f2aae5897cfcf74d120844d26dff1e5ca8c3bb05dbf34195ab090afa"
+$ShaScript = "d9288eaba8fcc94aa34cb07eb489cbf804cec0dc0ca4a0445720405bf8d29475"
 $ShaPrompt = "0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0"
 
 # Todo comando nativo pasa por aqui: un codigo distinto de cero detiene el script (PowerShell no lo hace solo).
@@ -185,7 +185,9 @@ switch ($Fase) {
             'restante=$(( LIMITE - $(date +%s) ))',
             ('if [ "$restante" -le 60 ]; then echo "FIN ' + $Mitad + ' codigo=SIN_TIEMPO" >> "$LOG"; exit 0; fi'),
             ("timeout `"`$restante`" bash -c '" + $cadena + "' 2>&1 | tee -a `"`$LOG`""),
-            ('echo "FIN ' + $Mitad + ' codigo=$?" >> "$LOG"')
+            'rc=$?',
+            ('echo "FIN ' + $Mitad + ' codigo=$rc" >> "$LOG"'),
+            'exit $rc'
         )
         $correr = Join-Path ([IO.Path]::GetTempPath()) "q15_correr_$Mitad.sh"
         [IO.File]::WriteAllText($correr, (($lineas -join "`n") + "`n"))   # LF, sin BOM

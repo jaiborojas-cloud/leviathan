@@ -1,8 +1,8 @@
-"""Pruebas sintéticas de cribado_llm.py (enmienda 3). No usan datos reales, Azure ni modelos.
+"""Pruebas sintéticas de cribado_llm.py (enmienda 4). No usan datos reales, Azure ni modelos.
 
 Uso:  python -I pruebas_sinteticas.py
 Crea todo en una carpeta temporal y levanta un servidor HTTP local que imita /api/chat de Ollama.
-Cada prueba corresponde a un hallazgo de las auditorías de Codex (G1-G6, M1-M5, D1; reauditoría R1-R5 y menores).
+Cada prueba corresponde a un hallazgo de las auditorías de Codex (G1-G6, M1-M5, D1; reauditoría R1-R5 y menores; tercera auditoría N1-N4).
 """
 import csv, importlib.util, io, json, socket, sys, tempfile, threading, urllib.error, zipfile
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -134,8 +134,12 @@ print("\n== M3: mediana")
 chequeo("mediana([1, 100]) = 50.5", c.mediana([1, 100]) == 50.5)
 chequeo("mediana([3, 1, 2]) = 2", c.mediana([3, 1, 2]) == 2)
 
+from datetime import datetime, timedelta, timezone
+_ini = datetime.now(timezone.utc) - timedelta(hours=1)
+F = lambda t: t.strftime("%Y-%m-%dT%H:%M:%SZ")
+PRESUPUESTO_VIGENTE = json.dumps({"inicio_utc": F(_ini), "limite_utc": F(_ini + timedelta(hours=24)), "horas": 24})
 print("\n== Flujo oficial completo con un modelo que reproduce la referencia")
-(DAT / "presupuesto.json").write_text('{"inicio_utc":"2000-01-01T00:00:00Z","limite_utc":"2999-01-01T00:00:00Z","horas":24}', encoding="utf-8")
+(DAT / "presupuesto.json").write_text(PRESUPUESTO_VIGENTE, encoding="utf-8")
 c.cmd_probar(NS(datos=DAT, host=HOST, simular=False, hasta=None))
 for cfg in c.CONFIGS:
     c.cmd_etiquetar(NS(entrada=DAT / "entrada_seleccion.jsonl", config=cfg, datos=DAT, host=HOST, simular=False, hasta=None))
@@ -186,7 +190,7 @@ chequeo("filas etiquetadas después del límite dan INCONCLUSIVO", json.loads((D
 (DAT / "presupuesto.json").unlink()
 sale(c.cmd_validar, NS(datos=DAT, prueba=False))
 chequeo("sin presupuesto.json, INCONCLUSIVO en modo oficial", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "INCONCLUSIVO")
-(DAT / "presupuesto.json").write_text('{"inicio_utc":"2000-01-01T00:00:00Z","limite_utc":"2999-01-01T00:00:00Z","horas":24}', encoding="utf-8")
+(DAT / "presupuesto.json").write_text(PRESUPUESTO_VIGENTE, encoding="utf-8")
 
 print("\n== D1: excluir CONTEXTO cuenta como omisión")
 MODO["tipo"] = "excluye_contexto"; sv.unlink()
@@ -274,6 +278,48 @@ for cfg in ("C1", "C2"):
     f.write_text("\n".join(json.dumps({**json.loads(l), "segundos": 1.0}) for l in f.read_text(encoding="utf-8").splitlines()) + "\n", encoding="utf-8")
 sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
 chequeo("empate total con validas=[C2, C1] -> elige C1", json.loads((DAT / "eleccion.json").read_text(encoding="utf-8"))["elegida"] == "C1")
+
+print("\n== Tercera auditoría N1: presupuesto y horas como fechas reales")
+# la prueba del desempate alteró los tiempos de C1 y C2; aquí se fija C1 como única evaluada
+pj = json.loads((DAT / "probar.json").read_text(encoding="utf-8")); pj["validas"] = ["C1"]
+(DAT / "probar.json").write_text(json.dumps(pj), encoding="utf-8"); sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+chequeo("punto de partida: APTO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "APTO")
+def con_presupuesto(txt):
+    (DAT / "presupuesto.json").write_text(txt, encoding="utf-8"); sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+    (DAT / "presupuesto.json").write_text(PRESUPUESTO_VIGENTE, encoding="utf-8")
+    return json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"]
+pv = json.loads(PRESUPUESTO_VIGENTE)
+chequeo("limite_utc null -> INCONCLUSIVO", con_presupuesto(json.dumps({**pv, "limite_utc": None})) == "INCONCLUSIVO")
+chequeo("límite con fecha imposible -> INCONCLUSIVO", con_presupuesto(json.dumps({**pv, "limite_utc": "2026-00-00T99:99:99Z"})) == "INCONCLUSIVO")
+chequeo("presupuesto de 48 h -> INCONCLUSIVO", con_presupuesto(json.dumps({**pv, "horas": 48})) == "INCONCLUSIVO")
+chequeo("límite movido 1 h -> INCONCLUSIVO", con_presupuesto(json.dumps({**pv, "limite_utc": F(datetime.strptime(pv["limite_utc"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=1))})) == "INCONCLUSIVO")
+chequeo("fila antes del inicio -> INCONCLUSIVO", con_presupuesto(json.dumps({"inicio_utc": F(_ini + timedelta(hours=2)), "limite_utc": F(_ini + timedelta(hours=26)), "horas": 24})) == "INCONCLUSIVO")
+original = sv.read_bytes()
+chequeo("hora de fila imposible -> INCONCLUSIVO", con_fila(lambda f: f.update(utc="2026-00-00T99:99:99Z")) == "INCONCLUSIVO")
+_ap = c.argparse.ArgumentParser(); _ap.add_argument("--hasta", type=c.arg_fecha)
+chequeo("--hasta inválido se rechaza en la línea de comandos", sale(_ap.parse_args, ["--hasta", "not-a-date"]) is not None and _ap.parse_args(["--hasta", "2026-11-07T00:00:00Z"]).hasta == "2026-11-07T00:00:00Z")
+
+print("\n== Tercera auditoría N2: duraciones inválidas")
+chequeo("segundos negativos -> INCONCLUSIVO", con_fila(lambda f: f.update(segundos=-1)) == "INCONCLUSIVO")
+filas = original.decode().splitlines(); filas[0] = filas[0].replace('"segundos": ', '"segundos": NaN, "x_": ', 1)
+sv.write_text("\n".join(filas) + "\n", encoding="utf-8"); sale(c.cmd_validar, NS(datos=DAT, prueba=False)); sv.write_bytes(original)
+chequeo("segundos NaN -> la línea no se acepta y el veredicto es INCONCLUSIVO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "INCONCLUSIVO")
+pj = json.loads((DAT / "probar.json").read_text(encoding="utf-8")); pj["validas"] = ["C1", "C2"]
+(DAT / "probar.json").write_text(json.dumps(pj), encoding="utf-8")
+f2 = DAT / "salida_seleccion_C2.jsonl"; o2 = f2.read_bytes()
+f2.write_text("\n".join(json.dumps({**json.loads(l), "segundos": -1}) for l in o2.decode().splitlines()) + "\n", encoding="utf-8")
+sale(c.cmd_elegir, NS(datos=DAT, prueba=False)); el = json.loads((DAT / "eleccion.json").read_text(encoding="utf-8")); f2.write_bytes(o2)
+chequeo("segundos=-1 en C2 ya no gana el desempate: la elección es INCONCLUSIVO", el["veredicto"] == "INCONCLUSIVO")
+pj["validas"] = ["C1"]; (DAT / "probar.json").write_text(json.dumps(pj), encoding="utf-8"); sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
+
+print("\n== Tercera auditoría N3: las líneas descartadas se reportan")
+sv.write_bytes(b"{garbage}\n" + original); sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+ve = json.loads((DAT / "veredicto.json").read_text(encoding="utf-8")); sv.write_bytes(original)
+chequeo("una línea basura queda en metricas.lineas_descartadas con número, hash y motivo",
+        ve["veredicto"] == "APTO" and len(ve["metricas"]["lineas_descartadas"]) == 1 and ve["metricas"]["lineas_descartadas"][0]["linea"] == 1
+        and len(ve["metricas"]["lineas_descartadas"][0]["sha256"]) == 64)
+sv.write_bytes(original)
 
 print(f"\n{'TODAS LAS PRUEBAS PASAN' if not FALLAS else 'FALLAN: ' + ', '.join(FALLAS)}  (carpeta: {T})")
 sys.exit(1 if FALLAS else 0)

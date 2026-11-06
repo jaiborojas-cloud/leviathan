@@ -8,9 +8,9 @@ Subcomandos, en orden:
   elegir     compara las configuraciones SOLO en la mitad de selección y aplica la regla fija
   validar    aplica las compuertas a la configuración elegida en la mitad de validación
 
-Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 3).
+Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 4).
 """
-import argparse, csv, hashlib, io, json, os, random, re, socket, sys, time, unicodedata, urllib.error, urllib.request, uuid, zipfile
+import argparse, csv, hashlib, io, json, math, os, random, re, socket, sys, time, unicodedata, urllib.error, urllib.request, uuid, zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -42,6 +42,7 @@ UMBRAL_ACUERDO = 0.85      # acuerdo exacto en 3 clases, validación
 MAX_INVALIDAS = 0.02       # fracción máxima de respuestas inválidas (selección y validación)
 MAX_OMISIONES = 0          # obras PROTEGIDAS de la referencia que el modelo EXCLUYE, validación
 INTENTOS = 3               # intentos en total por obra (no 1 + 3)
+HORAS_PRESUPUESTO = 24     # presupuesto de reloj desde el primer lanzar; presupuesto.json debe declarar exactamente esto
 AQUI = Path(__file__).resolve().parent
 PROMPT = AQUI / "PROMPT_CRIBADO_LLM.md"
 PARTICION = AQUI / "particion.json"
@@ -57,6 +58,21 @@ def ahora():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def fecha_utc(v):
+    """Fecha UTC real con el formato AAAA-MM-DDTHH:MM:SSZ; cualquier otra cosa (null, mes 00, hora 99) es un error."""
+    if not isinstance(v, str):
+        raise ValueError(f"fecha no es texto: {v!r}")
+    return datetime.strptime(v, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+
+
+def arg_fecha(v):
+    try:
+        fecha_utc(v)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"fecha UTC inválida: {v!r}; se espera AAAA-MM-DDTHH:MM:SSZ")
+    return v
+
+
 def escribir(p, obj):
     """Escritura atómica: se escribe a un temporal y se reemplaza; nunca queda un archivo a medias."""
     p = Path(p); tmp = p.with_name(f".{p.name}.{uuid.uuid4().hex}.tmp")
@@ -66,10 +82,11 @@ def escribir(p, obj):
 
 
 def escribir_estado(datos, nombre, obj):
-    """Escribe el estado vigente y una copia única de cada intento; un estado anterior nunca pasa por actual."""
+    """Escribe una copia única del intento y luego reemplaza el estado vigente de forma atómica.
+    No hay fsync: una caída del sistema durante la escritura no está cubierta."""
     obj = {"utc": ahora(), "intento": uuid.uuid4().hex, **obj}
     hist = Path(datos) / f"{nombre}_{obj['utc'].replace(':', '').replace('-', '')}_{obj['intento'][:12]}.json"
-    with open(hist, "x", encoding="utf-8", newline="\n") as f:   # "x": nunca sobrescribe una copia anterior
+    with open(hist, "x", encoding="utf-8", newline="\n") as f:   # "x": no sobrescribe una copia anterior
         f.write(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
     escribir(Path(datos) / f"{nombre}.json", obj)
     print(json.dumps(obj, indent=2, ensure_ascii=False))
@@ -248,13 +265,13 @@ def cmd_probar(a):
     sistema, sha_sis = prompt_sistema()
     res = {}
     for c, cfg in CONFIGS.items():
-        t0 = time.time()
+        t0 = time.monotonic()
         r = llamar(a.host, cfg, sistema, mensaje_obra(OBRA_PRUEBA), a.simular)
         contenido = r.get("message", {}).get("content", "")
         j = interpretar(contenido)
         valida = j is not None and r.get("model") == cfg["modelo"]
         res[c] = {"modelo_pedido": cfg["modelo"], "modelo_respuesta": r.get("model"), "valida": valida, "decision": j["decision"] if j else None,
-                  "done_reason": r.get("done_reason"), "error": r.get("error"), "segundos": round(time.time() - t0, 1), "crudo": contenido[:300]}
+                  "done_reason": r.get("done_reason"), "error": r.get("error"), "segundos": round(time.monotonic() - t0, 1), "crudo": contenido[:300]}
         print(c, valida, res[c]["decision"], res[c]["segundos"], "s", flush=True)
     validas = [c for c in CONFIGS if res[c]["valida"]]
     escribir(Path(a.datos) / "probar.json", {"utc": ahora(), "simulado": bool(a.simular), "sistema_sha256": sha_sis,
@@ -262,17 +279,26 @@ def cmd_probar(a):
     print("VALIDAS:", " ".join(validas) or "(ninguna)")
 
 
+def sin_constantes(c):
+    raise ValueError(f"constante no permitida: {c}")   # NaN, Infinity y -Infinity no son JSON válido aquí
+
+
 def lineas_json(p):
-    """Filas JSON completas de una salida, leída en bytes: una cola cortada (incluso a mitad de un carácter UTF-8) se ignora."""
-    filas = []
+    """Lee una salida en bytes, línea por línea. Devuelve (filas, descartadas).
+    Una línea que no decodifica o no es JSON válido (p. ej. la cola cortada por un desalojo) no se usa,
+    pero queda registrada con su número, hash y motivo; su obra se rehace al reanudar."""
+    filas, descartadas = [], []
     for n, b in enumerate(Path(p).read_bytes().split(b"\n"), 1):
         if not b.strip():
             continue
         try:
-            filas.append((n, json.loads(b.decode("utf-8"))))
-        except (UnicodeDecodeError, ValueError):
-            pass  # línea incompleta por un desalojo: esa obra se rehace
-    return filas
+            d = json.loads(b.decode("utf-8"), parse_constant=sin_constantes)
+            if not isinstance(d, dict):
+                raise ValueError("la línea no es un objeto JSON")
+            filas.append((n, d))
+        except (UnicodeDecodeError, ValueError) as e:
+            descartadas.append({"linea": n, "bytes": len(b), "sha256": sha(b), "motivo": f"{type(e).__name__}: {e}"[:200]})
+    return filas, descartadas
 
 
 def igual(a, b):
@@ -298,7 +324,10 @@ def cmd_etiquetar(a):
         if salida.stat().st_size and not salida.read_bytes().endswith(b"\n"):
             with open(salida, "ab") as fb:
                 fb.write(b"\n")  # cierra una línea dejada a medias por un desalojo
-        for n, d in lineas_json(salida):
+        filas, descartadas = lineas_json(salida)
+        for x in descartadas:
+            print(f"  línea {x['linea']} descartada ({x['motivo']}); su obra se rehace", flush=True)
+        for n, d in filas:
             if not igual({k: d.get(k) for k in fir}, fir):
                 sys.exit(f"{salida.name}, línea {n}: la fila no corresponde a esta configuración, prompt, script, entrada o modo; no se mezclan corridas.")
             hechos.add(d["obra_id"])
@@ -307,9 +336,9 @@ def cmd_etiquetar(a):
         for i, x in enumerate(entrada, 1):
             if x["obra_id"] in hechos:
                 continue
-            if a.hasta and ahora() >= a.hasta:
+            if a.hasta and datetime.now(timezone.utc) >= fecha_utc(a.hasta):
                 sys.exit(f"Se alcanzó el límite del presupuesto ({a.hasta}); no se empiezan más obras.")
-            t0 = time.time()
+            t0 = time.monotonic()
             r = llamar(a.host, cfg, sistema, mensaje_obra(x), a.simular)
             contenido = r.get("message", {}).get("content", "")
             j = interpretar(contenido)
@@ -320,11 +349,11 @@ def cmd_etiquetar(a):
                 "decision": j["decision"] if j else "INVALIDA", "dudoso": j["dudoso"] if j else None,
                 "puntos": j["puntos"] if j else [], "razon": j["razon"] if j else "",
                 "crudo": contenido, "pensamiento": r.get("message", {}).get("thinking", ""),
-                "segundos": round(time.time() - t0, 2), "total_duration_ns": r.get("total_duration"),
+                "segundos": round(time.monotonic() - t0, 2), "total_duration_ns": r.get("total_duration"),
                 "done_reason": r.get("done_reason"), "error": r.get("error"),
             }, ensure_ascii=False) + "\n")
             fo.flush()
-            print(f"  {i}/{len(entrada)} {x['obra_id']} {j['decision'] if j else 'INVALIDA'} {time.time()-t0:.1f}s", flush=True)
+            print(f"  {i}/{len(entrada)} {x['obra_id']} {j['decision'] if j else 'INVALIDA'} {time.monotonic()-t0:.1f}s", flush=True)
 
 
 def mediana(v):
@@ -349,6 +378,23 @@ def referencia(datos, mitad, prueba):
     return {d["obra_id"]: d["ref"] for d in map(json.loads, open(p, encoding="utf-8")) if d["mitad"] == mitad}
 
 
+def leer_presupuesto(datos, prueba):
+    """(inicio, límite) del presupuesto, como fechas UTC reales; exige exactamente HORAS_PRESUPUESTO horas."""
+    pres = Path(datos) / "presupuesto.json"
+    if not pres.exists():
+        if prueba:
+            return None, None
+        raise Inconclusivo("falta presupuesto.json (lo escribe el primer 'lanzar')")
+    try:
+        pj = json.loads(pres.read_text(encoding="utf-8-sig"))
+        inicio, limite = fecha_utc(pj.get("inicio_utc")), fecha_utc(pj.get("limite_utc"))
+    except ValueError as e:
+        raise Inconclusivo(f"presupuesto.json inválido: {e}")
+    if not igual(pj.get("horas"), HORAS_PRESUPUESTO) or (limite - inicio).total_seconds() != HORAS_PRESUPUESTO * 3600:
+        raise Inconclusivo(f"presupuesto.json no declara exactamente {HORAS_PRESUPUESTO} h entre inicio y límite")
+    return inicio, limite
+
+
 def leer_salida_oficial(datos, mitad, c, ref, prueba):
     """Lee una salida y exige que TODAS sus filas tengan la firma oficial esperada y estén dentro del presupuesto de tiempo."""
     p = Path(datos) / f"salida_{mitad}_{c}.jsonl"
@@ -358,24 +404,21 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
     if not prueba:
         esperado["entrada_sha256"] = particion_congelada()["sha256"][f"entrada_{mitad}.jsonl"]
         esperado["simulado"] = False
-    pres = Path(datos) / "presupuesto.json"
-    if pres.exists():
-        limite = json.loads(pres.read_text(encoding="utf-8-sig"))["limite_utc"]
-    elif prueba:
-        limite = None
-    else:
-        raise Inconclusivo("falta presupuesto.json (lo escribe el primer 'lanzar')")
+    inicio, limite = leer_presupuesto(datos, prueba)
     if not prueba:
         esperado["script_sha256"] = sha(Path(__file__).read_bytes())   # la misma versión congelada que evalúa
     s = {}
-    for n, d in lineas_json(p):
+    filas, descartadas = lineas_json(p)
+    for n, d in filas:
         mal = {k: (d.get(k), v) for k, v in esperado.items() if not igual(d.get(k), v)}
         if mal:
             raise Inconclusivo(f"{p.name}, línea {n}: metadatos distintos de los oficiales: {mal}")
-        if not isinstance(d.get("utc"), str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", d["utc"]):
-            raise Inconclusivo(f"{p.name}, línea {n}: hora UTC ausente o mal formada")
-        if limite and d["utc"] > limite:
-            raise Inconclusivo(f"{p.name}, línea {n}: etiquetada después del límite de tiempo {limite}")
+        try:
+            hora = fecha_utc(d.get("utc"))
+        except ValueError as e:
+            raise Inconclusivo(f"{p.name}, línea {n}: hora UTC inválida ({e})")
+        if limite is not None and not (inicio <= hora <= limite):
+            raise Inconclusivo(f"{p.name}, línea {n}: etiquetada fuera del presupuesto de tiempo ({d['utc']})")
         # la decisión tabulada debe salir de la respuesta cruda y del modelo pedido; si no, la fila no es confiable
         j = interpretar(d.get("crudo", ""))
         if d.get("modelo_respuesta") != CONFIGS[c]["modelo"]:
@@ -386,8 +429,9 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
         elif not (d.get("decision") == j["decision"] and igual(d.get("puntos"), j["puntos"])
                   and d.get("razon") == j["razon"] and igual(d.get("dudoso"), j["dudoso"])):
             raise Inconclusivo(f"{p.name}, línea {n}: la decisión no corresponde a la respuesta cruda")
-        if not isinstance(d.get("segundos"), (int, float)) or isinstance(d.get("segundos"), bool):
-            raise Inconclusivo(f"{p.name}, línea {n}: 'segundos' ausente o no numérico")
+        seg = d.get("segundos")
+        if not isinstance(seg, (int, float)) or isinstance(seg, bool) or not math.isfinite(seg) or seg < 0:
+            raise Inconclusivo(f"{p.name}, línea {n}: 'segundos' debe ser un número finito y no negativo ({seg!r})")
         if d.get("obra_id") in s:
             raise Inconclusivo(f"{p.name}, línea {n}: obra repetida {d.get('obra_id')}")
         s[d["obra_id"]] = d
@@ -396,11 +440,12 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
         raise Inconclusivo(f"{p.name}: {len(extra)} obras que no son de esta mitad")
     falt = [o for o in ref if o not in s]
     if falt:
-        raise Inconclusivo(f"{p.name}: faltan {len(falt)} obras")
-    return s
+        raise Inconclusivo(f"{p.name}: faltan {len(falt)} obras: {', '.join(sorted(falt)[:20])}{' …' if len(falt) > 20 else ''}")
+    return s, descartadas
 
 
-def metricas(ref, sal):
+def metricas(ref, leido):
+    sal, descartadas = leido
     n = len(ref)
     prot = [o for o, r in ref.items() if r in PROTEGIDAS]
     omis = [o for o in prot if sal[o]["decision"] == "EXCLUIR_FUERA_TEMA"]
@@ -410,16 +455,19 @@ def metricas(ref, sal):
             "acuerdo": sum(1 for o, r in ref.items() if sal[o]["decision"] == r) / n,
             "invalidas": inval, "frac_invalidas": inval / n,
             "mediana_segundos": mediana([sal[o]["segundos"] for o in ref]),
-            "matriz": dict(Counter(f"{r}->{sal[o]['decision']}" for o, r in ref.items()))}
+            "matriz": dict(Counter(f"{r}->{sal[o]['decision']}" for o, r in ref.items())),
+            "lineas_descartadas": descartadas}
 
 
 def cmd_verificar(a):
-    s = [d for _, d in lineas_json(a.salida)]
+    filas, descartadas = lineas_json(a.salida)
+    s = [d for _, d in filas]
     claves = ["config", "modelo_pedido", "sistema_sha256", "script_sha256", "entrada_sha256", "simulado"]
     print(json.dumps({"lineas_validas": len(s), "decisiones": dict(Counter(d.get("decision") for d in s)),
                       "firmas": dict(Counter(json.dumps({k: d.get(k) for k in claves}, sort_keys=True) for d in s)),
                       "modelos_respuesta": dict(Counter(d.get("modelo_respuesta") for d in s)),
-                      "truncadas_por_longitud": sum(d.get("done_reason") == "length" for d in s)}, indent=2, ensure_ascii=False))
+                      "truncadas_por_longitud": sum(d.get("done_reason") == "length" for d in s),
+                      "lineas_descartadas": descartadas}, indent=2, ensure_ascii=False))
 
 
 def cmd_elegir(a):
@@ -480,7 +528,7 @@ def main():
     p = sp.add_parser("preparar"); p.add_argument("--lote01", required=True); p.add_argument("--lote02", required=True); p.add_argument("--lote03", required=True); p.add_argument("--datos", required=True)
     p = sp.add_parser("probar"); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
     p = sp.add_parser("etiquetar"); p.add_argument("--entrada", required=True); p.add_argument("--config", required=True, choices=CONFIGS); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
-    p.add_argument("--hasta", default=None, help="límite UTC (AAAA-MM-DDTHH:MM:SSZ): no empieza obras después de esta hora")
+    p.add_argument("--hasta", default=None, type=arg_fecha, help="límite UTC (AAAA-MM-DDTHH:MM:SSZ): no empieza obras después de esta hora")
     p = sp.add_parser("verificar"); p.add_argument("--salida", required=True)
     for n in ("elegir", "validar"):
         p = sp.add_parser(n); p.add_argument("--datos", required=True)
