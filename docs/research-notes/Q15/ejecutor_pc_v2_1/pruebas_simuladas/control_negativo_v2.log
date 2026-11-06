@@ -1,0 +1,145 @@
+test_cache_misma_evidencia_sin_reescritura_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_cache_misma_evidencia_sin_reescritura_con_rutas_windows) ... ERROR
+test_consulta_catalogo_tiene_dependencias_posix (q15_win_regression_suite.PersistedWindowsPaths.test_consulta_catalogo_tiene_dependencias_posix) ... ERROR
+test_dependencia_job_reutilizado_tiene_id_posix (q15_win_regression_suite.PersistedWindowsPaths.test_dependencia_job_reutilizado_tiene_id_posix) ... ERROR
+test_directorio_rechazo_forzando_purewindowspath (q15_win_regression_suite.PersistedWindowsPaths.test_directorio_rechazo_forzando_purewindowspath) ... FAIL
+test_recuperacion_200_atom_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_atom_con_rutas_windows) ... ERROR
+test_recuperacion_200_bulk_esquema_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_bulk_esquema_con_rutas_windows) ... ERROR
+test_recuperacion_200_no_json_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_no_json_con_rutas_windows) ... ERROR
+
+======================================================================
+ERROR: test_cache_misma_evidencia_sin_reescritura_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_cache_misma_evidencia_sin_reescritura_con_rutas_windows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 864, in test_cache_misma_evidencia_sin_reescritura_con_rutas_windows
+    StorageAndHTTP.test_respuesta_cache_no_hace_solicitud_ni_sobrescribe(self)
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 138, in test_respuesta_cache_no_hace_solicitud_ni_sobrescribe
+    second=http.get('https://example.test/page')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 403, in get
+    self.store.track(evidence, "HTTP")
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 214, in track
+    ref = {"archivo": name, "sha256": digest(self.artifact(name).read_bytes()), "tipo": kind}
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp2f9puw_l/salida_windows/raw\\d801f7fd9da67e8696dd1b2a7d240e7af31f3a945f87e449e83430993e8b8fb0\\attempt_000001.json'
+
+======================================================================
+ERROR: test_consulta_catalogo_tiene_dependencias_posix (q15_win_regression_suite.PersistedWindowsPaths.test_consulta_catalogo_tiene_dependencias_posix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 887, in test_consulta_catalogo_tiene_dependencias_posix
+    CacheV2.test_catalogo_y_consulta_verifican_dependencia_cruda_indirecta(self)
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 778, in test_catalogo_y_consulta_verifican_dependencia_cruda_indirecta
+    with contextlib_stdout(),self.assertRaises(Q.IntegrityError):Q.execute(runner,'catalogos',{'NeurIPS'})
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 1213, in execute
+    catalogues[base] = runner.catalogue(base)
+                       ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 1086, in catalogue
+    return self.store.job("catalogue_" + base,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 267, in job
+    self.track(name, "JOB")
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 214, in track
+    ref = {"archivo": name, "sha256": digest(self.artifact(name).read_bytes()), "tipo": kind}
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpbj28i_lu/salida_windows/jobs\\catalogue_NeurIPS\\result_000001.json'
+
+======================================================================
+ERROR: test_dependencia_job_reutilizado_tiene_id_posix (q15_win_regression_suite.PersistedWindowsPaths.test_dependencia_job_reutilizado_tiene_id_posix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 883, in test_dependencia_job_reutilizado_tiene_id_posix
+    self.assertEqual(parent['dependencias'][0]['archivo'],'jobs/child/result_000001.json')
+                     ~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_recuperacion_200_atom_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_atom_con_rutas_windows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 872, in test_recuperacion_200_atom_con_rutas_windows
+    CacheV2.test_200_atom_erroneo_reintento_conserva_primer_fallo(self)
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 800, in test_200_atom_erroneo_reintento_conserva_primer_fallo
+    self.assertEqual(self.store.job('q',lambda:runner.native(row),True)['estado'],'COMPLETA')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 267, in job
+    self.track(name, "JOB")
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 214, in track
+    ref = {"archivo": name, "sha256": digest(self.artifact(name).read_bytes()), "tipo": kind}
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpw5vzv374/salida_windows/jobs\\q\\result_000001.json'
+
+======================================================================
+ERROR: test_recuperacion_200_bulk_esquema_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_bulk_esquema_con_rutas_windows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 876, in test_recuperacion_200_bulk_esquema_con_rutas_windows
+    CacheV2.test_bulk_200_json_con_esquema_invalido_se_puede_recuperar(self)
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 764, in test_bulk_200_json_con_esquema_invalido_se_puede_recuperar
+    self.assertEqual(self.store.job('q',lambda:runner.native(row),True)['estado'],'COMPLETA')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 267, in job
+    self.track(name, "JOB")
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 214, in track
+    ref = {"archivo": name, "sha256": digest(self.artifact(name).read_bytes()), "tipo": kind}
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpah_q0w7h/salida_windows/jobs\\q\\result_000001.json'
+
+======================================================================
+ERROR: test_recuperacion_200_no_json_con_rutas_windows (q15_win_regression_suite.PersistedWindowsPaths.test_recuperacion_200_no_json_con_rutas_windows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 868, in test_recuperacion_200_no_json_con_rutas_windows
+    CacheV2.test_200_no_json_se_recupera_exclusivo_con_reintento(self)
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 789, in test_200_no_json_se_recupera_exclusivo_con_reintento
+    self.assertEqual(self.store.job('q',work,True)['estado'],'COMPLETA')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 267, in job
+    self.track(name, "JOB")
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2/ejecutar_q15_v3.py", line 214, in track
+    ref = {"archivo": name, "sha256": digest(self.artifact(name).read_bytes()), "tipo": kind}
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp6_eoj55m/salida_windows/jobs\\q\\result_000001.json'
+
+======================================================================
+FAIL: test_directorio_rechazo_forzando_purewindowspath (q15_win_regression_suite.PersistedWindowsPaths.test_directorio_rechazo_forzando_purewindowspath)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/leviathan/docs/research-notes/Q15/ejecutor_pc_v2_1/pruebas_ejecutar_q15_v3_1.py", line 897, in test_directorio_rechazo_forzando_purewindowspath
+    self.assertIsNotNone(self.store.rejection(evidence))
+AssertionError: unexpectedly None
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.027s
+
+FAILED (failures=1, errors=6)

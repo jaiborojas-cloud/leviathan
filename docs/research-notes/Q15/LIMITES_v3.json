@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "estado": "OPERATIVA_AUTORIZADA",
+  "corte_bibliografico": "2026-11-02",
+  "consultas": {
+    "N_umbral": 500,
+    "K_si_supera_N": 200,
+    "regla": "n<=500: todos; n>500: primeros 200; desconocido: sondeo hasta 501",
+    "estado_por_tope": "TRUNCADA_DECLARADA",
+    "duplicados_y_postfiltros_no_reponen_cupos": true,
+    "orden_por_base": {
+      "arXiv": "relevance descending (sortBy=relevance; sortOrder=descending)",
+      "SemanticScholar": "relevancia nativa; orden recibido de paper/search",
+      "GoogleScholar": "relevancia nativa; sort por fecha desactivado; patentes desactivadas",
+      "NeurIPS": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente",
+      "ICML": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente",
+      "ICLR": "catalogo: anio descendente, titulo NFKC/casefold ascendente, ID oficial ascendente"
+    }
+  },
+  "citantes": {
+    "umbral_citas_ancla": 500,
+    "condicion": ">500 o conteo desconocido: filtro DIN",
+    "campos_filtro": [
+      "titulo",
+      "resumen"
+    ],
+    "operador": "OR",
+    "terminos": [
+      "early",
+      "Fisher",
+      "training dynamics",
+      "confidence",
+      "calibration",
+      "overconfidence",
+      "logit",
+      "logits",
+      "LogitNorm",
+      "softmax",
+      "implicit bias",
+      "max margin",
+      "maximum margin",
+      "neural tangent",
+      "learning curve",
+      "learning curves",
+      "forgetting",
+      "difficulty",
+      "information geometry"
+    ],
+    "filtro_logico_literal": "(\"early\" OR \"Fisher\" OR \"training dynamics\" OR \"confidence\" OR \"calibration\" OR \"overconfidence\" OR \"logit\" OR \"logits\" OR \"LogitNorm\" OR \"softmax\" OR \"implicit bias\" OR \"max margin\" OR \"maximum margin\" OR \"neural tangent\" OR \"learning curve\" OR \"learning curves\" OR \"forgetting\" OR \"difficulty\" OR \"information geometry\")",
+    "filtro_semantic_scholar": "(\"early\" | \"Fisher\" | \"training dynamics\" | \"confidence\" | \"calibration\" | \"overconfidence\" | \"logit\" | \"logits\" | \"LogitNorm\" | \"softmax\" | \"implicit bias\" | \"max margin\" | \"maximum margin\" | \"neural tangent\" | \"learning curve\" | \"learning curves\" | \"forgetting\" | \"difficulty\" | \"information geometry\")",
+    "filtro_google_scholar": "(\"early\" OR \"Fisher\" OR \"training dynamics\" OR \"confidence\" OR \"calibration\" OR \"overconfidence\" OR \"logit\" OR \"logits\" OR \"LogitNorm\" OR \"softmax\" OR \"implicit bias\" OR \"max margin\" OR \"maximum margin\" OR \"neural tangent\" OR \"learning curve\" OR \"learning curves\" OR \"forgetting\" OR \"difficulty\" OR \"information geometry\")",
+    "normalizacion": "Unicode NFKC, casefold, guiones ASCII/Unicode a espacio y colapso de espacios",
+    "coincidencia": "frase literal con limites de palabra Unicode",
+    "sin_resumen_y_sin_coincidencia_titulo": "PENDIENTE_FILTRO",
+    "orden_nativo": "orden recibido del grafo; sin ranking por citas ni seleccion manual",
+    "N_umbral": 500,
+    "K_si_supera_N": 200,
+    "servidor_sin_filtro": "limitar primero lista nativa; aplicar filtro local; TRUNCADA_DECLARADA; no reponer candidatos",
+    "total_citas_no_es_total_de_resultados_filtrados": true
+  },
+  "referencias_atras": {
+    "filtro_DIN": false,
+    "N_umbral": 500,
+    "K_si_supera_N": 200
+  },
+  "acceso": {
+    "bloqueo": "BLOQUEADA",
+    "tope_no_planificado": "TRUNCADA_ACCESO",
+    "falta_datos": "PARCIAL o PENDIENTE; nunca cero inventado"
+  },
+  "inferencia": "revision sistematica acotada; novedad solo dentro de cobertura efectiva; no exhaustividad universal"
+}

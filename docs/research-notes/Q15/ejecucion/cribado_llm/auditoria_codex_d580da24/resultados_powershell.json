@@ -1,0 +1,11 @@
+{
+  "native_failure": "Fallo (9): az vm list-usage --location eastus -o table",
+  "remote_command": "tmux new -d -s q15 'timeout 86399 bash -c \"python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_seleccion.jsonl --config C1 --datos ~/q15/datos && python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_seleccion.jsonl --config C2 --datos ~/q15/datos\" 2>&1 | tee -a ~/q15/etiquetar.log; echo FIN seleccion codigo=${PIPESTATUS[0]} >> ~/q15/etiquetar.log'",
+  "uploads": [
+    "scp C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f808db81-f7ea-4adc-9503-2c58978809e6}\\Temp\\q15_ps_d6ada6f5c9164e22be2e08f09b18f80d\\cribado_llm.py C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f808db81-f7ea-4adc-9503-2c58978809e6}\\Temp\\q15_ps_d6ada6f5c9164e22be2e08f09b18f80d\\PROMPT_CRIBADO_LLM.md C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f808db81-f7ea-4adc-9503-2c58978809e6}\\Temp\\q15_ps_d6ada6f5c9164e22be2e08f09b18f80d\\particion.json azureuser@192.0.2.1:~/q15/",
+    "scp C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f808db81-f7ea-4adc-9503-2c58978809e6}\\Temp\\q15_ps_d6ada6f5c9164e22be2e08f09b18f80d\\datos\\entrada_seleccion.jsonl azureuser@192.0.2.1:~/q15/datos/"
+  ],
+  "active_session": "Ya hay una sesion q15 corriendo en la VM; espera a que termine (-Fase estado) antes de lanzar otra.",
+  "expired": "Se agoto el presupuesto de 24 h (limite 2000-01-02T00:00:00Z): el piloto queda INCONCLUSIVO si no termino.",
+  "bad_hash": "SHA-256 distinto en C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f808db81-f7ea-4adc-9503-2c58978809e6}\\Temp\\q15_ps_d6ada6f5c9164e22be2e08f09b18f80d\\datos\\salida_seleccion_C1.jsonl\n  esperado 0000000000000000000000000000000000000000000000000000000000000000\n  real     6cb496a9cdc9f87f9149123e01f4691fed090e43c85eee6c9195f2eac51e0ab7"
+}

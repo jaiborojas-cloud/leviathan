@@ -1,0 +1,56 @@
+{
+  "estado": "PASS_LOCAL_CON_RUTAS_WINDOWS_FORZADAS",
+  "estado_producto": "LISTO_PARA_REPETIR_PRUEBAS_EN_PC_ANTES_DE_RED",
+  "fecha_utc": "2026-11-03T01:51:36.509366+00:00",
+  "fecha_mexico": "2026-11-02T19:51:36.509366-06:00",
+  "codigo_commit": "505e4239e7343bc73dffb838351da56d39039703",
+  "version": "EJECUTOR_PC_v2.1_Q15_v3.1",
+  "script_sha256": "6f05b419dbc3d055a3e155c4bfcf9346ed61ba6d938dad8828e9bfbd9157147b",
+  "pruebas_sha256": "e1782c6da81f33fe68d2e89c24f8d90a9565a98c5131cdb7b6d1d659b03dfeca",
+  "prueba_vigente": "pruebas_simuladas/run_01.json",
+  "casos": 98,
+  "fallos": 0,
+  "errores": 0,
+  "casos_nuevos_purewindowspath": 7,
+  "python_probado": "3.12.14",
+  "plataforma_local": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "red_durante_pruebas": false,
+  "ejecucion_windows_nativa_nueva": false,
+  "incidencia_windows_anterior_reportada": {
+    "pasan": 87,
+    "total": 91,
+    "informe_real_leido": false,
+    "informe_original_conservado_en_PC": "D:\\RIPG_DATA\\Q15_v31_CONTROLES\\pruebas_001.json",
+    "log_original_conservado_en_PC": "D:\\RIPG_DATA\\Q15_v31_CONTROLES\\pruebas_001.log"
+  },
+  "revision_codigo": {
+    "relative_to_persistidos_as_posix": 3,
+    "directorio_rechazos_as_posix": 1,
+    "AST_identico_al_anterior_salvo_esas_4_conversiones_y_VERSION": true,
+    "conversiones_str_relative_to_restantes": 0
+  },
+  "control_negativo_anterior": {
+    "tests": 7,
+    "pasan": 0,
+    "FAIL": 1,
+    "ERROR": 6,
+    "evaluacion": "pruebas_simuladas/EVALUACION_CONTROL_NEGATIVO.json"
+  },
+  "preparacion_sin_red": {
+    "unidades": 294,
+    "solicitudes_HTTP": 0
+  },
+  "manifiestos_anteriores_intactos": {
+    "MANIFEST_v1.sha256": 18,
+    "MANIFEST_v2.sha256": 17,
+    "MANIFEST_OPERATIVA_v3.sha256": 7,
+    "ejecucion/MANIFEST_AVANCE_01.sha256": 30,
+    "ejecutor_pc_v1/MANIFEST_EJECUTOR_BORRADOR_v1_1.sha256": 21,
+    "MANIFEST_ENMIENDA_S2_v3_1.sha256": 4,
+    "ejecutor_pc_v2/MANIFEST_EJECUTOR_v2.sha256": 14
+  },
+  "consultas_bibliograficas_reales": 0,
+  "experimentos_DIN": 0,
+  "sin_cambios_protocolo": true,
+  "enlaces_locales_validos": 8
+}

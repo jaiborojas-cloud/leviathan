@@ -1,0 +1,501 @@
+#!/usr/bin/env python3
+"""Pruebas solo con metadatos sintéticos y transporte sin internet."""
+from __future__ import annotations
+
+import argparse
+import copy
+import importlib.util
+import io
+import json
+import math
+import socket
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+from urllib.parse import parse_qs, urlencode, urlparse
+
+HERE = Path(__file__).resolve().parent
+SPEC = importlib.util.spec_from_file_location("q15_executor_audit", HERE / "ejecutar_q15_v3.py")
+Q = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = Q
+SPEC.loader.exec_module(Q)
+
+
+class FakeClock:
+    def __init__(self):
+        self.now, self.sleeps = 0.0, []
+    def monotonic(self):
+        return self.now
+    def sleep(self, seconds):
+        if seconds < 0:
+            raise AssertionError("Pausa negativa")
+        self.sleeps.append(seconds)
+        self.now += seconds
+
+
+def rec(i, title=None, year=2025, abstract="Texto sintético sin palabras clave"):
+    return {"id": str(i), "paperId": str(i), "title": title or f"Documento sintético {i}",
+            "year": year, "abstract": abstract, "authors": ["Autor Sintético"]}
+
+
+def atom(total, records):
+    from xml.sax.saxutils import escape
+    entries = "".join(f'<entry><id>https://arxiv.org/abs/0000.{i:05d}</id><title>{escape(r["title"])}</title><summary>Resumen sintético</summary><author><name>Autor Sintético</name></author><published>2025-01-01T00:00:00Z</published></entry>' for i,r in enumerate(records))
+    return f'<feed xmlns="http://www.w3.org/2005/Atom" xmlns:o="http://a9.com/-/spec/opensearch/1.1/"><o:totalResults>{total}</o:totalResults>{entries}</feed>'.encode()
+
+
+def paged(n, total=True, error_offset=None):
+    calls = []
+    def fetch(offset, size):
+        calls.append((offset,size))
+        if offset == error_offset:
+            raise Q.AccessError("fallo sintético en página")
+        end = offset + size >= n
+        return Q.Page([rec(i) for i in range(offset,min(n,offset+size))], n if total else None,
+                      None if end else offset+size,end,f"fixture-page-{offset}")
+    return fetch,calls
+
+
+class Offline(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.path = Path(self.temp.name)
+        self.store = Q.Store(self.path / "salida")
+        self.clock = FakeClock()
+    def tearDown(self):
+        self.temp.cleanup()
+    def client(self, mapping, **kwargs):
+        transport = Q.FixtureTransport(mapping)
+        client = Q.Http(self.store,transport,self.clock,**kwargs)
+        return client,transport
+    def inputs(self):
+        return Q.load_inputs(Q.Q15_DEFAULT)
+
+
+class InputsAndURLs(Offline):
+    def test_inputs_reales_son_solo_documentos_congelados(self):
+        inputs=self.inputs()
+        self.assertEqual((55,294,19),(len(inputs['queries']),len(inputs['plan']),len(inputs['seeds'])))
+
+    def test_input_alterado_no_se_acepta(self):
+        copied=self.path/'inputs'
+        for name in Q.EXPECTED:
+            file=copied/name;file.parent.mkdir(parents=True,exist_ok=True)
+            file.write_bytes((Q.Q15_DEFAULT/name).read_bytes())
+        with (copied/'consultas_v2.csv').open('ab') as f:f.write(b'\n')
+        with self.assertRaises(Q.IntegrityError):Q.load_inputs(copied)
+
+    def test_urls_arxiv_conservan_consulta_y_orden(self):
+        query='(ti:"Fisher" OR abs:"Fisher") AND submittedDate:[190001010000 TO 202611022359]'
+        params=parse_qs(urlparse(Q.arxiv_url(query,200,1)).query)
+        self.assertEqual(params['search_query'],[query])
+        self.assertEqual(params['sortBy'],['relevance'])
+        self.assertEqual(params['sortOrder'],['descending'])
+        self.assertEqual(params['max_results'],['1'])
+
+    def test_url_s2_no_quita_booleanos_ni_cambia_a_bulk(self):
+        params=parse_qs(urlparse(Q.s2_search_url('"Fisher" + ("early" | "confidence")',1900,0,100)).query)
+        self.assertIn('+',params['query'][0])
+        self.assertEqual(params['year'],['1900-2026'])
+
+    def test_google_scholar_omitida_55(self):
+        plan=Q.prepare_urls(self.inputs())
+        gs=[r for r in plan if r['base']=='GoogleScholar']
+        self.assertEqual(len(gs),55)
+        self.assertTrue(all(r['estado']=='OMITIDA_OPCIONAL' and not r['url_primera_pagina'] for r in gs))
+
+    def test_s2_guardado_como_incompatibilidad_sin_red(self):
+        inputs=self.inputs();http,transport=self.client({})
+        runner=Q.Runner(inputs,self.store,http)
+        row=next(r for r in inputs['plan'] if r['base']=='SemanticScholar')
+        result=runner.native(row)
+        self.assertEqual(result['estado'],'PENDIENTE_ENMIENDA_S2')
+        self.assertIsNone(result['total_declarado'])
+        self.assertEqual(transport.calls,[])
+
+
+class StorageAndHTTP(Offline):
+    def test_escritura_exclusiva_preserva_marcador(self):
+        path=self.path/'marca'
+        Q.exclusive_write(path,b'marcador')
+        with self.assertRaises(FileExistsError):Q.exclusive_write(path,b'nuevo')
+        self.assertEqual(path.read_bytes(),b'marcador')
+
+    def test_bloqueo_evitar_dos_productores(self):
+        with Q.output_lock(self.path/'lock'):
+            with self.assertRaises(Q.Q15Error):
+                with Q.output_lock(self.path/'lock'):pass
+
+    def test_respuesta_cache_no_hace_solicitud_ni_sobrescribe(self):
+        http,transport=self.client({'https://example.test/page':{'body':{'data':[]}}})
+        first=http.get('https://example.test/page')
+        before={str(p):p.read_bytes() for p in self.store.root.rglob('*') if p.is_file()}
+        second=http.get('https://example.test/page')
+        self.assertEqual(first,second)
+        self.assertEqual(len(transport.calls),1)
+        self.assertEqual(before,{str(p):p.read_bytes() for p in self.store.root.rglob('*') if p.is_file()})
+
+    def test_sha_crudo_alterado_aborta(self):
+        http,_=self.client({'https://example.test/page':{'body':'real-sintético'}})
+        _,meta,_=http.get('https://example.test/page')
+        (self.store.root/meta['body_file']).write_bytes(b'alterado')
+        with self.assertRaises(Q.IntegrityError):http.get('https://example.test/page')
+
+    def test_huerfano_de_cuerpo_reserva_indice(self):
+        url='https://example.test/p'
+        directory='raw/'+Q.digest(url.encode())
+        Q.exclusive_write(self.store.root/directory/'attempt_000001.body',b'parcial de corte')
+        http,_=self.client({url:{'body':'completa'}})
+        _,meta,_=http.get(url)
+        self.assertTrue(meta['body_file'].endswith('000002.body'))
+        self.assertEqual((self.store.root/directory/'attempt_000001.body').read_bytes(),b'parcial de corte')
+
+    def test_429_retry_after_y_cuerpos_preservados(self):
+        url='https://api.semanticscholar.org/graph/v1/paper/sintetico'
+        http,transport=self.client({url:[{'status':429,'headers':{'Retry-After':'7'},'body':'limite'}, {'body':{'ok':True}}]})
+        _,meta,_=http.get(url)
+        self.assertEqual(meta['status'],200)
+        self.assertEqual(len(transport.calls),2)
+        self.assertGreaterEqual(self.clock.now,7)
+        statuses=[json.loads(p.read_text())['status'] for p in sorted(self.store.root.glob('raw/*/*.json'))]
+        self.assertEqual(statuses,[429,200])
+
+    def test_pausa_semantic_minimo_un_segundo(self):
+        urls=['https://api.semanticscholar.org/a','https://api.semanticscholar.org/b']
+        http,_=self.client({u:{'body':'ok'} for u in urls},s2_pause=1)
+        for u in urls:http.get(u)
+        self.assertGreaterEqual(self.clock.now,1)
+        with self.assertRaises(ValueError):Q.Http(self.store,s2_pause=.99)
+
+    def test_pausa_arxiv_tres_segundos(self):
+        urls=['https://export.arxiv.org/a','https://export.arxiv.org/b']
+        http,_=self.client({u:{'body':'ok'} for u in urls})
+        for u in urls:http.get(u)
+        self.assertGreaterEqual(self.clock.now,3)
+
+    def test_429_agotado_no_se_vuelve_cero_resultados(self):
+        url='https://example.test/rate'
+        http,transport=self.client({url:[{'status':429,'body':'uno'},{'status':429,'body':'dos'}]},retries=1)
+        with self.assertRaises(Q.AccessError):http.get(url)
+        self.assertEqual(len(transport.calls),2)
+        self.assertEqual(len(list(self.store.root.glob('raw/*/*.json'))),2)
+
+    def test_403_sin_reintento_y_reanudacion_explicita(self):
+        url='https://example.test/forbidden'
+        http,transport=self.client({url:[{'status':403,'body':'prohibido'},{'body':'ahora si'}]})
+        with self.assertRaises(Q.AccessError):http.get(url)
+        with self.assertRaises(Q.AccessError):http.get(url)
+        self.assertEqual(len(transport.calls),1)
+        http.retry_failed=True
+        self.assertEqual(http.get(url)[0],b'ahora si')
+        self.assertEqual(len(list(self.store.root.glob('raw/*/*.body'))),2)
+
+    def test_fixture_ausente_nunca_recurre_a_red(self):
+        http,transport=self.client({},retries=0)
+        with self.assertRaises(Q.AccessError):http.get('https://example.test/faltante')
+        self.assertEqual(transport.calls,['https://example.test/faltante'])
+
+    def test_cabeceras_no_guardan_api_key(self):
+        url='https://api.semanticscholar.org/p'
+        http,_=self.client({url:{'body':'ok','headers':{'Set-Cookie':'NO-GUARDAR'}}})
+        with patch.dict(Q.os.environ,{'S2_API_KEY':'SECRETO_SINTETICO'}):
+            http.get(url)
+        dump=''.join(p.read_text() for p in self.store.root.glob('raw/*/*.json'))
+        self.assertNotIn('SECRETO_SINTETICO',dump)
+        self.assertNotIn('NO-GUARDAR',dump)
+
+    def test_identidad_impide_mezclar_simulado_y_real(self):
+        Q.bind_identity(self.store,self.inputs(),'SIMULADO','hash-fixture')
+        with self.assertRaises(Q.IntegrityError):Q.bind_identity(self.store,self.inputs(),'RED',None)
+
+    def test_resultado_terminado_no_repite_trabajo(self):
+        result=self.store.job('job',lambda:{'estado':'COMPLETA','n':3})
+        self.assertEqual(self.store.job('job',lambda:self.fail('se reejecutó'),True),result)
+
+    def test_resultado_fallido_se_conserva_al_corregir(self):
+        self.store.job('job',lambda:{'estado':'PARCIAL','error':'fallo'})
+        self.store.job('job',lambda:{'estado':'COMPLETA'},True)
+        files=sorted((self.store.root/'jobs/job').glob('result_*.json'))
+        self.assertEqual(len(files),2)
+        self.assertEqual(json.loads(files[0].read_text())['result']['error'],'fallo')
+
+    def test_resultado_tamper_se_detecta(self):
+        self.store.job('job',lambda:{'estado':'COMPLETA','n':1})
+        path=next((self.store.root/'jobs/job').glob('*.json'))
+        data=json.loads(path.read_text());data['result']['n']=999;path.write_text(json.dumps(data))
+        with self.assertRaises(Q.IntegrityError):self.store.job('job',lambda:{'estado':'COMPLETA'})
+
+    def test_json_nan_infinity_y_overflow_rechazados(self):
+        for body in [b'{"x":NaN}',b'{"x":Infinity}',b'{"x":1e999}']:
+            with self.subTest(body=body),self.assertRaises(Q.SchemaError):Q.strict_json(body)
+
+
+class PaginationAndParsers(Offline):
+    def test_exactamente_500_se_conservan_todos(self):
+        fetch,calls=paged(500);r=Q.collect_pages(fetch)
+        self.assertEqual((r['estado'],r['n_seleccionados']),('COMPLETA',500))
+        self.assertEqual(len(calls),5)
+
+    def test_501_declara_tope_200_sin_recuperar_501(self):
+        fetch,calls=paged(501);r=Q.collect_pages(fetch)
+        self.assertEqual((r['estado'],r['n_recuperados'],r['n_seleccionados']),('TRUNCADA_DECLARADA',200,200))
+        self.assertEqual(len(calls),2)
+
+    def test_sondeo_desconocido_hasta_501_no_600(self):
+        fetch,calls=paged(900,total=False);r=Q.collect_pages(fetch)
+        self.assertEqual((r['n_recuperados'],r['n_seleccionados']),(501,200))
+        self.assertEqual(calls[-1],(500,1))
+        self.assertIsNone(r['total_declarado'])
+
+    def test_desconocido_con_fin_real_menor_de_500(self):
+        fetch,_=paged(350,total=False);r=Q.collect_pages(fetch)
+        self.assertEqual((r['estado'],r['n_seleccionados']),('COMPLETA',350))
+
+    def test_fallo_de_segunda_pagina_conserva_primera(self):
+        fetch,_=paged(400,error_offset=100);r=Q.collect_pages(fetch)
+        self.assertEqual(r['estado'],'PARCIAL')
+        self.assertEqual(r['n_recuperados'],100)
+
+    def test_total_cambiante_no_declara_completa(self):
+        def fetch(offset,size):return Q.Page([rec(i) for i in range(offset,offset+size)],600+offset,offset+size,False)
+        r=Q.collect_pages(fetch)
+        self.assertEqual(r['estado'],'PARCIAL')
+        self.assertIn('TOTAL_CAMBIO_ENTRE_PAGINAS',r['issues'])
+
+    def test_fin_prematuro_no_es_catalogo_completo(self):
+        r=Q.collect_pages(lambda o,s:Q.Page([],None,None,True),known_total=700,forced_cap=200)
+        self.assertEqual(r['estado'],'PARCIAL')
+        self.assertIn('FIN_ANTES_DEL_TOTAL_DECLARADO',r['issues'])
+
+    def test_pagina_repetida_y_sin_avance(self):
+        r=Q.collect_pages(lambda o,s:Q.Page([rec(0)],None,o+1,False))
+        self.assertEqual(r['estado'],'PARCIAL')
+        self.assertTrue(any('REPETIDA' in x for x in r['issues']))
+        r=Q.collect_pages(lambda o,s:Q.Page([rec(0)],None,0,False))
+        self.assertIn('PAGINACION_SIN_AVANCE',r['issues'])
+
+    def test_duplicados_consumen_posiciones(self):
+        def fetch(offset,size):
+            rows=[rec(i) for i in range(offset,offset+size)]
+            if offset==0:rows[1]=copy.deepcopy(rows[0])
+            return Q.Page(rows,1000,offset+size,False)
+        r=Q.collect_pages(fetch)
+        self.assertEqual(r['n_seleccionados'],200)
+        self.assertEqual(len({i['record']['id'] for i in r['records']}),199)
+
+    def test_arxiv_atom_y_cero_legitimo(self):
+        page=Q.parse_arxiv(atom(1,[rec(0)]),0,100)
+        self.assertEqual(page.total,1)
+        self.assertEqual(len(page.records),1)
+        self.assertTrue(Q.parse_arxiv(atom(0,[]),0,100).end)
+
+    def test_html_login_no_pasa_como_atom_vacio(self):
+        for body in [b'<html><body>Login</body></html>',b'<feed xmlns="http://www.w3.org/2005/Atom"></feed>']:
+            with self.subTest(body=body),self.assertRaises(Q.SchemaError):Q.parse_arxiv(body,0,100)
+
+    def test_s2_esquema_y_vecino_nulo_conserva_posicion(self):
+        page=Q.parse_s2({'data':[{'citingPaper':None}],'next':1},'citingPaper')
+        self.assertEqual(len(page.records),1)
+        self.assertTrue(page.records[0]['missing'])
+        with self.assertRaises(Q.SchemaError):Q.parse_s2({'error':'API error'})
+        with self.assertRaises(Q.SchemaError):Q.parse_s2({'data':[],'total':True})
+
+
+class FiltersAndCatalogues(Offline):
+    def test_din_limites_de_palabra_guiones_unicode_y_campos(self):
+        terms=['early','Fisher','max margin','confidence']
+        cases=[({'title':'nearly finished','abstract':'nada'},'FUERA_FILTRO_DIN'),
+               ({'title':'Ｆｉｓｈｅｒ–Rao','abstract':None},'COINCIDE_DIN'),
+               ({'title':'max—margin','abstract':None},'COINCIDE_DIN'),
+               ({'title':'otro','abstract':None},'PENDIENTE_FILTRO'),
+               ({'title':'otro','abstract':'confidence'},'COINCIDE_DIN')]
+        for record,wanted in cases:self.assertEqual(Q.din_status(record,terms),wanted)
+
+    def test_fechas_parciales_no_inventan_dia(self):
+        cases=[({'year':2026},'PENDIENTE_FECHA'),({'year':2025},'INCLUIBLE'),
+               ({'publicationDate':'2026-11-03'},'FUERA_FECHA'),({'publicationDate':'2026-11-02'},'INCLUIBLE'),
+               ({'publicationDate':'2026-11'},'PENDIENTE_FECHA'),({'publicationDate':'2026-10'},'INCLUIBLE'),
+               ({'publicationDate':'2025/7/6'},'INCLUIBLE'),({'year':True},'PENDIENTE_FECHA')]
+        for r,wanted in cases:self.assertEqual(Q.record_date_status(r,'1900-01-01','2026-11-02'),wanted)
+
+    def test_autor_es_postfiltro_y_no_rellena_cupo(self):
+        r={'records':[{'selected':True,'record':{'year':2025,'authors':['Persona ajena']}},
+                      {'selected':False,'record':{'year':2025,'authors':['Jastrzebski']}}]}
+        Q.annotate_selected(r,{'fecha_desde':'1990-01-01','fecha_hasta':'2026-11-02','filtro_autor_metadatos':'Jastrzębski|Jastrzebski'})
+        self.assertTrue(all(not row['incluible_para_cribado'] for row in r['records']))
+
+    def test_booleano_literal_sin_stemming_y_sin_frase_entre_campos(self):
+        self.assertEqual(Q.boolean_status({'title':'Fisher','abstract':'kernel'},[['Fisher kernel']]),'NO_COINCIDE')
+        self.assertEqual(Q.boolean_status({'title':'Fisher kernel','abstract':None},[['Fisher'],['kernel']]),'COINCIDE')
+        self.assertEqual(Q.boolean_status({'title':'otro','abstract':None},[['Fisher']]),'PENDIENTE_RESUMEN')
+
+    def test_actas_orden_ano_desc_y_desempates_antes_tope(self):
+        query={'grupos_json':'[["Fisher"]]','fecha_desde':'1900-01-01','fecha_hasta':'2026-11-02','filtro_autor_metadatos':''}
+        rows=[rec(i,'Fisher '+str(1000-i),2024) for i in range(500)]+[rec('nuevo','Fisher A',2025)]
+        result=Q.catalogue_result(rows,query,[])
+        self.assertEqual(result['estado'],'TRUNCADA_DECLARADA')
+        self.assertEqual(result['n_seleccionados'],200)
+        self.assertEqual(result['records'][0]['record']['id'],'nuevo')
+        ties=[rec('z','Fisher A'),rec('a','Fisher A')]
+        result=Q.catalogue_result(ties,query,[])
+        self.assertEqual([r['record']['id'] for r in result['records']],['a','z'])
+
+    def test_resumen_ausente_no_es_cero_coincidencias_certificado(self):
+        query={'grupos_json':'[["Fisher"]]','fecha_desde':'1900-01-01','fecha_hasta':'2026-11-02'}
+        result=Q.catalogue_result([rec(0,'Otro título',abstract=None)],query,[])
+        self.assertEqual(result['estado'],'PARCIAL_CATALOGO')
+        self.assertIsNone(result['total_declarado'])
+        self.assertEqual(len(result['pendientes_concordancia']),1)
+
+    def test_parser_html_inline_y_abstract_heading(self):
+        body=b'<h1>Logit<em>Norm</em></h1><h4>Abstract</h4><p>Fisher early text.</p>'
+        record=Q.parse_article(body,'https://example.test/p',2025)
+        self.assertEqual(record['title'],'LogitNorm')
+        self.assertEqual(record['abstract'],'Fisher early text.')
+
+    def test_pmlr_contexto_fuera_del_enlace_y_solo_icml(self):
+        root='https://proceedings.mlr.press/'
+        volume=root+'v70/'
+        paper=root+'v70/sintetico.html'
+        mapping={root:{'body':'<ul><li><a href="/v70/">Volume 70</a> Proceedings ICML 2017</li><li><a href="/v999/">Volume 999</a> Workshop ajeno 2025</li></ul>'},
+                 volume:{'body':'<a href="sintetico.html">abs</a>'},
+                 paper:{'body':'<meta name="citation_title" content="Fisher sintético"><div class="abstract">early confidence</div>'}}
+        http,transport=self.client(mapping)
+        result=Q.Runner(self.inputs(),self.store,http).html_catalogue('ICML')
+        self.assertEqual(len(result['records']),1)
+        self.assertNotIn(root+'v999/',transport.calls)
+        self.assertIn('HISTORICO_ICML_ANTERIOR_A_PMLR_NO_RECUPERADO',result['issues'])
+
+    def test_indice_vacio_es_error_no_catalogo_vacio(self):
+        http,_=self.client({'https://proceedings.neurips.cc/':{'body':'<html>Loading</html>'}})
+        with self.assertRaises(Q.SchemaError):Q.Runner(self.inputs(),self.store,http).html_catalogue('NeurIPS')
+
+    def test_openreview_aceptados_v1_v2_y_no_workshops(self):
+        for wrapped in [False,True]:
+            def wrap(v):return {'value':v} if wrapped else v
+            note={'id':'sintetico','content':{'venueid':wrap('ICLR.cc/2025/Conference'),'title':wrap('Fisher'),'abstract':wrap('early')}}
+            self.assertIsNotNone(Q.parse_openreview_note(note,'ICLR.cc/2025/Conference',2025))
+            note['content']['venueid']=wrap('ICLR.cc/2025/Workshop')
+            self.assertIsNone(Q.parse_openreview_note(note,'ICLR.cc/2025/Conference',2025))
+
+    def test_openreview_publication_date_y_borrado(self):
+        note={'id':'x','pdate':1735689600000,'content':{'venueid':'ICLR.cc/2025/Conference','title':'X','abstract':'A'}}
+        result=Q.parse_openreview_note(note,'ICLR.cc/2025/Conference',2025)
+        self.assertEqual(result['publicationDate'],'2025-01-01')
+        note['ddate']=1
+        self.assertIsNone(Q.parse_openreview_note(note,'ICLR.cc/2025/Conference',2025))
+
+
+class GraphAndCLI(Offline):
+    def test_grafo_conteo_500_sin_filtro_y_501_con_filtro(self):
+        inputs=self.inputs();seed=inputs['seeds'][0]
+        for count in [500,501,None]:
+            with self.subTest(count=count):
+                store=Q.Store(self.path/str(count))
+                mapping={}
+                target=200 if count is None or count>500 else 500
+                for offset in range(0,target,100):
+                    items=[]
+                    for i in range(offset,offset+100):
+                        paper=rec(i,'early text' if i==0 else 'otro',abstract=None)
+                        items.append({'citingPaper':paper})
+                    data={'data':items}
+                    if offset+100<target or target==200:data['next']=offset+100
+                    mapping[Q.s2_graph_url('id','ADELANTE',offset,100)]={'body':data}
+                transport=Q.FixtureTransport(mapping);http=Q.Http(store,transport,self.clock)
+                runner=Q.Runner(inputs,store,http)
+                result=runner.graph(seed,{'paper':{'paperId':'id','citationCount':count}},'ADELANTE')
+                self.assertEqual(result['n_seleccionados'],target)
+                heavy=count is None or count>500
+                self.assertEqual(result['filtro_DIN_activado'],heavy)
+                if heavy:
+                    self.assertEqual(sum(x['incluible_para_cribado'] for x in result['records']),1)
+                    self.assertEqual(result['records'][1]['filtro_DIN'],'PENDIENTE_FILTRO')
+                    self.assertEqual(len(transport.calls),2)
+                else:self.assertEqual(len(transport.calls),5)
+
+    def test_resolver_s0_no_toma_titulo_cercano_distinto(self):
+        inputs=self.inputs();seed=inputs['seeds'][0]
+        ident='ARXIV:'+seed['arxiv_version_leida'].split('v')[0]
+        http,_=self.client({Q.s2_paper_url(ident):{'body':{'paperId':'mal','title':'Otro artículo','authors':[{'name':'Toneva'}]}}})
+        result=Q.Runner(inputs,self.store,http).resolve_seed(seed)
+        self.assertNotEqual(result['estado'],'COMPLETA')
+
+    def test_s0_snapshot_precede_toda_expansion_y_no_recursion(self):
+        inputs=self.inputs();inputs['seeds']=inputs['seeds'][:1];seed=inputs['seeds'][0]
+        metadata={'paperId':'s0','title':seed['titulo_verificado'],'authors':[{'name':'Mariya Toneva'}],'citationCount':0,'referenceCount':1}
+        ident='ARXIV:'+seed['arxiv_version_leida'].split('v')[0]
+        mapping={Q.s2_paper_url(ident):{'body':metadata},
+                 Q.s2_graph_url('s0','ATRAS',0,100):{'body':{'data':[{'citedPaper':rec('vecino')}]}},
+                 Q.s2_graph_url('s0','ADELANTE',0,100):{'body':{'data':[]}}}
+        fixture=Q.FixtureTransport(mapping)
+        def transport(url,headers,timeout):
+            if '/citations?' in url or '/references?' in url:
+                self.assertTrue(list((self.store.root/'S0').glob('resolved_*.json')))
+            return fixture(url,headers,timeout)
+        http=Q.Http(self.store,transport,self.clock)
+        result=Q.Runner(inputs,self.store,http).citations()
+        self.assertEqual(len(result),2)
+        self.assertEqual(len(fixture.calls),3)
+        self.assertFalse(any('vecino' in u for u in fixture.calls))
+
+    def test_cli_preparar_python_aislado_sin_red(self):
+        out=self.path/'cli'
+        with contextlib_stdout():
+            code=Q.main(['--out',str(out),'--fase','preparar'])
+        self.assertEqual(code,0)
+        result=json.loads(next((out/'runs').glob('*.json')).read_text())
+        self.assertEqual(len(result['result']['plan']),294)
+        self.assertFalse(list(out.glob('raw/*')))
+
+    def test_cli_solo_s2_deja_enmienda_y_exit2_sin_http(self):
+        out=self.path/'cli_s2'
+        with contextlib_stdout():
+            code=Q.main(['--out',str(out),'--fase','consultas','--bases','SemanticScholar'])
+        self.assertEqual(code,2)
+        self.assertFalse(list(out.glob('raw/*')))
+        result=json.loads(next((out/'runs').glob('*.json')).read_text())
+        self.assertEqual(result['conteos']['PENDIENTE_ENMIENDA_S2'],55)
+
+
+def contextlib_stdout():
+    import contextlib
+    return contextlib.redirect_stdout(io.StringIO())
+
+
+class RecordedResult(unittest.TextTestResult):
+    def __init__(self,*a,**kw):
+        super().__init__(*a,**kw);self.rows=[]
+    def addSuccess(self,test):
+        super().addSuccess(test);self.rows.append({'caso':test.id(),'estado':'PASS'})
+    def addFailure(self,test,err):
+        super().addFailure(test,err);self.rows.append({'caso':test.id(),'estado':'FAIL','detalle':self._exc_info_to_string(err,test)})
+    def addError(self,test,err):
+        super().addError(test,err);self.rows.append({'caso':test.id(),'estado':'ERROR','detalle':self._exc_info_to_string(err,test)})
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--out',type=Path,required=True)
+    args=parser.parse_args()
+    suite=unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__])
+    stream=io.StringIO()
+    # Guard global adicional: si cualquier código intenta internet, la prueba falla.
+    with patch.object(socket,'create_connection',side_effect=AssertionError('RED_PROHIBIDA_EN_PRUEBAS')), \
+         patch.object(Q,'urlopen',side_effect=AssertionError('RED_PROHIBIDA_EN_PRUEBAS')):
+        result=unittest.TextTestRunner(stream=stream,verbosity=2,resultclass=RecordedResult).run(suite)
+    report={'tipo':'SOLO_RESPUESTAS_SIMULADAS','estado':'PASS' if result.wasSuccessful() else 'FAIL',
+            'tests':result.testsRun,'casos':result.rows,'fallos':len(result.failures),'errores':len(result.errors),
+            'script_sha256':Q.digest((HERE/'ejecutar_q15_v3.py').read_bytes()),
+            'pruebas_sha256':Q.digest(Path(__file__).read_bytes()),'inputs_sha256':Q.EXPECTED,
+            'sin_conexiones_de_red':True,**Q.stamp()}
+    Q.exclusive_write(args.out,Q.json_bytes(report))
+    Q.exclusive_write(args.out.with_suffix('.log'),stream.getvalue().encode())
+    print(json.dumps({k:report[k] for k in ['tipo','estado','tests','fallos','errores']},ensure_ascii=False))
+    if not result.wasSuccessful():print(stream.getvalue())
+    return 0 if result.wasSuccessful() else 1
+
+
+if __name__=='__main__':raise SystemExit(main())

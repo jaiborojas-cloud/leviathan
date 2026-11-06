@@ -1,0 +1,1131 @@
+#!/usr/bin/env python3
+"""Ejecutor documental Q15 v3. BORRADOR: auditar antes de usar --fase todo.
+
+Solo metadatos bibliográficos; sin experimentos DIN, entrenamiento ni análisis.
+Biblioteca estándar, salvo tzdata para la zona IANA en Windows.
+"""
+from __future__ import annotations
+
+import argparse
+import calendar
+import contextlib
+import csv
+import email.utils
+import gzip
+import hashlib
+import io
+import json
+import math
+import os
+import platform
+import re
+import sys
+import time
+import traceback
+import unicodedata
+import uuid
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
+from datetime import date, datetime, timezone
+from html.parser import HTMLParser
+from pathlib import Path
+from typing import Any, Callable
+from urllib.error import HTTPError, URLError
+from urllib.parse import parse_qs, quote, urlencode, urljoin, urlparse
+from urllib.request import Request, HTTPRedirectHandler, build_opener
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+VERSION = "BORRADOR_EJECUTOR_PC_v1.1"
+PROTOCOL_COMMIT = "a9b85e64dc9d32bd99a593765a40b74019e7ab7d"
+N, K, PROBE = 500, 200, 501
+CUTOFF = date(2026, 11, 2)
+MAX_BYTES = 64 * 1024 * 1024
+BASES = ("arXiv", "SemanticScholar", "NeurIPS", "ICML", "ICLR")
+Q15_DEFAULT = Path(__file__).resolve().parents[1]
+EXPECTED = {
+    "consultas_v2.csv": "a9d8425a1d807b3ebdf2d3984bc3781de55d53279202d788c094b4102aa6d64f",
+    "plan_busquedas_v3.csv": "12399c4f0addd436f0e4bd11a79411086928c840d3848f8c1f8bf93d861baf93",
+    "LIMITES_v3.json": "d48b1ad8805e258b219ef3e799031945616a023e3b43023d55e0184a365aaecd",
+    "PROTOCOLO_OPERATIVO_v3.md": "3e39ccb87c53bb85465274515547751bf558cdd71edabe3354314136250f47ae",
+    "ejecucion/anclas_verificadas_S0_v1.csv": "2f66f78ed2b480a184e246ccaf0ad68cb85e06c6bfeb97dc9b4c854bad0deb1e",
+}
+S2_FIELDS = "paperId,title,authors,year,publicationDate,abstract,url,externalIds,citationCount,referenceCount"
+TERMINAL = {"COMPLETA", "TRUNCADA_DECLARADA", "OMITIDA_OPCIONAL"}
+
+
+class Q15Error(Exception):
+    pass
+
+
+class IntegrityError(Q15Error):
+    pass
+
+
+class SchemaError(Q15Error):
+    pass
+
+
+class AccessError(Q15Error):
+    def __init__(self, message: str, evidence: str = ""):
+        super().__init__(message)
+        self.evidence = evidence
+
+
+def digest(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+
+
+def strict_json(data: bytes) -> Any:
+    def invalid(value):
+        raise SchemaError("JSON no finito: " + value)
+    def finite_float(value):
+        number = float(value)
+        if not math.isfinite(number):
+            raise SchemaError("JSON flotante no finito")
+        return number
+    return json.loads(data.decode("utf-8-sig"), parse_constant=invalid, parse_float=finite_float)
+
+
+def stamp() -> dict:
+    now = datetime.now(timezone.utc)
+    return {"fecha_utc": now.isoformat(), "fecha_mexico": now.astimezone(ZoneInfo("America/Mexico_City")).isoformat()}
+
+
+def norm(text: Any) -> str:
+    return " ".join(unicodedata.normalize("NFKC", str(text or "")).casefold().split())
+
+
+def din_norm(text: Any) -> str:
+    s = unicodedata.normalize("NFKC", str(text or "")).casefold()
+    return " ".join("".join(" " if c == "-" or unicodedata.category(c) == "Pd" else c for c in s).split())
+
+
+def canonical_title(text: str) -> str:
+    return re.sub(r"[^\w]+", " ", norm(text)).strip()
+
+
+def integer(value: Any, name: str, optional: bool = False) -> int | None:
+    if value is None and optional:
+        return None
+    if type(value) is not int or value < 0:
+        raise SchemaError(name + " no es entero no negativo")
+    return value
+
+
+def exclusive_write(path: Path, data: bytes) -> None:
+    """Publicación completa y exclusiva, sin os.replace ni truncar el destino."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + ".partial-" + uuid.uuid4().hex)
+    with temp.open("xb") as f:
+        f.write(data)
+        f.flush()
+        os.fsync(f.fileno())
+    if os.name == "nt":
+        os.rename(temp, path)  # En Windows falla si destino existe.
+    else:
+        os.link(temp, path)    # POSIX rename reemplazaría; link es exclusivo.
+        temp.unlink()
+
+
+@contextlib.contextmanager
+def output_lock(directory: Path):
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / ".q15.lock"
+    with path.open("a+b") as f:
+        if path.stat().st_size == 0:
+            f.write(b"0")
+            f.flush()
+        f.seek(0)
+        try:
+            if os.name == "nt":
+                import msvcrt
+                msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            raise Q15Error("Otra ejecución mantiene bloqueada esta salida") from exc
+        try:
+            yield
+        finally:
+            f.seek(0)
+            if os.name == "nt":
+                import msvcrt
+                msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+
+
+class Store:
+    def __init__(self, root: Path):
+        self.root = root
+        root.mkdir(parents=True, exist_ok=True)
+
+    def put(self, name: str, value: Any) -> str:
+        exclusive_write(self.root / name, json_bytes(value))
+        return name
+
+    def load(self, name: str) -> Any:
+        return strict_json((self.root / name).read_bytes())
+
+    def next_name(self, directory: str, prefix: str, suffix: str = ".json") -> str:
+        d = self.root / directory
+        d.mkdir(parents=True, exist_ok=True)
+        indices = []
+        for f in d.iterdir():
+            m = re.match(re.escape(prefix) + r"(\d+)", f.name)
+            if m:
+                indices.append(int(m[1]))
+        return f"{directory}/{prefix}{max(indices, default=0) + 1:06d}{suffix}"
+
+    def job(self, ident: str, function: Callable[[], dict], retry_failed: bool = False) -> dict:
+        if not re.fullmatch(r"[\w.-]+", ident):
+            raise IntegrityError("ID de trabajo no seguro")
+        directory = "jobs/" + ident
+        prior = sorted((self.root / directory).glob("result_*.json"))
+        if prior:
+            last = strict_json(prior[-1].read_bytes())
+            result = last["result"]
+            if last.get("result_sha256") != digest(json_bytes(result)):
+                raise IntegrityError("SHA de resultado discordante: " + str(prior[-1]))
+            if result.get("estado") in TERMINAL or not retry_failed:
+                return result
+        # Las excepciones de integridad abortan. Las de acceso/esquema se conservan por job.
+        try:
+            result = function()
+        except IntegrityError:
+            raise
+        except Exception as exc:
+            result = {"estado": "PENDIENTE_ACCESO_O_ESQUEMA", "error": str(exc),
+                      "tipo_error": type(exc).__name__, "traceback": traceback.format_exc(),
+                      "evidencia": getattr(exc, "evidence", "")}
+        name = self.next_name(directory, "result_")
+        self.put(name, {"job": ident, "result": result, "result_sha256": digest(json_bytes(result)), **stamp()})
+        return result
+
+
+class Clock:
+    monotonic = staticmethod(time.monotonic)
+    sleep = staticmethod(time.sleep)
+
+
+class SafeRedirect(HTTPRedirectHandler):
+    def __init__(self):
+        super().__init__()
+        self.events = []
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        old, new = urlparse(req.full_url), urlparse(newurl)
+        self.events.append({"status": code, "desde": req.full_url, "hacia": newurl})
+        # S2: cada petición debe pasar por el limitador, no redirecciones ocultas.
+        if new.scheme != "https" or old.hostname.endswith("semanticscholar.org"):
+            return None
+        request = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if request is not None and old.hostname != new.hostname:
+            for name, _ in list(request.header_items()):
+                if name.lower() in ("x-api-key", "authorization", "cookie"):
+                    request.remove_header(name)
+        return request
+
+
+class NetworkTransport:
+    def __call__(self, url: str, headers: dict, timeout: float) -> tuple[int, dict, bytes]:
+        request = Request(url, headers=headers)
+        redirect = SafeRedirect()
+        opener = build_opener(redirect)
+        try:
+            with opener.open(request, timeout=timeout) as r:
+                return r.status, dict(r.headers), r.read(MAX_BYTES + 1), {"url_final": r.url, "redirects": redirect.events}
+        except HTTPError as exc:
+            return exc.code, dict(exc.headers), exc.read(MAX_BYTES + 1), {"url_final": exc.url, "redirects": redirect.events}
+
+
+class FixtureTransport:
+    """URLs exactas; un URL desconocido falla. Nunca usa red como fallback."""
+    def __init__(self, fixture: dict):
+        self.fixture = fixture
+        self.positions: dict[str, int] = {}
+        self.calls: list[str] = []
+
+    def __call__(self, url, headers, timeout):
+        self.calls.append(url)
+        if url not in self.fixture:
+            raise URLError("FIXTURE_SIN_URL: " + url)
+        responses = self.fixture[url]
+        if not isinstance(responses, list):
+            responses = [responses]
+        i = self.positions.get(url, 0)
+        if i >= len(responses):
+            raise URLError("FIXTURE_AGOTADA: " + url)
+        self.positions[url] = i + 1
+        response = responses[i]
+        if "error" in response:
+            raise URLError(response["error"])
+        body = response.get("body", "")
+        if not isinstance(body, str):
+            body = json.dumps(body, ensure_ascii=False)
+        return response.get("status", 200), response.get("headers", {}), body.encode("utf-8")
+
+
+class Http:
+    def __init__(self, store: Store, transport=None, clock=None, s2_pause=1.1, retries=5,
+                 timeout=45.0, retry_failed=False):
+        if not math.isfinite(s2_pause) or s2_pause < 1:
+            raise ValueError("La pausa de Semantic Scholar debe ser >= 1 s")
+        self.store, self.transport, self.clock = store, transport or NetworkTransport(), clock or Clock()
+        self.s2_pause, self.retries, self.timeout = s2_pause, retries, timeout
+        self.retry_failed = retry_failed
+        self.last: dict[str, float] = {}
+        self.script_sha256 = digest(Path(__file__).read_bytes())
+
+    def wait(self, seconds: float):
+        if seconds > 60:
+            print(f"Espera indicada por servicio: {seconds:.1f} s (cancelable)", flush=True)
+        while seconds > 0:
+            step = min(30.0, seconds)
+            self.clock.sleep(step)
+            seconds -= step
+
+    def throttle(self, host: str):
+        delay = 3.0 if host.endswith("arxiv.org") else self.s2_pause if host.endswith("semanticscholar.org") else 1.0
+        remaining = self.last[host] + delay - self.clock.monotonic() if host in self.last else delay
+        self.wait(max(0.0, remaining))
+        self.last[host] = self.clock.monotonic()
+
+    def get(self, url: str) -> tuple[bytes, dict, str]:
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+            raise SchemaError("Solo URLs HTTPS sin credenciales")
+        key = digest(url.encode())
+        directory = "raw/" + key
+        previous = sorted((self.store.root / directory).glob("attempt_*.json"))
+        last_failure = None
+        for f in reversed(previous):
+            meta = strict_json(f.read_bytes())
+            if meta.get("url") != url:
+                raise IntegrityError("Colisión de clave de solicitud")
+            body_path = self.store.root / meta["body_file"]
+            if not body_path.exists() or digest(body_path.read_bytes()) != meta["sha256"]:
+                raise IntegrityError("Respuesta cruda ausente o SHA no coincide: " + str(body_path))
+            if meta["ok"]:
+                return self.decode(body_path.read_bytes(), meta), meta, str(f.relative_to(self.store.root))
+            last_failure = last_failure or meta
+        if last_failure and not self.retry_failed:
+            raise AccessError("Fallo previo conservado; use --reintentar-fallos para una versión nueva", directory)
+        headers = {"User-Agent": "Q15-v3-documentary-review/1.0", "Accept-Encoding": "gzip"}
+        if parsed.hostname == "api.semanticscholar.org" and os.environ.get("S2_API_KEY"):
+            headers["x-api-key"] = os.environ["S2_API_KEY"]
+        for attempt in range(self.retries + 1):
+            self.throttle(parsed.hostname)
+            info = {"url": url, "script_sha256": self.script_sha256, **stamp()}
+            try:
+                response = self.transport(url, headers, self.timeout)
+                status, response_headers, body = response[:3]
+                info.update(response[3] if len(response) == 4 else {"url_final": url, "redirects": []})
+                info.update(status=status, error=None)
+            except (URLError, OSError, TimeoutError) as exc:
+                status, response_headers, body = None, {}, b""
+                # Nunca registrar cabeceras de solicitud ni la clave de API.
+                info.update(status=None, error=str(exc))
+            allowed_headers = {"content-type", "content-encoding", "retry-after", "date", "etag", "last-modified", "location"}
+            info["headers"] = {k.lower(): v for k, v in response_headers.items() if k.lower() in allowed_headers}
+            info["ok"] = status == 200 and len(body) <= MAX_BYTES
+            info["bytes"] = len(body)
+            info["sha256"] = digest(body)
+            info["protocolo_commit"] = PROTOCOL_COMMIT
+            info["truncada_transporte"] = len(body) > MAX_BYTES
+            body_name = self.store.next_name(directory, "attempt_", ".body")
+            exclusive_write(self.store.root / body_name, body)
+            info["body_file"] = body_name
+            meta_name = body_name.removesuffix(".body") + ".json"
+            self.store.put(meta_name, info)
+            if info["ok"]:
+                return self.decode(body, info), info, meta_name
+            transient = status in (None, 408, 429, 500, 502, 503, 504)
+            if not transient or attempt == self.retries:
+                raise AccessError(f"HTTP/acceso fallido ({status}); evidencia {meta_name}", meta_name)
+            wait = max(1.0, min(60.0, 2.0 ** (attempt + 1)))
+            retry_after = info["headers"].get("retry-after")
+            if retry_after:
+                try:
+                    seconds = float(retry_after)
+                except ValueError:
+                    try:
+                        seconds = max(0.0, (email.utils.parsedate_to_datetime(retry_after) - datetime.now(timezone.utc)).total_seconds())
+                    except (ValueError, TypeError, OverflowError):
+                        seconds = 0.0
+                if math.isfinite(seconds):
+                    wait = max(wait, seconds)
+            self.wait(wait)
+        raise AssertionError("bucle de reintentos agotado sin salida")
+
+    @staticmethod
+    def decode(body: bytes, meta: dict) -> bytes:
+        if meta["headers"].get("content-encoding", "").lower() == "gzip":
+            try:
+                with gzip.GzipFile(fileobj=io.BytesIO(body)) as f:
+                    body = f.read(MAX_BYTES + 1)
+            except (OSError, EOFError) as exc:
+                raise SchemaError("gzip inválido conservado") from exc
+            if len(body) > MAX_BYTES:
+                raise SchemaError("Cuerpo descomprimido supera 64 MiB")
+        return body
+
+    def json(self, url):
+        body, meta, evidence = self.get(url)
+        try:
+            value = strict_json(body)
+        except (UnicodeError, json.JSONDecodeError) as exc:
+            raise SchemaError("Respuesta no es JSON válido: " + evidence) from exc
+        if not isinstance(value, dict):
+            raise SchemaError("Se esperaba objeto JSON: " + evidence)
+        return value, evidence
+
+
+@dataclass
+class Page:
+    records: list[dict]
+    total: int | None
+    next_offset: int | None
+    end: bool
+    evidence: str = ""
+
+
+def collect_pages(fetch: Callable[[int, int], Page], known_total: int | None = None, forced_cap: int | None = None) -> dict:
+    """Conserva posiciones; no deduplica ni repone cupos. Nunca pide más de 501."""
+    if forced_cap is not None and (type(forced_cap) is not int or forced_cap != K):
+        raise ValueError("La ruta de citantes solo permite forced_cap=200")
+    records, evidence, totals, issues, seen_pages = [], [], [], [], set()
+    offset, end, total = 0, False, known_total
+    if total is not None:
+        integer(total, "total inicial")
+        totals.append(total)
+    while True:
+        target = forced_cap if forced_cap is not None else K if total is not None and total > N else PROBE
+        if len(records) >= target:
+            break
+        size = min(100, target - len(records))
+        try:
+            page = fetch(offset, size)
+        except (AccessError, SchemaError, ValueError) as exc:
+            issues.append(str(exc))
+            break
+        if not isinstance(page.records, list) or len(page.records) > size:
+            raise SchemaError("Tamaño de página incompatible con la petición")
+        if page.evidence:
+            evidence.append(page.evidence)
+        if page.total is not None:
+            integer(page.total, "total página")
+            totals.append(page.total)
+            total = max(totals)
+        fingerprint = digest(json_bytes(page.records))
+        if page.records and fingerprint in seen_pages:
+            issues.append("PAGINA_REPETIDA: no se declara completitud")
+            break
+        seen_pages.add(fingerprint)
+        records.extend(page.records)
+        if page.end:
+            end = True
+            break
+        if not page.records:
+            issues.append("PAGINA_VACIA_CON_CONTINUACION")
+            break
+        if page.next_offset is None or page.next_offset <= offset:
+            issues.append("PAGINACION_SIN_AVANCE")
+            break
+        offset = page.next_offset
+    if len(set(totals)) > 1:
+        issues.append("TOTAL_CAMBIO_ENTRE_PAGINAS")
+    expected_before_end = min(total, forced_cap if forced_cap is not None else K if total is not None and total > N else N) if total is not None else None
+    if end and expected_before_end is not None and len(records) < expected_before_end:
+        issues.append("FIN_ANTES_DEL_TOTAL_DECLARADO")
+    if total is not None and len(records) > total:
+        issues.append("MAS_REGISTROS_QUE_TOTAL_DECLARADO")
+    truncated = forced_cap is not None or (total is not None and total > N) or len(records) >= PROBE
+    take = forced_cap if forced_cap is not None else K if truncated else len(records)
+    selected = records[:take]
+    complete = end and not issues
+    state = "PARCIAL" if issues or not (complete or truncated) else "TRUNCADA_DECLARADA" if truncated else "COMPLETA"
+    return {"estado": state, "estado_tope": "TRUNCADA_DECLARADA" if truncated else "SIN_TOPE_ACTIVADO",
+            "total_declarado": total, "totales_observados": totals, "fin_observado": end,
+            "n_recuperados": len(records), "n_seleccionados": len(selected), "N": N, "K": K,
+            "records": [{"position": i + 1, "selected": i < take, "record": r} for i, r in enumerate(records)],
+            "issues": issues, "evidence": evidence}
+
+
+def arxiv_url(query: str, offset: int, size: int) -> str:
+    return "https://export.arxiv.org/api/query?" + urlencode({"search_query": query, "start": offset,
+            "max_results": size, "sortBy": "relevance", "sortOrder": "descending"})
+
+
+def s2_search_url(query: str, first_year: int, offset: int, size: int) -> str:
+    return "https://api.semanticscholar.org/graph/v1/paper/search?" + urlencode({"query": query,
+        "year": f"{first_year}-{CUTOFF.year}", "offset": offset, "limit": size, "fields": S2_FIELDS})
+
+
+def s2_paper_url(ident: str) -> str:
+    return "https://api.semanticscholar.org/graph/v1/paper/" + quote(ident, safe="") + "?" + urlencode({"fields": S2_FIELDS})
+
+
+def s2_graph_url(ident: str, direction: str, offset: int, size: int) -> str:
+    endpoint = "citations" if direction == "ADELANTE" else "references"
+    return "https://api.semanticscholar.org/graph/v1/paper/" + quote(ident, safe="") + "/" + endpoint + "?" + urlencode({
+        "fields": "paperId,title,authors,year,publicationDate,abstract,url,externalIds", "offset": offset, "limit": size})
+
+
+def parse_arxiv(body: bytes, offset: int, size: int, evidence="") -> Page:
+    try:
+        root = ET.fromstring(body)
+    except ET.ParseError as exc:
+        raise SchemaError("Atom arXiv inválido") from exc
+    ns = {"a": "http://www.w3.org/2005/Atom", "o": "http://a9.com/-/spec/opensearch/1.1/"}
+    total_text = root.findtext("o:totalResults", namespaces=ns)
+    if root.tag != "{http://www.w3.org/2005/Atom}feed" or total_text is None:
+        raise SchemaError("No es un feed API arXiv con totalResults")
+    if not total_text.isdecimal():
+        raise SchemaError("totalResults arXiv inválido")
+    total = int(total_text) if total_text is not None else None
+    records = []
+    for entry in root.findall("a:entry", ns):
+        ident = entry.findtext("a:id", default="", namespaces=ns)
+        title = entry.findtext("a:title", default="", namespaces=ns)
+        if "errors" in ident or not ident or not title:
+            raise SchemaError("Entrada de error/sin ID o título en Atom")
+        records.append({"id": ident, "title": " ".join(title.split()),
+            "abstract": entry.findtext("a:summary", default=None, namespaces=ns),
+            "authors": [n.findtext("a:name", default="", namespaces=ns) for n in entry.findall("a:author", ns)],
+            "publicationDate": entry.findtext("a:published", default=None, namespaces=ns), "url": ident})
+    end = not records or (total is not None and offset + len(records) >= total)
+    return Page(records, total, None if end else offset + len(records), end, evidence)
+
+
+def parse_s2(data: dict, graph_key: str | None = None, evidence="") -> Page:
+    if not isinstance(data.get("data"), list):
+        raise SchemaError("Semantic Scholar no devuelve data[]")
+    records = []
+    for item in data["data"]:
+        record = item.get(graph_key) if graph_key else item
+        if not isinstance(record, dict):
+            # No eliminar vecinos ausentes: conservar posición, luego pendiente.
+            record = {"id": None, "title": None, "abstract": None, "missing": True}
+        records.append(record)
+    total = integer(data.get("total"), "total S2", optional=True)
+    nxt = integer(data.get("next"), "next S2", optional=True)
+    return Page(records, total, nxt, nxt is None, evidence)
+
+
+def record_date_status(record: dict, start: str, end: str) -> str:
+    first, last = date.fromisoformat(start), date.fromisoformat(end)
+    raw = record.get("publicationDate")
+    if raw:
+        try:
+            m = re.match(r"^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(?:$|[Tt ])", str(raw))
+            if m:
+                lo = hi = date(*map(int, m.groups()))
+            else:
+                partial = re.fullmatch(r"(\d{4})(?:[-/](\d{1,2}))?", str(raw))
+                if not partial:
+                    return "PENDIENTE_FECHA"
+                y = int(partial[1])
+                month = int(partial[2]) if partial[2] else None
+                lo = date(y, month or 1, 1)
+                hi = date(y, month, calendar.monthrange(y, month)[1]) if month else date(y, 12, 31)
+        except (ValueError, TypeError):
+            return "PENDIENTE_FECHA"
+    else:
+        year = record.get("year")
+        if type(year) is not int or not 1 <= year <= 9999:
+            return "PENDIENTE_FECHA"
+        lo, hi = date(year, 1, 1), date(year, 12, 31)
+    if hi < first or lo > last:
+        return "FUERA_FECHA"
+    return "INCLUIBLE" if first <= lo and hi <= last else "PENDIENTE_FECHA"
+
+
+def author_status(record: dict, authors: str) -> str:
+    if not authors:
+        return "INCLUIBLE"
+    raw = record.get("authors")
+    if not isinstance(raw, list) or not raw:
+        return "PENDIENTE_AUTORIA"
+    names = [a.get("name", "") if isinstance(a, dict) else a for a in raw]
+    def ascii_norm(s):
+        return "".join(c for c in unicodedata.normalize("NFKD", norm(s)) if not unicodedata.combining(c))
+    return "INCLUIBLE" if any(ascii_norm(a) in ascii_norm(name) for a in authors.split("|") for name in names) else "FUERA_AUTORIA"
+
+
+def annotate_selected(result: dict, query: dict) -> dict:
+    for item in result.get("records", []):
+        record = item["record"]
+        item["fecha_estado"] = record_date_status(record, query["fecha_desde"], query["fecha_hasta"])
+        item["autoria_estado"] = author_status(record, query.get("filtro_autor_metadatos", ""))
+        item["incluible_para_cribado"] = item["selected"] and item["fecha_estado"] == item["autoria_estado"] == "INCLUIBLE"
+    return result
+
+
+def din_status(record: dict, terms: list[str]) -> str:
+    for field_name in ("title", "abstract"):
+        text = din_norm(record.get(field_name))
+        if any(re.search(r"(?<!\w)" + re.escape(din_norm(term)) + r"(?!\w)", text) for term in terms):
+            return "COINCIDE_DIN"
+    if not record.get("abstract"):
+        return "PENDIENTE_FILTRO"
+    return "FUERA_FILTRO_DIN"
+
+
+def boolean_status(record: dict, groups: list[list[str]]) -> str:
+    fields = [norm(record.get("title")), norm(record.get("abstract"))]
+    matches = all(any(norm(term) in text for term in group for text in fields) for group in groups)
+    if matches:
+        return "COINCIDE"
+    return "PENDIENTE_RESUMEN" if not record.get("abstract") else "NO_COINCIDE"
+
+
+@dataclass
+class Node:
+    tag: str
+    attrs: dict = field(default_factory=dict)
+    children: list = field(default_factory=list)
+
+    def walk(self):
+        yield self
+        for child in self.children:
+            if isinstance(child, Node):
+                yield from child.walk()
+
+    def text(self):
+        blocks = {"div", "p", "li", "tr", "td", "section", "h1", "h2", "h3", "h4", "h5", "ul", "ol", "br"}
+        return "".join((" " + c.text() + " " if c.tag in blocks else c.text()) if isinstance(c, Node) else c for c in self.children).strip()
+
+
+class Document(HTMLParser):
+    VOID = {"meta", "link", "img", "input", "br", "hr", "area", "base", "source", "wbr", "embed", "param", "col"}
+    def __init__(self, body: bytes):
+        super().__init__(convert_charrefs=True)
+        self.root = Node("root")
+        self.stack = [self.root]
+        self.feed(body.decode("utf-8", errors="replace"))
+        self.close()
+
+    def handle_starttag(self, tag, attrs):
+        node = Node(tag, dict(attrs))
+        self.stack[-1].children.append(node)
+        if tag not in self.VOID:
+            self.stack.append(node)
+
+    def handle_startendtag(self, tag, attrs):
+        self.stack[-1].children.append(Node(tag, dict(attrs)))
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack) - 1, 0, -1):
+            if self.stack[i].tag == tag:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, data):
+        self.stack[-1].children.append(data)
+
+    def nodes(self, tag=None):
+        return [n for n in self.root.walk() if tag is None or n.tag == tag]
+
+    def links(self, base):
+        return [(urljoin(base, n.attrs["href"]), " ".join(n.text().split())) for n in self.nodes("a") if n.attrs.get("href")]
+
+    def volume_links(self, base):
+        # En PMLR el <a> dice solo «Volume 267»; venue/año están fuera del enlace.
+        found = {}
+        for node in self.nodes():
+            if node.tag not in ("li", "tr", "p"):
+                continue
+            links = [(urljoin(base, n.attrs["href"]), n) for n in node.walk() if n.tag == "a" and n.attrs.get("href")]
+            candidates = [(u, n) for u, n in links if re.search(r"/v\d+/?$|/(?:paper_files/)?paper/\d{4}/?$", urlparse(u).path)]
+            if len(candidates) == 1:
+                found.setdefault(candidates[0][0], " ".join(node.text().split()))
+        for url, title in self.links(base):
+            found.setdefault(url, title)
+        return list(found.items())
+
+    def metas(self):
+        result: dict[str, list[str]] = {}
+        for n in self.nodes("meta"):
+            key = n.attrs.get("name", n.attrs.get("property", "")).lower()
+            if n.attrs.get("content"):
+                result.setdefault(key, []).append(n.attrs["content"])
+        return result
+
+
+def parse_article(body: bytes, url: str, year: int) -> dict:
+    doc = Document(body)
+    meta = doc.metas()
+    first = lambda key: meta.get(key, [None])[0]
+    title = first("citation_title")
+    if not title:
+        headers = doc.nodes("h1")
+        title = headers[0].text() if headers else None
+    abstract = first("citation_abstract")
+    if not abstract:
+        for n in doc.nodes():
+            if n.attrs.get("id") == "abstract" or "abstract" in n.attrs.get("class", "").split():
+                abstract = re.sub(r"^\s*Abstract\s*", "", n.text(), flags=re.I).strip() or None
+                if abstract:
+                    break
+    if not abstract:
+        nodes = doc.nodes()
+        for i, n in enumerate(nodes):
+            if n.tag in ("h2", "h3", "h4", "h5") and norm(n.text()) == "abstract":
+                for following in nodes[i + 1:]:
+                    if following.tag in ("h2", "h3", "h4", "h5"):
+                        break
+                    if following.tag == "p" and following.text():
+                        abstract = following.text()
+                        break
+                break
+    return {"id": url, "url": url, "title": title, "abstract": abstract,
+            "authors": meta.get("citation_author", []), "year": year,
+            "publicationDate": first("citation_publication_date") or first("citation_date")}
+
+
+def catalogue_result(records: list[dict], query: dict, issues: list[str]) -> dict:
+    groups = json.loads(query["grupos_json"])
+    matches, unknown, date_unknown = [], [], []
+    for record in records:
+        if record_date_status(record, query["fecha_desde"], query["fecha_hasta"]) == "FUERA_FECHA":
+            continue
+        status = boolean_status(record, groups)
+        if status == "COINCIDE":
+            matches.append(record)
+            if record_date_status(record, query["fecha_desde"], query["fecha_hasta"]) == "PENDIENTE_FECHA":
+                date_unknown.append(record)
+        elif status == "PENDIENTE_RESUMEN":
+            unknown.append(record)
+    def order(r):
+        return (-int(r["year"]), norm(r.get("title")), str(r.get("id", "")))
+    matches.sort(key=order)
+    unknown.sort(key=order)
+    truncated = len(matches) > N
+    take = K if truncated else len(matches)
+    gaps = list(issues)
+    if unknown:
+        gaps.append(f"{len(unknown)} registros sin resumen impiden descartar coincidencias")
+    if date_unknown:
+        gaps.append(f"{len(date_unknown)} candidatos con fecha pendiente; cupo antes del postfiltro, sin reponer")
+    result = {"estado": "PARCIAL_CATALOGO" if gaps else "TRUNCADA_DECLARADA" if truncated else "COMPLETA",
+        "estado_tope": "TRUNCADA_DECLARADA" if truncated else "SIN_TOPE_ACTIVADO", "N": N, "K": K,
+        "orden": "anio DESC; titulo NFKC/casefold ASC; ID ASC", "total_declarado": None if gaps else len(matches),
+        "coincidencias_titulo_resumen": len(matches), "n_fecha_pendiente": len(date_unknown), "n_seleccionados": take,
+        "records": [{"position": i+1, "selected": i < take, "record": r} for i, r in enumerate(matches)],
+        "pendientes_concordancia": unknown, "issues": gaps}
+    return annotate_selected(result, query)
+
+
+def unwrap(value):
+    return value.get("value") if isinstance(value, dict) else value
+
+
+def parse_openreview_note(note: dict, group: str, year: int) -> dict | None:
+    content = note.get("content")
+    if not isinstance(content, dict):
+        raise SchemaError("Nota OpenReview sin content")
+    venueid = unwrap(content.get("venueid"))
+    # No basta contener 'ICLR' o tener decisión que incluya 'accept'.
+    if venueid != group:
+        return None
+    if note.get("ddate"):
+        return None
+    ident = note.get("id")
+    if not ident:
+        raise SchemaError("Nota aceptada OpenReview sin ID")
+    public_ms = note.get("pdate") or note.get("odate")
+    published = None
+    if type(public_ms) is int and public_ms > 0:
+        try:
+            published = datetime.fromtimestamp(public_ms / 1000, timezone.utc).date().isoformat()
+        except (ValueError, OverflowError, OSError):
+            raise SchemaError("Fecha pública OpenReview fuera de dominio")
+    return {"id": ident, "url": "https://openreview.net/forum?" + urlencode({"id": ident}),
+        "title": unwrap(content.get("title")), "abstract": unwrap(content.get("abstract")),
+        "authors": unwrap(content.get("authors")) or [], "year": year,
+        "publicationDate": published, "venueid": venueid}
+
+
+class Runner:
+    def __init__(self, inputs: dict, store: Store, http: Http, retry_failed=False):
+        self.inputs, self.store, self.http, self.retry = inputs, store, http, retry_failed
+        self.queries = {q["query_id"]: q for q in inputs["queries"]}
+
+    def native(self, row: dict) -> dict:
+        query = self.queries[row["query_id"]]
+        if row["base"] == "GoogleScholar":
+            return {"estado": "OMITIDA_OPCIONAL", "motivo": "Google Scholar fuera del ejecutor; CAPTCHA y acceso opcional", "total_declarado": None}
+        if row["base"] == "SemanticScholar":
+            return {"estado": "PENDIENTE_ENMIENDA_S2", "total_declarado": None, "n_recuperados": 0,
+                "url_prevista_no_enviada": s2_search_url(row["cadena_exacta"], int(row["fecha_desde"][:4]), 0, 100),
+                "motivo": "La cadena booleana del plan no es sintaxis soportada por paper/search (relevancia). Bulk cambia orden. No se altera protocolo.",
+                "documentacion": "https://api.semanticscholar.org/api-docs/graphs"}
+        def fetch(offset, size):
+            body, _, evidence = self.http.get(arxiv_url(row["cadena_exacta"], offset, size))
+            return parse_arxiv(body, offset, size, evidence)
+        return annotate_selected(collect_pages(fetch), query)
+
+    def article(self, url, year, link_title=""):
+        def work():
+            body, _, evidence = self.http.get(url)
+            record = parse_article(body, url, year)
+            if not record["title"]:
+                record["title"] = link_title or None
+            return {"estado": "COMPLETA" if record["title"] and record["abstract"] else "PARCIAL_ARTICULO",
+                    "record": record, "evidence": evidence}
+        result = self.store.job("article_" + digest(url.encode()), work, self.retry)
+        if "record" in result:
+            return result["record"], [] if result["estado"] == "COMPLETA" else ["Artículo con metadatos ausentes: " + url]
+        return {"id": url, "url": url, "title": link_title or None, "abstract": None, "year": year}, ["Artículo no recuperado: " + url]
+
+    def html_catalogue(self, base):
+        root_url = "https://proceedings.neurips.cc/" if base == "NeurIPS" else "https://proceedings.mlr.press/"
+        body, _, evidence = self.http.get(root_url)
+        root = Document(body)
+        volumes = {}
+        for url, text in root.volume_links(root_url):
+            if base == "NeurIPS":
+                m = re.search(r"/(?:paper_files/)?paper/(\d{4})(?:/|$)", urlparse(url).path)
+                valid = m and not re.search(r"creative|workshop", text, re.I)
+                year = int(m[1]) if m else None
+            else:
+                m = re.search(r"/v\d+/?$", urlparse(url).path)
+                ym = re.search(r"\b(19\d\d|20\d\d)\b", text)
+                valid = m and ym and bool(re.search(r"\bICML\b|International Conference on Machine Learning", text, re.I))
+                year = int(ym[1]) if ym else None
+            if valid and year is not None and year <= CUTOFF.year and urlparse(url).hostname == urlparse(root_url).hostname:
+                volumes[url] = year
+        if not volumes:
+            raise SchemaError("Índice sin volúmenes reconocidos; no es catálogo de cero resultados")
+        records, issues = [], []
+        if base == "ICML":
+            issues.append("HISTORICO_ICML_ANTERIOR_A_PMLR_NO_RECUPERADO")
+        for volume_url, year in sorted(volumes.items(), key=lambda item: (-item[1], item[0])):
+            def volume_job():
+                b, _, ev = self.http.get(volume_url)
+                links = {}
+                for url, title in Document(b).links(volume_url):
+                    if urlparse(url).hostname != urlparse(root_url).hostname:
+                        continue
+                    path = urlparse(url).path
+                    valid = bool(re.search(r"-Abstract[^/]*\.html$", path, re.I)) if base == "NeurIPS" else bool(re.search(r"/v\d+/[^/]+\.html$", path))
+                    if valid:
+                        links.setdefault(url, title)
+                if not links:
+                    raise SchemaError("Volumen sin artículos reconocidos: " + volume_url)
+                return {"estado": "COMPLETA", "links": links, "evidence": ev}
+            result = self.store.job("volume_" + digest(volume_url.encode()), volume_job, self.retry)
+            if result["estado"] != "COMPLETA":
+                issues.append("Volumen pendiente: " + volume_url)
+                continue
+            for url, title in result["links"].items():
+                record, gaps = self.article(url, year, "" if norm(title) == "abs" else title)
+                records.append(record)
+                issues.extend(gaps)
+        return {"estado": "PARCIAL_CATALOGO" if issues else "COMPLETA", "records": records,
+                "issues": issues, "volumes": volumes, "evidence": [evidence],
+                "nota": "Sin tope de catálogo previo al matching; las consultas aplican N/K después."}
+
+    def openreview_catalogue(self):
+        records, issues, years = [], [], {}
+        for year in range(2013, CUTOFF.year + 1):
+            api = "https://api2.openreview.net" if year >= 2024 else "https://api.openreview.net"
+            group = f"ICLR.cc/{year}/Conference"
+            def get_year():
+                # venueid es el catálogo de aceptados, no todas las sumisiones.
+                url = api + "/groups?" + urlencode({"id": group})
+                data, ev = self.http.json(url)
+                if not isinstance(data.get("groups"), list) or not any(g.get("id") == group for g in data["groups"]):
+                    raise SchemaError("Grupo oficial ausente/no resoluble: " + group)
+                offset, collected, evs, expected = 0, [], [ev], None
+                seen_pages = set()
+                while True:
+                    url = api + "/notes?" + urlencode({"content.venueid": group, "limit": 1000, "offset": offset})
+                    data, ev = self.http.json(url)
+                    evs.append(ev)
+                    notes = data.get("notes")
+                    if not isinstance(notes, list):
+                        raise SchemaError("OpenReview no devuelve notes[]")
+                    count = integer(data.get("count"), "count OpenReview", optional=True)
+                    if expected is not None and count is not None and expected != count:
+                        raise SchemaError("Count OpenReview cambió durante paginación")
+                    expected = count if count is not None else expected
+                    if not notes:
+                        if not collected or (expected is not None and len(collected) < expected):
+                            raise SchemaError("Catálogo aceptado vacío/incompleto; puede ser formato histórico no soportado")
+                        break
+                    fingerprint = digest(json_bytes(notes))
+                    if fingerprint in seen_pages:
+                        raise SchemaError("OpenReview repite la página")
+                    seen_pages.add(fingerprint)
+                    for note in notes:
+                        record = parse_openreview_note(note, group, year)
+                        if record is None:
+                            raise SchemaError("Nota devuelta no pertenece a aceptados del venue; no incluir rechazos/workshops")
+                        collected.append(record)
+                    offset += len(notes)
+                    if expected is not None and offset >= expected:
+                        if offset != expected:
+                            raise SchemaError("Count incompatible con registros devueltos")
+                        break
+                return {"estado": "COMPLETA", "records": collected, "evidence": evs, "group": group}
+            result = self.store.job(f"ICLR_catalogue_{year}", get_year, self.retry)
+            years[str(year)] = result["estado"]
+            if result["estado"] != "COMPLETA":
+                issues.append(f"ICLR {year} pendiente; no inferir cero aceptados")
+            records.extend(result.get("records", []))
+        missing = sum(not r.get("abstract") or not r.get("title") for r in records)
+        if missing:
+            issues.append(f"OpenReview: {missing} notas sin título/resumen")
+        return {"estado": "PARCIAL_CATALOGO" if issues else "COMPLETA", "records": records, "issues": issues, "years": years}
+
+    def catalogue(self, base):
+        return self.store.job("catalogue_" + base,
+            lambda: self.openreview_catalogue() if base == "ICLR" else self.html_catalogue(base), self.retry)
+
+    def resolve_seed(self, seed):
+        def work():
+            arxiv = seed.get("arxiv_version_leida", "")
+            source = seed["url_primaria"]
+            if arxiv:
+                ident = "ARXIV:" + re.sub(r"v\d+$", "", arxiv)
+                data, ev = self.http.json(s2_paper_url(ident))
+            elif source.startswith("https://doi.org/"):
+                data, ev = self.http.json(s2_paper_url("DOI:" + source.split("doi.org/", 1)[1]))
+            else:
+                url = "https://api.semanticscholar.org/graph/v1/paper/search/match?" + urlencode({
+                    "query": seed["titulo_verificado"], "fields": S2_FIELDS})
+                matched, ev = self.http.json(url)
+                candidates = matched.get("data")
+                if not isinstance(candidates, list) or len(candidates) != 1:
+                    raise SchemaError("Resolución S0 ambigua/ausente")
+                data = candidates[0]
+            if not data.get("paperId") or canonical_title(data.get("title", "")) != canonical_title(seed["titulo_verificado"]):
+                raise SchemaError("Título/ID S0 discordante; no sustituir por el primer resultado")
+            expected_authors = seed["autores_verificados"].split(";")
+            last_name = expected_authors[0].strip().split()[-1]
+            if author_status(data, last_name) != "INCLUIBLE":
+                raise SchemaError("Autoría S0 no contrastable/discordante")
+            for key in ("citationCount", "referenceCount"):
+                integer(data.get(key), key, optional=True)
+            return {"estado": "COMPLETA", "seed": seed["ancla_id"], "paper": data, "evidence": ev}
+        return self.store.job("S0_resolve_" + seed["ancla_id"], work, self.retry)
+
+    def graph(self, seed, resolved, direction):
+        paper = resolved["paper"]
+        count = paper.get("citationCount" if direction == "ADELANTE" else "referenceCount")
+        integer(count, "conteo de ancla", optional=True)
+        heavy = direction == "ADELANTE" and (count is None or count > N)
+        ident = paper["paperId"]
+        def fetch(offset, size):
+            data, ev = self.http.json(s2_graph_url(ident, direction, offset, size))
+            return parse_s2(data, "citingPaper" if direction == "ADELANTE" else "citedPaper", ev)
+        result = collect_pages(fetch, known_total=count, forced_cap=K if heavy else None)
+        result.update(ancla=seed["ancla_id"], direction=direction, nivel=1, conteo_bruto_ancla=count,
+            filtro_DIN_activado=heavy, ruta="LOCAL_TOPE_ANTES_FILTRO" if heavy else "SIN_FILTRO_DIN",
+            orden="nativo recibido; ranking no garantizado por API", tope_antes_filtro=heavy)
+        for item in result["records"]:
+            item["filtro_DIN"] = din_status(item["record"], self.inputs["limits"]["citantes"]["terminos"]) if heavy and item["selected"] else "NO_APLICA"
+            item["fecha_estado"] = record_date_status(item["record"], "1900-01-01", CUTOFF.isoformat())
+            item["incluible_para_cribado"] = item["selected"] and item["fecha_estado"] == "INCLUIBLE" and (not heavy or item["filtro_DIN"] == "COINCIDE_DIN")
+        return result
+
+    def citations(self):
+        resolved = [(s, self.resolve_seed(s)) for s in self.inputs["seeds"]]
+        snapshot = {"S0": [{"ancla": s["ancla_id"], **r} for s, r in resolved], **stamp()}
+        name = self.store.next_name("S0", "resolved_")
+        self.store.put(name, snapshot)  # Siempre antes de la primera expansión del run.
+        snapshot_hash = digest(json_bytes(snapshot))
+        outcomes = {}
+        for seed, result in resolved:
+            for direction in ("ATRAS", "ADELANTE"):
+                ident = "S0_" + seed["ancla_id"] + "_" + direction
+                if result["estado"] != "COMPLETA":
+                    outcomes[ident] = {"estado": "PENDIENTE_RESOLUCION_ANCLA", "S0_snapshot": name}
+                else:
+                    def work(s=seed, r=result, d=direction):
+                        return {**self.graph(s, r, d), "S0_snapshot": name, "S0_sha256": snapshot_hash}
+                    outcomes[ident] = self.store.job(ident, work, self.retry)
+        return outcomes
+
+
+def load_inputs(q15: Path) -> dict:
+    for name, expected in EXPECTED.items():
+        file = q15 / name
+        if not file.is_file() or digest(file.read_bytes()) != expected:
+            raise IntegrityError("Input congelado ausente o SHA discordante: " + name)
+    def table(name):
+        with (q15/name).open(encoding="utf-8", newline="") as f:
+            return list(csv.DictReader(f))
+    queries, plan, seeds = table("consultas_v2.csv"), table("plan_busquedas_v3.csv"), table("ejecucion/anclas_verificadas_S0_v1.csv")
+    limits = strict_json((q15/"LIMITES_v3.json").read_bytes())
+    if len(queries) != 55 or len(plan) != 294 or len(seeds) != 19:
+        raise IntegrityError("Cardinalidades de inputs discordantes")
+    mapping = {q["query_id"]: q for q in queries}
+    if len(mapping) != 55 or len({r["busqueda_id"] for r in plan}) != 294:
+        raise IntegrityError("IDs duplicados")
+    fields = {"arXiv": "arxiv", "SemanticScholar": "semantic_scholar", "GoogleScholar": "google_scholar"}
+    for r in plan:
+        if r["N_umbral"] != str(N) or r["K_si_supera_N"] != str(K):
+            raise IntegrityError("Topes discordantes")
+        expected = mapping[r["query_id"]][fields.get(r["base"], "actas_local")]
+        if r["cadena_exacta"] != expected or r["orden_fijado"] != limits["consultas"]["orden_por_base"][r["base"]]:
+            raise IntegrityError("Cadena u orden no corresponde al protocolo")
+    return {"queries": queries, "plan": plan, "seeds": seeds, "limits": limits}
+
+
+def bind_identity(store: Store, inputs: dict, mode: str, fixture_hash: str | None):
+    identity = {"script_sha256": digest(Path(__file__).read_bytes()), "inputs": EXPECTED,
+                "modo": mode, "fixture_sha256": fixture_hash, "version": VERSION}
+    path = store.root / "IDENTIDAD.json"
+    if path.exists():
+        if store.load("IDENTIDAD.json") != identity:
+            raise IntegrityError("Salida pertenece a otro script/inputs/modo; usar carpeta nueva")
+    else:
+        # No adoptar una salida poblada sin identidad.
+        if any(p.name != ".q15.lock" for p in store.root.iterdir()):
+            raise IntegrityError("Salida no vacía sin IDENTIDAD.json")
+        store.put("IDENTIDAD.json", identity)
+
+
+def prepare_urls(inputs: dict) -> list[dict]:
+    urls = []
+    for row in inputs["plan"]:
+        base = row["base"]
+        url = arxiv_url(row["cadena_exacta"], 0, 100) if base == "arXiv" else s2_search_url(row["cadena_exacta"], int(row["fecha_desde"][:4]), 0, 100) if base == "SemanticScholar" else ""
+        urls.append({"busqueda_id": row["busqueda_id"], "base": base, "url_primera_pagina": url,
+            "estado": "OMITIDA_OPCIONAL" if base == "GoogleScholar" else "PENDIENTE_ENMIENDA_S2" if base == "SemanticScholar" else "PLANIFICADA",
+            "cadena_exacta": row["cadena_exacta"], "orden": row["orden_fijado"], "N": N, "K": K})
+    return urls
+
+
+def execute(runner: Runner, phase: str, bases: set[str]) -> dict:
+    outcomes = {}
+    catalogues = {}
+    if phase in ("todo", "catalogos"):
+        for base in ("NeurIPS", "ICML", "ICLR"):
+            if base in bases:
+                print("Catálogo: " + base, flush=True)
+                catalogues[base] = runner.catalogue(base)
+    for row in runner.inputs["plan"]:
+        ident, base = row["busqueda_id"], row["base"]
+        if base == "GoogleScholar":
+            outcomes[ident] = runner.native(row)
+        elif base in bases and base in ("arXiv", "SemanticScholar") and phase in ("todo", "consultas"):
+            print("Consulta: " + ident, flush=True)
+            outcomes[ident] = runner.store.job(ident, lambda r=row: runner.native(r), runner.retry)
+        elif base in catalogues:
+            cat = catalogues[base]
+            query = runner.queries[row["query_id"]]
+            def work(c=cat, q=query):
+                if "records" not in c:
+                    return {"estado": "PENDIENTE_CATALOGO", "error": c.get("error"), "total_declarado": None}
+                return catalogue_result(c["records"], q, c.get("issues", []))
+            outcomes[ident] = runner.store.job(ident, work, runner.retry)
+        else:
+            outcomes[ident] = {"estado": "NO_EJECUTADA_EN_ESTA_FASE", "total_declarado": None}
+    graphs = runner.citations() if phase in ("todo", "citas") and "SemanticScholar" in bases else {}
+    return {"queries": outcomes, "graphs": graphs}
+
+
+def export_tables(store: Store, run_name: str, payload: dict):
+    """Índices humanos derivados; cada run conserva sus CSV sin reemplazar."""
+    prefix = run_name.removesuffix(".json") + "/"
+    searches, records, graph_rows = [], [], []
+    for ident, result in payload.get("result", {}).get("queries", {}).items():
+        searches.append({"busqueda_id": ident, "estado": result["estado"],
+            "total_declarado": result.get("total_declarado"), "n_recuperados": result.get("n_recuperados"),
+            "n_seleccionados": result.get("n_seleccionados"), "estado_tope": result.get("estado_tope"),
+            "error": result.get("error", result.get("motivo", "")), "fecha_utc": payload["fecha_utc"],
+            "protocolo_commit": PROTOCOL_COMMIT})
+        for item in result.get("records", []):
+            r = item["record"]
+            records.append({"busqueda_id": ident, "position": item["position"], "selected": item["selected"],
+                "id": r.get("id", r.get("paperId")), "title": r.get("title"), "url": r.get("url"),
+                "fecha_estado": item.get("fecha_estado"), "autoria_estado": item.get("autoria_estado"),
+                "incluible_para_cribado": item.get("incluible_para_cribado")})
+    for ident, result in payload.get("result", {}).get("graphs", {}).items():
+        graph_rows.append({"job": ident, "estado": result["estado"], "conteo_bruto_ancla": result.get("conteo_bruto_ancla"),
+            "n_recuperados": result.get("n_recuperados"), "n_seleccionados": result.get("n_seleccionados"),
+            "filtro_DIN_activado": result.get("filtro_DIN_activado"), "ruta": result.get("ruta"),
+            "S0_snapshot": result.get("S0_snapshot"), "S0_sha256": result.get("S0_sha256")})
+    schemas = {
+        "busquedas.csv": (searches, ["busqueda_id", "estado", "total_declarado", "n_recuperados", "n_seleccionados", "estado_tope", "error", "fecha_utc", "protocolo_commit"]),
+        "registros.csv": (records, ["busqueda_id", "position", "selected", "id", "title", "url", "fecha_estado", "autoria_estado", "incluible_para_cribado"]),
+        "citas.csv": (graph_rows, ["job", "estado", "conteo_bruto_ancla", "n_recuperados", "n_seleccionados", "filtro_DIN_activado", "ruta", "S0_snapshot", "S0_sha256"]),
+    }
+    for name, (rows, fields) in schemas.items():
+        stream = io.StringIO(newline="")
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+        exclusive_write(store.root / (prefix + name), stream.getvalue().encode("utf-8-sig"))
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--q15", type=Path, default=Q15_DEFAULT)
+    parser.add_argument("--fase", choices=["preparar", "consultas", "catalogos", "citas", "todo"], default="preparar")
+    parser.add_argument("--bases", default=",".join(BASES))
+    parser.add_argument("--fixtures", type=Path, help="Transporte simulado; jamás hace fallback a internet")
+    parser.add_argument("--pausa-s2", type=float, default=1.1)
+    parser.add_argument("--reintentos", type=int, default=5)
+    parser.add_argument("--timeout", type=float, default=45.0)
+    parser.add_argument("--reintentar-fallos", action="store_true")
+    args = parser.parse_args(argv)
+    try:
+        ZoneInfo("America/Mexico_City")
+        if not 0 <= args.reintentos <= 20 or not math.isfinite(args.timeout) or args.timeout <= 0:
+            raise Q15Error("Reintentos/timeout fuera de dominio")
+        if not math.isfinite(args.pausa_s2) or args.pausa_s2 < 1:
+            raise Q15Error("Pausa S2 debe ser finita y >=1 s")
+        bases = set(args.bases.split(","))
+        if not bases or bases - set(BASES):
+            raise Q15Error("Bases no reconocidas; GoogleScholar está fuera")
+        q15, out = args.q15.resolve(), args.out.resolve()
+        if out.is_relative_to(q15.parents[2]):
+            raise Q15Error("Las respuestas crudas deben quedar fuera del clon Git")
+        inputs = load_inputs(q15)
+        fixture = strict_json(args.fixtures.read_bytes()) if args.fixtures else None
+        if fixture is not None and not isinstance(fixture, dict):
+            raise SchemaError("Fixture debe ser objeto URL→respuesta(s)")
+        with output_lock(out):
+            store = Store(out)
+            bind_identity(store, inputs, "SIMULADO" if fixture is not None else "RED", digest(args.fixtures.read_bytes()) if args.fixtures else None)
+            http = Http(store, FixtureTransport(fixture) if fixture is not None else None,
+                        s2_pause=args.pausa_s2, retries=args.reintentos, timeout=args.timeout, retry_failed=args.reintentar_fallos)
+            runner = Runner(inputs, store, http, args.reintentar_fallos)
+            name = store.next_name("runs", "run_")
+            if args.fase == "preparar":
+                result = {"plan": prepare_urls(inputs), "estado": "PREPARADO_SIN_RED"}
+            else:
+                result = execute(runner, args.fase, bases)
+            states = {}
+            for r in result.get("queries", {}).values():
+                states[r["estado"]] = states.get(r["estado"], 0) + 1
+            payload = {"version": VERSION, "fase": args.fase, "bases": sorted(bases), **stamp(),
+                "python": platform.python_version(), "plataforma": platform.platform(),
+                "script_sha256": digest(Path(__file__).read_bytes()), "inputs_sha256": EXPECTED,
+                "modo": "SIMULADO" if fixture is not None else "RED", "result": result,
+                "conteos": states, "google_scholar": "OMITIDA_OPCIONAL", "sin_experimentos_DIN": True}
+            store.put(name, payload)
+            export_tables(store, name, payload)
+            print(json.dumps({"archivo_run": name, "conteos": states, "modo": payload["modo"]}, ensure_ascii=False, allow_nan=False), flush=True)
+            incomplete = any(s not in TERMINAL for s in states)
+            incomplete |= any(r.get("estado") not in TERMINAL for r in result.get("graphs", {}).values())
+            return 2 if incomplete else 0
+    except (Q15Error, OSError, UnicodeError, json.JSONDecodeError, ZoneInfoNotFoundError) as exc:
+        print("ERROR Q15: " + str(exc), file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

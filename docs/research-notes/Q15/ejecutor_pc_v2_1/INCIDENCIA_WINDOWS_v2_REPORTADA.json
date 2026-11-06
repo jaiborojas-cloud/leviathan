@@ -1,0 +1,15 @@
+{
+  "fuente": "Informe comunicado por el responsable en el mensaje de esta tarea; archivos no leídos desde este entorno",
+  "version": "EJECUTOR_PC_v2_Q15_v3.1",
+  "script_sha256": "9d986a770956c49edd1174d9bb2b50bc65dbfe5c4958c7e753083d5ceb2df8a4",
+  "pruebas": 91,
+  "pasan_reportadas": 87,
+  "fallan_reportadas": 4,
+  "causa_reportada": "str(Path.relative_to(root)) usa separadores Windows y rompe igualdad de IDs persistidos",
+  "informe_en_PC": "D:\\RIPG_DATA\\Q15_v31_CONTROLES\\pruebas_001.json",
+  "log_en_PC": "D:\\RIPG_DATA\\Q15_v31_CONTROLES\\pruebas_001.log",
+  "informe_sha256": null,
+  "log_sha256": null,
+  "accion": "Conservar ambos archivos originales sin sobrescribir. Usar carpetas nuevas para v2.1.",
+  "sin_resultados_bibliograficos_reales": true
+}
