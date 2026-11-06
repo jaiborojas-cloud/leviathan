@@ -1,6 +1,6 @@
 # Cribado de Q15 con modelos abiertos: cómo correrlo
 
-El diseño está en [PREREGISTRO_CRIBADO_LLM.md](PREREGISTRO_CRIBADO_LLM.md), congelado el 2026-11-06 con las enmiendas 1 y 2. **No se corre nada hasta que Codex reaudite la enmienda 2.** Tu clon de `leviathan` debe estar en la versión congelada: el script de Azure revisa los SHA-256 y no sube nada si no coinciden.
+El diseño está en [PREREGISTRO_CRIBADO_LLM.md](PREREGISTRO_CRIBADO_LLM.md), congelado el 2026-11-06 con las enmiendas 1 a 5, auditado por Codex en cuatro rondas. Tu clon de `leviathan` debe estar en la versión congelada: el script de Azure revisa los SHA-256 y no sube nada si no coinciden.
 
 En PowerShell, ajusta la primera línea a la ruta de tu clon de `leviathan`:
 

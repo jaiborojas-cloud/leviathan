@@ -57,6 +57,10 @@ La suite de Claude (52 pruebas) pasa en el contenedor de Claude y en la PC del r
 
 La suite (64 pruebas) pasa en el contenedor de Claude y en la PC del responsable; en la PC, `preparar` con los paquetes reales reproduce la partición congelada.
 
+## Revisión acotada, sobre `a804906f` (enmienda 5)
+
+[REVISION_ACOTADA_CODEX_a804906f.md](auditoria_codex_a804906f/REVISION_ACOTADA_CODEX_a804906f.md), SHA-256 `22da647f298c36676e8c4f15038b5dbf904b6323fc20eab4237d287087b2103e`. Resultado de Codex: N1 y N2 resueltos; N4 corregido por inspección (sin bash independiente); **ningún error grave nuevo**. Observación menor única: un estado INCONCLUSIVO por obras faltantes perdía el detalle de las líneas descartadas. Corrección: `leer_salida_oficial` adjunta las descartadas a la excepción, y `elegir` y `validar` las escriben en el estado. Prueba: una salida con una línea basura en lugar de una obra da INCONCLUSIVO "faltan 1 obras", con la línea descartada (número, hash y motivo) en el estado. Suite: 65 pruebas; pasan aquí y en la PC del responsable, donde `preparar` reproduce la partición congelada.
+
 ## Lo que sigue sin verificarse
 - La ejecución real contra Azure y Ollama: drivers, descarga de modelos, salida estructurada con `think` y la memoria de la A100. Para eso está `probar`, que no ve datos de la referencia.
 - La semántica exacta de `tmux`, `timeout` y `PIPESTATUS` en la VM: se revisó la construcción del comando, no su ejecución.
