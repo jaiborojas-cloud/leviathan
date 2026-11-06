@@ -1,0 +1,13 @@
+{
+  "native_failure": "Fallo (9): az vm list-usage --location eastus -o table",
+  "remote_command": "tmux new -d -s q15 'bash ~/q15/correr.sh'",
+  "correr": "#!/bin/bash\n# generado por cribado_llm_azure.ps1 (lanzar seleccion); limite 2026-11-07T21:19:48Z\nset -o pipefail\nLIMITE=1794086388\nLOG=~/q15/etiquetar.log\nrestante=$(( LIMITE - $(date +%s) ))\nif [ \"$restante\" -le 60 ]; then echo \"FIN seleccion codigo=SIN_TIEMPO\" >> \"$LOG\"; exit 0; fi\ntimeout \"$restante\" bash -c 'python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_seleccion.jsonl --config C1 --datos ~/q15/datos --hasta 2026-11-07T21:19:48Z && python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_seleccion.jsonl --config C2 --datos ~/q15/datos --hasta 2026-11-07T21:19:48Z' 2>&1 | tee -a \"$LOG\"\necho \"FIN seleccion codigo=$?\" >> \"$LOG\"\n",
+  "uploads": [
+    "scp C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_ps_e1cb15d269c04b65b5486c3da28de6be\\cribado_llm.py C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_ps_e1cb15d269c04b65b5486c3da28de6be\\PROMPT_CRIBADO_LLM.md C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_ps_e1cb15d269c04b65b5486c3da28de6be\\particion.json azureuser@192.0.2.1:~/q15/",
+    "scp C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_ps_e1cb15d269c04b65b5486c3da28de6be\\datos\\entrada_seleccion.jsonl azureuser@192.0.2.1:~/q15/datos/",
+    "scp C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_correr_seleccion.sh azureuser@192.0.2.1:~/q15/correr.sh"
+  ],
+  "active_session": "Ya hay una sesion q15 corriendo en la VM; espera a que termine (-Fase estado) antes de lanzar otra.",
+  "expired": "Se agoto el presupuesto de 24 h (limite 2000-01-02T00:00:00Z): el piloto queda INCONCLUSIVO si no termino.",
+  "bad_hash": "SHA-256 distinto en C:\\Users\\jaibo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{f2cd2ec6-9bfb-46a9-88fb-736b5431550b}\\Temp\\q15_ps_e1cb15d269c04b65b5486c3da28de6be\\datos\\salida_seleccion_C1.jsonl\n  esperado 0000000000000000000000000000000000000000000000000000000000000000\n  real     6cb496a9cdc9f87f9149123e01f4691fed090e43c85eee6c9195f2eac51e0ab7"
+}

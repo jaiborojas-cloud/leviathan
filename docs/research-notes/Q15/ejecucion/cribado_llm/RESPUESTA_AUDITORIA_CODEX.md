@@ -43,6 +43,20 @@ Las correcciones forman la **enmienda 2** del [preregistro](PREREGISTRO_CRIBADO_
 
 La suite de Claude (52 pruebas) pasa en el contenedor de Claude y en la PC del responsable, en ambos casos con un servidor HTTP local real. En la PC, `preparar` con los paquetes reales reproduce la partición congelada.
 
+## Tercera auditoría, sobre `aaa6a255` (enmienda 4)
+
+[TERCERA_AUDITORIA_CODEX_aaa6a255.md](auditoria_codex_aaa6a255/TERCERA_AUDITORIA_CODEX_aaa6a255.md), SHA-256 `1252c2070d7bab150c46b37bb0ab443cf604c946bb8a6147bae645a7afb685cb`, con sus arneses en la misma carpeta. Codex dio por resueltos R1 a R4 y los seis menores, y R5 en el código. Lo nuevo son casos con **metadatos inválidos**, que el flujo normal no produce pero que el evaluador aceptaba. Claude confirmó N1, N2 y N3 sobre el código, y N4 leyendo `correr.sh`.
+
+| Hallazgo | Corrección (enmienda 4) | Prueba |
+|---|---|---|
+| **N1** límite nulo o fechas imposibles | `fecha_utc` analiza fechas reales; `presupuesto.json` debe tener inicio y límite válidos con exactamente 24 h entre ellos; cada fila debe caer dentro de esa ventana; `--hasta` solo acepta una fecha UTC válida. | `limite_utc` nulo, fecha `2026-00-00T99:99:99Z`, 48 h, límite movido 1 h, fila antes del inicio, hora de fila imposible: todos INCONCLUSIVO. `--hasta not-a-date` se rechaza. |
+| **N2** duraciones negativas o NaN | `segundos` debe ser finito y no negativo; las duraciones se miden con `time.monotonic`; `NaN` e `Infinity` se rechazan al leer el JSON. | `segundos=-1` y `NaN` → INCONCLUSIVO; con `segundos=-1` en C2, la elección ya no la elige: es INCONCLUSIVO. |
+| **N3** descartes silenciosos | `lineas_json` devuelve las líneas descartadas con número, hash y motivo; `elegir`, `validar`, `verificar` y `etiquetar` las reportan. No se rechazan, porque una cola cortada y cerrada al reanudar puede quedar legítimamente en medio. | Una línea basura queda en `metricas.lineas_descartadas`. |
+| **N4** `correr.sh` devuelve 0 tras un fallo | Guarda el código, lo registra y termina con él. | Bash real (Claude): una configuración que sale con 7 → `codigo=7` en el registro y salida 7. |
+| Menor: "nunca" en `escribir_estado` | El comentario dice ahora que no hay `fsync` y que una caída del sistema no está cubierta. | — |
+
+La suite (64 pruebas) pasa en el contenedor de Claude y en la PC del responsable; en la PC, `preparar` con los paquetes reales reproduce la partición congelada.
+
 ## Lo que sigue sin verificarse
 - La ejecución real contra Azure y Ollama: drivers, descarga de modelos, salida estructurada con `think` y la memoria de la A100. Para eso está `probar`, que no ve datos de la referencia.
 - La semántica exacta de `tmux`, `timeout` y `PIPESTATUS` en la VM: se revisó la construcción del comando, no su ejecución.
