@@ -8,9 +8,9 @@ Subcomandos, en orden:
   elegir     compara las configuraciones SOLO en la mitad de selección y aplica la regla fija
   validar    aplica las compuertas a la configuración elegida en la mitad de validación
 
-Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 2).
+Parámetros congelados abajo. Ver PREREGISTRO_CRIBADO_LLM.md (enmienda 3).
 """
-import argparse, csv, hashlib, io, json, random, re, socket, sys, time, unicodedata, urllib.error, urllib.request, zipfile
+import argparse, csv, hashlib, io, json, os, random, re, socket, sys, time, unicodedata, urllib.error, urllib.request, uuid, zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -36,6 +36,7 @@ ESQUEMA = {
         "dudoso": {"type": "boolean"},
     },
     "required": ["decision", "puntos", "razon", "dudoso"],
+    "additionalProperties": False,
 }
 UMBRAL_ACUERDO = 0.85      # acuerdo exacto en 3 clases, validación
 MAX_INVALIDAS = 0.02       # fracción máxima de respuestas inválidas (selección y validación)
@@ -57,15 +58,20 @@ def ahora():
 
 
 def escribir(p, obj):
-    with open(p, "w", encoding="utf-8", newline="\n") as f:
+    """Escritura atómica: se escribe a un temporal y se reemplaza; nunca queda un archivo a medias."""
+    p = Path(p); tmp = p.with_name(f".{p.name}.{uuid.uuid4().hex}.tmp")
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
+    os.replace(tmp, p)
 
 
 def escribir_estado(datos, nombre, obj):
-    """Escribe el estado vigente y una copia con fecha; un estado anterior nunca pasa por actual."""
-    obj = {"utc": ahora(), **obj}
+    """Escribe el estado vigente y una copia única de cada intento; un estado anterior nunca pasa por actual."""
+    obj = {"utc": ahora(), "intento": uuid.uuid4().hex, **obj}
+    hist = Path(datos) / f"{nombre}_{obj['utc'].replace(':', '').replace('-', '')}_{obj['intento'][:12]}.json"
+    with open(hist, "x", encoding="utf-8", newline="\n") as f:   # "x": nunca sobrescribe una copia anterior
+        f.write(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
     escribir(Path(datos) / f"{nombre}.json", obj)
-    escribir(Path(datos) / f"{nombre}_{obj['utc'].replace(':', '').replace('-', '')}.json", obj)
     print(json.dumps(obj, indent=2, ensure_ascii=False))
 
 
@@ -75,8 +81,8 @@ def norm_titulo(t):
 
 
 def tiene_texto(a):
-    """Un resumen cuenta si tiene al menos un carácter alfanumérico (descarta "", ",", "-")."""
-    return re.search(r"\w", a or "") is not None
+    """Un resumen cuenta si tiene al menos un carácter alfanumérico (descarta "", ",", "-", "___")."""
+    return any(ch.isalnum() for ch in (a or ""))
 
 
 def leer_zip(ruta, nombre):
@@ -256,6 +262,24 @@ def cmd_probar(a):
     print("VALIDAS:", " ".join(validas) or "(ninguna)")
 
 
+def lineas_json(p):
+    """Filas JSON completas de una salida, leída en bytes: una cola cortada (incluso a mitad de un carácter UTF-8) se ignora."""
+    filas = []
+    for n, b in enumerate(Path(p).read_bytes().split(b"\n"), 1):
+        if not b.strip():
+            continue
+        try:
+            filas.append((n, json.loads(b.decode("utf-8"))))
+        except (UnicodeDecodeError, ValueError):
+            pass  # línea incompleta por un desalojo: esa obra se rehace
+    return filas
+
+
+def igual(a, b):
+    """Comparación estricta de tipos: 0 no es False y 1 no es True."""
+    return json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
+
+
 def firma(cfg_id, sha_sis, sha_entrada, simulado):
     """Lo que debe coincidir en todas las filas de una salida para poder reanudarla o evaluarla."""
     return {"config": cfg_id, "modelo_pedido": CONFIGS[cfg_id]["modelo"], "think": CONFIGS[cfg_id]["think"], "opciones": OPCIONES,
@@ -274,12 +298,8 @@ def cmd_etiquetar(a):
         if salida.stat().st_size and not salida.read_bytes().endswith(b"\n"):
             with open(salida, "ab") as fb:
                 fb.write(b"\n")  # cierra una línea dejada a medias por un desalojo
-        for n, l in enumerate(open(salida, encoding="utf-8"), 1):
-            try:
-                d = json.loads(l)
-            except Exception:
-                continue  # línea truncada: esa obra se rehace
-            if {k: d.get(k) for k in fir} != fir:
+        for n, d in lineas_json(salida):
+            if not igual({k: d.get(k) for k in fir}, fir):
                 sys.exit(f"{salida.name}, línea {n}: la fila no corresponde a esta configuración, prompt, script, entrada o modo; no se mezclan corridas.")
             hechos.add(d["obra_id"])
     print(f"{a.config} {cfg}: {len(hechos)} de {len(entrada)} ya hechas -> {salida}")
@@ -287,6 +307,8 @@ def cmd_etiquetar(a):
         for i, x in enumerate(entrada, 1):
             if x["obra_id"] in hechos:
                 continue
+            if a.hasta and ahora() >= a.hasta:
+                sys.exit(f"Se alcanzó el límite del presupuesto ({a.hasta}); no se empiezan más obras.")
             t0 = time.time()
             r = llamar(a.host, cfg, sistema, mensaje_obra(x), a.simular)
             contenido = r.get("message", {}).get("content", "")
@@ -343,21 +365,35 @@ def leer_salida_oficial(datos, mitad, c, ref, prueba):
         limite = None
     else:
         raise Inconclusivo("falta presupuesto.json (lo escribe el primer 'lanzar')")
-    s, scripts = {}, set()
-    for n, l in enumerate(open(p, encoding="utf-8"), 1):
-        try:
-            d = json.loads(l)
-        except Exception:
-            continue
-        mal = {k: (d.get(k), v) for k, v in esperado.items() if d.get(k) != v}
+    if not prueba:
+        esperado["script_sha256"] = sha(Path(__file__).read_bytes())   # la misma versión congelada que evalúa
+    s = {}
+    for n, d in lineas_json(p):
+        mal = {k: (d.get(k), v) for k, v in esperado.items() if not igual(d.get(k), v)}
         if mal:
             raise Inconclusivo(f"{p.name}, línea {n}: metadatos distintos de los oficiales: {mal}")
+        if not isinstance(d.get("utc"), str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", d["utc"]):
+            raise Inconclusivo(f"{p.name}, línea {n}: hora UTC ausente o mal formada")
         if limite and d["utc"] > limite:
             raise Inconclusivo(f"{p.name}, línea {n}: etiquetada después del límite de tiempo {limite}")
-        scripts.add(d["script_sha256"])
+        # la decisión tabulada debe salir de la respuesta cruda y del modelo pedido; si no, la fila no es confiable
+        j = interpretar(d.get("crudo", ""))
+        if d.get("modelo_respuesta") != CONFIGS[c]["modelo"]:
+            j = None
+        if j is None:
+            if d.get("decision") != "INVALIDA":
+                raise Inconclusivo(f"{p.name}, línea {n}: la decisión no corresponde a la respuesta cruda o al modelo")
+        elif not (d.get("decision") == j["decision"] and igual(d.get("puntos"), j["puntos"])
+                  and d.get("razon") == j["razon"] and igual(d.get("dudoso"), j["dudoso"])):
+            raise Inconclusivo(f"{p.name}, línea {n}: la decisión no corresponde a la respuesta cruda")
+        if not isinstance(d.get("segundos"), (int, float)) or isinstance(d.get("segundos"), bool):
+            raise Inconclusivo(f"{p.name}, línea {n}: 'segundos' ausente o no numérico")
+        if d.get("obra_id") in s:
+            raise Inconclusivo(f"{p.name}, línea {n}: obra repetida {d.get('obra_id')}")
         s[d["obra_id"]] = d
-    if len(scripts) > 1:
-        raise Inconclusivo(f"{p.name}: mezcla filas de versiones distintas del script")
+    extra = [o for o in s if o not in ref]
+    if extra:
+        raise Inconclusivo(f"{p.name}: {len(extra)} obras que no son de esta mitad")
     falt = [o for o in ref if o not in s]
     if falt:
         raise Inconclusivo(f"{p.name}: faltan {len(falt)} obras")
@@ -378,12 +414,7 @@ def metricas(ref, sal):
 
 
 def cmd_verificar(a):
-    s = []
-    for l in open(a.salida, encoding="utf-8"):
-        try:
-            s.append(json.loads(l))
-        except Exception:
-            pass
+    s = [d for _, d in lineas_json(a.salida)]
     claves = ["config", "modelo_pedido", "sistema_sha256", "script_sha256", "entrada_sha256", "simulado"]
     print(json.dumps({"lineas_validas": len(s), "decisiones": dict(Counter(d.get("decision") for d in s)),
                       "firmas": dict(Counter(json.dumps({k: d.get(k) for k in claves}, sort_keys=True) for d in s)),
@@ -402,13 +433,15 @@ def cmd_elegir(a):
         if pj["sistema_sha256"] != SHA_SISTEMA or (pj["simulado"] and not a.prueba):
             raise Inconclusivo("probar.json no corresponde al prompt congelado o es simulado")
         evaluadas = pj["validas"]
+        if not isinstance(evaluadas, list) or not all(c in CONFIGS for c in evaluadas):
+            raise Inconclusivo("probar.json tiene una lista de configuraciones válidas mal formada")
         res = {c: metricas(ref, leer_salida_oficial(a.datos, "seleccion", c, ref, a.prueba)) for c in evaluadas}
-    except Inconclusivo as e:
-        escribir_estado(a.datos, "eleccion", {**base, "veredicto": "INCONCLUSIVO", "motivo": str(e), "elegida": None})
+    except Exception as e:  # cualquier falla deja un estado INCONCLUSIVO vigente, nunca uno anterior
+        escribir_estado(a.datos, "eleccion", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}", "elegida": None})
         sys.exit(1)
     aptas = [c for c in res if res[c]["frac_invalidas"] <= MAX_INVALIDAS]
-    # regla fija: mayor sensibilidad; luego mayor acuerdo; luego menos inválidas; luego menor mediana de tiempo
-    orden = sorted(aptas, key=lambda c: (-res[c]["sensibilidad"], -res[c]["acuerdo"], res[c]["invalidas"], res[c]["mediana_segundos"]))
+    # regla fija: mayor sensibilidad; mayor acuerdo; menos inválidas; menor mediana de tiempo; menor número de configuración
+    orden = sorted(aptas, key=lambda c: (-res[c]["sensibilidad"], -res[c]["acuerdo"], res[c]["invalidas"], res[c]["mediana_segundos"], c))
     elegida = orden[0] if orden else None
     escribir_estado(a.datos, "eleccion", {**base, "veredicto": "ELEGIDA" if elegida else "NO_APTO",
                                           "motivo": None if elegida else "ninguna configuración evaluada con inválidas <= MAX_INVALIDAS",
@@ -428,9 +461,11 @@ def cmd_validar(a):
             raise Inconclusivo(f"eleccion.json no tiene una configuración elegida válida (veredicto {el.get('veredicto')})")
         c = el["elegida"]
         ref = referencia(a.datos, "validacion", a.prueba)
+        if c not in CONFIGS:
+            raise Inconclusivo(f"eleccion.json nombra una configuración desconocida: {c!r}")
         m = metricas(ref, leer_salida_oficial(a.datos, "validacion", c, ref, a.prueba))
-    except Inconclusivo as e:
-        escribir_estado(a.datos, "veredicto", {**base, "veredicto": "INCONCLUSIVO", "motivo": str(e)})
+    except Exception as e:  # cualquier falla deja un estado INCONCLUSIVO vigente, nunca uno anterior
+        escribir_estado(a.datos, "veredicto", {**base, "veredicto": "INCONCLUSIVO", "motivo": f"{type(e).__name__}: {e}"})
         sys.exit(1)
     comp = {"omisiones": "PASA" if m["omisiones"] <= MAX_OMISIONES else "FALLA",
             "acuerdo": "PASA" if m["acuerdo"] >= UMBRAL_ACUERDO else "FALLA",
@@ -445,6 +480,7 @@ def main():
     p = sp.add_parser("preparar"); p.add_argument("--lote01", required=True); p.add_argument("--lote02", required=True); p.add_argument("--lote03", required=True); p.add_argument("--datos", required=True)
     p = sp.add_parser("probar"); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
     p = sp.add_parser("etiquetar"); p.add_argument("--entrada", required=True); p.add_argument("--config", required=True, choices=CONFIGS); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
+    p.add_argument("--hasta", default=None, help="límite UTC (AAAA-MM-DDTHH:MM:SSZ): no empieza obras después de esta hora")
     p = sp.add_parser("verificar"); p.add_argument("--salida", required=True)
     for n in ("elegir", "validar"):
         p = sp.add_parser(n); p.add_argument("--datos", required=True)

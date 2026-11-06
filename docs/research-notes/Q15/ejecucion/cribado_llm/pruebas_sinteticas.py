@@ -1,8 +1,8 @@
-"""Pruebas sintéticas de cribado_llm.py (enmienda 2). No usan datos reales, Azure ni modelos.
+"""Pruebas sintéticas de cribado_llm.py (enmienda 3). No usan datos reales, Azure ni modelos.
 
 Uso:  python -I pruebas_sinteticas.py
 Crea todo en una carpeta temporal y levanta un servidor HTTP local que imita /api/chat de Ollama.
-Cada prueba corresponde a un hallazgo de la auditoría de Codex (G1-G6, M1-M5, D1).
+Cada prueba corresponde a un hallazgo de las auditorías de Codex (G1-G6, M1-M5, D1; reauditoría R1-R5 y menores).
 """
 import csv, importlib.util, io, json, socket, sys, tempfile, threading, urllib.error, zipfile
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -136,13 +136,13 @@ chequeo("mediana([3, 1, 2]) = 2", c.mediana([3, 1, 2]) == 2)
 
 print("\n== Flujo oficial completo con un modelo que reproduce la referencia")
 (DAT / "presupuesto.json").write_text('{"inicio_utc":"2000-01-01T00:00:00Z","limite_utc":"2999-01-01T00:00:00Z","horas":24}', encoding="utf-8")
-c.cmd_probar(NS(datos=DAT, host=HOST, simular=False))
+c.cmd_probar(NS(datos=DAT, host=HOST, simular=False, hasta=None))
 for cfg in c.CONFIGS:
-    c.cmd_etiquetar(NS(entrada=DAT / "entrada_seleccion.jsonl", config=cfg, datos=DAT, host=HOST, simular=False))
+    c.cmd_etiquetar(NS(entrada=DAT / "entrada_seleccion.jsonl", config=cfg, datos=DAT, host=HOST, simular=False, hasta=None))
 chequeo("elegir termina", sale(c.cmd_elegir, NS(datos=DAT, prueba=False)) is None)
 el = json.loads((DAT / "eleccion.json").read_text(encoding="utf-8"))
 chequeo("eleccion: ELEGIDA C1 (empate perfecto -> primer criterio que desempata)", el["veredicto"] == "ELEGIDA" and el["elegida"] == "C1")
-c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False))
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
 sale(c.cmd_validar, NS(datos=DAT, prueba=False))
 ve = json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))
 chequeo("veredicto APTO", ve["veredicto"] == "APTO")
@@ -154,11 +154,11 @@ filas = [json.loads(l) for l in original.decode().splitlines()]
 filas[0]["config"] = "C4"
 sv.write_text("\n".join(json.dumps(f) for f in filas) + "\n", encoding="utf-8")
 chequeo("reanudar con una fila de otra configuración se detiene",
-        sale(c.cmd_etiquetar, NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False)) is not None)
+        sale(c.cmd_etiquetar, NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None)) is not None)
 sale(c.cmd_validar, NS(datos=DAT, prueba=False))
 chequeo("validar con una fila ajena da INCONCLUSIVO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "INCONCLUSIVO")
 sv.unlink()
-c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=True))
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=True, hasta=None))
 sale(c.cmd_validar, NS(datos=DAT, prueba=False))
 chequeo("una salida simulada da INCONCLUSIVO en modo oficial", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "INCONCLUSIVO")
 sv.write_bytes(original)
@@ -190,7 +190,7 @@ chequeo("sin presupuesto.json, INCONCLUSIVO en modo oficial", json.loads((DAT / 
 
 print("\n== D1: excluir CONTEXTO cuenta como omisión")
 MODO["tipo"] = "excluye_contexto"; sv.unlink()
-c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False))
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
 sale(c.cmd_validar, NS(datos=DAT, prueba=False))
 ve = json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))
 n_ctx = sum(1 for d in REF.values() if d["mitad"] == "validacion" and d["ref"] == "CONTEXTO")
@@ -199,7 +199,7 @@ MODO["tipo"] = "perfecto"
 
 print("\n== Desalojo: línea cortada a la mitad")
 datos = sv.read_bytes(); sv.write_bytes(datos[:-40])
-c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False))
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
 validas = sum(1 for l in sv.read_text(encoding="utf-8").splitlines() if l.strip().endswith("}"))
 chequeo("se rehace la obra cortada sin pegarla a la línea rota", validas == sum(1 for d in REF.values() if d["mitad"] == "validacion"))
 
@@ -209,6 +209,71 @@ pj = json.loads((DAT / "probar.json").read_text(encoding="utf-8")); pj["validas"
 sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
 el = json.loads((DAT / "eleccion.json").read_text(encoding="utf-8"))
 chequeo("C1 y C4 quedan NO_EVALUADAS; elige entre C2 y C3", el["no_evaluadas"] == ["C1", "C4"] and el["elegida"] == "C2")
+
+print("\n== Reauditoría R1: el evaluador exige la versión congelada y coherencia de cada fila")
+# estado limpio: las pruebas anteriores dejaron elegida C2 y una línea rota en la salida de validación
+pj = json.loads((DAT / "probar.json").read_text(encoding="utf-8")); pj["validas"] = list(c.CONFIGS)
+(DAT / "probar.json").write_text(json.dumps(pj), encoding="utf-8")
+sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
+MODO["tipo"] = "perfecto"; sv.unlink()
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+chequeo("punto de partida: APTO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "APTO")
+original = sv.read_bytes()
+def con_fila(cambio):
+    filas = [json.loads(l) for l in original.decode().splitlines()]
+    cambio(filas[0]); sv.write_text("\n".join(json.dumps(f) for f in filas) + "\n", encoding="utf-8")
+    sale(c.cmd_validar, NS(datos=DAT, prueba=False)); sv.write_bytes(original)
+    return json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"]
+chequeo("script_sha256 desconocido -> INCONCLUSIVO", con_fila(lambda f: f.update(script_sha256="0" * 64)) == "INCONCLUSIVO")
+chequeo("modelo_respuesta distinto -> INCONCLUSIVO", con_fila(lambda f: f.update(modelo_respuesta="otro-modelo")) == "INCONCLUSIVO")
+chequeo("crudo que no es JSON con decisión tabulada -> INCONCLUSIVO", con_fila(lambda f: f.update(crudo="no es json")) == "INCONCLUSIVO")
+chequeo("decisión tabulada distinta de la cruda -> INCONCLUSIVO", con_fila(lambda f: f.update(decision="CONTEXTO" if f["decision"] != "CONTEXTO" else "INCLUIR_PARA_TEXTO")) == "INCONCLUSIVO")
+chequeo("think=0 y simulado=0 (tipos) -> INCONCLUSIVO", con_fila(lambda f: f.update(think=0, simulado=0)) == "INCONCLUSIVO")
+chequeo("obra repetida -> INCONCLUSIVO", con_fila(lambda f: None) == "APTO" and (sv.write_bytes(original + original.splitlines(True)[0]) or True)
+        and (sale(c.cmd_validar, NS(datos=DAT, prueba=False)) or True) and json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "INCONCLUSIVO")
+sv.write_bytes(original)
+
+print("\n== Reauditoría R2: un archivo de estado roto no deja vigente un APTO viejo")
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+el_orig = (DAT / "eleccion.json").read_bytes(); (DAT / "eleccion.json").write_text("{", encoding="utf-8")
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+ve = json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))
+chequeo("eleccion.json = '{' -> veredicto vigente INCONCLUSIVO con el motivo", ve["veredicto"] == "INCONCLUSIVO" and "JSONDecodeError" in ve["motivo"])
+(DAT / "eleccion.json").write_bytes(el_orig)
+
+print("\n== Reauditoría R3: dos intentos en el mismo segundo conservan dos copias")
+antes = len(list(DAT.glob("veredicto_*.json"))); reloj = c.ahora; c.ahora = lambda: "2026-11-06T12:00:00Z"
+sale(c.cmd_validar, NS(datos=DAT, prueba=False)); sale(c.cmd_validar, NS(datos=DAT, prueba=False)); c.ahora = reloj
+chequeo("dos copias nuevas, ninguna sobrescrita", len(list(DAT.glob("veredicto_*.json"))) == antes + 2)
+
+print("\n== Reauditoría R4: corte a mitad de un carácter UTF-8")
+sv.write_bytes(original + b'{"razon":"\xc3')
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+chequeo("se reanuda sin UnicodeDecodeError y el veredicto vuelve a APTO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "APTO")
+cortada = original.splitlines(True); sv.write_bytes(b"".join(cortada[:-1]) + cortada[-1][:25] + "é".encode()[:1])
+c.cmd_etiquetar(NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta=None))
+sale(c.cmd_validar, NS(datos=DAT, prueba=False))
+chequeo("la obra cortada a mitad de carácter se rehace y el veredicto es APTO", json.loads((DAT / "veredicto.json").read_text(encoding="utf-8"))["veredicto"] == "APTO")
+sv.write_bytes(original)
+
+print("\n== Reauditoría R5: --hasta no empieza obras pasado el límite")
+sv.unlink()
+msg = sale(c.cmd_etiquetar, NS(entrada=DAT / "entrada_validacion.jsonl", config="C1", datos=DAT, host=HOST, simular=False, hasta="2000-01-01T00:00:00Z"))
+chequeo("límite vencido: se detiene sin escribir filas", msg is not None and "límite" in msg and (not sv.exists() or sv.read_bytes() == b""))
+sv.write_bytes(original)
+
+print("\n== Menores de la reauditoría")
+chequeo("'___' no cuenta como resumen", not c.tiene_texto("___") and c.tiene_texto("ñ"))
+chequeo("el esquema enviado prohíbe claves extra", c.ESQUEMA.get("additionalProperties") is False)
+pj = json.loads((DAT / "probar.json").read_text(encoding="utf-8")); pj["validas"] = ["C2", "C1"]
+(DAT / "probar.json").write_text(json.dumps(pj), encoding="utf-8")
+for cfg in ("C1", "C2"):
+    f = DAT / f"salida_seleccion_{cfg}.jsonl"
+    f.write_text("\n".join(json.dumps({**json.loads(l), "segundos": 1.0}) for l in f.read_text(encoding="utf-8").splitlines()) + "\n", encoding="utf-8")
+sale(c.cmd_elegir, NS(datos=DAT, prueba=False))
+chequeo("empate total con validas=[C2, C1] -> elige C1", json.loads((DAT / "eleccion.json").read_text(encoding="utf-8"))["elegida"] == "C1")
 
 print(f"\n{'TODAS LAS PRUEBAS PASAN' if not FALLAS else 'FALLAN: ' + ', '.join(FALLAS)}  (carpeta: {T})")
 sys.exit(1 if FALLAS else 0)

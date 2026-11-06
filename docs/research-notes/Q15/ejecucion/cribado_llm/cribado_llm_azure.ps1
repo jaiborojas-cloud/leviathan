@@ -1,5 +1,5 @@
 # cribado_llm_azure.ps1 - Q15: piloto de cribado con modelos abiertos en Azure spot (Standard_NC24ads_A100_v4)
-# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 2.
+# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 3.
 #
 # Fases, en orden:
 #   cuota     revisa la cuota spot (24 vCPU "Low-priority") en la region
@@ -41,7 +41,7 @@ $Prompt = Join-Path $Aqui "PROMPT_CRIBADO_LLM.md"
 $Particion = Join-Path $Aqui "particion.json"
 $Presupuesto = Join-Path $Datos "presupuesto.json"
 # hashes congelados (PREREGISTRO_CRIBADO_LLM.md); si tu copia difiere, no se sube nada
-$ShaScript = "93efe6b00f5a27639aad070743321dd53c9925335b250d7cea76056f6bccf703"
+$ShaScript = "a2825a37f2aae5897cfcf74d120844d26dff1e5ca8c3bb05dbf34195ab090afa"
 $ShaPrompt = "0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0"
 
 # Todo comando nativo pasa por aqui: un codigo distinto de cero detiene el script (PowerShell no lo hace solo).
@@ -113,7 +113,8 @@ switch ($Fase) {
 
     "instalar" {
         if (-not $OllamaVersion) { throw "Pasa -OllamaVersion, p. ej. -OllamaVersion 0.40.14" }
-        Invoke-Remoto "curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=$OllamaVersion sh"
+        # pipefail: si curl falla, el comando falla aunque 'sh' reciba una entrada vacia
+        Invoke-Remoto "set -o pipefail; curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=$OllamaVersion sh"
         foreach ($m in $Modelos) { Invoke-Remoto "ollama pull $m" }
         Invoke-Remoto "ollama --version; ollama list"
         foreach ($m in $Modelos) { Invoke-Remoto "ollama show $m" }
@@ -169,12 +170,27 @@ switch ($Fase) {
         if ("$sesion".Trim() -eq "SI") { throw "Ya hay una sesion q15 corriendo en la VM; espera a que termine (-Fase estado) antes de lanzar otra." }
         Subir-Codigo $ip
         Copiar @($entrada) "${User}@${ip}:~/q15/datos/"
+        # correr.sh: el limite viaja como hora ABSOLUTA; el tiempo restante se calcula en la VM al arrancar,
+        # 'timeout' corta en el limite y 'etiquetar --hasta' no empieza obras despues de el
+        $epoch = [DateTimeOffset]::new($limite).ToUnixTimeSeconds()
         $cadena = ($Configs | ForEach-Object {
-            "python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_$Mitad.jsonl --config $_ --datos ~/q15/datos"
+            "python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_$Mitad.jsonl --config $_ --datos ~/q15/datos --hasta $limiteTexto"
         }) -join " && "
-        # 'timeout' corta al llegar al limite del presupuesto; el codigo de salida queda en el registro
-        Invoke-Remoto ("tmux new -d -s q15 " +
-            "'timeout $restante bash -c `"$cadena`" 2>&1 | tee -a ~/q15/etiquetar.log; echo FIN $Mitad codigo=`${PIPESTATUS[0]} >> ~/q15/etiquetar.log'") | Out-Null
+        $lineas = @(
+            '#!/bin/bash',
+            "# generado por cribado_llm_azure.ps1 (lanzar $Mitad); limite $limiteTexto",
+            'set -o pipefail',
+            "LIMITE=$epoch",
+            'LOG=~/q15/etiquetar.log',
+            'restante=$(( LIMITE - $(date +%s) ))',
+            ('if [ "$restante" -le 60 ]; then echo "FIN ' + $Mitad + ' codigo=SIN_TIEMPO" >> "$LOG"; exit 0; fi'),
+            ("timeout `"`$restante`" bash -c '" + $cadena + "' 2>&1 | tee -a `"`$LOG`""),
+            ('echo "FIN ' + $Mitad + ' codigo=$?" >> "$LOG"')
+        )
+        $correr = Join-Path ([IO.Path]::GetTempPath()) "q15_correr_$Mitad.sh"
+        [IO.File]::WriteAllText($correr, (($lineas -join "`n") + "`n"))   # LF, sin BOM
+        Copiar @($correr) "${User}@${ip}:~/q15/correr.sh"
+        Invoke-Remoto "tmux new -d -s q15 'bash ~/q15/correr.sh'" | Out-Null
         Write-Host "`nEtiquetado de '$Mitad' con $($Configs -join ', ') corriendo, como maximo hasta $limiteTexto. Revisa con: -Fase estado"
     }
 
@@ -197,7 +213,7 @@ switch ($Fase) {
             Test-Sha (Join-Path $Datos $n.Trim()) $h
         }
         $info = Join-Path $Datos "nube_info_$Mitad.txt"
-        Invoke-Remoto "date -u; ollama --version; ollama list; nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv; sha256sum ~/q15/cribado_llm.py ~/q15/PROMPT_CRIBADO_LLM.md ~/q15/particion.json ~/q15/datos/*.jsonl" |
+        Invoke-Remoto "date -u; ollama --version; ollama list; nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv; sha256sum ~/q15/cribado_llm.py ~/q15/PROMPT_CRIBADO_LLM.md ~/q15/particion.json ~/q15/datos/*.jsonl; echo '--- correr.sh'; cat ~/q15/correr.sh" |
             Set-Content $info
         Write-Host "`nSalidas en $Datos, con hashes verificados contra la VM ($($remotos.Count) archivos). Entorno en $info."
     }
