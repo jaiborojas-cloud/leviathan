@@ -1,19 +1,20 @@
 # cribado_llm_azure.ps1 - Q15: piloto de cribado con modelos abiertos en Azure spot (Standard_NC24ads_A100_v4)
-# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1.
+# Adaptado de experimentos-aislados/E001 nube/etiquetar_azure.ps1. Enmienda 2.
 #
 # Fases, en orden:
 #   cuota     revisa la cuota spot (24 vCPU "Low-priority") en la region
-#   crear     grupo de recursos + VM spot; SSH solo a tu IP; tope de precio y apagado automatico
+#   crear     grupo de recursos + VM spot; SSH solo a tu IP; tope de precio y apagado diario de seguridad
 #   preparar  instala drivers NVIDIA y reinicia la VM
 #   instalar  instala Ollama (misma version que la local), baja los tres modelos e imprime sus IDs
 #   probar    sube script y prompt, revisa el formato de cada modelo con una obra inventada y baja probar.json
 #   lanzar    sube script, prompt y UNA entrada (sin etiquetas de referencia) y etiqueta en tmux (reanudable)
 #             seleccion: las configuraciones que pasaron "probar"; validacion: solo la de eleccion.json
-#   estado    progreso y temperatura de la GPU
-#   bajar     trae las salidas y el registro del entorno a tu disco D:
+#             el primer 'lanzar' fija el presupuesto: 24 h de reloj; despues ya no se lanza nada
+#   estado    progreso, codigo de salida y GPU
+#   bajar     trae las salidas de la mitad indicada, verifica sus hashes y registra el entorno
 #   borrar    elimina todo el grupo de recursos (deja de cobrar)
 #
-# Si Azure desaloja la VM: vuelve a correr -Fase lanzar con los mismos argumentos; sigue donde iba.
+# Si Azure desaloja la VM o el registro dice "Sin conexion con Ollama": repite -Fase lanzar con los mismos argumentos.
 
 param(
     [Parameter(Mandatory = $true)]
@@ -24,8 +25,7 @@ param(
     [string]$Datos = "D:\RIPG_DATA\Q15_CRIBADO_LLM",
     [ValidateSet("seleccion", "validacion")]
     [string]$Mitad = "seleccion",
-    [double]$PrecioMaxHora = 1.00,
-    [int]$HorasMax = 6
+    [double]$PrecioMaxHora = 1.00
 )
 
 $ErrorActionPreference = "Stop"
@@ -34,25 +34,33 @@ $VM = "vm-q15-cribado"
 $Size = "Standard_NC24ads_A100_v4"
 $User = "azureuser"
 $Modelos = @("qwen3.8:27b", "gemma4:31b", "gpt-oss:120b")
+$HorasPresupuesto = 24
 $Aqui = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Script = Join-Path $Aqui "cribado_llm.py"
 $Prompt = Join-Path $Aqui "PROMPT_CRIBADO_LLM.md"
 $Particion = Join-Path $Aqui "particion.json"
+$Presupuesto = Join-Path $Datos "presupuesto.json"
 # hashes congelados (PREREGISTRO_CRIBADO_LLM.md); si tu copia difiere, no se sube nada
-$ShaScript = "a7d9a718af41966587cdd04944d5b5fa0e751c1eb3a53bf7833c66edd047fb40"
+$ShaScript = "93efe6b00f5a27639aad070743321dd53c9925335b250d7cea76056f6bccf703"
 $ShaPrompt = "0d102764a522b0d09cbfd60fbc0d1fff375a99c40d254b52dafa9592a9d593f0"
 
-function Get-Ip { (az vm show -d -g $RG -n $VM --query publicIps -o tsv).Trim() }
+# Todo comando nativo pasa por aqui: un codigo distinto de cero detiene el script (PowerShell no lo hace solo).
+function Invoke-Nativo([string]$exe, [string[]]$argumentos) {
+    $salida = & $exe @argumentos
+    if ($LASTEXITCODE -ne 0) { throw "Fallo ($LASTEXITCODE): $exe $($argumentos -join ' ')" }
+    return $salida
+}
+function Invoke-Az([string[]]$argumentos) { Invoke-Nativo "az" $argumentos }
 
-function Invoke-Remoto([string]$cmd) {
-    ssh -o StrictHostKeyChecking=accept-new "$User@$(Get-Ip)" $cmd
-    if ($LASTEXITCODE -ne 0) { throw "Fallo el comando remoto: $cmd" }
+function Get-Ip {
+    $ip = Invoke-Az @("vm", "show", "-d", "-g", $RG, "-n", $VM, "--query", "publicIps", "-o", "tsv")
+    $ip = "$ip".Trim()
+    if (-not $ip) { throw "La VM no tiene IP publica (esta apagada o no existe)." }
+    return $ip
 }
 
-function Copiar([string[]]$origen, [string]$destino) {
-    scp @origen $destino
-    if ($LASTEXITCODE -ne 0) { throw "Fallo la copia: $($origen -join ', ') -> $destino" }
-}
+function Invoke-Remoto([string]$cmd) { Invoke-Nativo "ssh" @("-o", "StrictHostKeyChecking=accept-new", "$User@$(Get-Ip)", $cmd) }
+function Copiar([string[]]$origen, [string]$destino) { Invoke-Nativo "scp" (@($origen) + @($destino)) | Out-Null }
 
 function Test-Sha([string]$ruta, [string]$esperado) {
     $real = (Get-FileHash $ruta -Algorithm SHA256).Hash.ToLower()
@@ -62,31 +70,32 @@ function Test-Sha([string]$ruta, [string]$esperado) {
 function Subir-Codigo([string]$ip) {
     Test-Sha $Script $ShaScript
     Test-Sha $Prompt $ShaPrompt
-    Invoke-Remoto "mkdir -p ~/q15/datos"
-    Copiar @($Script, $Prompt) "${User}@${ip}:~/q15/"
+    Invoke-Remoto "mkdir -p ~/q15/datos" | Out-Null
+    Copiar @($Script, $Prompt, $Particion) "${User}@${ip}:~/q15/"
 }
 
 switch ($Fase) {
 
     "cuota" {
-        az vm list-usage --location $Region -o table | Select-String -Pattern "Low-priority|NCADS_A100"
+        Invoke-Az @("vm", "list-usage", "--location", $Region, "-o", "table") | Select-String -Pattern "Low-priority|NCADS_A100"
         Write-Host "`nNecesitas al menos 24 vCPU libres en 'Total Regional Low-priority vCPUs'."
     }
 
     "crear" {
         $miIp = (Invoke-RestMethod -Uri "https://api.ipify.org").Trim()
-        az group create -n $RG -l $Region -o none
-        az vm create -g $RG -n $VM --size $Size `
-            --image "Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest" `
-            --priority Spot --eviction-policy Deallocate --max-price $PrecioMaxHora `
-            --admin-username $User --generate-ssh-keys --os-disk-size-gb 256 `
-            --public-ip-sku Standard --nsg-rule NONE -o table
-        az network nsg rule create -g $RG --nsg-name "${VM}NSG" -n ssh-solo-mi-ip `
-            --priority 1000 --source-address-prefixes "$miIp/32" --destination-port-ranges 22 `
-            --access Allow --protocol Tcp -o none
-        $apagado = (Get-Date).ToUniversalTime().AddHours($HorasMax).ToString("HHmm")
-        az vm auto-shutdown -g $RG -n $VM --time $apagado -o none
-        Write-Host "`nVM creada. SSH solo para $miIp. Topes: $PrecioMaxHora USD/h y apagado a las $HorasMax h ($apagado UTC)."
+        Invoke-Az @("group", "create", "-n", $RG, "-l", $Region, "-o", "none") | Out-Null
+        Invoke-Az @("vm", "create", "-g", $RG, "-n", $VM, "--size", $Size,
+            "--image", "Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest",
+            "--priority", "Spot", "--eviction-policy", "Deallocate", "--max-price", "$PrecioMaxHora",
+            "--admin-username", $User, "--generate-ssh-keys", "--os-disk-size-gb", "256",
+            "--public-ip-sku", "Standard", "--nsg-rule", "NONE", "-o", "table")
+        Invoke-Az @("network", "nsg", "rule", "create", "-g", $RG, "--nsg-name", "${VM}NSG", "-n", "ssh-solo-mi-ip",
+            "--priority", "1000", "--source-address-prefixes", "$miIp/32", "--destination-port-ranges", "22",
+            "--access", "Allow", "--protocol", "Tcp", "-o", "none") | Out-Null
+        # apagado DIARIO de seguridad (es una hora del dia, no un tope acumulado; el tope es el presupuesto de 'lanzar')
+        $apagado = (Get-Date).ToUniversalTime().AddHours(6).ToString("HHmm")
+        Invoke-Az @("vm", "auto-shutdown", "-g", $RG, "-n", $VM, "--time", $apagado, "-o", "none") | Out-Null
+        Write-Host "`nVM creada. SSH solo para $miIp. Tope $PrecioMaxHora USD/h; apagado diario de seguridad a las $apagado UTC."
         Write-Host "Siguiente: -Fase preparar"
     }
 
@@ -97,7 +106,7 @@ switch ($Fase) {
             "V=`$(dpkg -l | grep -oP 'libnvidia-compute-\K[0-9]+-server' | head -n1) && " +
             "echo Driver: `$V && " +
             "sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-utils-`$V linux-modules-nvidia-`$V-azure")
-        az vm restart -g $RG -n $VM -o none
+        Invoke-Az @("vm", "restart", "-g", $RG, "-n", $VM, "-o", "none") | Out-Null
         Invoke-Remoto "nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv"
         Write-Host "`nGPU lista. Siguiente: -Fase instalar -OllamaVersion <version>"
     }
@@ -107,17 +116,18 @@ switch ($Fase) {
         Invoke-Remoto "curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=$OllamaVersion sh"
         foreach ($m in $Modelos) { Invoke-Remoto "ollama pull $m" }
         Invoke-Remoto "ollama --version; ollama list"
-        foreach ($m in $Modelos) { Invoke-Remoto "ollama show $m | head -n 20" }
+        foreach ($m in $Modelos) { Invoke-Remoto "ollama show $m" }
         Write-Host "`nRegistra la version, los IDs y la cuantizacion de arriba en el registro de ejecucion ANTES de lanzar."
     }
 
     "probar" {
-        az vm start -g $RG -n $VM -o none
+        Invoke-Az @("vm", "start", "-g", $RG, "-n", $VM, "-o", "none") | Out-Null
         $ip = Get-Ip
         Subir-Codigo $ip
         Invoke-Remoto "python3 -I ~/q15/cribado_llm.py probar --datos ~/q15/datos"
+        New-Item -ItemType Directory -Force -Path $Datos | Out-Null
         Copiar @("${User}@${ip}:~/q15/datos/probar.json") $Datos
-        $validas = (Get-Content (Join-Path $Datos "probar.json") -Raw | ConvertFrom-Json).validas
+        $validas = @((Get-Content (Join-Path $Datos "probar.json") -Raw | ConvertFrom-Json).validas)
         Write-Host "`nPasan la prueba de formato: $($validas -join ', '). Las demas quedan NO_EVALUADAS."
         Write-Host "Siguiente: -Fase lanzar -Mitad seleccion"
     }
@@ -134,40 +144,66 @@ switch ($Fase) {
         } else {
             $ej = Join-Path $Datos "eleccion.json"
             if (-not (Test-Path $ej)) { throw "Falta $ej. Corre antes 'elegir' en tu PC." }
-            $el = (Get-Content $ej -Raw | ConvertFrom-Json).elegida
-            if (-not $el) { throw "eleccion.json no tiene configuracion elegida: el piloto es NO_APTO y no hay validacion." }
-            $Configs = @($el)
+            $el = Get-Content $ej -Raw | ConvertFrom-Json
+            if ($el.veredicto -ne "ELEGIDA" -or $el.prueba) { throw "eleccion.json no tiene configuracion elegida (veredicto $($el.veredicto)); no hay validacion." }
+            $Configs = @($el.elegida)
         }
-        if ($Configs.Count -eq 0) { throw "Ninguna configuracion paso la prueba de formato." }
-        az vm start -g $RG -n $VM -o none
+        if ($Configs.Count -eq 0) { throw "Ninguna configuracion paso la prueba de formato: el piloto es NO_APTO." }
+
+        # presupuesto: 24 h de reloj desde el primer 'lanzar'; se fija una vez y no se reinicia
+        $ahora = (Get-Date).ToUniversalTime()
+        if (-not (Test-Path $Presupuesto)) {
+            [ordered]@{ inicio_utc = $ahora.ToString("yyyy-MM-ddTHH:mm:ssZ"); limite_utc = $ahora.AddHours($HorasPresupuesto).ToString("yyyy-MM-ddTHH:mm:ssZ"); horas = $HorasPresupuesto } |
+                ConvertTo-Json | Set-Content -Path $Presupuesto -Encoding utf8
+        }
+        # se lee como texto: ConvertFrom-Json de PowerShell 7 convierte las fechas ISO a DateTime local
+        $limiteTexto = [regex]::Match((Get-Content $Presupuesto -Raw), '"limite_utc"\s*:\s*"([^"]+)"').Groups[1].Value
+        $limite = [datetime]::ParseExact($limiteTexto, "yyyy-MM-ddTHH:mm:ssZ", [Globalization.CultureInfo]::InvariantCulture,
+            [Globalization.DateTimeStyles]::AssumeUniversal -bor [Globalization.DateTimeStyles]::AdjustToUniversal)
+        $restante = [int][math]::Floor(($limite - $ahora).TotalSeconds)
+        if ($restante -le 60) { throw "Se agoto el presupuesto de $HorasPresupuesto h (limite $limiteTexto): el piloto queda INCONCLUSIVO si no termino." }
+
+        Invoke-Az @("vm", "start", "-g", $RG, "-n", $VM, "-o", "none") | Out-Null
         $ip = Get-Ip
+        $sesion = Invoke-Remoto "tmux has-session -t q15 2>/dev/null && echo SI || echo NO"
+        if ("$sesion".Trim() -eq "SI") { throw "Ya hay una sesion q15 corriendo en la VM; espera a que termine (-Fase estado) antes de lanzar otra." }
         Subir-Codigo $ip
         Copiar @($entrada) "${User}@${ip}:~/q15/datos/"
         $cadena = ($Configs | ForEach-Object {
             "python3 -I ~/q15/cribado_llm.py etiquetar --entrada ~/q15/datos/entrada_$Mitad.jsonl --config $_ --datos ~/q15/datos"
         }) -join " && "
-        Invoke-Remoto ("tmux has-session -t q15 2>/dev/null || tmux new -d -s q15 " +
-            "'($cadena) 2>&1 | tee -a ~/q15/etiquetar.log'")
-        Write-Host "`nEtiquetado de '$Mitad' con $($Configs -join ', ') corriendo. Revisa con: -Fase estado"
+        # 'timeout' corta al llegar al limite del presupuesto; el codigo de salida queda en el registro
+        Invoke-Remoto ("tmux new -d -s q15 " +
+            "'timeout $restante bash -c `"$cadena`" 2>&1 | tee -a ~/q15/etiquetar.log; echo FIN $Mitad codigo=`${PIPESTATUS[0]} >> ~/q15/etiquetar.log'") | Out-Null
+        Write-Host "`nEtiquetado de '$Mitad' con $($Configs -join ', ') corriendo, como maximo hasta $limiteTexto. Revisa con: -Fase estado"
     }
 
     "estado" {
-        Invoke-Remoto ("tail -n 3 ~/q15/etiquetar.log; " +
+        Invoke-Remoto ("tail -n 4 ~/q15/etiquetar.log; tmux has-session -t q15 2>/dev/null && echo SESION: corriendo || echo SESION: terminada; " +
             "for f in ~/q15/datos/salida_*.jsonl; do [ -f `"`$f`" ] && echo `"`$(basename `$f): `$(wc -l < `$f)`"; done; " +
             "nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used --format=csv,noheader")
     }
 
     "bajar" {
         $ip = Get-Ip
+        New-Item -ItemType Directory -Force -Path $Datos | Out-Null
         Copiar @("${User}@${ip}:~/q15/datos/salida_$($Mitad)_*.jsonl") $Datos
         Copiar @("${User}@${ip}:~/q15/etiquetar.log") (Join-Path $Datos "etiquetar_$Mitad.log")
+        # verifica que lo bajado sea identico a lo que hay en la VM
+        $remotos = @(Invoke-Remoto "cd ~/q15/datos && sha256sum salida_$($Mitad)_*.jsonl")
+        if ($remotos.Count -eq 0) { throw "La VM no devolvio hashes de las salidas." }
+        foreach ($linea in $remotos) {
+            $h, $n = ("$linea".Trim() -split "\s+", 2)
+            Test-Sha (Join-Path $Datos $n.Trim()) $h
+        }
         $info = Join-Path $Datos "nube_info_$Mitad.txt"
-        ssh "$User@$ip" "date -u; ollama --version; ollama list; nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv; sha256sum ~/q15/cribado_llm.py ~/q15/PROMPT_CRIBADO_LLM.md ~/q15/datos/*.jsonl" | Set-Content $info
-        Write-Host "`nSalidas en $Datos. Entorno y hashes en $info."
+        Invoke-Remoto "date -u; ollama --version; ollama list; nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv; sha256sum ~/q15/cribado_llm.py ~/q15/PROMPT_CRIBADO_LLM.md ~/q15/particion.json ~/q15/datos/*.jsonl" |
+            Set-Content $info
+        Write-Host "`nSalidas en $Datos, con hashes verificados contra la VM ($($remotos.Count) archivos). Entorno en $info."
     }
 
     "borrar" {
-        az group delete -n $RG --yes --no-wait
+        Invoke-Az @("group", "delete", "-n", $RG, "--yes", "--no-wait") | Out-Null
         Write-Host "Borrando $RG. Confirma en unos minutos con: az group exists -n $RG"
     }
 }
