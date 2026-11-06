@@ -6,6 +6,7 @@
 #   crear     grupo de recursos + VM spot; SSH solo a tu IP; tope de precio y apagado automatico
 #   preparar  instala drivers NVIDIA y reinicia la VM
 #   instalar  instala Ollama (misma version que la local), baja los tres modelos e imprime sus IDs
+#   probar    sube script y prompt y revisa el formato de respuesta de cada modelo con una obra inventada
 #   lanzar    sube script, prompt y UNA entrada (sin etiquetas de referencia) y etiqueta en tmux (reanudable)
 #   estado    progreso y temperatura de la GPU
 #   bajar     trae las salidas y el registro del entorno a tu disco D:
@@ -15,7 +16,7 @@
 
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("cuota", "crear", "preparar", "instalar", "lanzar", "estado", "bajar", "borrar")]
+    [ValidateSet("cuota", "crear", "preparar", "instalar", "probar", "lanzar", "estado", "bajar", "borrar")]
     [string]$Fase,
     [string]$OllamaVersion = "",
     [string]$Region = "eastus",
@@ -87,6 +88,14 @@ switch ($Fase) {
         Invoke-Remoto "ollama --version; ollama list"
         foreach ($m in $Modelos) { Invoke-Remoto "ollama show $m | head -n 20" }
         Write-Host "`nRegistra la version, los IDs y la cuantizacion de arriba en el registro de ejecucion ANTES de lanzar."
+    }
+
+    "probar" {
+        $ip = Get-Ip
+        Invoke-Remoto "mkdir -p ~/q15/datos"
+        scp $Script $Prompt "${User}@${ip}:~/q15/"
+        Invoke-Remoto "python3 -I ~/q15/cribado_llm.py probar --datos ~/q15/datos"
+        Write-Host "`nLas cuatro configuraciones responden en formato. Siguiente: -Fase lanzar -Mitad seleccion"
     }
 
     "lanzar" {

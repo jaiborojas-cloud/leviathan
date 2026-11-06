@@ -2,6 +2,7 @@
 
 Subcomandos, en orden:
   preparar   construye la referencia auditada (lotes 01-03), la partición y las entradas sin etiquetas
+  probar     revisa el formato de respuesta de cada configuración con una obra inventada; corre en la VM
   etiquetar  etiqueta una entrada con una configuración; reanudable; corre en la VM
   verificar  revisa estructura y respuestas inválidas de una salida
   elegir     compara las configuraciones SOLO en la mitad de selección y aplica la regla fija
@@ -21,7 +22,7 @@ CONFIGS = {
     "C3": {"modelo": "gemma4:31b", "think": None},
     "C4": {"modelo": "gpt-oss:120b", "think": "medium"},
 }
-OPCIONES = {"temperature": 0, "seed": 0, "num_ctx": 32768, "num_predict": 8192}
+OPCIONES = {"temperature": 0, "seed": 0, "num_ctx": 32768, "num_predict": 16384}
 DECISIONES = ["INCLUIR_PARA_TEXTO", "CONTEXTO", "EXCLUIR_FUERA_TEMA"]
 PUNTOS = ["1", "2", "3a", "3b", "3c", "4a", "4b", "4c"]
 ESQUEMA = {
@@ -43,6 +44,11 @@ PROMPT = Path(__file__).with_name("PROMPT_CRIBADO_LLM.md")
 
 def sha(b):
     return hashlib.sha256(b).hexdigest()
+
+
+def escribir(p, obj):
+    with open(p, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
 
 
 def norm_titulo(t):
@@ -128,11 +134,11 @@ def cmd_preparar(a):
         for i, k in enumerate(ks):
             for f in grupos[k]:
                 parte[f["obra_id"]] = "seleccion" if i % 2 == 0 else "validacion"
-    with open(out / "referencia.jsonl", "w", encoding="utf-8") as fr:
+    with open(out / "referencia.jsonl", "w", encoding="utf-8", newline="\n") as fr:
         for f in filas:
             fr.write(json.dumps({"obra_id": f["obra_id"], "ref": f["ref"], "lote": f["lote"], "mitad": parte[f["obra_id"]]}, ensure_ascii=False) + "\n")
     for m in ("seleccion", "validacion"):
-        with open(out / f"entrada_{m}.jsonl", "w", encoding="utf-8") as fe:
+        with open(out / f"entrada_{m}.jsonl", "w", encoding="utf-8", newline="\n") as fe:
             for f in filas:
                 if parte[f["obra_id"]] == m:
                     fe.write(json.dumps({"obra_id": f["obra_id"], "titulo": f["titulo"], "resumenes": f["resumenes"]}, ensure_ascii=False) + "\n")
@@ -143,7 +149,7 @@ def cmd_preparar(a):
         "sha256": {p.name: sha(p.read_bytes()) for p in sorted(out.glob("*.jsonl"))},
         "insumos_sha256": {Path(z).name: sha(Path(z).read_bytes()) for z in (a.lote01, a.lote02, a.lote03)},
     }
-    (out / "particion.json").write_text(json.dumps(resumen, indent=2, ensure_ascii=False), encoding="utf-8")
+    escribir(out / "particion.json", resumen)
     print(json.dumps(resumen, indent=2, ensure_ascii=False))
 
 
@@ -196,7 +202,11 @@ def cmd_etiquetar(a):
             except Exception:
                 pass  # línea truncada por un desalojo: se rehace
     print(f"{a.config} {cfg}: {len(hechos)} de {len(entrada)} ya hechas -> {salida}")
-    with open(salida, "a", encoding="utf-8") as fo:
+    # si un desalojo dejó la última línea sin terminar, se cierra para no pegarle la siguiente respuesta
+    if salida.exists() and salida.stat().st_size and not salida.read_bytes().endswith(b"\n"):
+        with open(salida, "ab") as fb:
+            fb.write(b"\n")
+    with open(salida, "a", encoding="utf-8", newline="\n") as fo:
         for i, x in enumerate(entrada, 1):
             if x["obra_id"] in hechos:
                 continue
@@ -209,11 +219,32 @@ def cmd_etiquetar(a):
                 "decision": j["decision"] if j else "INVALIDA", "dudoso": j["dudoso"] if j else None,
                 "puntos": j.get("puntos", []) if j else [], "razon": j["razon"] if j else "",
                 "crudo": contenido, "pensamiento": r.get("message", {}).get("thinking", ""),
-                "segundos": round(time.time() - t0, 2), "total_duration_ns": r.get("total_duration"),
+                "segundos": round(time.time() - t0, 2), "total_duration_ns": r.get("total_duration"), "done_reason": r.get("done_reason"),
                 "prompt_sha256": sha_prompt, "opciones": OPCIONES,
             }, ensure_ascii=False) + "\n")
             fo.flush()
             print(f"  {i}/{len(entrada)} {x['obra_id']} {j['decision'] if j else 'INVALIDA'} {time.time()-t0:.1f}s", flush=True)
+
+
+OBRA_PRUEBA = {"obra_id": "PRUEBA", "titulo": "A synthetic test record about crop rotation schedules",
+               "resumenes": ["This invented abstract describes scheduling crop rotations on small farms with a spreadsheet. It does not involve neural networks, calibration or learning dynamics. It is used only to check the response format."]}
+
+
+def cmd_probar(a):
+    """Manda una obra inventada a cada configuración y revisa que la respuesta cumpla el esquema. No usa datos de la referencia."""
+    sistema, sha_prompt = prompt_sistema()
+    res = {}
+    for c, cfg in CONFIGS.items():
+        t0 = time.time()
+        r = llamar(a.host, cfg, sistema, mensaje_obra(OBRA_PRUEBA), a.simular)
+        contenido = r.get("message", {}).get("content", "")
+        j = interpretar(contenido)
+        res[c] = {"modelo": r.get("model"), "valida": j is not None, "decision": j["decision"] if j else None,
+                  "done_reason": r.get("done_reason"), "segundos": round(time.time() - t0, 1), "crudo": contenido[:300]}
+        print(c, res[c]["valida"], res[c]["decision"], res[c]["segundos"], "s", flush=True)
+    escribir(Path(a.datos) / "probar.json", {"prompt_sha256": sha_prompt, "resultados": res})
+    if not all(v["valida"] for v in res.values()):
+        sys.exit("Alguna configuración no devolvió el formato pedido: revisar antes de lanzar.")
 
 
 def leer_salida(p):
@@ -262,16 +293,25 @@ def cmd_elegir(a):
         if m["faltantes"]:
             sys.exit(f"{c}: faltan {m['faltantes']} obras.")
         res[c] = m
+    # solo compiten las configuraciones con a lo sumo MAX_INVALIDAS de respuestas inválidas
+    aptas = [c for c in res if res[c]["frac_invalidas"] <= MAX_INVALIDAS]
     # regla fija: mayor sensibilidad; luego mayor acuerdo; luego menos inválidas; luego menor mediana de tiempo
-    elegida = sorted(res, key=lambda c: (-res[c]["sensibilidad"], -res[c]["acuerdo"], res[c]["invalidas"], res[c]["mediana_segundos"]))[0]
-    out = {"mitad": "seleccion", "metricas": res, "elegida": elegida, "config_elegida": CONFIGS[elegida]}
-    (Path(a.datos) / "eleccion.json").write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
+    orden = sorted(aptas, key=lambda c: (-res[c]["sensibilidad"], -res[c]["acuerdo"], res[c]["invalidas"], res[c]["mediana_segundos"]))
+    elegida = orden[0] if orden else None
+    out = {"mitad": "seleccion", "metricas": res, "compiten": aptas, "elegida": elegida,
+           "config_elegida": CONFIGS[elegida] if elegida else None,
+           "veredicto": None if elegida else "NO_APTO (ninguna configuracion con inválidas <= MAX_INVALIDAS)"}
+    escribir(Path(a.datos) / "eleccion.json", out)
     print(json.dumps(out, indent=2, ensure_ascii=False))
 
 
 def cmd_validar(a):
     el = json.loads((Path(a.datos) / "eleccion.json").read_text(encoding="utf-8"))["elegida"]
+    if not el:
+        sys.exit("No hay configuración elegida: el piloto es NO_APTO desde la selección.")
     p = Path(a.datos) / f"salida_validacion_{el}.jsonl"
+    if not p.exists():
+        sys.exit(f"Falta {p.name}.")
     ref = referencia(a.datos, "validacion")
     m = metricas(ref, leer_salida(p))
     if m["faltantes"]:
@@ -283,7 +323,7 @@ def cmd_validar(a):
         veredicto = "APTO" if all(v == "PASA" for v in comp.values()) else "NO_APTO"
     out = {"mitad": "validacion", "config": el, "modelo": CONFIGS[el], "metricas": m, "compuertas": comp, "veredicto": veredicto,
            "umbrales": {"omisiones_max": MAX_OMISIONES, "acuerdo_min": UMBRAL_ACUERDO, "invalidas_max": MAX_INVALIDAS}}
-    (Path(a.datos) / "veredicto.json").write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
+    escribir(Path(a.datos) / "veredicto.json", out)
     print(json.dumps(out, indent=2, ensure_ascii=False))
 
 
@@ -292,11 +332,12 @@ def main():
     sp = ap.add_subparsers(dest="cmd", required=True)
     p = sp.add_parser("preparar"); p.add_argument("--lote01", required=True); p.add_argument("--lote02", required=True); p.add_argument("--lote03", required=True); p.add_argument("--datos", required=True)
     p = sp.add_parser("etiquetar"); p.add_argument("--entrada", required=True); p.add_argument("--config", required=True, choices=CONFIGS); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
+    p = sp.add_parser("probar"); p.add_argument("--datos", required=True); p.add_argument("--host", default="http://127.0.0.1:11434"); p.add_argument("--simular", action="store_true")
     p = sp.add_parser("verificar"); p.add_argument("--salida", required=True)
     p = sp.add_parser("elegir"); p.add_argument("--datos", required=True)
     p = sp.add_parser("validar"); p.add_argument("--datos", required=True)
     a = ap.parse_args()
-    {"preparar": cmd_preparar, "etiquetar": cmd_etiquetar, "verificar": cmd_verificar, "elegir": cmd_elegir, "validar": cmd_validar}[a.cmd](a)
+    {"preparar": cmd_preparar, "etiquetar": cmd_etiquetar, "probar": cmd_probar, "verificar": cmd_verificar, "elegir": cmd_elegir, "validar": cmd_validar}[a.cmd](a)
 
 
 if __name__ == "__main__":
