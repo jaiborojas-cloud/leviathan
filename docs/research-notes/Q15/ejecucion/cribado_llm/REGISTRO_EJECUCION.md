@@ -27,4 +27,23 @@ Bitácora de la corrida del [preregistro](PREREGISTRO_CRIBADO_LLM.md), congelado
 
 **Partición:** el responsable corrió `preparar` en su PC el 2026-11-06 y obtuvo los mismos hashes que [`particion.json`](particion.json): `entrada_seleccion.jsonl` `60fb90cc…a4c2`, `entrada_validacion.jsonl` `cf173c36…8309` y `referencia.jsonl` `1efae470…3d13`.
 
-**Siguiente:** `probar`.
+## 2026-11-07, 11:28: corrección de fines de línea en la PC del responsable
+
+El primer intento de `probar` se detuvo **antes de subir nada**. El script de Azure encontró que `cribado_llm.py` en la PC tenía SHA-256 `3e4b1904…fdfa6` en lugar del congelado `0206cd3f…ac81`. Causa: `core.autocrlf` de Git en Windows convertía el archivo a CRLF al hacer checkout (convertido a CRLF, el archivo congelado da exactamente `3e4b1904…`). Se corrigió con el PR #144, que agrega la carpeta del piloto a `.gitattributes` con `-text`. El responsable volvió a sacar la carpeta, y el control de hashes la aceptó en el segundo intento. El `preparar` del 2026-11-06 no se afecta, porque Python ejecuta igual el código con cualquier fin de línea y sus salidas tuvieron los hashes congelados.
+
+## 2026-11-07, 11:45: `probar` (obra inventada; no es dato de la referencia)
+
+`probar.json` con `utc` `2026-11-07T17:31:50Z`, `simulado: false`, `sistema_sha256` `4659f18d…2727` y `script_sha256` `0206cd3f…ac81`, los congelados.
+
+| Config. | Válida | Decisión | Segundos | `done_reason` | Observación |
+|---|---|---|---:|---|---|
+| C1 `qwen3.8:27b`, `think: false` | sí | EXCLUIR_FUERA_TEMA | 80.6 | stop | Incluye la carga del modelo en la GPU. |
+| C2 `qwen3.8:27b`, `think: true` | sí | EXCLUIR_FUERA_TEMA | 3.7 | stop | Ollama aceptó `think: true`. Reutilizó el modelo ya cargado. |
+| C3 `gemma4:31b` | sí | EXCLUIR_FUERA_TEMA | 31.5 | stop | Incluye la carga del modelo. |
+| C4 `gpt-oss:120b`, `think: "medium"` | **no** | — | 57.2 | stop | Respondió sin error, pero su JSON **omite `puntos`**, que el esquema exige. |
+
+**C4 queda NO_EVALUADA.** No es una falla de instalación: el modelo cargó, respondió y terminó (`done_reason: stop`, `error: null`). Con Ollama 0.40.14, la restricción de formato no se aplicó a la salida de `gpt-oss:120b`. Rescatarla exigiría cambiar su configuración, y el preregistro solo permite corregir la instalación. Por eso no se repite `probar`. C4 no se etiqueta ni compite, y se reporta como no evaluada.
+
+**Configuraciones evaluadas en la selección: C1, C2 y C3.**
+
+**Siguiente:** `lanzar -Mitad seleccion`. Ahí empieza el presupuesto de 24 h.
