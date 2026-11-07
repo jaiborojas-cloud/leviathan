@@ -75,4 +75,38 @@ Estado `eleccion.json`: `utc` `2026-11-07T18:26:28Z`, intento `ce57f02e28f84f9ab
 
 **Expectativa escrita antes de validar:** con 4 omisiones de 28 en la selección, la probabilidad de 0 omisiones entre las 27 protegidas de la validación, con una tasa parecida, es de alrededor de 1 a 2 %. Se espera NO APTO. La validación se corre de todos modos, como pide el preregistro.
 
-**Siguiente:** `lanzar -Mitad validacion`, solo con C3, dentro del presupuesto que vence el `2026-11-08T17:46:40Z`.
+## 2026-11-07, 12:40 a 12:57: validación
+
+`lanzar -Mitad validacion` solo con C3, tomada de `eleccion.json`, dentro del mismo presupuesto. `FIN validacion codigo=0`: 75 de 75 obras en unos 15 minutos.
+
+## 2026-11-07, 12:58: `validar`, veredicto oficial
+
+Estado `veredicto.json`: `utc` `2026-11-07T18:57:56Z`, intento `36c992b68017478ab45f56987eea30af`, `prueba: false`, sin líneas descartadas.
+
+| Compuerta | Resultado | Umbral | Estado |
+|---|---|---|---|
+| Omisiones | **3** de 27 protegidas (W00026, W00057, W00080) | 0 | **FALLA** |
+| Acuerdo | 0.853 | ≥ 0.85 | PASA |
+| Inválidas | 0 de 75 | ≤ 2 % | PASA |
+
+Matriz (referencia → C3): EXCLUIR→EXCLUIR 40, EXCLUIR→INCLUIR 7, EXCLUIR→CONTEXTO 1, INCLUIR→INCLUIR 23, INCLUIR→EXCLUIR 1, CONTEXTO→CONTEXTO 1, CONTEXTO→EXCLUIR 2. Sensibilidad 0.889; mediana de 11.71 s por obra.
+
+### **Veredicto: NO APTO.**
+
+Conforme al preregistro:
+- el cribado de las 2 998 obras pendientes **no** se hace con un modelo abierto: vuelve a Argon (cuota a partir del 2026-11-12);
+- no se repite el piloto con estos datos cambiando el prompt, las configuraciones, las opciones ni los umbrales; un intento nuevo requiere una enmienda y una referencia nueva;
+- ninguna decisión del modelo entra al corpus de Q15. Las salidas quedan archivadas en `D:\RIPG_DATA\Q15_CRIBADO_LLM`, fuera de Git.
+
+## Observaciones exploratorias (no forman parte del veredicto)
+
+- De las 3 omisiones, 1 es una obra INCLUIR (W00026, 1 de 24) y 2 son CONTEXTO (W00057 y W00080, 2 de 3): aplicaciones de evaluación incremental que el criterio del responsable puso en CONTEXTO. Sin la protección de CONTEXTO (decisión D1), la omisión de W00026 bastaba para fallar; el NO APTO no depende de esa decisión.
+- C3 tiende a incluir de más (8 obras EXCLUIR pasaron a INCLUIR o CONTEXTO), el error menos costoso para el protocolo. Los dos Qwen, en cambio, excluyeron más de la mitad de las protegidas en la selección.
+- gpt-oss (C4) no respetó el formato estructurado con Ollama 0.40.14.
+- Si en el futuro se quisiera usar un modelo como apoyo, por ejemplo para ordenar la cola de Argon o como segundo lector, sería un diseño nuevo, con su propio preregistro y una referencia distinta de estas 154 obras.
+
+## Cierre
+
+- Gasto de cómputo: una VM spot A100 durante unas 2 h el 2026-11-07 (instalación, `probar`, selección y validación), con un tope de 1 USD/h; la del 2026-11-06 se borró sin usarse.
+- La VM se borra con `-Fase borrar` después de `bajar -Mitad validacion`.
+- Todos los puntos de Q15 siguen **PENDIENTE, sin adjudicar**.
