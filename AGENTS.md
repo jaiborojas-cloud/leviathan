@@ -21,7 +21,7 @@ Esta sección se añadió el 2026-11-05. No cambia ninguna de las reglas anterio
 
 ## Quién hace qué
 - **Responsable (humano):** ejecuta en su PC, aprueba diseños y decisiones, y fusiona los PR. Es el único que decide exclusiones, cambios de alcance y borrados.
-- **Codex:** diseña y audita. Desde el 2026-11-05 ya no participa en Q15.
+- **Codex:** diseña y audita. Desde el 2026-11-05 no hace la extracción de Q15. Por decisión del responsable del 2026-11-07, criba lotes de Q15 de forma provisional mientras Argon no tiene cuota (hasta el 2026-11-12), con las mismas reglas y la misma auditoría por lote que Argon; si un lote no pasa la auditoría, se detiene.
 - **Claude:** implementa y audita. Abre los PR. Al revisar PR de otro agente, lee el código sin correr sus pruebas.
 - **Argon:** hace el cribado y la extracción de Q15 por decisión del responsable del 2026-11-05. Fuera de Q15 sigue en periodo de prueba (ver abajo).
 
