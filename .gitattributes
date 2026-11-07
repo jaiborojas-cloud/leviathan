@@ -5,3 +5,6 @@ Perspectivas.ipynb -text
 # SHA-256 del archivo en Windows coincida con el registrado (los hashes se calcularon con LF).
 experiments/T2_A/claude/**/*.py -text
 experiments/T2_A1/**/*.py -text
+# Piloto de cribado Q15 (cribado_llm): el script de Azure verifica el SHA-256 de estos archivos,
+# calculado con LF. Sin conversión de fin de línea, para que coincida en Windows.
+docs/research-notes/Q15/ejecucion/cribado_llm/** -text
