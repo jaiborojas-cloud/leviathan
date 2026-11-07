@@ -52,4 +52,27 @@ El primer intento de `probar` se detuvo **antes de subir nada**. El script de Az
 - **Presupuesto fijado:** inicio `2026-11-07T17:46:40Z`, límite **`2026-11-08T17:46:40Z`** (24 h). Desde aquí no se lanza nada después del límite, y lo que no termine deja el piloto INCONCLUSIVO.
 - Entrada: `entrada_seleccion.jsonl` (79 obras), verificada contra `60fb90cc…a4c2` antes de subirla.
 
-**Siguiente:** cuando el registro diga `FIN seleccion`, `bajar -Mitad seleccion` y `elegir` en la PC.
+## 2026-11-07, 12:25: fin de la selección
+
+`FIN seleccion codigo=0`: C1, C2 y C3 completaron 79 de 79 obras cada una, en unos 38 minutos. `bajar` verificó los hashes de las 3 salidas contra la VM. El entorno quedó en `nube_info_seleccion.txt`.
+
+## 2026-11-07, 12:26: `elegir` (solo la mitad de selección)
+
+Estado `eleccion.json`: `utc` `2026-11-07T18:26:28Z`, intento `ce57f02e28f84f9abac2ec3165a624f4`, `prueba: false`, sin líneas descartadas. Evaluadas C1, C2 y C3; C4 NO_EVALUADA. Las tres compiten (cero inválidas).
+
+| Config. | Protegidas | Omisiones | Sensibilidad | Acuerdo | Inválidas | Mediana (s) |
+|---|---:|---:|---:|---:|---:|---:|
+| C1 `qwen3.8:27b`, sin razonamiento | 28 | 16 | 0.429 | 0.785 | 0 | 2.57 |
+| C2 `qwen3.8:27b`, con razonamiento | 28 | 15 | 0.464 | 0.759 | 0 | 10.96 |
+| **C3 `gemma4:31b`, con razonamiento** | 28 | **4** | **0.857** | **0.835** | 0 | 11.55 |
+
+**Elegida: C3**, por mayor sensibilidad (regla congelada, criterio 1).
+
+- Omisiones de C3: W00001, W00024, W00119 y W00377. En su matriz, 3 obras INCLUIR y 1 CONTEXTO pasaron a EXCLUIR, y 9 obras EXCLUIR pasaron a INCLUIR (4) o a CONTEXTO (5).
+- C1 y C2 excluyeron más de la mitad de las obras protegidas (13 y 12 INCLUIR, y las 3 CONTEXTO).
+
+**C4 queda NO_EVALUADA de forma definitiva.** El responsable había planteado reintentar gpt-oss, pero `elegir` ya se ejecutó; agregarla ahora sería elegir con los resultados a la vista.
+
+**Expectativa escrita antes de validar:** con 4 omisiones de 28 en la selección, la probabilidad de 0 omisiones entre las 27 protegidas de la validación, con una tasa parecida, es de alrededor de 1 a 2 %. Se espera NO APTO. La validación se corre de todos modos, como pide el preregistro.
+
+**Siguiente:** `lanzar -Mitad validacion`, solo con C3, dentro del presupuesto que vence el `2026-11-08T17:46:40Z`.
