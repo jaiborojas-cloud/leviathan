@@ -6,7 +6,7 @@ Bitácora de la corrida del [preregistro](PREREGISTRO_CRIBADO_LLM.md), congelado
 
 **VM:** `vm-q15-cribado`, grupo `rg-q15-cribado`, región `eastus`, `Standard_NC24ads_A100_v4` spot, tope de 1 USD/h. La creó el responsable el 2026-11-07, después de borrar la del día anterior, que no llegó a usarse. `preparar` instaló los drivers de NVIDIA.
 
-**Ollama:** se instaló con `OLLAMA_VERSION=0.40.14`, la misma versión del cliente en la PC del responsable. La salida de `ollama --version` de la VM queda en `nube_info_*.txt` al bajar los resultados.
+**Ollama:** `ollama version is 0.40.14` en la VM, según `ollama --version`. Es la misma versión del cliente en la PC del responsable. Se instaló con `OLLAMA_VERSION=0.40.14`.
 
 **Modelos**, tal como los reportan `ollama list` y `ollama show` en la VM:
 
