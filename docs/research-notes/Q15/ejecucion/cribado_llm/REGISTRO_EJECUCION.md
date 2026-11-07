@@ -46,4 +46,10 @@ El primer intento de `probar` se detuvo **antes de subir nada**. El script de Az
 
 **Configuraciones evaluadas en la selección: C1, C2 y C3.**
 
-**Siguiente:** `lanzar -Mitad seleccion`. Ahí empieza el presupuesto de 24 h.
+## 2026-11-07, 11:48: `lanzar -Mitad seleccion`
+
+- Configuraciones: C1, C2 y C3, tomadas de `probar.json`; C4 no se etiqueta.
+- **Presupuesto fijado:** inicio `2026-11-07T17:46:40Z`, límite **`2026-11-08T17:46:40Z`** (24 h). Desde aquí no se lanza nada después del límite, y lo que no termine deja el piloto INCONCLUSIVO.
+- Entrada: `entrada_seleccion.jsonl` (79 obras), verificada contra `60fb90cc…a4c2` antes de subirla.
+
+**Siguiente:** cuando el registro diga `FIN seleccion`, `bajar -Mitad seleccion` y `elegir` en la PC.
