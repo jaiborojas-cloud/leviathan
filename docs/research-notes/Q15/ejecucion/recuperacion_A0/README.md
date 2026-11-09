@@ -1,6 +1,6 @@
 # Q15, fase A0: recuperación automática de resúmenes (sin LLM)
 
-**Estado:** BORRADOR. Pendiente de la auditoría del otro agente antes de correrlo. Lo autorizó el responsable el 2026-11-09, a las 13:54 (hora de México), como modificación operativa del [plan de pendientes v1](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6749882361) (`7db5386e…`). No cambia criterios, topes, corte ni el tratamiento de desconocidos.
+**Estado:** BORRADOR v1.1. Corrige los hallazgos de la [auditoría de Argon](AUDITORIA_ARGON_PR148_2026-11-09.md) sobre `6a4a7267`: B1, H1, H2, M1 y M2. Necesita reconfirmación antes de correrlo. Lo autorizó el responsable el 2026-11-09, a las 13:54 (hora de México), como modificación operativa del [plan de pendientes v1](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6749882361) (`7db5386e…`). No cambia criterios, topes, corte ni el tratamiento de desconocidos.
 
 ## Qué hace
 - **Insumo:** `INVENTARIO_857.json` del plan v1, con SHA-256 `778424329491191e31c6c669e3504ff2a0e2730966c389226d7a1a73315ef14d`, que se verifica antes de correr.
@@ -30,10 +30,12 @@
 
 | archivo | SHA-256 |
 |---|---|
-| `recuperar_a0.py` | `97d2f0e3bd0ad100eca7784c60ab7571a714fe69705ee833cf711733b1adffa2` |
-| `pruebas_recuperar_a0.py` | `c3685c3ae924b245960edd21053c332a681a5613248700beb777d8f4e4890904` |
+| `recuperar_a0.py` | `d67177372a763fbe31d374a203cda4dcc7096bd7b93d6389494690e0bc304720` |
+| `pruebas_recuperar_a0.py` | `82df471fd57e04860743b17cb8ea7d50a6a8bce3668f66b0646de4fe328ca76b` |
 
-Pruebas: 15 de 15, sin red (el socket está bloqueado), en Linux con Python 3.13. Hay que confirmarlas en Windows con el bloque de abajo.
+Pruebas: 20 de 20, sin red (el socket está bloqueado), en Linux con Python 3.13. Incluyen regresiones de H1 (Ctrl+C durante la espera de un reintento y cuerpo huérfano sin meta), H2 (fechas solo de fuentes con título coincidente), M1 (títulos vacíos tras normalizar) y B1 (`.gitattributes`). Hay que confirmarlas en Windows con el bloque de abajo.
+
+**Fin de línea:** `.gitattributes` declara `recuperacion_A0/** -text`, y el clon usa además `core.autocrlf=false`. Así el SHA en Windows coincide con el calculado con LF.
 
 ## Procedimiento (una ventana nueva de PowerShell, un solo bloque)
 
@@ -44,15 +46,16 @@ $ErrorActionPreference = 'Stop'
 $Repo = 'D:\leviathan-q15-a0'
 $Rev = '<COMMIT_AUDITADO>'
 if (-not (Test-Path $Repo)) {
-    git clone --no-checkout https://github.com/jaiborojas-cloud/leviathan.git $Repo
+    git -c core.autocrlf=false clone --no-checkout https://github.com/jaiborojas-cloud/leviathan.git $Repo
+    git -C $Repo config core.autocrlf false
     git -C $Repo checkout --detach $Rev
 }
-if ((git -C $Repo rev-parse HEAD) -ne $Rev) { throw 'El clon no está en el commit auditado' }
+if ((git -C $Repo rev-parse HEAD) -ne $Rev) { throw 'El clon no está en el commit auditado: usa otra carpeta $Repo (no borres la anterior) o haz fetch y checkout del commit auditado' }
 $Py = 'D:\RIPG_DATA\venv_q15\Scripts\python.exe'
 $Dir = Join-Path $Repo 'docs\research-notes\Q15\ejecucion\recuperacion_A0'
 $Script = Join-Path $Dir 'recuperar_a0.py'; $Suite = Join-Path $Dir 'pruebas_recuperar_a0.py'
-if ((Get-FileHash $Script -Algorithm SHA256).Hash.ToLower() -ne '97d2f0e3bd0ad100eca7784c60ab7571a714fe69705ee833cf711733b1adffa2') { throw 'SHA del script' }
-if ((Get-FileHash $Suite -Algorithm SHA256).Hash.ToLower() -ne 'c3685c3ae924b245960edd21053c332a681a5613248700beb777d8f4e4890904') { throw 'SHA de las pruebas' }
+if ((Get-FileHash $Script -Algorithm SHA256).Hash.ToLower() -ne 'd67177372a763fbe31d374a203cda4dcc7096bd7b93d6389494690e0bc304720') { throw 'SHA del script' }
+if ((Get-FileHash $Suite -Algorithm SHA256).Hash.ToLower() -ne '82df471fd57e04860743b17cb8ea7d50a6a8bce3668f66b0646de4fe328ca76b') { throw 'SHA de las pruebas' }
 & $Py -I $Suite
 if ($LASTEXITCODE -ne 0) { throw 'Las pruebas fallaron: copia la salida y repórtala' }
 $Inv = 'D:\RIPG_DATA\Q15_A0\insumo\INVENTARIO_857.json'
@@ -62,7 +65,7 @@ $PSNativeCommandUseErrorActionPreference = $false
 "Prueba con 5 registros, código: $LASTEXITCODE"
 ```
 
-Si la prueba con 5 registros sale bien (código 0 o 2, sin errores rojos), corre los 857 sobre **la misma carpeta**. Los 5 primeros se reutilizan desde la caché:
+Si la carpeta `$Repo` ya existe de un intento anterior o de otro commit, el bloque se detiene sin tocarla (M2). Si la prueba con 5 registros sale bien (código 0 o 2, sin errores rojos), corre los 857 sobre **la misma carpeta**. Los 5 primeros se reutilizan desde la caché:
 
 ```powershell
 & $Py -I $Script --inventario $Inv --out $Out

@@ -187,6 +187,63 @@ class Ejecucion(unittest.TestCase):
         self.assertEqual(q["fechas"]["published_v1"], "2017-06-14T00:00:00Z")
         self.assertEqual(q["resumen"], "Confidence matters.")
 
+    # --- regresiones de la auditoría de Argon (H1, H2, M1, B1) ---
+    def test_h1_ctrl_c_en_backoff_no_sobrescribe(self):
+        tmp = tempfile.mkdtemp()
+        inv, sha = inventario(tmp, [reg()])
+        out = Path(tmp) / "out"
+
+        def dormir_interrumpe(s):
+            raise KeyboardInterrupt
+
+        net1 = FakeNet([("openalex", ok({}, 503)), ("crossref", ok(CR)), ("semanticscholar", ok(S2))])
+        with self.assertRaises(KeyboardInterrupt):
+            A.main(["--inventario", str(inv), "--out", str(out), "--sha-inventario", sha],
+                   fetch=net1, dormir=dormir_interrumpe)
+        net2 = FakeNet([("openalex", ok(OA)), ("crossref", ok(CR)), ("semanticscholar", ok(S2))])
+        A.main(["--inventario", str(inv), "--out", str(out), "--sha-inventario", sha], fetch=net2, dormir=lambda s: None)
+        m = next(json.loads(p.read_text(encoding="utf-8")) for p in (out / "raw").glob("*/meta.json")
+                 if json.loads(p.read_text(encoding="utf-8"))["fuente"] == "openalex")
+        self.assertEqual([i["n"] for i in m["intentos"]], [1, 2])
+        self.assertEqual([i["status"] for i in m["intentos"]], [503, 200])
+        d = next(p.parent for p in (out / "raw").glob("*/meta.json")
+                 if json.loads(p.read_text(encoding="utf-8"))["fuente"] == "openalex")
+        self.assertEqual((d / "intento_01.body").read_bytes(), b"{}")
+
+    def test_h1_cuerpo_huerfano_no_se_sobrescribe(self):
+        tmp = tempfile.mkdtemp()
+        out = Path(tmp) / "out"
+        c = A.Cliente(out, 0, 5, fetch=lambda u, t: ok(OA), dormir=lambda s: None)
+        url = "https://api.openalex.org/works/doi:10.1/x"
+        d = out / "raw" / A.sha256_bytes(url.encode())
+        d.mkdir(parents=True)
+        (d / "intento_01.body").write_bytes(b"huerfano")
+        m = c.get("openalex", url)
+        self.assertEqual(m["intentos"][-1]["n"], 2)
+        self.assertEqual((d / "intento_01.body").read_bytes(), b"huerfano")
+
+    def test_h2_fechas_solo_de_fuentes_coincidentes(self):
+        cr = {"message": {"title": ["Otra obra"], "created": {"date-parts": [[1999, 1, 1]]}}}
+        net = FakeNet([("openalex", ok(OA)), ("crossref", ok(cr)), ("semanticscholar", ok(S2))])
+        _, out, _, *_ = self.correr([reg()], net)
+        import csv
+        fila = next(csv.DictReader((out / "recuperacion_a0.csv").open(encoding="utf-8")))
+        fechas = json.loads(fila["fechas_json"])
+        self.assertNotIn("crossref", fechas)
+        self.assertIn("openalex", fechas)
+
+    def test_m1_titulos_vacios_no_coinciden(self):
+        oa = dict(OA, title="★★★")
+        net = FakeNet([("openalex", ok(oa)), ("crossref", ok({}, 404)), ("semanticscholar", ok({}, 404))])
+        _, _, res, *_ = self.correr([reg(titulo="☆☆")], net)
+        self.assertEqual(res[0]["estado_propuesto"], "CONFLICTO_IDENTIDAD")
+
+    def test_b1_gitattributes_sin_conversion(self):
+        ga = AQUI.parents[4] / ".gitattributes"
+        if not ga.exists():
+            self.skipTest("fuera del checkout")
+        self.assertIn("docs/research-notes/Q15/ejecucion/recuperacion_A0/** -text", ga.read_text(encoding="utf-8"))
+
     def test_no_decide_pertinencia(self):
         net = FakeNet([("openalex", ok(OA)), ("crossref", ok(CR)), ("semanticscholar", ok(S2))])
         _, _, res, *_ = self.correr([reg()], net)

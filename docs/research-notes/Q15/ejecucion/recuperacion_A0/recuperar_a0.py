@@ -28,7 +28,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "A0-1.0"
+VERSION = "A0-1.1"
 INVENTARIO_SHA_ESPERADO = "778424329491191e31c6c669e3504ff2a0e2730966c389226d7a1a73315ef14d"
 USER_AGENT = "Q15-A0-abstract-recovery/1.0"
 PAUSAS = {"openalex": 0.5, "crossref": 1.0, "s2": 1.1, "arxiv": 3.0}
@@ -131,7 +131,10 @@ class Cliente:
                 meta["cache"] = True
                 return meta
         previos = json.loads(meta_p.read_text(encoding="utf-8"))["intentos"] if meta_p.exists() else []
-        base_n = len(previos)  # continuar la numeración: nunca sobrescribir intentos anteriores
+        # Continuar la numeración: nunca sobrescribir intentos anteriores, aunque un corte
+        # (Ctrl+C) hubiera dejado un cuerpo escrito sin su meta.
+        en_disco = [int(p.stem.split("_")[1]) for p in d.glob("intento_*.body")] if d.exists() else []
+        base_n = max([len(previos)] + en_disco)
         intentos = list(previos)
         meta = None
         for n in range(self.reintentos + 1):
@@ -156,10 +159,12 @@ class Cliente:
                        "sha256": sha256_bytes(body), "bytes": len(body)}
             intentos.append(intento)
             transitorio = status is None or status == 429 or (status is not None and status >= 500)
+            meta = {"fuente": fuente, "url": url, "intentos": intentos, "status": status,
+                    "cuerpo": intento["cuerpo"], "sha256": intento["sha256"],
+                    "final": not transitorio, "cache": False}
+            # meta.json se persiste en cada intento, sincronizado con los cuerpos en disco.
+            escribir_atomico(meta_p, json.dumps(meta, ensure_ascii=False, indent=1).encode("utf-8"))
             if not transitorio or n == self.reintentos:
-                meta = {"fuente": fuente, "url": url, "intentos": intentos, "status": status,
-                        "cuerpo": intento["cuerpo"], "sha256": intento["sha256"],
-                        "final": not transitorio, "cache": False}
                 break
             ra = (headers or {}).get("Retry-After") or (headers or {}).get("retry-after")
             try:
@@ -167,7 +172,6 @@ class Cliente:
             except ValueError:
                 espera = min(2 ** (n + 2), 60)
             self._dormir(espera)
-        escribir_atomico(meta_p, json.dumps(meta, ensure_ascii=False, indent=1).encode("utf-8"))
         return meta
 
     def cuerpo(self, meta: dict) -> bytes:
@@ -273,7 +277,8 @@ def evaluar_registro(c: Cliente, reg: dict) -> dict:
     for q in consultas:
         if q.get("status") != 200 or q.get("error_parseo"):
             fallos.append(q["fuente"])
-        coincide = bool(q.get("titulo")) and normalizar_titulo(q.get("titulo")) == titulo_inv
+        titulo_f = normalizar_titulo(q.get("titulo"))
+        coincide = bool(titulo_inv) and bool(titulo_f) and titulo_f == titulo_inv
         q["titulo_coincide"] = coincide
         if q.get("resumen"):
             q["resumen_sha256"] = sha256_bytes(q["resumen"].encode("utf-8"))
@@ -322,7 +327,7 @@ def exportar(out: Path, resultados: list[dict]) -> dict:
                 "resumen_sha256", "resumen", "fechas_json", "fuentes_fallidas", "fuentes_titulo_discordante"])
     for r in resultados:
         fuente = next((q for q in r["fuentes"] if q["fuente"] in r.get("fuentes_con_resumen_coincidente", [])), None)
-        fechas = {q["fuente"]: q.get("fechas") for q in r["fuentes"] if q.get("fechas")}
+        fechas = {q["fuente"]: q.get("fechas") for q in r["fuentes"] if q.get("fechas") and q.get("titulo_coincide")}
         w.writerow([r["registro_id"], r["estado_anterior"], r["estado_propuesto"], r["doi"] or "", r["arxiv"] or "",
                     fuente["fuente"] if fuente else "", fuente.get("resumen_sha256", "") if fuente else "",
                     fuente.get("resumen", "") if fuente else "", json.dumps(fechas, ensure_ascii=False),
