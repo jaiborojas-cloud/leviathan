@@ -74,6 +74,12 @@ La recuperación de Q15 (unos 51 000 registros de actas NeurIPS/ICML más los re
 - Los datos crudos no se suben al repositorio ni se redistribuyen (licencia de la API de Semantic Scholar). En Git solo van los reportes, los SHA y los índices derivados que se permitan.
 - Si un hallazgo exploratorio motiva una línea nueva, se registra como hipótesis exploratoria, con su procedencia, no como evidencia.
 
+**Ideas futuras registradas (2026-11-09, decisión del responsable: anotarlas sin diseñarlas, para después de cerrar Q15):**
+1. **Buscador semántico local (RAG)** sobre los resúmenes del corpus, con *embeddings* generados en el PC del responsable, por ejemplo con Ollama, para explorar líneas nuevas de RIPG.
+2. **Clasificador afinado con las decisiones auditadas de Q15** (decisión, razón propia y cercanía) para **ordenar o priorizar** artículos en revisiones futuras. No decidiría solo: para usarlo como cribador tendría que pasar una validación con obras protegidas y umbral de omisión preregistrado, como la que el piloto con gemma4:31b no superó (`ecfffd49`).
+
+Las dos son de uso exploratorio y no implican redistribuir resúmenes.
+
 ---
 
 *Pendiente al redactar:* recribado de las 466 decisiones heredadas con plantilla; plan para las 857 obras pendientes de acceso, verificación o fecha; lotes restantes de la cola principal. Los lotes 01–10 están auditados.
