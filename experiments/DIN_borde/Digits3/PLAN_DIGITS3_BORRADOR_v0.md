@@ -12,12 +12,14 @@
 
 ## 2. Decisiones que fija este plan (a aprobar por el responsable)
 
+**Decisiones del responsable, 2026-11-09, 07:18, hora de México:** preprocesamiento (b), dividir entre 16; criterio del panel en F0 de 0.80; clases 0, 3 y 8 con referencia 8. Quedan fijadas antes de ver datos. El resto del plan sigue en borrador hasta la auditoría.
+
 1. **Datos:** `sklearn.datasets.load_digits` (1 797 imágenes de 8 × 8, valores enteros de 0 a 16). Viene incluido en scikit-learn: no hay descarga. El productor registra la versión de scikit-learn y el SHA-256 de `data` (float64, C-contiguo) y de `target` **convertido explícitamente a int64** (en Windows con numpy < 2 puede venir como int32) antes de medir.
 2. **Clases 0, 3 y 8**, con etiquetas 0 → 0, 3 → 1 y 8 → 2. **La clase 8 es la referencia** de los logits reducidos. Quedan fijas antes de medir y se conservan aunque F0 no muestre concentración. Hay 178, 183 y 174 imágenes por clase; cada split usa 118 por clase.
 3. **Red: el MLP de Wine con entrada de 64.** 64 → 64 → 32 → 3, con ReLU; cuerpo = (l1, ReLU, l2, ReLU) y cabeza = l3, exactamente la estructura de WineMLP (13 → 64 → 32 → 3) salvo la dimensión de entrada. Unos 6 300 parámetros.
 4. **Receta de Wine:** Adam con lr = 0.006, lote de 64 por update (sin reemplazo dentro del lote, como en `core`), 250 updates, CE, float64, sin aumentos de datos. Visitas en 5, 10, 30 y 250. Como en CIFAR, se conserva el **mismo índice de update**, no el mismo número de épocas: con 300 imágenes de entrenamiento, u10 equivale a unas 2.1 épocas, frente a unas 5.2 en Wine (124 de entrenamiento). X10 es comparable como "update 10", no como el mismo punto relativo del aprendizaje.
 5. **f, perspectivas:** las **2 primeras componentes principales del panel**, como en CIFAR. No se usan píxeles crudos: 10 de los 64 son constantes en estas tres clases.
-6. **Preprocesamiento, a elegir antes de medir** (ver §3 y §9):
+6. **Preprocesamiento: elegida la opción (b), x / 16** (decisión del responsable, 2026-11-09). Opciones consideradas (ver §3 y §9):
    - **(a) `StandardScaler` ajustado en el entrenamiento del split**, como propone A2;
    - **(b) dividir entre 16**, fijo y sin ajuste, el preprocesamiento habitual de Digits.
    Recomiendo (b): en las clases 0, 3 y 8 hay tres píxeles (7, 15 y 16) que solo son distintos de cero en 1 o 2 de 535 imágenes. Con (a), esa imagen queda con valores de hasta unos 17 a 23 en ese píxel y puede dominar las PCA del panel, de modo que f dependería de qué split recibió esa imagen. Lo comprobé solo con estadísticas por píxel de las imágenes, sin entrenar ni usar semillas del plan.
@@ -26,7 +28,7 @@
 ## 3. Sistema Digits-3
 
 - **Split s:** con `numpy.random.default_rng(semilla_split)`, en este orden y para cada clase 0, 3 y 8: se extraen sin reemplazo 118 índices de esa clase; los 100 primeros son entrenamiento, los 9 siguientes panel y los 9 últimos test. Cada grupo se ordena por clase y luego por índice original. Digits no trae una partición oficial: los tres grupos salen del mismo conjunto y son disjuntos dentro del split.
-- **Preprocesamiento:** píxeles en float64 con la opción que elija el responsable (§2.6), igual para entrenamiento, panel y test.
+- **Preprocesamiento:** píxeles en float64 divididos entre 16 (opción (b), §2.6), igual para entrenamiento, panel y test. Se conserva abajo la descripción de (a) solo como registro de la alternativa descartada.
   - Con (a), el escalador se ajusta **solo con el entrenamiento del split**. Un píxel constante en entrenamiento queda en escala 1, como hace scikit-learn, y su valor es su desviación respecto a esa constante. Un píxel con varianza pequeña pero no nula **se divide** por esa desviación pequeña: no hay piso ni recorte.
   - Con (b), x / 16, sin parámetros dependientes del split.
 - **f:** el panel preprocesado (27 × 64) se centra con su media; las 2 componentes salen de la SVD y sus puntajes se dividen por su desviación estándar en el panel (ddof = 0). **Signo:** cada vector de cargas se orienta para que la suma de sus elementos sea ≥ 0; si es exactamente 0, para que su primer elemento no nulo sea positivo. Se calculan una vez por split y se comparten entre inicializaciones y visitas; nunca salen de representaciones aprendidas. Se usa `perspectivas_pca` de `instrumento_general.py` sin cambios. Si alguna de las dos componentes tiene varianza nula en el panel, esa función lanza un error y todas las trayectorias del split se registran como FALLIDA por PCA, sin sustitución.
@@ -65,7 +67,7 @@ Ninguna fase reutiliza semillas de otra. Las semillas de split distintas no gara
   6. CPU ≤ 60 s por trayectoria, incluidas las dos llamadas a ρ;
   7. compuerta e invariancia PASAN y la reproducción es exacta.
 
-  El criterio 2 (0.80) es más alto que el 0.55 de CIFAR porque Digits es mucho más fácil; es una decisión del responsable y puede bajarse antes de correr F0, no después.
+  El criterio 2 (0.80) es más alto que el 0.55 de CIFAR porque Digits es mucho más fácil; el responsable lo aprobó el 2026-11-09 y no se cambia después de correr F0.
 - **Respaldo F0b, declarado ahora:**
   - **si falla el criterio 3** (u10 saturado): lr = 0.001, mismo resto;
   - **si fallan 1 o 2** (subentrenamiento): 500 updates con visitas 5, 10, 30 y 500, mismo resto, como F0c de CIFAR. **Ojo:** la primaria robusta v1 fija Y = log ρ_caras(250). Si se usa esta rama, Y pasa a la última visita (u500) y el diseño de F1 tiene que declararlo como desviación explícita y aprobada, no como la primaria v1 tal cual;
@@ -98,7 +100,7 @@ El MLP de Digits-3 tiene 6 339 parámetros, frente a 26 067 de la CNN de CIFAR, 
 - **X10 saturada por facilidad:** la cubre el criterio 3 de F0 y su respaldo.
 - **Poca variación de c entre inicializaciones,** o colapso ausente: se reporta en F0; no se ajusta el entrenamiento por c.
 - **PCA inestable con 27 ejemplos:** las cargas cambian entre splits; el signo está fijado y f no se reoptimiza.
-- **Píxeles raros:** con la opción (a), una imagen con un píxel casi nunca encendido puede dominar f y la entrada; por eso se recomienda (b) en §2.6.
+- **Píxeles raros:** con la opción (a), una imagen con un píxel casi nunca encendido podía dominar f y la entrada; por eso se eligió (b) en §2.6. Con x / 16 todos los valores quedan en [0, 1].
 - **Solapamiento entre splits** por el tamaño de Digits: se declara en el estimando.
 - **Un PASS no es generalidad universal:** es una familia más, con una red pequeña.
 
