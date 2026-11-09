@@ -12,6 +12,7 @@ no añade evidencia confirmatoria ni modifica estados científicos.
 | ¿Qué ejemplos delimitan la teoría? | [Atlas de ejemplos y contraejemplos](example-atlas.md) |
 | ¿Qué puede verificarse o reproducirse con los archivos disponibles? | [Guía de reproducción](reproduction-guide.md) |
 | ¿Qué falta resolver y qué evidencia permitiría hacerlo? | [Registro de preguntas abiertas](open-questions.md) |
+| ¿Qué aprendimos del proceso de revisión y qué repetir o evitar? | [Lecciones de la revisión sistemática Q15](LECCIONES_REVISION_SISTEMATICA.md) |
 
 Las afirmaciones usan identificadores `A01`…`A20`; las decisiones `D01`…`D09`;
 las limitaciones `N01`…`N09`; los ejemplos `E01`…`E11`; las preguntas
