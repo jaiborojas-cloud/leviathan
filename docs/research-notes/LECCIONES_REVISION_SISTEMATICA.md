@@ -1,6 +1,6 @@
 # Lecciones de proceso: revisión sistemática Q15 (2026-11)
 
-**Estado:** documento vivo, escrito durante el cribado de Q15, cuando estaban auditados los lotes 04–09.
+**Estado:** documento vivo, escrito durante el cribado de Q15, cuando estaban auditados los lotes 01–10.
 **Naturaleza:** solo documental. No cambia el protocolo de Q15 ([PROTOCOLO_OPERATIVO_v3](Q15/PROTOCOLO_OPERATIVO_v3.md)), no adjudica novedad y no aporta evidencia científica.
 **Para qué sirve:** guardar qué decisiones de proceso funcionaron, cuáles hubo que rehacer y por qué, para que la próxima revisión o el próximo experimento empiece mejor. Cada entrada remite a evidencia verificable: commits y comentarios del [PR #138](https://github.com/jaiborojas-cloud/leviathan/pull/138).
 
@@ -36,8 +36,8 @@ Reparto de roles durante Q15:
 | E7 | El lote 05 se hizo con plantilla: primera oración del resumen copiada, justificación idéntica, la misma hora en todo y ninguna variación en la cercanía | Rechazo y relectura completa | Con cribado hecho por IA, **auditar los primeros lotes con lupa** y vigilar esas señales. Un ritmo muy rápido por sí solo no prueba nada, pero es motivo para revisar |
 | E8 | Claude atribuyó el inventario final de citas a `run_000011` en vez de `run_000012`, porque el comando de resumen tomaba «el más reciente» sin mostrar su nombre | Hubo que regenerar el paquete (A → B) y corregir el reporte | **Imprimir siempre el identificador exacto** del artefacto resumido. No resumir «el último» sin nombrarlo |
 | E9 | Comandos para PowerShell entregados en varios bloques y con variables de sesiones anteriores: se mezclaron versiones (v2 contra v2.1) y una carpeta quedó con la identidad de otro script | Corridas fallidas y carpetas con sufijo `_B` | Entregar **un solo bloque autocontenido** para una ventana nueva, que verifique los SHA antes de ejecutar |
-| E10 | Trazabilidad incompleta: los lotes 01–03 y 492 decisiones heredadas del universo C no pasaron por la auditoría de Claude | Ese tramo queda sin verificación independiente (pendiente) | **Ninguna decisión entra al corpus sin auditoría registrada**. Las heredadas se auditan o se marcan como no auditadas |
-| E11 | Un solo lector (IA) en todo el cribado | No se puede medir la concordancia entre revisores | Para la próxima: **un segundo revisor independiente sobre una muestra aleatoria** (por ejemplo 10 %) y reportar la concordancia |
+| E10 | **Trazabilidad dispersa entre sesiones y agentes.** Los lotes 01–03 (Codex el 01; Antigravity/Argon el 02 y el 03) **sí estaban auditados** por Claude en otra sesión (`AUDITORIA_CRIBADO_C_LOTE0{1,2,3}_2026-11-05.md`, con los SHA de sus paquetes). Sus originales estaban en la carpeta de trabajo de Antigravity, y esta sesión los dio por no auditados hasta encontrarlos. Aparte, 466 de las 492 decisiones heredadas de B tienen razones de plantilla basadas en el título y deben recribarse | Búsqueda de paquetes y una afirmación errónea, ya corregida, en el PR #138 | **Un índice único** en el repo con cada paquete, su SHA, su revisor y su auditoría, que se consulte antes de afirmar que algo falta. Las decisiones heredadas se auditan o se marcan como no auditadas |
+| E11 | Un solo lector de IA por lote, con revisores distintos según el lote (Codex o Antigravity/Argon). Un piloto de cribado con modelo abierto local (gemma4:31b) se declaró **NO APTO**: tuvo 3 omisiones de 27 obras protegidas, con umbral 0 (`ecfffd49`) | No se puede medir la concordancia entre revisores; el modelo local no sirve como cribador principal | Para la próxima: **un segundo revisor independiente sobre una muestra aleatoria** (por ejemplo 10 %) con concordancia reportada. Validar todo cribador nuevo con obras protegidas y umbral de omisión preregistrado, como en ese piloto |
 
 ## 3. Lista de verificación para la próxima revisión o experimento
 
@@ -76,4 +76,4 @@ La recuperación de Q15 (unos 51 000 registros de actas NeurIPS/ICML más los re
 
 ---
 
-*Pendiente al redactar:* auditoría de los lotes 01–03 y de las 492 decisiones heredadas de C; plan para las 857 obras pendientes de acceso, verificación o fecha; 24 lotes de cribado restantes.
+*Pendiente al redactar:* recribado de las 466 decisiones heredadas con plantilla; plan para las 857 obras pendientes de acceso, verificación o fecha; lotes restantes de la cola principal. Los lotes 01–10 están auditados.
