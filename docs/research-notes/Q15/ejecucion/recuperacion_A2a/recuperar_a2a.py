@@ -10,7 +10,7 @@ Por registro, en este orden y deteniéndose al recuperar un resumen:
      De ahí se toman autores, año e identificadores externos (DOI, arXiv) nuevos.
   2. Identificadores derivados del ancla: DOI nuevo en OpenAlex y Crossref; arXiv nuevo en la
      API de arXiv. Se acepta con título normalizado coincidente, como en A0.
-  3. Búsqueda por título en OpenAlex, Crossref, arXiv y S2 (match). Un candidato se acepta solo
+  3. Búsqueda por título en OpenAlex, Crossref, S2 (match) y arXiv. Un candidato se acepta solo
      si (a) el título normalizado es idéntico, (b) el año es compatible (±1 con el snapshot) y
      (c) el apellido del primer autor coincide con el del ancla S2, cuando el ancla lo da. Si no
      hay autores de referencia, se acepta con nivel de identidad débil y A1 debe verificarlos;
@@ -38,7 +38,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "A2a-1.0"
+VERSION = "A2a-1.1"
 INVENTARIO_SHA_ESPERADO = "778424329491191e31c6c669e3504ff2a0e2730966c389226d7a1a73315ef14d"
 A0_SHA_ESPERADO = "1e05f504b39d44e410e43eddfb2e58ed60fce86a71859840d377f5cb4593c2ce"
 USER_AGENT = "Q15-A2a-abstract-recovery/1.0"
@@ -86,7 +86,9 @@ def apellido(nombre: str | None) -> str:
     """Último token alfabético del nombre, plegado (sin acentos, minúsculas)."""
     if not nombre:
         return ""
-    toks = re.findall(r"[a-z]+", _plegar(nombre))
+    plegado = _plegar(nombre)
+    # Alfabeto latino tras plegar; si no hay, tokens de letras en cualquier alfabeto (A1 de Argon).
+    toks = re.findall(r"[a-z]+", plegado) or re.findall(r"[^\W\d_]+", plegado)
     return toks[-1] if toks else ""
 
 
@@ -99,7 +101,7 @@ def anio(v) -> int | None:
 
 def texto_busqueda(t: str) -> str:
     t = html.unescape(re.sub(r"<[^>]+>", " ", t or ""))
-    return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", t)).strip()
+    return re.sub(r"\s+", " ", re.sub(r"[\W_]+", " ", t)).strip()
 
 
 def reconstruir_inverted_index(idx: dict | None) -> str | None:
@@ -244,8 +246,12 @@ def _cand_crossref(j: dict, via: str) -> dict:
         return "-".join(str(x) for x in parts if x is not None) or None
     fechas = {k: fecha(k) for k in ("created", "published-online", "published-print", "issued", "posted")}
     return {"fuente": "crossref", "via": via, "titulo": tit[0] if tit else None,
-            "autores": [" ".join(x for x in (a.get("given"), a.get("family")) if x) for a in j.get("author") or []],
-            "resumen": limpiar_jats(j.get("abstract")), "anio": anio(fechas.get("issued")),
+            "autores": [(" ".join(x for x in (a.get("given"), a.get("family")) if x) or a.get("name") or "").strip()
+                        for a in j.get("author") or []],
+            "resumen": limpiar_jats(j.get("abstract")),
+            # Año: issued y, si falta, las demás fechas propias de la obra (M1 de Argon).
+            "anio": next((anio(fechas.get(k)) for k in ("issued", "published-print", "published-online", "posted", "created")
+                          if anio(fechas.get(k))), None),
             "fechas": fechas, "ids": {"doi": norm_doi(j.get("DOI")) or None}}
 
 
@@ -327,9 +333,19 @@ def q_crossref_busqueda(c, t):
                      lambda c, m: [_cand_crossref(j, "busqueda") for j in ((c.json(m).get("message") or {}).get("items") or [])])
 
 
+RESERVADAS_ARXIV = {"and", "or", "not", "andnot"}
+
+
+def consulta_arxiv(t: str) -> str:
+    """ti:tok1 AND ti:tok2 ... con tokens de más de 2 letras, sin operadores reservados (M2 de Argon).
+    Solo amplía la búsqueda: la aceptación sigue exigiendo título normalizado idéntico, año y autor."""
+    toks = [w for w in texto_busqueda(t).split() if len(w) > 2 and w.lower() not in RESERVADAS_ARXIV][:12]
+    return " AND ".join("ti:" + w for w in toks)
+
+
 def q_arxiv_busqueda(c, t):
     url = ("https://export.arxiv.org/api/query?max_results=10&search_query="
-           + urllib.parse.quote('ti:"' + texto_busqueda(t) + '"'))
+           + urllib.parse.quote(consulta_arxiv(t)))
     return consultar(c, "arxiv", url, lambda c, m: _cands_arxiv(c.bytes(m), "busqueda"))
 
 
@@ -419,7 +435,10 @@ def evaluar_registro(c: Cliente, inv: dict, a0: dict) -> dict:
         a = anio(k.get("anio"))
         if anio_snap is None or a is None or abs(a - anio_snap) > 1:
             motivo.append("anio")
-        if ap_ref and apellido((k.get("autores") or [None])[0]) != ap_ref:
+        ap_k = apellido((k.get("autores") or [None])[0])
+        # Con autor de referencia, el primer autor debe coincidir; sin él, el candidato debe traer un
+        # primer autor identificable (no se aceptan registros anónimos en el nivel débil; A1 de Argon).
+        if (ap_ref and ap_k != ap_ref) or not ap_k:
             motivo.append("primer_autor")
         k["aceptado"] = not motivo
         k["rechazo"] = motivo
@@ -430,8 +449,10 @@ def evaluar_registro(c: Cliente, inv: dict, a0: dict) -> dict:
         for k in nuevos:
             juzgar(k)
         busq += nuevos
-        if any(k["aceptado"] and k.get("resumen") for k in busq):
-            break  # ya hay un candidato aceptado con resumen: no hace falta seguir
+        # Con autor de referencia basta el primer aceptado. Sin él se consultan todas las fuentes, para
+        # detectar discrepancias de primer autor entre fuentes (A1 de Argon).
+        if ap_ref and any(k["aceptado"] and k.get("resumen") for k in busq):
+            break
     ok = [k for k in busq if k["aceptado"] and k.get("resumen")]
     if ok:
         if not ap_ref and len({apellido((k.get("autores") or [None])[0]) for k in ok}) > 1:

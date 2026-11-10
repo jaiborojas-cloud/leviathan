@@ -1,6 +1,6 @@
 # Q15, fase A2a: segunda recuperación automática de resúmenes (sin LLM)
 
-**Estado:** BORRADOR v1.0, pendiente de auditoría independiente antes de correrlo.
+**Estado:** BORRADOR v1.1. Corrige los hallazgos de la [auditoría de Argon](AUDITORIA_ARGON_PR150_2026-11-10.md) sobre `081021ba` (0 bloqueantes; A1, M1, M2, B1–B3). Necesita reconfirmación antes de correrlo.
 
 **Autorización:** el responsable la dio el 2026-11-10 a las 08:28 (hora de México). Es una modificación operativa del [plan de pendientes v1](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6749882361): la fase A2, que el plan definía como manual, se divide en una parte automática (A2a, este script) y una manual (A2b) para lo que A2a no resuelva. No cambia criterios, topes, corte ni el tratamiento de lo desconocido. **No decide pertinencia ni fechas.**
 
@@ -23,10 +23,12 @@ Se detiene en cuanto recupera un resumen aceptado.
 
 1. **Ancla S2.** Toma el `paperId` de la URL del snapshot y consulta `graph/v1/paper/{id}`. Es el mismo registro del snapshot, así que su resumen se acepta si el título normalizado coincide (nivel `ANCLA_S2`). De ahí salen los **autores de referencia**, el año y los identificadores externos (DOI, arXiv). Si el título del registro S2 no coincide, ese registro no se usa como ancla y queda anotado.
 2. **Identificadores derivados del ancla.** Si el ancla trae un DOI o un arXiv que el snapshot no tenía, consulta OpenAlex y Crossref (por DOI) o arXiv (por id). Acepta con título normalizado coincidente, como A0 (nivel `ID_DERIVADO_DEL_ANCLA`).
-3. **Búsqueda por título**, en este orden: OpenAlex (`title.search`), Crossref (`query.bibliographic`), S2 (`search/match`) y arXiv (`ti:"…"`). Un candidato se acepta solo si cumple las tres condiciones:
+3. **Búsqueda por título**, en este orden: OpenAlex (`title.search`), Crossref (`query.bibliographic`), S2 (`search/match`) y arXiv (`ti:` por token). Un candidato se acepta solo si cumple las tres condiciones:
    - **(a)** su título normalizado es **idéntico** al del inventario;
    - **(b)** su **año** es compatible, a ±1 del snapshot, que admite la diferencia entre preprint y publicación;
    - **(c)** el **apellido del primer autor** coincide con el del ancla, cuando el ancla da autores.
+
+   Un candidato sin primer autor identificable se rechaza siempre. Los apellidos se comparan tras plegar acentos y, si el nombre no está en alfabeto latino, con sus letras en ese alfabeto. Con autor de referencia, la búsqueda se detiene en la primera fuente que da un aceptado; sin él, se consultan **todas** las fuentes para detectar discrepancias de primer autor entre ellas. En Crossref el año se toma de `issued` y, si falta, de las demás fechas de la obra. En arXiv la consulta une con `AND` los tokens del título de más de 2 letras, sin operadores reservados; eso solo amplía la búsqueda, no la aceptación.
 
    Cada candidato rechazado guarda su motivo (`titulo`, `anio`, `primer_autor`). Con autor de referencia, el nivel es `BUSQUEDA_TITULO_ANIO_AUTOR`. Sin él, el nivel es `BUSQUEDA_TITULO_ANIO_SIN_AUTOR_DE_REFERENCIA` (**identidad débil: A1 debe verificar autores contra R4 antes de cribar**). Si en ese caso los candidatos aceptados discrepan en el primer autor, el registro queda `CONFLICTO_IDENTIDAD`.
 
@@ -62,10 +64,10 @@ Código de salida: 0 si todo terminó, 2 si quedan registros `ERROR_ACCESO` y 1 
 
 | Archivo | SHA-256 |
 |---|---|
-| `recuperar_a2a.py` | `fd1c7193f9826f2b7a0fb0848268000caba8cd2553441017e29ef4627ad5ca89` |
-| `pruebas_recuperar_a2a.py` | `d1425f15750b74b6199af774fd7ca2b24f60d3bbbae827e1f82614c063283325` |
+| `recuperar_a2a.py` | `fcd78a0aa13c530bcb84e287e3b92284fcb0bdc04a6026a8009f276f36d837d0` |
+| `pruebas_recuperar_a2a.py` | `17d39dc2d5f4395bb00ff3bb1e765c61b1d67e3321ea0968258c238e958de28e` |
 
-**Pruebas:** pasan 18 de 18, sin red (el socket está bloqueado), en Linux con Python 3.13. Cubren:
+**Pruebas:** pasan 23 de 23, sin red (el socket está bloqueado), en Linux con Python 3.13. Cubren:
 - el ancla, los identificadores derivados y cada condición de aceptación;
 - el nivel débil y el conflicto de autores;
 - el ancla con título discordante;
@@ -74,7 +76,8 @@ Código de salida: 0 si todo terminó, 2 si quedan registros `ERROR_ACCESO` y 1 
 - la búsqueda en arXiv;
 - los SHA, la identidad de salida y el registro ausente;
 - que no decide pertinencia;
-- `.gitattributes`.
+- `.gitattributes`;
+- las regresiones de la auditoría: apellidos no latinos, candidato anónimo rechazado, conflicto entre fuentes en el nivel débil, año de respaldo y nombre de autor en Crossref, consulta de arXiv y guion bajo.
 
 Falta confirmarlas en Windows.
 
@@ -96,8 +99,8 @@ $Script = Join-Path $Dir 'recuperar_a2a.py'
 $Suite = Join-Path $Dir 'pruebas_recuperar_a2a.py'
 $H1 = (Get-FileHash $Script -Algorithm SHA256).Hash.ToLower()
 $H2 = (Get-FileHash $Suite -Algorithm SHA256).Hash.ToLower()
-if ($H1 -ne 'fd1c7193f9826f2b7a0fb0848268000caba8cd2553441017e29ef4627ad5ca89') { throw 'SHA script' }
-if ($H2 -ne 'd1425f15750b74b6199af774fd7ca2b24f60d3bbbae827e1f82614c063283325') { throw 'SHA pruebas' }
+if ($H1 -ne 'fcd78a0aa13c530bcb84e287e3b92284fcb0bdc04a6026a8009f276f36d837d0') { throw 'SHA script' }
+if ($H2 -ne '17d39dc2d5f4395bb00ff3bb1e765c61b1d67e3321ea0968258c238e958de28e') { throw 'SHA pruebas' }
 & $Py -I $Suite
 if ($LASTEXITCODE -ne 0) { throw 'Pruebas fallaron: copia la salida' }
 $Inv = 'D:\RIPG_DATA\Q15_A0\insumo\INVENTARIO_857.json'

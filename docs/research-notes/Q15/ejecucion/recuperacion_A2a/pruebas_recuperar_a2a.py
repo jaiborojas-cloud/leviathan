@@ -245,6 +245,38 @@ class Ejecucion(unittest.TestCase):
         for palabra in ("INCLUIR", "EXCLUIR", "CONTEXTO", "PERTINENTE"):
             self.assertNotIn(palabra, txt)
 
+    # --- regresiones de la auditoría de Argon sobre 081021ba (A1, M1, M2, B1, B2) ---
+    def test_a1_apellido_no_latino(self):
+        self.assertTrue(A.apellido("김철수"))  # no vacío (NFKD descompone el hangul en jamo)
+        self.assertEqual(A.apellido("Иван Петров"), "петров")
+        self.assertNotEqual(A.apellido("김철수"), A.apellido("이영희"))
+
+    def test_a1_candidato_anonimo_se_rechaza_en_nivel_debil(self):
+        anon = dict(oa_work(), authorships=[])
+        net = FakeNet([("openalex.org/works?", ok(oa_busq(anon)))])
+        _, _, res = self.correr([inv_reg(url="")], [a0_reg()], net)
+        r = res[0]
+        self.assertEqual(r["estado_propuesto"], "SIN_RESUMEN_TRAS_A2A")
+        self.assertIn("primer_autor", next(k for k in r["candidatos"] if k["via"] == "busqueda")["rechazo"])
+
+    def test_a1_conflicto_entre_fuentes_en_nivel_debil(self):
+        cr = {"message": {"items": [{"title": [TIT], "author": [{"given": "Beto", "family": "Dos"}],
+                                     "abstract": "<jats:p>Otro.</jats:p>", "issued": {"date-parts": [[2017]]}}]}}
+        net = FakeNet([("openalex.org/works?", ok(oa_busq(oa_work(autor="Ana Uno")))), ("query.bibliographic", ok(cr))])
+        _, _, res = self.correr([inv_reg(url="")], [a0_reg()], net)
+        self.assertEqual(res[0]["estado_propuesto"], "CONFLICTO_IDENTIDAD")
+        self.assertEqual(net.cuenta("query.bibliographic"), 1)  # no se detuvo en la primera fuente
+
+    def test_m1_b1_crossref_anio_de_respaldo_y_nombre(self):
+        k = A._cand_crossref({"title": [TIT], "author": [{"name": "Consorcio X"}],
+                              "published-online": {"date-parts": [[2018, 3, 1]]}}, "busqueda")
+        self.assertEqual(k["anio"], 2018)
+        self.assertEqual(k["autores"], ["Consorcio X"])
+
+    def test_m2_b2_consulta_arxiv_y_guion_bajo(self):
+        self.assertEqual(A.texto_busqueda("L_2 and NOT"), "L 2 and NOT")
+        self.assertEqual(A.consulta_arxiv("Search AND Rescue: on L_2 Or Not"), "ti:Search AND ti:Rescue")
+
     def test_gitattributes_sin_conversion(self):
         ga = AQUI.parents[4] / ".gitattributes"
         if not ga.exists():
