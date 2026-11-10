@@ -1,6 +1,6 @@
 # Lecciones de proceso: revisión sistemática Q15 (2026-11)
 
-**Estado:** documento vivo, escrito durante el cribado de Q15, cuando estaban auditados los lotes 01–10.
+**Estado:** documento vivo, escrito durante el cribado de Q15, cuando estaban auditados los lotes 01–10; actualizado el 2026-11-10 (lotes 01–21).
 **Naturaleza:** solo documental. No cambia el protocolo de Q15 ([PROTOCOLO_OPERATIVO_v3](Q15/PROTOCOLO_OPERATIVO_v3.md)), no adjudica novedad y no aporta evidencia científica.
 **Para qué sirve:** guardar qué decisiones de proceso funcionaron, cuáles hubo que rehacer y por qué, para que la próxima revisión o el próximo experimento empiece mejor. Cada entrada remite a evidencia verificable: commits y comentarios del [PR #138](https://github.com/jaiborojas-cloud/leviathan/pull/138).
 
@@ -22,6 +22,8 @@ Reparto de roles durante Q15:
 | B5 | **Corregir con un paquete aparte**, sin sobrescribir lo aprobado ni borrar lo rechazado | Siempre se puede reconstruir qué se decidió primero y qué se cambió después | correcciones O1, 05/06 y cercanía del 08 |
 | B6 | Entregar lotes cerrados de 100, con selección **fijada antes de leer**, manifiesto y SHA | Cada lote se audita por separado. Un corte por límite de uso perdió como mucho un lote, y quedó documentado | lotes 04–09 |
 | B7 | La auditoría **recalcula de forma independiente**, no se limita a leer el informe | Así se verificaron 72/72 identidades por metadatos, las 23 decisiones repetidas del lote 07 y las sumas del balance (4 513) | [R4](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6744475206); [lote 07](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6743902974) |
+| B8 | **Concordancia a ciegas prerregistrada.** Se tomaron 40 obras estratificadas con semilla fija y códigos ciegos, y la llave quedó sellada con SHA antes de leer. Las cribaron dos segundos lectores de familias distintas (Fable 5.2 y Argon) | Dio la primera medida de fiabilidad de Q15. Los dos segundos lectores coincidieron entre sí (κ binario 0.89) y localizaron tres zonas de sobreinclusión del primer lector, lo que llevó a la regla D3. Costó minutos | [prerregistro](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6769493358); [resultado](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6769647740); [D3](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6769657278) |
+| B9 | **Reglas de cercanía y alcance decididas por el responsable cuando aparece el patrón**, vigentes desde el siguiente lote y aplicadas hacia atrás solo en un repaso consolidado | D1 y D2 bajaron las MEDIA de 58 a 19 por lote sin reabrir lotes cerrados | [lote 18](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6758641743); [lote 19](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6758887651) |
 
 ## 2. Errores y retrabajo
 
@@ -38,6 +40,11 @@ Reparto de roles durante Q15:
 | E9 | Comandos para PowerShell entregados en varios bloques y con variables de sesiones anteriores: se mezclaron versiones (v2 contra v2.1) y una carpeta quedó con la identidad de otro script | Corridas fallidas y carpetas con sufijo `_B` | Entregar **un solo bloque autocontenido** para una ventana nueva, que verifique los SHA antes de ejecutar |
 | E10 | **Trazabilidad dispersa entre sesiones y agentes.** Los lotes 01–03 (Codex el 01; Antigravity/Argon el 02 y el 03) **sí estaban auditados** por Claude en otra sesión (`AUDITORIA_CRIBADO_C_LOTE0{1,2,3}_2026-11-05.md`, con los SHA de sus paquetes). Sus originales estaban en la carpeta de trabajo de Antigravity, y esta sesión los dio por no auditados hasta encontrarlos. Aparte, 466 de las 492 decisiones heredadas de B tienen razones de plantilla basadas en el título y deben recribarse | Búsqueda de paquetes y una afirmación errónea, ya corregida, en el PR #138 | **Un índice único** en el repo con cada paquete, su SHA, su revisor y su auditoría, que se consulte antes de afirmar que algo falta. Las decisiones heredadas se auditan o se marcan como no auditadas |
 | E11 | Un solo lector de IA por lote, con revisores distintos según el lote (Codex o Antigravity/Argon). Un piloto de cribado con modelo abierto local (gemma4:31b) se declaró **NO APTO**: tuvo 3 omisiones de 27 obras protegidas, con umbral 0 (`ecfffd49`) | No se puede medir la concordancia entre revisores; el modelo local no sirve como cribador principal | Para la próxima: **un segundo revisor independiente sobre una muestra aleatoria** (por ejemplo 10 %) con concordancia reportada. Validar todo cribador nuevo con obras protegidas y umbral de omisión preregistrado, como en ese piloto |
+
+| E12 | Con un solo lector, la **cercanía se infló hasta dejar de discriminar**: 58 de 69 incluidas eran MEDIA en el lote 18. Además, el alcance del 4a se fue ampliando hasta «generalización en general» | Una parte mayor de lo necesario pasa a texto completo, y hubo que fijar D1 y D2 y un repaso consolidado | **Vigilar la distribución de cercanía por lote** como señal de deriva. Cuando un nivel supera la mitad, revisar la rúbrica |
+| E13 | **Sobreinclusión sistemática del primer lector** en memorización, desaprendizaje y uso instrumental de la dificultad. Solo se vio al medir la concordancia (κ en tres clases 0.41–0.62 con los segundos lectores) | Regla D3 y repaso de los lotes anteriores | Medir la concordancia **al principio**, no después de 20 lotes |
+| E14 | **La primera extracción de texto completo (W04638) tenía 4 errores de hecho** aunque todas las cifras eran correctas: «sonda validada antes», «sin clasificación», «sin logits» y una página. Además sobrecodificaba la relación con el punto 2. Una auditoría independiente los detectó | Una versión 2 de la extracción | **Auditar toda extracción ALTA contra el texto antes de la síntesis.** Ojo con los resúmenes que repiten la narrativa favorable de los autores. Si extractor y auditor son de la misma familia de modelos, sumar uno de otra familia cuando la fuente pese en la adjudicación |
+| E15 | Al armar el paquete a ciego, Claude quitó una línea de D1/D2 para no filtrar códigos de obra y dejó una sección casi vacía (lo notó Fable) | Ninguno en las decisiones | Al **editar documentos normativos** para un paquete, sustituir lo quitado por una nota explícita en vez de borrarlo |
 
 ## 3. Lista de verificación para la próxima revisión o experimento
 
@@ -57,7 +64,9 @@ Reparto de roles durante Q15:
 **Durante**
 - [ ] Lotes cerrados con selección fijada antes de leer, manifiesto y SHA.
 - [ ] Auditoría intensiva de los primeros lotes, con señales de plantilla revisadas.
-- [ ] Segundo revisor sobre una muestra y concordancia reportada.
+- [ ] Segundo revisor a ciegas sobre una muestra **desde los primeros lotes**, con diseño prerregistrado y llave sellada, y concordancia reportada.
+- [ ] Distribución de cercanía por lote vigilada como señal de deriva.
+- [ ] Toda extracción de texto completo auditada contra la fuente por un lector independiente.
 - [ ] Correcciones en paquete aparte, con la hora real.
 - [ ] Todo resumen o reporte nombra el artefacto exacto (run, SHA).
 
@@ -82,4 +91,4 @@ Las dos son de uso exploratorio y no implican redistribuir resúmenes.
 
 ---
 
-*Pendiente al redactar:* recribado de las 466 decisiones heredadas con plantilla; plan para las 857 obras pendientes de acceso, verificación o fecha; lotes restantes de la cola principal. Los lotes 01–10 están auditados.
+*Actualización del 2026-11-10:* los lotes 01–21 están auditados. Las 466 heredadas están recribadas y cerradas (H01–H05 y tres correcciones de H01). Se midió la concordancia a ciegas M40 (B8) y se fijaron D1–D3. *Pendiente:* el repaso consolidado (D1–D3 sobre los lotes 05–21 y A1), la fase A2 y los lotes restantes de la cola principal.
