@@ -128,9 +128,54 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 
 ---
 
+## 4b. Candidatas señaladas solo por su resumen (sin leer)
+
+**Nivel de evidencia: solo título y resumen del snapshot.** Las señaló Claude en las auditorías de cribado y del repaso porque parecían pertinentes para un punto. **No son aportes confirmados.** Esta no es la lista completa de ALTA del corpus: es lo que se marcó en las auditorías citadas. El inventario sistemático por punto queda pendiente (§5).
+
+| Obra | Punto | Por qué se señaló (lectura del resumen) | Estado | Comentario del PR #138 |
+|---|---|---|---|---|
+| W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | Lista prioritaria | 6779834585 |
+| W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | Lista prioritaria | 6779834585 |
+| W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | Lista prioritaria | 6778645548 |
+| W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | Lista prioritaria | 6779205680 |
+| W06028 | 4a y 4b | Con alta confianza, las brechas entre logits superan la precisión flotante, rompen la suma cero del gradiente e inflan las normas | Lista prioritaria | 6778645548 |
+| W06247 | 1 y 4a | ¿Añade una señal información más allá de la confianza softmax, con control de margen? Es el control «ajuste por confianza previa» del protocolo | Incluida MEDIA (corrección) | 6779205680 |
+| W00329, W00344 | 2 y 3a | Explosión temprana de la traza de la Fisher | Incluidas ALTA | 6799781607 |
+| W00345 | 3a | *Neural Fisher Kernel* | Incluida ALTA | 6799781607 |
+| W00102, W00109 | 2 | Cuestionan la validez temprana de GraNd y EL2N | Incluidas ALTA | 6799781607 |
+| W06592 | 3a y 4a | Kernel del jacobiano de la red linealizada | Incluida ALTA | 6780064414 |
+| W06666 | 2 y 3a | Subespacio tangente tras pocas épocas | Incluida ALTA | 6780064414 |
+| W06530, W06684 | 3a | Métrica de Fisher de modelos generativos profundos; información de Fisher ante ejemplos adversariales | Incluidas ALTA | 6780064414 |
+| W03612 | 3a | Gauss–Newton para entrenar redes con entropía cruzada, que coincide con la Fisher en logits | Incluida MEDIA (excepción) | 6808699492 |
+| W00461 | 3b y 3c | Curvatura de las geometrías α del símplex | Incluida BAJA | 6800913614 |
+| W06043 | 3c (conceptual) | Geodésicas en el *manifold* de modelos que llegan a sus bordes (modelos más simples). No es una red ni el símplex bajo G | CONTEXTO BAJA | 6779205680 |
+| W01541 | 4b | Descompone MaxLogit en coseno y norma (sin centrar); la norma perjudica el score OOD | Incluida ALTA | 6808273215 |
+
+---
+
+## 4c. Observaciones sobre el propio instrumento
+
+No vienen de la literatura: son derivaciones nuestras, **por verificar o ya verificadas numéricamente**, que surgieron durante la lectura.
+
+1. **Invariancia de M ante reparametrizaciones (Q16, PR #153).**
+   - Con θ = g(φ) y B = ∂θ/∂φ invertible, M' = RB(BᵀFB + γI)⁻¹BᵀRᵀ.
+   - **M' = M solo si γ = 0 o si B es ortogonal** (permutaciones y signos de neuronas).
+   - Un reescalamiento positivo entre capas ReLU conserva la función, pero **cambia M** cuando γ > 0.
+   - Verificado numéricamente con matrices aleatorias: diferencia de 0 con γ = 0 y de 0.96 con γ = 0.1.
+   - **Pendiente:** comprobar qué activaciones usan las redes de DIN.
+2. **Forma (1 − q)/q (a partir de W06320; derivación del extractor, verificada a mano).**
+   - Con la Fisher categórica en logits y su pseudoinversa, (e_y − q)ᵀJ(q)⁺(e_y′ − q) = δ_yy′/q_y − 1.
+   - La diagonal es (1 − q_y)/q_y, la misma forma que la aproximación diag((1 − p)/p) del diccionario.
+   - Es una coincidencia de forma para una posición en el espacio de logits. **No es** el kernel entre ejemplos del instrumento.
+3. **Identidad de la escala:** ‖z‖₂² = m·s² + m·z̄². Las medidas sin centrar y la del instrumento se mueven juntas bajo un escalamiento puro y se separan cuando z̄ se desplaza (notas del punto 4, §1).
+
+---
+
 ## 5. Pendientes de lectura
 
 De la lista prioritaria (comentario 6802312909): W06354, W06335, W05915, W06200 y W06028.
+
+**Inventario sistemático pendiente:** al cerrar el repaso consolidado conviene que Codex genere, a partir de los paquetes cerrados y de las correcciones, la lista de **todas las INCL ALTA y MEDIA por punto** (1 a 4c). La §4b solo recoge lo señalado en auditorías y no sustituye ese inventario, que servirá para priorizar la lectura de texto completo.
 
 ## 6. Balance de extractores (proceso, no resultado)
 
