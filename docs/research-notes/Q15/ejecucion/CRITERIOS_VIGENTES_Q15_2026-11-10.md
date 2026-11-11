@@ -2,7 +2,7 @@
 
 **Naturaleza:** es una **compilación** de reglas ya decididas por el responsable y registradas en el PR #138 y en el repositorio. **No crea reglas nuevas ni cambia ninguna.** Si este texto y su fuente difieren, **manda la fuente citada**. Sirve para tres cosas:
 1. como referencia única para un lector nuevo, por ejemplo un chat nuevo de Codex;
-2. para el repaso consolidado de los lotes 05–25 y A1;
+2. para el repaso consolidado (lotes 01–25 y A1; ver §9);
 3. como anexo metodológico de Q15.
 
 Lo compiló Claude a pedido del responsable (2026-11-10). La pregunta, las consultas, los topes, el corte y el diccionario siguen siendo los del [protocolo v3](../PROTOCOLO_OPERATIVO_v3.md).
@@ -126,4 +126,4 @@ Se aplican **hacia adelante** desde el lote indicado y **hacia atrás solo en el
 
 ## 9. Repaso consolidado pendiente (no ejecutado)
 
-Antes de la lectura de texto completo se aplicarán D1–D4 y las rúbricas 2 y 3a a los lotes **05–25 y A1**. Se incluyen también las observaciones registradas en las auditorías (W04628, W05702, W03908, W03866, W04471, W04877, W04888, W04974, W05042 y otras), sin reabrir decisiones aprobadas fuera de ese repaso.
+Antes de la lectura de texto completo se aplicarán D1–D4 y las rúbricas 2 y 3a a los lotes **05–25 y A1**. Por decisión del responsable del 2026-11-11 ([comentario 6798575037](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6798575037)) se agregan los lotes **01–04**, cuyos INCL y CONTEXTO reciben cercanía con el criterio vigente. El alcance total es de 2,633 pares lote–obra. La fase 0, de inventario, está aprobada ([comentario 6798407912](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6798407912)). Se incluyen también las observaciones registradas en las auditorías (W04628, W05702, W03908, W03866, W04471, W04877, W04888, W04974, W05042 y otras), sin reabrir decisiones aprobadas fuera de ese repaso.
