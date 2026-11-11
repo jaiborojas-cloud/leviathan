@@ -45,6 +45,11 @@ Reparto de roles durante Q15:
 | E13 | **Sobreinclusión sistemática del primer lector** en memorización, desaprendizaje y uso instrumental de la dificultad. Solo se vio al medir la concordancia (κ en tres clases 0.41–0.62 con los segundos lectores) | Regla D3 y repaso de los lotes anteriores | Medir la concordancia **al principio**, no después de 20 lotes |
 | E14 | **La primera extracción de texto completo (W04638) tenía 4 errores de hecho** aunque todas las cifras eran correctas: «sonda validada antes», «sin clasificación», «sin logits» y una página. Además sobrecodificaba la relación con el punto 2. Una auditoría independiente los detectó | Una versión 2 de la extracción | **Auditar toda extracción ALTA contra el texto antes de la síntesis.** Ojo con los resúmenes que repiten la narrativa favorable de los autores. Si extractor y auditor son de la misma familia de modelos, sumar uno de otra familia cuando la fuente pese en la adjudicación |
 | E15 | Al armar el paquete a ciego, Claude quitó una línea de D1/D2 para no filtrar códigos de obra y dejó una sección casi vacía (lo notó Fable) | Ninguno en las decisiones | Al **editar documentos normativos** para un paquete, sustituir lo quitado por una nota explícita en vez de borrarlo |
+| E16 | En la extracción de W05165, Claude afirmó «no declara semillas ni intervalos», pero el apéndice G (Tabla 1) declara 5 y 3 semillas. Además omitió los apéndices E–I porque filtró las líneas cortas del texto. Lo detectó DeepSeek, de otra familia | Una versión 2 de la extracción | Tres reglas de extracción: **inventariar primero** secciones, apéndices, tablas y figuras; **respaldar cada ausencia con una búsqueda** en el texto completo, anotando el término y el número de coincidencias; **no filtrar el texto** |
+| E17 | El LEEME de auditoría definía el subpunto 4c sin el enunciado del punto 4 («¿la concentración o la escala de logits modulan…?»). DeepSeek lo leyó literalmente y propuso RELACIONADO para W04638. El mismo recorte estaba en el LEEME de W05415 | Ninguno en las fichas: se rechazó con su fuente | En los paquetes para auditores, **cada subpunto lleva el enunciado completo de su punto**. Es la misma familia de error que E15: empaquetar quitando contexto |
+| E18 | El lote 30 se cortó por cuota de Codex a la mitad, y no existía un SHA de la selección registrado antes del corte | Excepción documentada y verificación sustituta (orden de las 70 decisiones y fecha del archivo) | **Registrar el SHA de la selección en el momento de fijarla**, en un archivo aparte, antes de leer. Se aplica desde el lote 31 |
+| E19 | El alcance del repaso consolidado («lotes 05–25») dejó fuera los lotes 01–04 sin que ningún registro dijera por qué. Lo señaló Codex en la fase 0 y el responsable los incluyó | Adendo a la fase 0 (255 obras más) | **Las fronteras de alcance se deciden y se escriben con su motivo.** Una frontera heredada de otra regla (aquí, el inicio de la cercanía) no es una decisión |
+| E20 | **Memoria del modelo frente a texto leído.** Un modelo puede «reconocer» un artículo y rellenar con lo que cree recordar. En los lotes 30–33, 166 de 354 obras son posteriores al corte de conocimiento de Claude | Ninguno detectado; se escribió como precisión el 2026-11-11 | **Ninguna afirmación sobre una obra puede venir del conocimiento previo de un modelo.** Lo que no está en el resumen o en el texto leído no consta, y que un modelo no recuerde algo no prueba que no exista |
 
 ## 3. Lista de verificación para la próxima revisión o experimento
 
@@ -67,6 +72,10 @@ Reparto de roles durante Q15:
 - [ ] Segundo revisor a ciegas sobre una muestra **desde los primeros lotes**, con diseño prerregistrado y llave sellada, y concordancia reportada.
 - [ ] Distribución de cercanía por lote vigilada como señal de deriva.
 - [ ] Toda extracción de texto completo auditada contra la fuente por un lector independiente.
+- [ ] Extracciones con inventario previo, cada ausencia respaldada con una búsqueda y el texto sin filtrar.
+- [ ] Paquetes para auditores con el enunciado completo de cada punto, no solo del subpunto.
+- [ ] SHA de la selección registrado al fijarla, antes de la primera lectura.
+- [ ] Ninguna afirmación sobre una obra tomada de la memoria del modelo.
 - [ ] Correcciones en paquete aparte, con la hora real.
 - [ ] Todo resumen o reporte nombra el artefacto exacto (run, SHA).
 
