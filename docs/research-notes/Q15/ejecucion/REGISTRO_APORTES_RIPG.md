@@ -6,7 +6,7 @@
 
 **Reglas del registro:**
 1. Cada entrada separa **lo que afirma la fuente** (demostrado, postulado o ilustrado) de la **inferencia** nuestra o del extractor, que va marcada.
-2. Solo entran obras con **extracción auditada por otra familia de modelos**. Las que tienen la auditoría pendiente van en una sección aparte y marcadas.
+2. Solo entran obras con **extracción auditada por otra familia de modelos**. Si alguna tiene la auditoría pendiente, va en una sección aparte y marcada.
 3. Ninguna afirmación sale de la memoria de un modelo (precisión del 2026-11-11 en [criterios vigentes](CRITERIOS_VIGENTES_Q15_2026-11-10.md), §8).
 4. Las fichas completas y sus auditorías están en los comentarios del PR #138 citados en cada entrada. Si este resumen no coincide con la ficha, manda la ficha.
 
@@ -20,7 +20,7 @@ Antecedente: [notas del punto 4](NOTAS_TEXTO_COMPLETO_PUNTO4_2026-11-10.md) (202
 |---|---|---|---|
 | **1** | Incremento predictivo D fuera de muestra | **W04638:** un estado actual bien medido absorbe el valor de la historia | — |
 | **2** | Señal temprana que anticipa confianza, dificultad o geometría | **W05548:** σ de la entrada del softmax cambia bruscamente al inicio (RELACIONADO) | Una señal temprana **evaluada como predictor** |
-| **3a** | Kernel de gradientes blanqueado por la Fisher, M = R(F+γI)⁻¹Rᵀ | **W06320** *(auditoría pendiente)*: acoplamiento de dos gradientes por la pseudoinversa de la Fisher en logits | Un **kernel entre ejemplos** con Fisher y ridge |
+| **3a** | Kernel de gradientes blanqueado por la Fisher, M = R(F+γI)⁻¹Rᵀ | **W06320:** acoplamiento de dos gradientes por la pseudoinversa de la Fisher en logits, en una posición (ANTECEDENTE_PARCIAL) | Un **kernel entre ejemplos** con Fisher y ridge |
 | **3b** | Pullback G = JᵀMJ | W06320 usa el jacobiano del softmax solo como regla de la cadena (RELACIONADO) | El pullback a un espacio de parámetros de perspectiva |
 | **3c** | Longitud de semirrectas al borde del símplex | Nada | Todo |
 | **4a** | Calibración y regularización | W05449, W05415 y W05584 (ANTECEDENTE_PARCIAL), W05378 | — |
@@ -109,22 +109,24 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 
 ---
 
-## 4. Fichas con auditoría pendiente
-
-### W06320: OC-OPD (arXiv:2611.01965v1). Extraída por Fable 5.2; **auditoría de Qwen en curso**
-- **Fuente, según la ficha:**
+### W06320: OC-OPD (arXiv:2611.01965v1)
+- **Fuente:**
   - **J(q) = diag(q) − qqᵀ**, «the categorical Fisher matrix», con pseudoinversa de Moore–Penrose (p. 5).
   - Teorema 1: g_Rᵀ J(q)⁺ g_F = KL(q‖p) + KL(p‖q).
   - Lema 2: uᵀJ⁺v = uᵀdiag(q)⁻¹v en el espacio tangente.
-- **Atributos de la Fisher, según la ficha:**
+- **Atributos de la Fisher, confirmados por el auditor contra el texto:**
   - vive en los logits de **una sola posición**;
   - se evalúa en la distribución del alumno;
   - usa **pseudoinversa, sin +γI**;
   - **no forma un kernel entre ejemplos**;
   - no entra en el algoritmo, que usa geometría euclídea.
-- **Inferencia del extractor, verificada a mano por Claude:** para gradientes de log-probabilidad, (e_y − q)ᵀJ⁺(e_y′ − q) = δ_yy′/q_y − 1, cuya diagonal **(1 − q_y)/q_y** tiene la misma forma que la aproximación diag((1 − p)/p) del diccionario del instrumento. El artículo no hace ese cálculo.
-- **Códigos propuestos:** 3a ANTECEDENTE_PARCIAL (el menos seguro según el extractor); 3b RELACIONADO; 4b RELACIONADO.
-- **Homónimos:** en el artículo, M, R, F, D y c son otros objetos.
+- **Inferencia del extractor, verificada por el auditor (sympy y numpy) y a mano por Claude:**
+  - (e_y − q)ᵀJ⁺(e_y′ − q) = δ_yy′/q_y − 1, con diagonal **(1 − q_y)/q_y**, la misma forma que la aproximación diag((1 − p)/p) del diccionario;
+  - J(q)·diag(q)⁻¹·J(q) = J(q): la Fisher en logits es el pullback de diag(q)⁻¹ por el softmax.
+  - El artículo no hace estos cálculos.
+- **Códigos:** 3a ANTECEDENTE_PARCIAL (el menos seguro; RELACIONADO también es defendible); 3b RELACIONADO; 4b RELACIONADO.
+- **Homónimos:** en el artículo, M, R, F, D y c son otros objetos. El auditor verificó que la ficha no los confunde.
+- **Ficha v2** (Fable 5.2), auditada por Qwen3.8-Max con 0 errores de hecho. Comentario 6808812016.
 
 ---
 
@@ -163,7 +165,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
    - Un reescalamiento positivo entre capas ReLU conserva la función, pero **cambia M** cuando γ > 0.
    - Verificado numéricamente con matrices aleatorias: diferencia de 0 con γ = 0 y de 0.96 con γ = 0.1.
    - **Pendiente:** comprobar qué activaciones usan las redes de DIN.
-2. **Forma (1 − q)/q (a partir de W06320; derivación del extractor, verificada a mano).**
+2. **Forma (1 − q)/q (a partir de W06320; derivación del extractor, verificada por el auditor y a mano).**
    - Con la Fisher categórica en logits y su pseudoinversa, (e_y − q)ᵀJ(q)⁺(e_y′ − q) = δ_yy′/q_y − 1.
    - La diagonal es (1 − q_y)/q_y, la misma forma que la aproximación diag((1 − p)/p) del diccionario.
    - Es una coincidencia de forma para una posición en el espacio de logits. **No es** el kernel entre ejemplos del instrumento.
@@ -181,7 +183,7 @@ De la lista prioritaria (comentario 6802312909): W06354, W06335, W05915, W06200 
 
 | Extractor | Obras | Errores de hecho detectados por el auditor |
 |---|---|---|
-| Fable 5.2 | W05415, W05548 (W06320 pendiente) | 0 y 0 |
+| Fable 5.2 | W05415, W05548, W06320 | 0, 0 y 0 |
 | DeepSeek | W05449, W05584 | 1, y 2 de transcripción de ecuaciones por OCR |
 | Claude | W04638, W05193, W05165 | 4 (v1) y 2 de página (v2), 0, y 1 más apéndices omitidos |
 | Argon | W05378 | 1 |
