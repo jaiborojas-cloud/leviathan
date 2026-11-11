@@ -118,6 +118,11 @@ Se aplican **hacia adelante** desde el lote indicado y **hacia atrás solo en el
 
   La discrepancia es sistemática: el primer lector **incluye de más**. Eso motivó D3. Está prevista una segunda medición después del repaso consolidado.
 - **Extracción de texto completo:** cada extracción lleva una auditoría independiente contra la fuente, de preferencia de **otra familia de modelos** (lección E14).
+- **Procedencia de las afirmaciones.** El responsable la escribió el 2026-11-11 como **precisión** de una práctica que ya se aplicaba, no como regla nueva:
+  - **Ninguna afirmación sobre una obra puede venir del conocimiento previo de un modelo.** Si no está en el resumen del snapshot o en el texto leído, **no consta**.
+  - Vale para el cribado, la extracción, las auditorías y la síntesis, y para cualquier modelo: Codex, Argon, Claude, Fable, DeepSeek, Qwen u otros.
+  - **Motivo:** los modelos no tienen un índice de la literatura, sino una memoria imprecisa de sus datos de entrenamiento. Esa memoria puede mezclar versiones o artículos parecidos y no cubre las obras posteriores a su corte. En los lotes 30–33, 166 de 354 obras son de julio de 2026 o después.
+  - **Tampoco cuenta la ausencia en la memoria.** Que un modelo no recuerde una obra o un resultado no es evidencia de que no exista. La novedad solo se adjudica en la síntesis, con el corpus.
 
 ## 9. Repaso consolidado pendiente (no ejecutado)
 
