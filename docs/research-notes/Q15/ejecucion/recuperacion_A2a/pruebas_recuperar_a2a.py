@@ -277,6 +277,53 @@ class Ejecucion(unittest.TestCase):
         self.assertEqual(A.texto_busqueda("L_2 and NOT"), "L 2 and NOT")
         self.assertEqual(A.consulta_arxiv("Search AND Rescue: on L_2 Or Not"), "ti:Search AND ti:Rescue")
 
+    def test_1k_clave_openalex_solo_en_encabezado_no_reenviable(self):
+        import os
+        import urllib.request
+        capt = []
+
+        class Resp:
+            status = 200
+            headers = {}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+            def read(self):
+                return b"{}"
+
+            def geturl(self):
+                return capt[-1].full_url
+
+        def abrir(req, timeout=None):
+            capt.append(req)
+            return Resp()
+
+        c = A.Cliente(Path(tempfile.mkdtemp()), 0, 1.0)
+        viejo_open, viejo_env = urllib.request.urlopen, os.environ.get("OPENALEX_API_KEY")
+        urllib.request.urlopen = abrir
+        os.environ["OPENALEX_API_KEY"] = "CLAVE-DE-PRUEBA"
+        try:
+            c._fetch_urllib("https://api.openalex.org/works?x=1", 1)
+            c._fetch_urllib("https://api.crossref.org/works?x=1", 1)
+            c._fetch_urllib("https://api.openalex.org.evil.example/works", 1)
+            del os.environ["OPENALEX_API_KEY"]
+            c._fetch_urllib("https://api.openalex.org/works?x=2", 1)
+        finally:
+            urllib.request.urlopen = viejo_open
+            if viejo_env is not None:
+                os.environ["OPENALEX_API_KEY"] = viejo_env
+            else:
+                os.environ.pop("OPENALEX_API_KEY", None)
+        self.assertEqual(capt[0].unredirected_hdrs.get("Authorization"), "Bearer CLAVE-DE-PRUEBA")
+        self.assertNotIn("Authorization", capt[0].headers)  # urllib no la copia al redirigir
+        self.assertNotIn("CLAVE-DE-PRUEBA", capt[0].full_url)
+        for r in capt[1:]:
+            self.assertNotIn("Authorization", r.unredirected_hdrs)
+
     def test_gitattributes_sin_conversion(self):
         ga = AQUI.parents[4] / ".gitattributes"
         if not ga.exists():

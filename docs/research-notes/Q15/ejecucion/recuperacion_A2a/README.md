@@ -81,7 +81,22 @@ Código de salida: 0 si todo terminó, 2 si quedan registros `ERROR_ACCESO` y 1 
 
 Falta confirmarlas en Windows.
 
-## Procedimiento (una ventana nueva de PowerShell, un solo bloque)
+## A2a-1.1k: clave de OpenAlex (2026-11-13)
+
+**Motivo:** la corrida de 1.1 terminó con 335 `ERROR_ACCESO`, todos por límites de uso (429). OpenAlex agotó el presupuesto diario de la IP; el responsable obtuvo una clave gratuita.
+
+**Único cambio:** si existe la variable de entorno `OPENALEX_API_KEY`, se envía como `Authorization: Bearer` solo a `https://api.openalex.org/`. Va como encabezado no reenviable, que urllib no copia al seguir una redirección. Nunca va en la URL, así que la caché `sha(url)` es la misma de 1.1. La lógica de identidad y aceptación no cambia. S2 sigue sin clave.
+
+| Archivo (1.1k) | SHA-256 |
+|---|---|
+| `recuperar_a2a.py` | `6be7b8286f5dea05906f5a436d8cf5b7bc1bb02c2ce906de56bab70899270193` |
+| `pruebas_recuperar_a2a.py` | `897c56520994415423d2b6f79cd50c630408562b65f15c5b74b784c559767eb2` |
+
+**Pruebas:** 24 de 24 sin red: las 23 de 1.1 y una nueva. La nueva verifica que la clave solo va a OpenAlex, como encabezado no reenviable y fuera de la URL.
+
+**Caché:** como cambia el SHA del script, `IDENTIDAD.json` obliga a usar otra carpeta. Se **copia** (no se mueve) `raw\` de la salida de 1.1 a la carpeta nueva; la salida de 1.1 queda intacta. Las consultas finales se reutilizan y solo se repiten las que fallaron.
+
+## Procedimiento de 1.1 (una ventana nueva de PowerShell, un solo bloque)
 
 ```powershell
 $ErrorActionPreference = 'Stop'

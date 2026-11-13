@@ -17,6 +17,10 @@ Por registro, en este orden y deteniéndose al recuperar un resumen:
      si los candidatos aceptados discrepan en el primer autor, queda CONFLICTO_IDENTIDAD.
 Nunca decide pertinencia ni fechas: registra las fechas candidatas de las fuentes aceptadas.
 Guarda cada respuesta cruda con su SHA-256 y reanuda desde caché. Solo biblioteca estándar.
+
+A2a-1.1k: único cambio respecto de 1.1. Si existe la variable de entorno OPENALEX_API_KEY, se
+envía como «Authorization: Bearer» solo a https://api.openalex.org, como encabezado que urllib no
+reenvía en redirecciones. Nunca va en la URL.
 """
 from __future__ import annotations
 
@@ -38,7 +42,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "A2a-1.1"
+VERSION = "A2a-1.1k"
 INVENTARIO_SHA_ESPERADO = "778424329491191e31c6c669e3504ff2a0e2730966c389226d7a1a73315ef14d"
 A0_SHA_ESPERADO = "1e05f504b39d44e410e43eddfb2e58ed60fce86a71859840d377f5cb4593c2ce"
 USER_AGENT = "Q15-A2a-abstract-recovery/1.0"
@@ -164,6 +168,9 @@ class Cliente:
 
     def _fetch_urllib(self, url: str, timeout: float):
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+        clave = os.environ.get("OPENALEX_API_KEY", "").strip()
+        if clave and url.startswith("https://api.openalex.org/"):
+            req.add_unredirected_header("Authorization", "Bearer " + clave)  # no se reenvía al redirigir
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.status, dict(r.headers), r.read(), r.geturl()
