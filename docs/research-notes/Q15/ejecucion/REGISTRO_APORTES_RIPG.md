@@ -173,6 +173,19 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 - **Códigos:** 3b RELACIONADO; **4b ANTECEDENTE_PARCIAL** (el menos seguro; RELACIONADO también es defendible); los demás NO_PERTINENTE.
 - **Ficha v1** (Fable 5.2), auditada por Qwen3.8-Max: 0 errores de hecho, 0 CORREGIR, 0 AÑADIR. Comentario 6860962516.
 
+### W05915: *Toward a First-Principles Update Geometry for the Language-Model Head* (arXiv:2608.22253v2)
+- **Antecesora de W06335**, con los mismos autores; solo trata la cabeza del modelo de lenguaje. Este PDF no cita W06335.
+- **Fuente:**
+  - H(softmax(z), softmax(z′)) = ‖z − z′‖_var para **dos vectores de logits cualesquiera** (Ec. 3);
+  - sup_{‖h‖≤H} H = H·D(S), con D el diámetro de las filas de la actualización, que no depende de la cabeza actual (Ec. 4);
+  - \|ΔL_c\| ≤ H, y ‖Sᵀ(p − e_c)‖ ≤ D(S)(1 − p_c), que es su único vínculo con la probabilidad del objetivo;
+  - TV ≤ tanh(H/4), demostrada aquí.
+- **Experimentos:** preentrenamiento de 190M a 640M parámetros con 3 semillas por tamaño. RowNorm reduce el diámetro final 45–60 veces y el Hilbert RMS 12–15 veces frente a AdamW, con una pérdida de validación ligeramente mayor. **La comparación cambia la receta completa** (tasa, momento, ϵ y decaimiento de pesos), y el texto lo declara.
+- **Regla 9:** no hay RMS de logits. Su «Hilbert RMS» es una RMS sobre posiciones del **rango** de la perturbación. **Reglas 10 y 11:** no hay Fisher, kernel ni jacobiano.
+- **Inferencia del extractor:** con z′ = 0, H(p, uniforme) = rango(z), así que el **rango de los logits acota \|L_c − log V\| y TV(p, uniforme)**. Además, D(U) acota el rango de los logits. La fuente no hace ninguna de las dos cosas.
+- **Códigos:** 3b RELACIONADO; **4b ANTECEDENTE_PARCIAL**; los demás NO_PERTINENTE.
+- **Ficha v1** (Fable 5.2), **aprobada sin auditoría de un segundo modelo** por decisión del responsable (caso por caso, PR #158). Claude cotejó la Tabla 3 contra el texto. Comentario 6865922940.
+
 ---
 
 ## 4b. Candidatas señaladas solo por su resumen (sin leer)
@@ -183,7 +196,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 |---|---|---|---|---|
 | W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | **Leída** (§3): 3b ANTECEDENTE_PARCIAL | 6779834585 |
 | W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | **Leída** (§3): 4b ANTECEDENTE_PARCIAL | 6779834585 |
-| W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | Lista prioritaria | 6778645548 |
+| W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | **Leída** (§3): 4b ANTECEDENTE_PARCIAL | 6778645548 |
 | W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | Lista prioritaria | 6779205680 |
 | W06028 | 4a y 4b | Con alta confianza, las brechas entre logits superan la precisión flotante, rompen la suma cero del gradiente e inflan las normas | Lista prioritaria | 6778645548 |
 | W06247 | 1 y 4a | ¿Añade una señal información más allá de la confianza softmax, con control de margen? Es el control «ajuste por confianza previa» del protocolo | Incluida MEDIA (corrección) | 6779205680 |
@@ -286,7 +299,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
 
 ## 5. Pendientes de lectura
 
-De la lista prioritaria (comentario 6802312909): W05915, W06200 y W06028. W06354 y W06335 ya se leyeron (§3).
+De la lista prioritaria (comentario 6802312909): W06200 y W06028. W06354, W06335 y W05915 ya se leyeron (§3).
 
 **Inventario sistemático:** hecho (§4d). La siguiente prioridad de lectura sale de esas listas, empezando por 3c (15 obras) y 3b (117 en todos los lotes).
 
@@ -294,7 +307,7 @@ De la lista prioritaria (comentario 6802312909): W05915, W06200 y W06028. W06354
 
 | Extractor | Obras | Errores de hecho detectados por el auditor |
 |---|---|---|
-| Fable 5.2 | W05415, W05548, W06320, W06354, W06335 | 0, 0, 0, 0 y 0 |
+| Fable 5.2 | W05415, W05548, W06320, W06354, W06335 (W05915 sin segundo auditor) | 0, 0, 0, 0 y 0 |
 | DeepSeek | W05449, W05584 | 1, y 2 de transcripción de ecuaciones por OCR |
 | Claude | W04638, W05193, W05165 | 4 (v1) y 2 de página (v2), 0, y 1 más apéndices omitidos |
 | Argon | W05378 | 1 |
