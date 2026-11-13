@@ -118,6 +118,8 @@ Se aplican **hacia adelante** desde el lote indicado y **hacia atrás solo en el
 
   La discrepancia es sistemática: el primer lector **incluye de más**. Eso motivó D3. Está prevista una segunda medición después del repaso consolidado.
 - **Extracción de texto completo:** cada extracción lleva una auditoría independiente contra la fuente, de preferencia de **otra familia de modelos** (lección E14).
+  - **Precisión del responsable (2026-11-13), [comentario 6860962516](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6860962516):** la doble revisión no es obligatoria en todos los casos. En casos simples, donde una segunda auditoría no cambia nada, el responsable puede decidir que no vale la pena usar dos modelos. **Se decide obra por obra** y la decisión se anota en el comentario de la ficha. No es retroactiva: las fichas ya auditadas conservan su auditoría.
+  - **Base:** las 5 fichas que extrajo Fable 5.2 (W05415, W05548, W06320, W06354 y W06335) tuvieron 0 errores de hecho en su auditoría independiente. Los errores aparecieron con otros extractores: DeepSeek (OCR de ecuaciones) y Claude (páginas y apéndices omitidos). Ver el balance de extractores en `REGISTRO_APORTES_RIPG.md`.
 - **Procedencia de las afirmaciones.** El responsable la escribió el 2026-11-11 como **precisión** de una práctica que ya se aplicaba, no como regla nueva:
   - **Ninguna afirmación sobre una obra puede venir del conocimiento previo de un modelo.** Si no está en el resumen del snapshot o en el texto leído, **no consta**.
   - Vale para el cribado, la extracción, las auditorías y la síntesis, y para cualquier modelo: Codex, Argon, Claude, Fable, DeepSeek, Qwen u otros.
