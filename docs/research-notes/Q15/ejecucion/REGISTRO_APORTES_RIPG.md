@@ -205,6 +205,51 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 - **12 obras de L29** (NC/ETF) quedan en INCLUIR BAJA con el punto `SIN_PUNTO (NC/ETF; antes 3c)`, por decisión del responsable.
 - **Uso:** estas listas son la base para priorizar el texto completo; la §4b queda como registro de lo señalado en auditorías.
 
+### Lo que dejó la pasada del repaso
+
+**Nivel de evidencia: cribado de título y resumen.** Son cuentas de Claude sobre `REPASO_CONSOLIDADO_2633.csv` (R2 más la corrección `SIN_PUNTO`, SHA `01c4ea1e…`), no lecturas.
+
+**1. Cambios de decisión (116).**
+
+| De → a | Obras |
+|---|---|
+| INCLUIR → CONTEXTO | 42 |
+| INCLUIR → EXCLUIR | 32 |
+| EXCLUIR → INCLUIR | 21 |
+| EXCLUIR → CONTEXTO | 18 |
+| CONTEXTO → EXCLUIR | 3 |
+
+La pasada no solo recortó: también recuperó 21 obras excluidas, sobre todo por la rúbrica R3a, porque la Fisher estudiada como objeto se incluye.
+
+**2. Movimiento por punto**, contando cada etiqueta que una obra incluida gana o pierde en las filas con CAMBIO:
+
+| Punto | Gana | Pierde | Motivo principal |
+|---|---|---|---|
+| 1 | 3 | 0 | |
+| 2 | 32 | 38 | R2 (señal temprana como objeto) y D1 (validez de la dificultad por ejemplo en BAJA) |
+| 3a | **68** | 6 | R3a: Fisher, Gauss–Newton o NTK como objeto de estudio |
+| 3b | **43** | 0 | Pullbacks y métricas de salida reconocidos al aplicar R3a |
+| 3c | 1 | **16** | Se retira 3c a NC/ETF y a otras geometrías que no son semirrectas al borde del símplex |
+| 4a | 27 | **57** | D2 (generalización o robustez sin calibración) y D4 (OOD por rasgos o distancia) |
+| 4b | 1 | 0 | |
+| 4c | 0 | 0 | |
+
+En cercanía de las obras que siguieron incluidas, 61 bajaron de MEDIA a BAJA y 55 de ALTA a MEDIA; solo 13 subieron de MEDIA a ALTA. Las 99 que tenían cercanía NO_REGISTRADA en L01–L04 quedaron con una asignada.
+
+**3. Patrones de criterio que fijó la pasada**, útiles para leer:
+- **Neural collapse y ETF no son 3c.** El «símplex» de rasgos no es el de probabilidades, y la geometría de medias de clase no es una longitud bajo G. Las 12 obras de L29 quedan con el punto `SIN_PUNTO`.
+- **La dificultad usada como insumo**, por ejemplo *focal loss* (W05230), queda excluida por D3.3.
+- **La capacidad de memoria sin una señal** (W05183 y W05184) queda en CONTEXTO por D3.1.
+- **La Fisher como herramienta numérica o aproximación** (W04628 y W05702) baja a CONTEXTO o a BAJA.
+- **Excepciones individuales registradas:** W01141 (INCLUIR BAJA 4a) y W03612 (Gauss–Newton con entropía cruzada, INCLUIR MEDIA 3a).
+
+**4. Las 15 obras de 3c en ALTA o MEDIA no se reexaminaron como 3c.** El alcance del repaso eran D1–D4, R2, R3a y las observaciones de auditoría, así que su etiqueta 3c se conservó «sin reabrir»; Codex lo anota en la razón de casi todas.
+- **ALTA (7):** W00557, W00644, W00707, W00759, W00832, W02870 y W04614. Son ALTA por 3a: geometría de Fisher de redes, singularidades y gradiente natural.
+- **MEDIA (8):** W00582, W00655, W00940, W00964, W04647, W04713, W04756 y W05287.
+- **Por el resumen**, ninguna menciona semirrectas, el borde del símplex de probabilidades o una cota d_borde ≤ ρ_ray. Hablan de geodésicas en otros espacios: ataques, gradiente natural, Fisher–Rao de tipos atómicos, cocientes riemannianos o el ángulo cerca del borde en OOD.
+- **Posible duplicado:** W00582 (arXiv:1803.01273) y W00940 (PMLR v80) tienen el mismo título, *Accelerating Natural Gradient with Higher-Order Invariance*. Parecen versiones de una misma obra. Se señala para la síntesis, sin fusionarlas aquí.
+- **Implicación para la lectura:** el 3c del instrumento probablemente tiene **todavía menos antecedente directo** de lo que sugieren las 15. Leer primero las ALTA, con atención a si alguna integra una longitud de curva hasta un borde.
+
 ---
 
 ## 4c. Observaciones sobre el propio instrumento
