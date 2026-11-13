@@ -320,7 +320,9 @@ class Ejecucion(unittest.TestCase):
             self.assertNotIn(self.CLAVE, u)
         ident = json.loads((out / "IDENTIDAD.json").read_text(encoding="utf-8"))
         self.assertEqual(ident["version"], "A2a-1.2")
-        self.assertEqual(ident["claves_api_presentes"], {A.ENV_OPENALEX: True, A.ENV_S2: False})
+        self.assertNotIn("claves_api_presentes", ident)
+        ej = [json.loads(l) for l in (out / "EJECUCIONES.jsonl").read_text(encoding="utf-8").splitlines()]
+        self.assertEqual(ej[-1]["claves_api_presentes"], {A.ENV_OPENALEX: True, A.ENV_S2: False})
 
     def _previa_11(self, tmp):
         """Salida simulada de A2a-1.1: caché con el ancla final y OpenAlex en 429."""
@@ -378,6 +380,149 @@ class Ejecucion(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
                         out=Path(tmp) / "otra", tmp=tmp)
+
+    # ------------------------------------------------------------ A2a-1.2 R2: hallazgos de Codex (PR #156)
+
+    def _sin_clave_en(self, d):
+        for f in Path(d).rglob("*"):
+            if f.is_file():
+                self.assertNotIn(self.CLAVE.encode(), f.read_bytes(), str(f))
+
+    def test_r2_b1_clave_invalida_se_rechaza_sin_mostrarla(self):
+        import io, contextlib
+        err = io.StringIO()
+        with contextlib.redirect_stderr(err):
+            rc, out, _ = self.correr([inv_reg()], [a0_reg()], FakeNet([]),
+                                     entorno={A.ENV_OPENALEX: self.CLAVE + "\r\nX-Inyectada: 1"})
+        self.assertEqual(rc, 1)
+        self.assertIn(A.ENV_OPENALEX, err.getvalue())
+        self.assertNotIn(self.CLAVE, err.getvalue())
+        self.assertFalse(out.exists() and any(out.rglob("*")))
+
+    def test_r2_b1_error_nativo_de_cabecera_se_guarda_redactado(self):
+        import http.client
+        import urllib.request
+        out = Path(tempfile.mkdtemp())
+        c = A.Cliente(out, 0, 1.0, entorno={A.ENV_OPENALEX: self.CLAVE + "\n"})
+
+        def fetch_real_sin_red(url, timeout):  # construye el Request real y valida cabeceras sin conectar
+            req = urllib.request.Request(url, headers=c.encabezados(url))
+            conn = http.client.HTTPSConnection("api.openalex.org")
+            conn.putrequest("GET", "/works")  # solo prepara el búfer; no conecta
+            for k, v in req.header_items():
+                conn.putheader(k, v)
+            return 200, {}, b"{}", url
+
+        c._fetch = fetch_real_sin_red
+        meta = c.get("openalex", "https://api.openalex.org/works?x=1")
+        self.assertIsNotNone(meta["intentos"][0]["error"])
+        self.assertIn(A._REDACTADO, meta["intentos"][0]["error"])
+        self._sin_clave_en(out)
+
+    def test_r2_m1_reanudar_misma_salida_al_agregar_o_retirar_clave(self):
+        tmp = tempfile.mkdtemp()
+        out = Path(tmp) / "out"
+        vacio = [("query.bibliographic", ok({"message": {"items": []}})), ("search/match", ok({}, 404)),
+                 ("search_query", ok(b"<feed xmlns='http://www.w3.org/2005/Atom'/>"))]
+        net1 = FakeNet([("paper/" + PID, ok(dict(S2_ANCLA_SIN_RES, externalIds={}))),
+                        ("openalex.org/works?", ok({}, 429))] + vacio)
+        rc1, _, _ = self.correr([inv_reg()], [a0_reg()], net1, extra=("--reintentos", "0"), out=out, tmp=tmp)
+        self.assertEqual(rc1, 2)
+        net2 = FakeNet([("openalex.org/works?", ok(oa_busq(oa_work())))] + vacio)
+        rc2, _, res2 = self.correr([inv_reg()], [a0_reg()], net2, extra=("--reintentos", "0"), out=out, tmp=tmp,
+                                   entorno={A.ENV_OPENALEX: self.CLAVE})
+        self.assertEqual(rc2, 0)
+        rc3, _, _ = self.correr([inv_reg()], [a0_reg()], FakeNet([]), out=out, tmp=tmp)  # sin clave otra vez
+        self.assertEqual(rc3, 0)
+        ej = [json.loads(l) for l in (out / "EJECUCIONES.jsonl").read_text(encoding="utf-8").splitlines()]
+        self.assertEqual([e["claves_api_presentes"][A.ENV_OPENALEX] for e in ej], [False, True, False])
+        self._sin_clave_en(out)
+
+    def test_r2_m2_corte_durante_la_importacion_se_completa_al_reanudar(self):
+        tmp = tempfile.mkdtemp()
+        prev, vacio = self._previa_11(tmp)
+        antes = self._huella(prev)
+        out = Path(tmp) / "nueva"
+        original = A.escribir_atomico
+        cuenta = {"n": 0}
+
+        def cortar(p, data):
+            if Path(p).name.startswith("intento_") and "nueva" in str(p):
+                cuenta["n"] += 1
+                if cuenta["n"] == 1:
+                    original(p, data)
+                    raise KeyboardInterrupt("corte simulado tras el primer cuerpo")
+            return original(p, data)
+
+        A.escribir_atomico = cortar
+        try:
+            with self.assertRaises(KeyboardInterrupt):
+                self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                            out=out, tmp=tmp)
+        finally:
+            A.escribir_atomico = original
+        self.assertFalse(list((out / "raw").rglob("meta.json")))  # sin meta: importación incompleta
+        net = FakeNet([("openalex.org/works?", ok(oa_busq(oa_work())))] + vacio)
+        rc, _, res = self.correr([inv_reg()], [a0_reg()], net, extra=("--continuar-de", str(prev)),
+                                 out=out, tmp=tmp)
+        self.assertEqual(rc, 0)
+        self.assertEqual(res[0]["estado_propuesto"], "RESUMEN_RECUPERADO")
+        self.assertEqual(net.cuenta("paper/" + PID), 0)
+        self.assertEqual(self._huella(prev), antes)
+
+    def test_r2_m2_cuerpo_previo_alterado_se_detecta(self):
+        tmp = tempfile.mkdtemp()
+        prev, _ = self._previa_11(tmp)
+        cuerpo = next((prev / "raw").rglob("intento_01.body"))
+        cuerpo.write_bytes(cuerpo.read_bytes() + b" ")
+        with self.assertRaises(SystemExit):
+            self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                        out=Path(tmp) / "nueva", tmp=tmp)
+
+    def test_r2_m2_cache_final_sin_cuerpo_se_detecta(self):
+        out = Path(tempfile.mkdtemp())
+        c = A.Cliente(out, 0, 1.0, fetch=FakeNet([("x.org", ok({}))]), entorno={})
+        meta = c.get("crossref", "https://x.org/a")
+        (out / meta["cuerpo"]).unlink()
+        with self.assertRaises(SystemExit):
+            A.Cliente(out, 0, 1.0, fetch=FakeNet([]), entorno={}).get("crossref", "https://x.org/a")
+
+    def test_r2_m3_claves_solo_al_mismo_origen_https(self):
+        import urllib.request
+        h = A._RedireccionSinClaves()
+        req = urllib.request.Request("https://api.openalex.org/works/doi:x",
+                                     headers={"Authorization": "Bearer " + self.CLAVE})
+        for destino in ("http://api.openalex.org/works", "https://api.openalex.org:8443/works",
+                        "https://otro.example/works"):
+            r = h.redirect_request(req, None, 302, "Found", {}, destino)
+            self.assertNotIn("Authorization", {k.title() for k in r.headers}, destino)
+        r = h.redirect_request(req, None, 302, "Found", {}, "https://api.openalex.org:443/works/W1")
+        self.assertIn("Authorization", {k.title() for k in r.headers})
+        c = A.Cliente(Path(tempfile.mkdtemp()), 0, 1.0, entorno={A.ENV_OPENALEX: self.CLAVE})
+        self.assertNotIn("Authorization", c.encabezados("http://api.openalex.org/works"))
+        self.assertNotIn("Authorization", c.encabezados("https://api.openalex.org:8443/works"))
+
+    def test_r2_m_salida_anidada_en_la_previa_o_al_reves_se_rechaza(self):
+        tmp = tempfile.mkdtemp()
+        prev, _ = self._previa_11(tmp)
+        antes = self._huella(prev)
+        rc, _, _ = self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                               out=prev / "nueva", tmp=tmp)
+        self.assertEqual(rc, 1)
+        self.assertEqual(self._huella(prev), antes)
+        rc2, _, _ = self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                                out=Path(tmp), tmp=tmp)
+        self.assertEqual(rc2, 1)
+
+    def test_r2_m_respuesta_que_refleja_la_clave_se_guarda_redactada(self):
+        out = Path(tempfile.mkdtemp())
+        eco = ok(b'{"error": "bad key ' + self.CLAVE.encode() + b'"}', 400)
+        c = A.Cliente(out, 0, 1.0, fetch=FakeNet([("openalex.org", eco)]), entorno={A.ENV_OPENALEX: self.CLAVE})
+        meta = c.get("openalex", "https://api.openalex.org/works?x=1")
+        it = meta["intentos"][0]
+        self.assertIn("redaccion", it)
+        self.assertIn(A._REDACTADO.encode(), (out / it["cuerpo"]).read_bytes())
+        self._sin_clave_en(out)
 
     def test_gitattributes_sin_conversion(self):
         ga = AQUI.parents[4] / ".gitattributes"

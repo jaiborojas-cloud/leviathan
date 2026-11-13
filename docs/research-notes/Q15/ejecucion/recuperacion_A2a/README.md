@@ -2,7 +2,7 @@
 
 **Estado:** BORRADOR v1.1. Corrige los hallazgos de la [auditoría de Argon](AUDITORIA_ARGON_PR150_2026-11-10.md) sobre `081021ba` (0 bloqueantes; A1, M1, M2, B1–B3). Necesita reconfirmación antes de correrlo.
 
-**Versión vigente: A2a-1.2 (BORRADOR, 2026-11-13), pendiente de auditoría independiente.** Solo cambia el acceso; ver la sección [A2a-1.2](#a2a-12-claves-de-api-y-continuación). La corrida de 1.1 se ejecutó y su salida se conserva sin cambios.
+**Versión vigente: A2a-1.2 R2 (BORRADOR, 2026-11-13), pendiente de reauditoría de Codex.** Solo cambia el acceso; ver la sección [A2a-1.2](#a2a-12-claves-de-api-y-continuación). La corrida de 1.1 se ejecutó y su salida se conserva sin cambios.
 
 **Autorización:** el responsable la dio el 2026-11-10 a las 08:28 (hora de México). Es una modificación operativa del [plan de pendientes v1](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6749882361): la fase A2, que el plan definía como manual, se divide en una parte automática (A2a, este script) y una manual (A2b) para lo que A2a no resuelva. No cambia criterios, topes, corte ni el tratamiento de lo desconocido. **No decide pertinencia ni fechas.**
 
@@ -93,28 +93,35 @@ Falta confirmarlas en Windows.
 
 Por registro, 148 fallaron solo en S2, 146 en S2 y OpenAlex, y 41 solo en OpenAlex. El responsable obtuvo una clave gratuita de OpenAlex.
 
-**Cambios (solo de acceso; la identidad y la aceptación son las de 1.1):**
-1. **Claves opcionales, solo desde el entorno:** `OPENALEX_API_KEY` se envía como `Authorization: Bearer` únicamente a `api.openalex.org`, y `S2_API_KEY` como `x-api-key` únicamente a `api.semanticscholar.org`.
+**Cambios (solo de acceso; la identidad y la aceptación son las de 1.1).** Esta es la revisión R2, que corrige la [auditoría de Codex](https://github.com/jaiborojas-cloud/leviathan/pull/156) del commit `98b0f12e` (1 bloqueante, 3 mayores, 2 menores).
+1. **Claves opcionales, solo desde el entorno:** `OPENALEX_API_KEY` va como `Authorization: Bearer` y `S2_API_KEY` como `x-api-key`.
+   - **Solo al origen HTTPS exacto:** esquema `https`, host `api.openalex.org` o `api.semanticscholar.org`, y puerto 443.
+   - **Redirecciones:** las claves solo se conservan si el destino es el mismo origen HTTPS. Si cambia el host o el puerto, o si baja a HTTP, se quitan de `headers` y de `unredirected_hdrs` (M3).
    - **Nunca van en la URL.** Así no cambian la clave de caché `sha(url)` ni lo registrado en `meta.json`.
-   - No se escriben en disco ni se imprimen. `IDENTIDAD.json` solo registra si estaban presentes.
-   - Si una redirección cambia de host, se quitan antes de seguirla.
+   - **Se validan antes de usarlas:** un token imprimible, sin espacios ni saltos de línea, de 8 a 512 caracteres. Si una clave es inválida, el script termina con código 1 y nombra la variable, nunca su valor (B1).
+   - **Redacción:** si un mensaje de error las contiene, incluida su forma escapada, se guarda con `<CLAVE_REDACTADA>` (B1). Si una respuesta del servidor las refleja, el cuerpo se guarda redactado y el intento lleva un campo `redaccion` con el motivo y los bytes originales; no se presenta como evidencia intacta (m2).
+   - **Registro de presencia:** `EJECUCIONES.jsonl` anota si había clave en cada corrida, aparte de `IDENTIDAD.json`. Así, agregar o retirar una clave no impide reanudar la misma salida (M1).
 2. **`--continuar-de <carpeta 1.1>`:** como `IDENTIDAD.json` rechaza una carpeta de otro script, 1.2 escribe en una **carpeta nueva** y hereda la caché de 1.1 en solo lectura.
-   - La carpeta previa tiene que ser exactamente una salida de A2a-1.1 (versión, SHA `fcd78a0a…` y los mismos insumos).
-   - Cada consulta que falta en la carpeta nueva se **copia** de la previa, con sus intentos, y su `meta.json` queda marcado con `heredado_de: A2a-1.1`. Las consultas finales no se repiten; las que fallaron se reintentan y su numeración continúa.
-   - La carpeta previa no se modifica, y la prueba lo verifica con hashes.
-   - `IDENTIDAD.json` registra `continua_de` (versión, SHA del script y SHA de la identidad previa).
+   - La carpeta previa tiene que ser exactamente una salida de A2a-1.1: versión, SHA `fcd78a0a…` y los mismos insumos.
+   - **Importación verificada y reanudable (M2):** cada consulta que falta se importa copiando primero sus cuerpos, cada uno comprobado contra el SHA de su intento, y escribiendo `meta.json` al final, de forma atómica. Que exista `meta.json` significa que la importación terminó. Un corte deja solo cuerpos, y la siguiente corrida completa la importación. Si un cuerpo previo no coincide con su SHA, o choca con un archivo distinto en la carpeta nueva, el script se detiene. Una consulta final en caché sin su cuerpo también detiene la corrida, en vez de fallar más adelante.
+   - El `meta.json` importado queda marcado con `heredado_de: A2a-1.1`. Las consultas finales no se repiten; las que fallaron se reintentan y su numeración continúa.
+   - La carpeta previa no se modifica. `--out` no puede ser igual a ella **ni estar anidada** dentro o por encima (m1).
+   - `IDENTIDAD.json` registra `continua_de`: versión, SHA del script y SHA de la identidad previa.
 
-| Archivo (1.2) | SHA-256 |
+| Archivo (1.2 R2) | SHA-256 |
 |---|---|
-| `recuperar_a2a.py` | `0b3d22a93ab901c7cfffbe34bd89de37162e8a74a50191ff29a5a5947175f657` |
-| `pruebas_recuperar_a2a.py` | `8c48cd5b8123c321bd3fc30ee77b50b467b755b65bda42c9120f0163c10a9d1d` |
+| `recuperar_a2a.py` | `cc3af20d4bac9c35a278647cbcbda619b554c0ad26ca8ad3e67061dc8cf21085` |
+| `pruebas_recuperar_a2a.py` | `7cbea64d229a9ffd7952d217fdfc3d6323eababcf12569dbd3f5017625d2f9d7` |
 
-**Pruebas de 1.2:** pasan 28 de 28 sin red, en Linux con Python 3.13: las 23 de 1.1 sin cambios en lo que verifican, más 5 nuevas:
-- los encabezados por host, incluidos hosts parecidos y una URL que solo menciona el host;
-- la redirección a otro host quita las claves;
-- la clave no aparece en ningún archivo de salida ni en ninguna URL;
-- la continuación hereda la caché, no repite consultas finales, continúa la numeración y deja intacta la carpeta previa;
-- se rechazan una carpeta previa con otra identidad y `--continuar-de` igual a `--out`.
+**Pruebas de 1.2 R2:** pasan 37 de 37 sin red, en Linux con Python 3.13. Son las 23 de 1.1, las 5 de 1.2 (una ajustada a `EJECUCIONES.jsonl`) y 9 de regresión por los hallazgos de Codex:
+- B1: clave inválida rechazada sin mostrarla; error nativo de `http.client` (`Request` real y `putheader`, sin conectar) guardado redactado;
+- M1: la misma salida se reanuda sin clave, con clave y otra vez sin clave;
+- M2: corte simulado tras el primer cuerpo importado y reanudación completa; cuerpo previo alterado detectado; caché final sin su cuerpo detectada;
+- M3: claves quitadas en una redirección a HTTP, a otro puerto o a otro host, y conservadas al mismo origen;
+- m1: `--out` anidada dentro de la previa, o por encima de ella, rechazada sin tocar la previa;
+- m2: respuesta que refleja la clave guardada redactada, con constancia.
+
+**Arnés de Codex contra R2:** 15 casos pasan, incluidos los 8 contraejemplos. Otros 3 dan error del propio arnés porque dependen de detalles internos que R2 cambió a propósito: el campo `claves_api_presentes` en la identidad y `shutil.copytree`. Las pruebas de regresión anteriores cubren esos mismos riesgos.
 
 **Procedimiento (después de la auditoría):** una ventana nueva de PowerShell. La clave se pide con `Read-Host` y solo vive en esa ventana; no se guarda en el historial ni en archivos.
 
@@ -134,8 +141,8 @@ $Script = Join-Path $Dir 'recuperar_a2a.py'
 $Suite = Join-Path $Dir 'pruebas_recuperar_a2a.py'
 $H1 = (Get-FileHash $Script -Algorithm SHA256).Hash.ToLower()
 $H2 = (Get-FileHash $Suite -Algorithm SHA256).Hash.ToLower()
-if ($H1 -ne '0b3d22a93ab901c7cfffbe34bd89de37162e8a74a50191ff29a5a5947175f657') { throw 'SHA script' }
-if ($H2 -ne '8c48cd5b8123c321bd3fc30ee77b50b467b755b65bda42c9120f0163c10a9d1d') { throw 'SHA pruebas' }
+if ($H1 -ne 'cc3af20d4bac9c35a278647cbcbda619b554c0ad26ca8ad3e67061dc8cf21085') { throw 'SHA script' }
+if ($H2 -ne '7cbea64d229a9ffd7952d217fdfc3d6323eababcf12569dbd3f5017625d2f9d7') { throw 'SHA pruebas' }
 & $Py -I $Suite
 if ($LASTEXITCODE -ne 0) { throw 'Pruebas fallaron: copia la salida' }
 $K = Read-Host 'Clave de OpenAlex' -AsSecureString
@@ -150,7 +157,7 @@ $PSNativeCommandUseErrorActionPreference = $false
 Remove-Item Env:OPENALEX_API_KEY
 ```
 
-Si el código es 2, se repite el mismo comando sobre `salida_v12`.
+Si el código es 2, se repite el mismo comando sobre `salida_v12`, con o sin clave: la presencia de la clave no forma parte de la identidad.
 
 ## Procedimiento de 1.1 (histórico; una ventana nueva de PowerShell, un solo bloque)
 

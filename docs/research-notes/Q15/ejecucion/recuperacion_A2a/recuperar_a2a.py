@@ -20,11 +20,14 @@ Guarda cada respuesta cruda con su SHA-256 y reanuda desde caché. Solo bibliote
 
 Cambios de A2a-1.2 (solo acceso; la lógica de identidad y aceptación es la de 1.1):
   - Claves de API opcionales, leídas de variables de entorno: OPENALEX_API_KEY (encabezado
-    «Authorization: Bearer») y S2_API_KEY (encabezado «x-api-key»). Nunca van en la URL, nunca se
-    escriben en disco ni se imprimen; IDENTIDAD.json solo registra si había clave o no.
+    «Authorization: Bearer») y S2_API_KEY (encabezado «x-api-key»), solo al origen HTTPS exacto
+    (esquema, host y puerto 443). Nunca van en la URL. Se validan antes de usarlas; los mensajes de
+    error y los cuerpos que las reflejen se guardan redactados, con constancia. EJECUCIONES.jsonl
+    registra solo si había clave o no, aparte de IDENTIDAD.json, para no romper la reanudación.
   - --continuar-de: carpeta de salida de A2a-1.1 cuya caché se hereda en solo lectura. Cada
-    consulta que falta en la carpeta nueva se copia de la anterior (respuestas e intentos) antes de
-    decidir si hace falta otra solicitud. La carpeta anterior no se modifica.
+    consulta que falta en la carpeta nueva se copia de la anterior (cuerpos verificados por SHA
+    primero y meta.json al final, de forma atómica) antes de decidir si hace falta otra solicitud.
+    La carpeta anterior no se modifica; --out no puede ser igual a ella ni estar anidada.
 """
 from __future__ import annotations
 
@@ -36,7 +39,6 @@ import io
 import json
 import os
 import re
-import shutil
 import sys
 import time
 import unicodedata
@@ -167,14 +169,29 @@ def norm_doi(d: str | None) -> str:
 # ---------------------------------------------------------------- HTTP con caché (igual que A0 v1.1)
 
 _CLAVES = ("authorization", "x-api-key")
+_REDACTADO = "<CLAVE_REDACTADA>"
+# Una clave válida es un token imprimible sin espacios ni caracteres de control.
+_CLAVE_VALIDA = re.compile(r"[\x21-\x7e]{8,512}")
+
+
+def _origen(u: str) -> tuple:
+    s = urllib.parse.urlsplit(u)
+    puerto = s.port or {"https": 443, "http": 80}.get(s.scheme)
+    return (s.scheme, s.hostname, puerto)
 
 
 class _RedireccionSinClaves(urllib.request.HTTPRedirectHandler):
-    """Si una redirección cambia de host, quita las claves para no enviarlas a un tercero."""
+    """Las claves solo siguen una redirección al mismo origen HTTPS (esquema, host y puerto).
+
+    Cualquier otro destino (otro host, otro puerto o bajada a HTTP) recibe la solicitud sin claves.
+    """
 
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         nuevo = super().redirect_request(req, fp, code, msg, headers, newurl)
-        if nuevo is not None and urllib.parse.urlsplit(newurl).hostname != urllib.parse.urlsplit(req.full_url).hostname:
+        if nuevo is None:
+            return nuevo
+        o_nuevo, o_req = _origen(newurl), _origen(req.full_url)
+        if o_nuevo[0] != "https" or o_nuevo != o_req:
             for k in list(nuevo.headers):
                 if k.lower() in _CLAVES:
                     del nuevo.headers[k]
@@ -186,12 +203,29 @@ class _RedireccionSinClaves(urllib.request.HTTPRedirectHandler):
 
 _ABRIDOR = urllib.request.build_opener(_RedireccionSinClaves)
 
+
+def _variantes_secretas(claves: list[str]) -> list[str]:
+    """Formas en que una clave puede aparecer en un mensaje: literal, escapada (repr) y sus tramos imprimibles."""
+    v = set()
+    for k in claves:
+        v.add(k)
+        v.add(repr(k)[1:-1])
+        v.update(t for t in re.split(r"[^\x21-\x7e]+", k) if len(t) >= 6)
+    return sorted((x for x in v if x), key=len, reverse=True)
+
+
+def validar_claves(entorno) -> list[str]:
+    """Nombres de variables con una clave inválida. Nunca devuelve ni imprime el valor."""
+    return [v for v in (ENV_OPENALEX, ENV_S2) if entorno.get(v) and not _CLAVE_VALIDA.fullmatch(entorno[v])]
+
+
 class Cliente:
     def __init__(self, out: Path, reintentos: int, timeout: float, fetch=None, dormir=time.sleep,
                  previa: Path | None = None, entorno=None):
         self.out = out
         self.previa = previa
         self._entorno = os.environ if entorno is None else entorno
+        self._secretos = _variantes_secretas([self._entorno[v] for v in (ENV_OPENALEX, ENV_S2) if self._entorno.get(v)])
         self.heredadas = 0
         self.reintentos = reintentos
         self.timeout = timeout
@@ -201,14 +235,31 @@ class Cliente:
         self.solicitudes = 0
 
     def encabezados(self, url: str) -> dict:
-        """Encabezados por host. Las claves salen solo del entorno y no se registran."""
+        """Encabezados por origen HTTPS exacto. Las claves salen solo del entorno y no se registran."""
         h = {"User-Agent": USER_AGENT, "Accept": "*/*"}
-        host = urllib.parse.urlsplit(url).hostname or ""
+        esquema, host, puerto = _origen(url)
+        if esquema != "https" or puerto != 443:
+            return h
         if host == "api.openalex.org" and self._entorno.get(ENV_OPENALEX):
             h["Authorization"] = "Bearer " + self._entorno[ENV_OPENALEX]
         if host == "api.semanticscholar.org" and self._entorno.get(ENV_S2):
             h["x-api-key"] = self._entorno[ENV_S2]
         return h
+
+    def _redactar_texto(self, t: str) -> str:
+        for k in self._secretos:
+            t = t.replace(k, _REDACTADO)
+        return t
+
+    def _redactar_cuerpo(self, body: bytes) -> tuple[bytes, dict | None]:
+        """Si la respuesta refleja una clave, se guarda redactada y queda constancia explícita."""
+        if not any(k.encode() in body for k in self._secretos):
+            return body, None
+        red = body
+        for k in self._secretos:
+            red = red.replace(k.encode(), _REDACTADO.encode())
+        return red, {"motivo": "la respuesta contenía una clave de API; se sustituyó por " + _REDACTADO,
+                     "bytes_original": len(body)}
 
     def _fetch_urllib(self, url: str, timeout: float):
         req = urllib.request.Request(url, headers=self.encabezados(url))
@@ -218,20 +269,37 @@ class Cliente:
         except urllib.error.HTTPError as e:
             return e.code, dict(e.headers or {}), e.read() or b"", url
 
+    def _importar_previa(self, d: Path) -> None:
+        """Copia una consulta de la carpeta previa: cuerpos verificados primero, meta.json al final.
+
+        meta.json es lo último que se escribe (de forma atómica), así que su presencia indica una
+        importación completa. Un corte deja solo cuerpos sin meta, que la siguiente ejecución completa.
+        """
+        d_prev = self.previa / "raw" / d.name
+        m = json.loads((d_prev / "meta.json").read_text(encoding="utf-8"))
+        for it in m.get("intentos", []):
+            nombre = Path(it["cuerpo"]).name
+            data = (d_prev / nombre).read_bytes()
+            if sha256_bytes(data) != it["sha256"]:
+                raise SystemExit(f"ERROR A2a: cuerpo previo {d.name}/{nombre} no coincide con su SHA")
+            destino = d / nombre
+            if destino.exists() and destino.read_bytes() != data:
+                raise SystemExit(f"ERROR A2a: {d.name}/{nombre} ya existe con otro contenido; revisar a mano")
+            escribir_atomico(destino, data)
+        m["heredado_de"] = CONTINUA_VERSION
+        escribir_atomico(d / "meta.json", json.dumps(m, ensure_ascii=False, indent=1).encode("utf-8"))
+        self.heredadas += 1
+
     def get(self, fuente: str, url: str) -> dict:
         d = self.out / "raw" / sha256_bytes(url.encode())
         meta_p = d / "meta.json"
-        if not meta_p.exists() and self.previa is not None:
-            d_prev = self.previa / "raw" / d.name
-            if (d_prev / "meta.json").exists():
-                shutil.copytree(d_prev, d, dirs_exist_ok=True)  # copia; la carpeta previa no cambia
-                m = json.loads(meta_p.read_text(encoding="utf-8"))
-                m["heredado_de"] = CONTINUA_VERSION
-                escribir_atomico(meta_p, json.dumps(m, ensure_ascii=False, indent=1).encode("utf-8"))
-                self.heredadas += 1
+        if not meta_p.exists() and self.previa is not None and (self.previa / "raw" / d.name / "meta.json").exists():
+            self._importar_previa(d)  # la carpeta previa no cambia
         if meta_p.exists():
             meta = json.loads(meta_p.read_text(encoding="utf-8"))
             if meta.get("final"):
+                if not (self.out / meta["cuerpo"]).exists():
+                    raise SystemExit(f"ERROR A2a: falta el cuerpo de una consulta final en caché ({d.name})")
                 meta["cache"] = True
                 return meta
         meta_previa = json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.exists() else {}
@@ -251,15 +319,20 @@ class Cliente:
             try:
                 status, headers, body, url_final = self._fetch(url, self.timeout)
                 error = None
-            except Exception as ex:  # red, timeout
-                status, headers, body, url_final, error = None, {}, b"", url, f"{type(ex).__name__}: {ex}"
+            except Exception as ex:  # red, timeout, cabecera inválida
+                status, headers, body, url_final = None, {}, b"", url
+                error = self._redactar_texto(f"{type(ex).__name__}: {ex}")
             self._ultimo[fuente] = time.monotonic()
             self.solicitudes += 1
+            body, redaccion = self._redactar_cuerpo(body)
+            url_final = self._redactar_texto(url_final or "")
             cuerpo_p = d / f"intento_{base_n + n + 1:02d}.body"
             escribir_atomico(cuerpo_p, body)
             intento = {"n": base_n + n + 1, "fecha_utc_real": hora, "status": status, "error": error,
                        "url_final": url_final, "cuerpo": rel(cuerpo_p, self.out),
                        "sha256": sha256_bytes(body), "bytes": len(body)}
+            if redaccion:
+                intento["redaccion"] = redaccion
             intentos.append(intento)
             transitorio = status is None or status == 429 or status >= 500
             meta = {"fuente": fuente, "url": url, "intentos": intentos, "status": status,
@@ -540,13 +613,10 @@ def _cerrar(res: dict, fallos: list[dict]) -> dict:
 
 # ---------------------------------------------------------------- identidad y exportación
 
-def identidad(script_sha: str, inv_sha: str, a0_sha: str, continua: dict | None = None,
-              claves: dict | None = None) -> dict:
+def identidad(script_sha: str, inv_sha: str, a0_sha: str, continua: dict | None = None) -> dict:
     ident = {"version": VERSION, "script_sha256": script_sha, "inventario_sha256": inv_sha, "a0_sha256": a0_sha}
     if continua is not None:
         ident["continua_de"] = continua
-    if claves is not None:
-        ident["claves_api_presentes"] = claves  # solo presencia, nunca el valor
     return ident
 
 
@@ -624,17 +694,29 @@ def main(argv=None, fetch=None, dormir=time.sleep, entorno=None) -> int:
         print(f"ERROR A2a: SHA de A0 {a0_sha} != esperado {a.sha_a0}", file=sys.stderr)
         return 1
     out = Path(a.out)
+    entorno = os.environ if entorno is None else entorno
+    malas = validar_claves(entorno)
+    if malas:  # solo el nombre de la variable, nunca su valor
+        print(f"ERROR A2a: clave inválida en {', '.join(malas)} (espacios, saltos de línea o longitud)",
+              file=sys.stderr)
+        return 1
     previa = Path(a.continuar_de) if a.continuar_de else None
     continua = None
     if previa is not None:
-        if previa.resolve() == out.resolve():
-            print("ERROR A2a: --continuar-de debe ser otra carpeta que --out", file=sys.stderr)
+        rp, ro = previa.resolve(), out.resolve()
+        if rp == ro or rp in ro.parents or ro in rp.parents:
+            print("ERROR A2a: --out y --continuar-de deben ser carpetas separadas (ni iguales ni anidadas)",
+                  file=sys.stderr)
             return 1
         continua = verificar_previa(previa, inv_sha, a0_sha)
-    entorno = os.environ if entorno is None else entorno
-    claves = {ENV_OPENALEX: bool(entorno.get(ENV_OPENALEX)), ENV_S2: bool(entorno.get(ENV_S2))}
     out.mkdir(parents=True, exist_ok=True)
-    verificar_identidad(out, identidad(sha256_file(Path(__file__)), inv_sha, a0_sha, continua, claves))
+    verificar_identidad(out, identidad(sha256_file(Path(__file__)), inv_sha, a0_sha, continua))
+    # Presencia de claves por ejecución: va aparte de la identidad para no romper la reanudación.
+    ejec = {"fecha_utc": ahora_utc(), "version": VERSION,
+            "claves_api_presentes": {ENV_OPENALEX: bool(entorno.get(ENV_OPENALEX)),
+                                     ENV_S2: bool(entorno.get(ENV_S2))}}
+    with open(out / "EJECUCIONES.jsonl", "a", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(ejec, ensure_ascii=False) + "\n")
     inv = {x["registro_id"]: x for x in json.loads(inv_p.read_text(encoding="utf-8"))}
     a0 = json.loads(a0_p.read_text(encoding="utf-8"))
     faltan = [r["registro_id"] for r in a0 if r["registro_id"] not in inv]
