@@ -21,8 +21,8 @@ Antecedente: [notas del punto 4](NOTAS_TEXTO_COMPLETO_PUNTO4_2026-11-10.md) (202
 | **1** | Incremento predictivo D fuera de muestra | **W04638:** un estado actual bien medido absorbe el valor de la historia | — |
 | **2** | Señal temprana que anticipa confianza, dificultad o geometría | **W05548:** σ de la entrada del softmax cambia bruscamente al inicio (RELACIONADO) | Una señal temprana **evaluada como predictor** |
 | **3a** | Kernel de gradientes blanqueado por la Fisher, M = R(F+γI)⁻¹Rᵀ | **W06320:** acoplamiento de dos gradientes por la pseudoinversa de la Fisher en logits, en una posición (ANTECEDENTE_PARCIAL) | Un **kernel entre ejemplos** con Fisher y ridge |
-| **3b** | Pullback G = JᵀMJ | W06320 usa el jacobiano del softmax solo como regla de la cadena (RELACIONADO) | El pullback a un espacio de parámetros de perspectiva |
-| **3c** | Longitud de semirrectas al borde del símplex | Nada | Todo |
+| **3b** | Pullback G = JᵀMJ | **W06354:** pullback K_ℓ = J̄ᵀF*J̄ de la Fisher del softmax hacia los estados ocultos, con espectro, rango efectivo y núcleo (ANTECEDENTE_PARCIAL). W06320 usa el jacobiano solo como regla de la cadena (RELACIONADO) | El pullback de una **M entre ejemplos** por el jacobiano de un **campo softmax respecto de una perspectiva** |
+| **3c** | Longitud de semirrectas al borde del símplex | Nada (W06354, Ec. 43: energía de Fisher en un segmento finito = KL; RELACIONADO) | Todo |
 | **4a** | Calibración y regularización | W05449, W05415 y W05584 (ANTECEDENTE_PARCIAL), W05378 | — |
 | **4b** | Concentración, confianza y escala de logits | **W05548: la misma escala del instrumento** (σ = RMS centrada); W05449, el rango | El **vínculo cuantitativo** entre escala y confianza, y la **concentración c** sobre ejemplos |
 | **4c** | Modulación de D | Nada (W05548, W05449 y W06320: RELACIONADO o NO_PERTINENTE) | Todo |
@@ -42,6 +42,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 | W05584 | ‖p‖₂, normalizada a 1, con temperatura aprendida por muestra û | No | Tomada de LogitNorm, sin medirla ni aislarla con una ablación |
 | **W05449** | **Rango R(l) = máx − mín** | **Sí** (invariante y homogéneo de grado 1) | La Prop. 1 separa la norma de la confianza; que el rango sea la causa se postula |
 | **W05548** | **σ(x), desviación estándar con divisor n** | **Sí: es exactamente s(z)** cuando x son logits | Verbal, con una sola figura (Fig. 2b): σ baja al inicio corresponde a «baja confianza» |
+| W06354 | No define una escala; solo centra los logits sobre el vocabulario (P = I − (1/\|V\|)11ᵀ) y usa τ = 2 fija en destilación | Centrado sí, escala no | No relaciona magnitud con confianza; acota el residuo del hessiano por ‖p* − q‖ |
 
 **Lectura (inferencia nuestra):**
 - **El centrado no es exclusivo del instrumento.** W05548 usa la misma escala como temperatura por vector y critica explícitamente la norma sin centrar de LogitNorm. W05449 usa otra medida invariante a desplazamientos.
@@ -128,6 +129,36 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 - **Homónimos:** en el artículo, M, R, F, D y c son otros objetos. El auditor verificó que la ficha no los confunde.
 - **Ficha v2** (Fable 5.2), auditada por Qwen3.8-Max con 0 errores de hecho. Comentario 6808812016.
 
+### W06354: *Predictive Geometry of Hidden Trajectories in Transformers* (arXiv:2609.37717v1)
+- **Fuente:**
+  - **K_ℓ = J̄_ℓᵀ F* J̄_ℓ** (Ec. 5, p. 4), con F* = diag(p*) − p*p*ᵀ.
+  - Es un **pullback** desde los logits centrados de la posición objetivo hacia el estado oculto de la capa ℓ (todas las posiciones hasta t). La forma cuadrática es degenerada en ker J̄_ℓ.
+  - Teorema 1 (con prueba): en un punto de baja pérdida, el residuo del hessiano está acotado por ‖p* − q‖₂ ≤ √(2ε*) (Ec. 4).
+- **Atributos de la Fisher (regla 10), confirmados por el auditor:**
+  - vive en logits y **se evalúa en la predicción del propio modelo**, no en el objetivo;
+  - **sin inversa, pseudoinversa ni +γI**; la única inversa del artículo es la de un hessiano de parámetros (Ec. 46);
+  - **no forma un kernel entre ejemplos**.
+- **Pullback (regla 11):**
+  - se agrega promediando sobre ejemplos de calibración y posiciones, uno por capa (p. 19);
+  - el espectro se mide con Lanczos, rango efectivo por razón de participación con sondas de Hutchinson (Ec. 12), masa de cola (Ec. 13) y trazas por token (Ec. 8–9).
+  - El segundo pullback, el del profesor en destilación (Ec. 29 y 45), **no se implementa**: se usa un sustituto sin jacobiano (Ec. 30–32) que el texto reconoce más débil.
+- **Escala (regla 9):** no hay ninguna medida de escala de logits; solo centrado y τ = 2 fija.
+- **Inferencia del extractor, verificada por el auditor con cálculo:**
+  - K_ℓ = (∂p/∂X)ᵀ diag(p*)⁻¹ (∂p/∂X): es el **pullback de la métrica de Fisher del símplex** por el mapa de estados ocultos a probabilidades;
+  - F* = F*·diag(p*)⁻¹·F*, la misma identidad que J·diag(q)⁻¹·J = J de W06320;
+  - la Ec. 43 (energía de Fisher a lo largo de un segmento en logits) es igual a una KL.
+- **Fallas de la fuente, recalculadas por el auditor:**
+  - la fila FKL de la Tabla 1 reporta 8 «Wins», pero solo hay 6 diferencias positivas;
+  - la media de SkewKL está dominada por un modelo (59.5 baja a 42.6 sin él);
+  - faltan 19 de 108 configuraciones;
+  - no hay número de semillas ni dispersión, aunque el checklist dice lo contrario.
+  - La tensión entre el texto y las Figs. 2 y 3 es lectura aproximada del extractor (NO VERIFICABLE para el auditor).
+- **Códigos:** 1 RELACIONADO; 2 NO_PERTINENTE; 3a RELACIONADO (multiplica por F, no blanquea con su inversa); **3b ANTECEDENTE_PARCIAL**; 3c RELACIONADO; 4a NO_PERTINENTE; 4b RELACIONADO; 4c NO_PERTINENTE.
+- **Para el instrumento (inferencia nuestra):**
+  - Es **el antecedente más cercano a 3b leído**: la forma JᵀAJ con espectro y direcciones nulas ya existe en la literatura de interpretabilidad de Transformers.
+  - Lo que lo separa de G(P) = J(P)ᵀ M J(P) es que A es la Fisher de salida de **un ejemplo**, no una matriz M **entre ejemplos**, y que el jacobiano es respecto de estados ocultos, no de un parámetro de perspectiva.
+- **Ficha v2** (Fable 5.2; v2 añade el DOI de arXiv del metadato `/DOI`), auditada por Qwen3.8-Max con 0 errores de hecho, 0 CORREGIR y 1 AÑADIR. Comentario 6859713328.
+
 ---
 
 ## 4b. Candidatas señaladas solo por su resumen (sin leer)
@@ -136,7 +167,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 
 | Obra | Punto | Por qué se señaló (lectura del resumen) | Estado | Comentario del PR #138 |
 |---|---|---|---|---|
-| W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | Lista prioritaria | 6779834585 |
+| W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | **Leída** (§3): 3b ANTECEDENTE_PARCIAL | 6779834585 |
 | W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | Lista prioritaria | 6779834585 |
 | W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | Lista prioritaria | 6778645548 |
 | W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | Lista prioritaria | 6779205680 |
@@ -196,7 +227,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
 
 ## 5. Pendientes de lectura
 
-De la lista prioritaria (comentario 6802312909): W06354, W06335, W05915, W06200 y W06028.
+De la lista prioritaria (comentario 6802312909): W06335, W05915, W06200 y W06028. W06354 ya se leyó (§3).
 
 **Inventario sistemático:** hecho (§4d). La siguiente prioridad de lectura sale de esas listas, empezando por 3c (15 obras) y 3b (117 en todos los lotes).
 
@@ -204,7 +235,7 @@ De la lista prioritaria (comentario 6802312909): W06354, W06335, W05915, W06200 
 
 | Extractor | Obras | Errores de hecho detectados por el auditor |
 |---|---|---|
-| Fable 5.2 | W05415, W05548, W06320 | 0, 0 y 0 |
+| Fable 5.2 | W05415, W05548, W06320, W06354 | 0, 0, 0 y 0 |
 | DeepSeek | W05449, W05584 | 1, y 2 de transcripción de ecuaciones por OCR |
 | Claude | W04638, W05193, W05165 | 4 (v1) y 2 de página (v2), 0, y 1 más apéndices omitidos |
 | Argon | W05378 | 1 |
