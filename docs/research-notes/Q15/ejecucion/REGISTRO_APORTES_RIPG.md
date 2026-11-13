@@ -132,7 +132,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 
 ## 4b. Candidatas señaladas solo por su resumen (sin leer)
 
-**Nivel de evidencia: solo título y resumen del snapshot.** Las señaló Claude en las auditorías de cribado y del repaso porque parecían pertinentes para un punto. **No son aportes confirmados.** Esta no es la lista completa de ALTA del corpus: es lo que se marcó en las auditorías citadas. El inventario sistemático por punto queda pendiente (§5).
+**Nivel de evidencia: solo título y resumen del snapshot.** Las señaló Claude en las auditorías de cribado y del repaso porque parecían pertinentes para un punto. **No son aportes confirmados.** Esta no es la lista completa de ALTA del corpus: es lo que se marcó en las auditorías citadas. El inventario sistemático por punto está en la §4d.
 
 | Obra | Punto | Por qué se señaló (lectura del resumen) | Estado | Comentario del PR #138 |
 |---|---|---|---|---|
@@ -152,6 +152,27 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 | W00461 | 3b y 3c | Curvatura de las geometrías α del símplex | Incluida BAJA | 6800913614 |
 | W06043 | 3c (conceptual) | Geodésicas en el *manifold* de modelos que llegan a sus bordes (modelos más simples). No es una red ni el símplex bajo G | CONTEXTO BAJA | 6779205680 |
 | W01541 | 4b | Descompone MaxLogit en coseno y norma (sin centrar); la norma perjudica el score OOD | Incluida ALTA | 6808273215 |
+
+## 4d. Inventario sistemático por punto (cierre del repaso)
+
+**Nivel de evidencia: cribado por título y resumen, no lectura.** Codex lo generó a partir de los paquetes cerrados, con las correcciones y excepciones aplicadas (paquete `Q15_REPASO_GRUPO10_Y_BALANCE_FINAL_R2.zip`, SHA-256 `020fcd01c0d60b6b…`). Lo auditó Claude en el comentario 6859098155 del PR #138. Una obra puede contar en varios puntos.
+
+| Punto | Alcance del repaso: ALTA / MEDIA | Todos los lotes auditados: ALTA / MEDIA |
+|---|---|---|
+| 1 | 3 / 15 | 3 / 20 |
+| 2 | 120 / 64 | 130 / 69 |
+| 3a | 122 / 154 | 153 / 163 |
+| 3b | 50 / 57 | 60 / 57 |
+| 3c | 7 / 8 | 7 / 8 |
+| 4a | 207 / 549 | 236 / 705 |
+| 4b | 60 / 0 | 66 / 0 |
+| **4c** | **0 / 0** | **0 / 0** |
+| Obras únicas | 1,082 | 1,309 |
+
+- **4c (modulación de D) no tiene ninguna obra en ALTA o MEDIA, y 4b no tiene ninguna en MEDIA.** 3c tiene 15. Son los puntos con menos antecedentes visibles en el cribado, lo que no prueba que no existan: el cribado solo ve resúmenes.
+- **Balance final del repaso** (2,633 pares, 2,632 obras): INCL pasa de 1,629 a 1,576, CONTEXTO de 178 a 235 y EXCL de 804 a 800. Siguen 21 PENDIENTE_ACCESO y 1 PENDIENTE_VERIFICACION. Hubo 116 cambios de decisión.
+- **12 obras de L29** (NC/ETF) quedan en INCLUIR BAJA con el punto `SIN_PUNTO (NC/ETF; antes 3c)`, por decisión del responsable.
+- **Uso:** estas listas son la base para priorizar el texto completo; la §4b queda como registro de lo señalado en auditorías.
 
 ---
 
@@ -177,7 +198,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
 
 De la lista prioritaria (comentario 6802312909): W06354, W06335, W05915, W06200 y W06028.
 
-**Inventario sistemático pendiente:** al cerrar el repaso consolidado conviene que Codex genere, a partir de los paquetes cerrados y de las correcciones, la lista de **todas las INCL ALTA y MEDIA por punto** (1 a 4c). La §4b solo recoge lo señalado en auditorías y no sustituye ese inventario, que servirá para priorizar la lectura de texto completo.
+**Inventario sistemático:** hecho (§4d). La siguiente prioridad de lectura sale de esas listas, empezando por 3c (15 obras) y 3b (117 en todos los lotes).
 
 ## 6. Balance de extractores (proceso, no resultado)
 
