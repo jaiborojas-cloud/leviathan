@@ -19,11 +19,11 @@ Antecedente: [notas del punto 4](NOTAS_TEXTO_COMPLETO_PUNTO4_2026-11-10.md) (202
 | Punto | Qué pregunta el instrumento | Lo más cercano leído | Lo que sigue sin antecedente en lo leído |
 |---|---|---|---|
 | **1** | Incremento predictivo D fuera de muestra | **W04638:** un estado actual bien medido absorbe el valor de la historia | — |
-| **2** | Señal temprana que anticipa confianza, dificultad o geometría | **W05548:** σ de la entrada del softmax cambia bruscamente al inicio (RELACIONADO) | Una señal temprana **evaluada como predictor** |
+| **2** | Señal temprana que anticipa confianza, dificultad o geometría | **W05548:** σ de la entrada del softmax cambia bruscamente al inicio (RELACIONADO); **W06200:** confianza seguida por rondas de autoentrenamiento, con un contraste de precedencia temporal mayormente indeterminado (RELACIONADO) | Una señal temprana **evaluada como predictor** |
 | **3a** | Kernel de gradientes blanqueado por la Fisher, M = R(F+γI)⁻¹Rᵀ | **W06320:** acoplamiento de dos gradientes por la pseudoinversa de la Fisher en logits, en una posición (ANTECEDENTE_PARCIAL) | Un **kernel entre ejemplos** con Fisher y ridge |
 | **3b** | Pullback G = JᵀMJ | **W06354:** pullback K_ℓ = J̄ᵀF*J̄ de la Fisher del softmax hacia los estados ocultos, con espectro, rango efectivo y núcleo (ANTECEDENTE_PARCIAL). W06320 usa el jacobiano solo como regla de la cadena (RELACIONADO) | El pullback de una **M entre ejemplos** por el jacobiano de un **campo softmax respecto de una perspectiva** |
 | **3c** | Longitud de semirrectas al borde del símplex | Nada (W06354, Ec. 43: energía de Fisher en un segmento finito = KL; RELACIONADO) | Todo |
-| **4a** | Calibración y regularización | W05449, W05415 y W05584 (ANTECEDENTE_PARCIAL), W05378 | — |
+| **4a** | Calibración y regularización | W05449, W05415, W05584 y **W06200** (ANTECEDENTE_PARCIAL), W05378 | — |
 | **4b** | Concentración, confianza y escala de logits | **W05548: la misma escala del instrumento** (σ = RMS centrada); W05449, el rango; **W06335:** vínculo demostrado entre la magnitud de la *perturbación* de los logits (RMS centrada y oscilación) y el cambio de la distribución (ANTECEDENTE_PARCIAL) | El **vínculo cuantitativo** entre escala y confianza, y la **concentración c** sobre ejemplos |
 | **4c** | Modulación de D | Nada (W05548, W05449 y W06320: RELACIONADO o NO_PERTINENTE) | Todo |
 
@@ -186,6 +186,25 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 - **Códigos:** 3b RELACIONADO; **4b ANTECEDENTE_PARCIAL**; los demás NO_PERTINENTE.
 - **Ficha v1** (Fable 5.2), **aprobada sin auditoría de un segundo modelo** por decisión del responsable (caso por caso, PR #158). Claude cotejó la Tabla 3 contra el texto. Comentario 6865922940.
 
+### W06200: *Temperature, Not Knowledge: What Recursive Self-Training and Its Remedies Do to a Language Model's Confidence* (arXiv:2611.01059v1)
+- **Fuente (empírica):** cinco rondas de autoentrenamiento con LoRA sobre Qwen3-1.7B, 3 semillas en 8 protocolos y 1 en otros 11. Se evalúa en 600 ítems de Global-MMLU. La confianza se toma de la opción elegida, con las log-probabilidades de las letras desesgadas por letra sobre los ítems.
+- **Resultado central:** la exactitud (0.573 → 0.567) y el AUROC (0.711 → 0.704) casi no cambian, pero la confianza se afila: la deriva confianza − exactitud bajo T0 fijo es +0.049 ± 0.006, y la precisión del quinto más confiado baja de 0.867 a 0.800. «Temperature, not knowledge».
+- **Recalibración sin etiquetas:** en cada ronda se elige la temperatura que iguala la entropía predictiva media a la del modelo calibrado de partida. El ECE queda a 0.010 o menos del oráculo con etiquetas, a 1.7B y a 8B (Tabla 4).
+- **«Output entropy is not calibration»:** con un brazo de una semilla, mantener plana la entropía de generación deja una deriva de −0.073.
+- **Gradiente nulo:** E_{y∼p_θ}[∇ log p_θ(y)] = 0 se argumenta en una línea; el afilamiento se atribuye al truncamiento top-p y a ajustar cada respuesta dos veces.
+- **Remedios:** TCE, bono de entropía y un solo pase mantienen la deriva; *focal loss* y dos muestras exactas suben el AUROC a 0.742.
+- **Regla 9:** **no da fórmula de la temperatura** ni mide ninguna norma o RMS de logits. Por inferencia del extractor, lo que se reescala son las log-probabilidades desesgadas de las letras. El desesgo es un centrado entre ejemplos por letra, no entre clases. **Reglas 10 y 11:** no hay Fisher, kernel ni jacobiano.
+- **Fallas de la fuente (confirmadas por el auditor):**
+  - Limitations dice «drifts of 0.02–0.13», pero las tablas llegan a −0.190 y −0.200;
+  - hay semillas fuera de la banda \|deriva\| ≤ 0.02 que se usa para decir que un protocolo «se sostiene»;
+  - p sin corrección múltiple;
+  - brazos clave con una sola semilla.
+- **Códigos:** 2 RELACIONADO; **4a ANTECEDENTE_PARCIAL**; 4b RELACIONADO; los demás NO_PERTINENTE.
+- **Para el instrumento (inferencia nuestra):**
+  - Es **el antecedente empírico más cercano a la separación entre escala y conocimiento del punto 4**: la confianza se mueve como un solo escalar mientras el ordenamiento entre ejemplos casi no cambia.
+  - Su «temperatura» es una deriva entre confianza y exactitud sobre letras de opción, **no la escala s(z) de los logits**. No la informa por ronda ni la relaciona con una señal predictiva.
+- **Ficha v1** (Fable 5.2), auditada por Qwen3.8-Max (sin intérprete de código): 0 errores de hecho, 0 CORREGIR, 0 AÑADIR. Claude verificó los SHA y los metadatos. Comentario 6866545999.
+
 ---
 
 ## 4b. Candidatas señaladas solo por su resumen (sin leer)
@@ -197,7 +216,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 | W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | **Leída** (§3): 3b ANTECEDENTE_PARCIAL | 6779834585 |
 | W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | **Leída** (§3): 4b ANTECEDENTE_PARCIAL | 6779834585 |
 | W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | **Leída** (§3): 4b ANTECEDENTE_PARCIAL | 6778645548 |
-| W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | Lista prioritaria | 6779205680 |
+| W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | **Leída** (§3): 4a ANTECEDENTE_PARCIAL, 4b RELACIONADO | 6779205680 |
 | W06028 | 4a y 4b | Con alta confianza, las brechas entre logits superan la precisión flotante, rompen la suma cero del gradiente e inflan las normas | Lista prioritaria | 6778645548 |
 | W06247 | 1 y 4a | ¿Añade una señal información más allá de la confianza softmax, con control de margen? Es el control «ajuste por confianza previa» del protocolo | Incluida MEDIA (corrección) | 6779205680 |
 | W00329, W00344 | 2 y 3a | Explosión temprana de la traza de la Fisher | Incluidas ALTA | 6799781607 |
@@ -299,7 +318,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
 
 ## 5. Pendientes de lectura
 
-De la lista prioritaria (comentario 6802312909): W06200 y W06028. W06354, W06335 y W05915 ya se leyeron (§3).
+De la lista prioritaria (comentario 6802312909): W06028. W06354, W06335, W05915 y W06200 ya se leyeron (§3).
 
 **Inventario sistemático:** hecho (§4d). La siguiente prioridad de lectura sale de esas listas, empezando por 3c (15 obras) y 3b (117 en todos los lotes).
 
@@ -307,7 +326,7 @@ De la lista prioritaria (comentario 6802312909): W06200 y W06028. W06354, W06335
 
 | Extractor | Obras | Errores de hecho detectados por el auditor |
 |---|---|---|
-| Fable 5.2 | W05415, W05548, W06320, W06354, W06335 (W05915 sin segundo auditor) | 0, 0, 0, 0 y 0 |
+| Fable 5.2 | W05415, W05548, W06320, W06354, W06335, W06200 (W05915 sin segundo auditor) | 0, 0, 0, 0, 0 y 0 |
 | DeepSeek | W05449, W05584 | 1, y 2 de transcripción de ecuaciones por OCR |
 | Claude | W04638, W05193, W05165 | 4 (v1) y 2 de página (v2), 0, y 1 más apéndices omitidos |
 | Argon | W05378 | 1 |
