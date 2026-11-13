@@ -24,7 +24,7 @@ Antecedente: [notas del punto 4](NOTAS_TEXTO_COMPLETO_PUNTO4_2026-11-10.md) (202
 | **3b** | Pullback G = JᵀMJ | **W06354:** pullback K_ℓ = J̄ᵀF*J̄ de la Fisher del softmax hacia los estados ocultos, con espectro, rango efectivo y núcleo (ANTECEDENTE_PARCIAL). W06320 usa el jacobiano solo como regla de la cadena (RELACIONADO) | El pullback de una **M entre ejemplos** por el jacobiano de un **campo softmax respecto de una perspectiva** |
 | **3c** | Longitud de semirrectas al borde del símplex | Nada (W06354, Ec. 43: energía de Fisher en un segmento finito = KL; RELACIONADO) | Todo |
 | **4a** | Calibración y regularización | W05449, W05415 y W05584 (ANTECEDENTE_PARCIAL), W05378 | — |
-| **4b** | Concentración, confianza y escala de logits | **W05548: la misma escala del instrumento** (σ = RMS centrada); W05449, el rango | El **vínculo cuantitativo** entre escala y confianza, y la **concentración c** sobre ejemplos |
+| **4b** | Concentración, confianza y escala de logits | **W05548: la misma escala del instrumento** (σ = RMS centrada); W05449, el rango; **W06335:** vínculo demostrado entre la magnitud de la *perturbación* de los logits (RMS centrada y oscilación) y el cambio de la distribución (ANTECEDENTE_PARCIAL) | El **vínculo cuantitativo** entre escala y confianza, y la **concentración c** sobre ejemplos |
 | **4c** | Modulación de D | Nada (W05548, W05449 y W06320: RELACIONADO o NO_PERTINENTE) | Todo |
 
 ---
@@ -42,10 +42,12 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 | W05584 | ‖p‖₂, normalizada a 1, con temperatura aprendida por muestra û | No | Tomada de LogitNorm, sin medirla ni aislarla con una ablación |
 | **W05449** | **Rango R(l) = máx − mín** | **Sí** (invariante y homogéneo de grado 1) | La Prop. 1 separa la norma de la confianza; que el rango sea la causa se postula |
 | **W05548** | **σ(x), desviación estándar con divisor n** | **Sí: es exactamente s(z)** cuando x son logits | Verbal, con una sola figura (Fig. 2b): σ baja al inicio corresponde a «baja confianza» |
+| **W06335** | **‖Δz‖₂/√n (RMS) y oscilación max Δz − min Δz**, ambas de la **perturbación** Δz entre dos pasos, no de z | RMS: el centrado es una hipótesis aparte (1ᵀΔz = 0) y no es invariante. Oscilación: **sí es invariante**, homogénea de grado 1 | **Demostrada:** H(softmax(z), softmax(z+Δz)) = osc(Δz); 2·RMS ≤ osc ≤ √(2n)·RMS; sup TV = tanh(osc/4); \|Δℓ\| ≤ osc |
 | W06354 | No define una escala; solo centra los logits sobre el vocabulario (P = I − (1/\|V\|)11ᵀ) y usa τ = 2 fija en destilación | Centrado sí, escala no | No relaciona magnitud con confianza; acota el residuo del hessiano por ‖p* − q‖ |
 
 **Lectura (inferencia nuestra):**
 - **El centrado no es exclusivo del instrumento.** W05548 usa la misma escala como temperatura por vector y critica explícitamente la norma sin centrar de LogitNorm. W05449 usa otra medida invariante a desplazamientos.
+- **W06335 (A.2, con z = 0):** hay logits centrados con RMS → 0 y probabilidad máxima 1/2 cuando n crece. **La RMS centrada no acota por sí sola la concentración de forma uniforme en el número de clases; el rango (oscilación) sí acota la TV y el cambio de pérdida.** Conviene tenerlo presente al interpretar s(z) con muchas clases.
 - **Lo que sigue sin antecedente en lo leído** es lo que el instrumento hace con esa escala: relacionarla cuantitativamente con la confianza, con la concentración c sobre ejemplos y con el incremento D.
 
 ---
@@ -159,6 +161,18 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
   - Lo que lo separa de G(P) = J(P)ᵀ M J(P) es que A es la Fisher de salida de **un ejemplo**, no una matriz M **entre ejemplos**, y que el jacobiano es respecto de estados ocultos, no de un parámetro de perspectiva.
 - **Ficha v2** (Fable 5.2; v2 añade el DOI de arXiv del metadato `/DOI`), auditada por Qwen3.8-Max con 0 errores de hecho, 0 CORREGIR y 1 AÑADIR. Comentario 6859713328.
 
+### W06335: *Taming Softmax at the Limits of Muon: A Unified Approach through Hilbert Geometry* (arXiv:2610.17588v1)
+- **Fuente (teórica, sin experimentos propios):**
+  - Para softmax, la distancia proyectiva de Hilbert entre la distribución antes y después de una actualización es la **oscilación** de la perturbación de los logits: H(softmax(z), softmax(z+Δz)) = max Δz − min Δz (Ec. 3, p. 4). No depende de z.
+  - **Demostrado:** 2‖Δz‖_RMS ≤ H ≤ √(2n)‖Δz‖_RMS para Δz centrada (Ec. 15, A.1); sup_z TV = tanh(H/4) (A.2; la cota TV ≤ tanh(H/4) se cita de Cohen & Fausti); \|Δℓ_i\| ≤ H (p. 4).
+  - Restringir H ≤ ε se traduce en el LM head en una cota del diámetro de las filas de ΔW (Ec. 5) y en atención en una cota espectral de ΔM (Ec. 12–13). Así se unifican RowNorm y la restricción QK.
+- **Reglas 10 y 11:** no hay Fisher ni kernel; Fisher aparece una sola vez, como mención en Related work. No hay jacobiano ni la palabra «pullback». Lo que construye es una medida de tamaño inducida desde la salida hacia ΔW, con la métrica de Hilbert (de tipo máximo, no cuadrática) y agregada por supremo sobre entradas.
+- **Inferencia del extractor, verificada por el auditor con cálculo:**
+  - a lo largo de un rayo z + s·u, H = s·osc(u), así que **en la métrica de Hilbert el borde del símplex queda a distancia infinita**, a diferencia del ρ_ray finito del instrumento;
+  - con z = 0, TV(uniforme, softmax(v)) ≤ tanh(√(2n)·RMS(v)/4).
+- **Códigos:** 3b RELACIONADO; **4b ANTECEDENTE_PARCIAL** (el menos seguro; RELACIONADO también es defendible); los demás NO_PERTINENTE.
+- **Ficha v1** (Fable 5.2), auditada por Qwen3.8-Max: 0 errores de hecho, 0 CORREGIR, 0 AÑADIR. Comentario 6860962516.
+
 ---
 
 ## 4b. Candidatas señaladas solo por su resumen (sin leer)
@@ -168,7 +182,7 @@ Escala del instrumento: **s(z) = √((1/m)Σⱼ(zⱼ − z̄)²)**. Es la RMS de
 | Obra | Punto | Por qué se señaló (lectura del resumen) | Estado | Comentario del PR #138 |
 |---|---|---|---|---|
 | W06354 | 3a y 3b | *Pullback* de la Fisher en estados ocultos de Transformers; espectro de direcciones sensibles y casi nulas | **Leída** (§3): 3b ANTECEDENTE_PARCIAL | 6779834585 |
-| W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | Lista prioritaria | 6779834585 |
+| W06335 | 3b y 4b | Sustituye el movimiento RMS por la distancia de Hilbert, una seminorma de oscilación invariante a desplazamientos | **Leída** (§3): 4b ANTECEDENTE_PARCIAL | 6779834585 |
 | W05915 | 3b y 4b | Geometría de la cabeza softmax que respeta la invariancia a desplazamientos comunes | Lista prioritaria | 6778645548 |
 | W06200 | 4a y 4b | El autoentrenamiento agudiza las probabilidades sin mejorar la discriminación; la temperatura lo corrige | Lista prioritaria | 6779205680 |
 | W06028 | 4a y 4b | Con alta confianza, las brechas entre logits superan la precisión flotante, rompen la suma cero del gradiente e inflan las normas | Lista prioritaria | 6778645548 |
@@ -272,7 +286,7 @@ No vienen de la literatura: son derivaciones nuestras, **por verificar o ya veri
 
 ## 5. Pendientes de lectura
 
-De la lista prioritaria (comentario 6802312909): W06335, W05915, W06200 y W06028. W06354 ya se leyó (§3).
+De la lista prioritaria (comentario 6802312909): W05915, W06200 y W06028. W06354 y W06335 ya se leyeron (§3).
 
 **Inventario sistemático:** hecho (§4d). La siguiente prioridad de lectura sale de esas listas, empezando por 3c (15 obras) y 3b (117 en todos los lotes).
 
@@ -280,7 +294,7 @@ De la lista prioritaria (comentario 6802312909): W06335, W05915, W06200 y W06028
 
 | Extractor | Obras | Errores de hecho detectados por el auditor |
 |---|---|---|
-| Fable 5.2 | W05415, W05548, W06320, W06354 | 0, 0, 0 y 0 |
+| Fable 5.2 | W05415, W05548, W06320, W06354, W06335 | 0, 0, 0, 0 y 0 |
 | DeepSeek | W05449, W05584 | 1, y 2 de transcripción de ecuaciones por OCR |
 | Claude | W04638, W05193, W05165 | 4 (v1) y 2 de página (v2), 0, y 1 más apéndices omitidos |
 | Argon | W05378 | 1 |
