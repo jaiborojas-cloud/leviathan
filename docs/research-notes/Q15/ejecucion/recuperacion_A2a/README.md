@@ -2,6 +2,8 @@
 
 **Estado:** BORRADOR v1.1. Corrige los hallazgos de la [auditoría de Argon](AUDITORIA_ARGON_PR150_2026-11-10.md) sobre `081021ba` (0 bloqueantes; A1, M1, M2, B1–B3). Necesita reconfirmación antes de correrlo.
 
+**Versión vigente: A2a-1.2 (BORRADOR, 2026-11-13), pendiente de auditoría independiente.** Solo cambia el acceso; ver la sección [A2a-1.2](#a2a-12-claves-de-api-y-continuación). La corrida de 1.1 se ejecutó y su salida se conserva sin cambios.
+
 **Autorización:** el responsable la dio el 2026-11-10 a las 08:28 (hora de México). Es una modificación operativa del [plan de pendientes v1](https://github.com/jaiborojas-cloud/leviathan/pull/138#issuecomment-6749882361): la fase A2, que el plan definía como manual, se divide en una parte automática (A2a, este script) y una manual (A2b) para lo que A2a no resuelva. No cambia criterios, topes, corte ni el tratamiento de lo desconocido. **No decide pertinencia ni fechas.**
 
 ## Insumos
@@ -62,12 +64,14 @@ Código de salida: 0 si todo terminó, 2 si quedan registros `ERROR_ACCESO` y 1 
 
 **Duración estimada:** entre 2 000 y 3 000 solicitudes, alrededor de 1 a 1.5 h. Se puede cortar con Ctrl+C y reanudar con el mismo comando. Los datos quedan **fuera de Git**.
 
+SHA-256 de la versión 1.1 (la de 1.2 está en su sección):
+
 | Archivo | SHA-256 |
 |---|---|
 | `recuperar_a2a.py` | `fcd78a0aa13c530bcb84e287e3b92284fcb0bdc04a6026a8009f276f36d837d0` |
 | `pruebas_recuperar_a2a.py` | `17d39dc2d5f4395bb00ff3bb1e765c61b1d67e3321ea0968258c238e958de28e` |
 
-**Pruebas:** pasan 23 de 23, sin red (el socket está bloqueado), en Linux con Python 3.13. Cubren:
+**Pruebas de 1.1:** pasan 23 de 23, sin red (el socket está bloqueado), en Linux con Python 3.13. Cubren:
 - el ancla, los identificadores derivados y cada condición de aceptación;
 - el nivel débil y el conflicto de autores;
 - el ancla con título discordante;
@@ -81,7 +85,74 @@ Código de salida: 0 si todo terminó, 2 si quedan registros `ERROR_ACCESO` y 1 
 
 Falta confirmarlas en Windows.
 
-## Procedimiento (una ventana nueva de PowerShell, un solo bloque)
+## A2a-1.2: claves de API y continuación
+
+**Motivo (2026-11-13).** La corrida de 1.1 terminó con código 2: 102 `RESUMEN_RECUPERADO`, 158 `SIN_RESUMEN_TRAS_A2A` y **335 `ERROR_ACCESO`**. Todos los fallos son límites de uso, no errores de contenido:
+- Semantic Scholar: 364 consultas con 429. El servidor pide esperar o usar una clave.
+- OpenAlex: 187 consultas con 429. Se agotó el presupuesto diario gratuito de la IP y el servidor pide usar una clave.
+
+Por registro, 148 fallaron solo en S2, 146 en S2 y OpenAlex, y 41 solo en OpenAlex. El responsable obtuvo una clave gratuita de OpenAlex.
+
+**Cambios (solo de acceso; la identidad y la aceptación son las de 1.1):**
+1. **Claves opcionales, solo desde el entorno:** `OPENALEX_API_KEY` se envía como `Authorization: Bearer` únicamente a `api.openalex.org`, y `S2_API_KEY` como `x-api-key` únicamente a `api.semanticscholar.org`.
+   - **Nunca van en la URL.** Así no cambian la clave de caché `sha(url)` ni lo registrado en `meta.json`.
+   - No se escriben en disco ni se imprimen. `IDENTIDAD.json` solo registra si estaban presentes.
+   - Si una redirección cambia de host, se quitan antes de seguirla.
+2. **`--continuar-de <carpeta 1.1>`:** como `IDENTIDAD.json` rechaza una carpeta de otro script, 1.2 escribe en una **carpeta nueva** y hereda la caché de 1.1 en solo lectura.
+   - La carpeta previa tiene que ser exactamente una salida de A2a-1.1 (versión, SHA `fcd78a0a…` y los mismos insumos).
+   - Cada consulta que falta en la carpeta nueva se **copia** de la previa, con sus intentos, y su `meta.json` queda marcado con `heredado_de: A2a-1.1`. Las consultas finales no se repiten; las que fallaron se reintentan y su numeración continúa.
+   - La carpeta previa no se modifica, y la prueba lo verifica con hashes.
+   - `IDENTIDAD.json` registra `continua_de` (versión, SHA del script y SHA de la identidad previa).
+
+| Archivo (1.2) | SHA-256 |
+|---|---|
+| `recuperar_a2a.py` | `0b3d22a93ab901c7cfffbe34bd89de37162e8a74a50191ff29a5a5947175f657` |
+| `pruebas_recuperar_a2a.py` | `8c48cd5b8123c321bd3fc30ee77b50b467b755b65bda42c9120f0163c10a9d1d` |
+
+**Pruebas de 1.2:** pasan 28 de 28 sin red, en Linux con Python 3.13: las 23 de 1.1 sin cambios en lo que verifican, más 5 nuevas:
+- los encabezados por host, incluidos hosts parecidos y una URL que solo menciona el host;
+- la redirección a otro host quita las claves;
+- la clave no aparece en ningún archivo de salida ni en ninguna URL;
+- la continuación hereda la caché, no repite consultas finales, continúa la numeración y deja intacta la carpeta previa;
+- se rechazan una carpeta previa con otra identidad y `--continuar-de` igual a `--out`.
+
+**Procedimiento (después de la auditoría):** una ventana nueva de PowerShell. La clave se pide con `Read-Host` y solo vive en esa ventana; no se guarda en el historial ni en archivos.
+
+```powershell
+$ErrorActionPreference = 'Stop'
+$Repo = 'D:\leviathan-q15-a2a-v12'
+$Rev = '<COMMIT_AUDITADO>'
+if (-not (Test-Path $Repo)) {
+    git -c core.autocrlf=false clone --no-checkout https://github.com/jaiborojas-cloud/leviathan.git $Repo
+    git -C $Repo config core.autocrlf false
+    git -C $Repo checkout --detach $Rev
+}
+if ((git -C $Repo rev-parse HEAD) -ne $Rev) { throw 'Clon en otro commit' }
+$Py = 'D:\RIPG_DATA\venv_q15\Scripts\python.exe'
+$Dir = Join-Path $Repo 'docs\research-notes\Q15\ejecucion\recuperacion_A2a'
+$Script = Join-Path $Dir 'recuperar_a2a.py'
+$Suite = Join-Path $Dir 'pruebas_recuperar_a2a.py'
+$H1 = (Get-FileHash $Script -Algorithm SHA256).Hash.ToLower()
+$H2 = (Get-FileHash $Suite -Algorithm SHA256).Hash.ToLower()
+if ($H1 -ne '0b3d22a93ab901c7cfffbe34bd89de37162e8a74a50191ff29a5a5947175f657') { throw 'SHA script' }
+if ($H2 -ne '8c48cd5b8123c321bd3fc30ee77b50b467b755b65bda42c9120f0163c10a9d1d') { throw 'SHA pruebas' }
+& $Py -I $Suite
+if ($LASTEXITCODE -ne 0) { throw 'Pruebas fallaron: copia la salida' }
+$K = Read-Host 'Clave de OpenAlex' -AsSecureString
+$env:OPENALEX_API_KEY = [Net.NetworkCredential]::new('', $K).Password
+$Inv = 'D:\RIPG_DATA\Q15_A0\insumo\INVENTARIO_857.json'
+$A0 = 'D:\RIPG_DATA\Q15_A0\salida\recuperacion_a0.json'
+$Prev = 'D:\RIPG_DATA\Q15_A2a\salida'
+$Out = 'D:\RIPG_DATA\Q15_A2a\salida_v12'
+$PSNativeCommandUseErrorActionPreference = $false
+& $Py -I $Script --inventario $Inv --a0 $A0 --out $Out --continuar-de $Prev
+"Código: $LASTEXITCODE"
+Remove-Item Env:OPENALEX_API_KEY
+```
+
+Si el código es 2, se repite el mismo comando sobre `salida_v12`.
+
+## Procedimiento de 1.1 (histórico; una ventana nueva de PowerShell, un solo bloque)
 
 ```powershell
 $ErrorActionPreference = 'Stop'

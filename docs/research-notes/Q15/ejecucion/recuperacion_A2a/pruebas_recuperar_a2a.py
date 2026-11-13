@@ -98,13 +98,14 @@ class Utilidades(unittest.TestCase):
 
 
 class Ejecucion(unittest.TestCase):
-    def correr(self, invs, a0s, net, extra=(), out=None, tmp=None):
+    def correr(self, invs, a0s, net, extra=(), out=None, tmp=None, entorno=None):
         tmp = tmp or tempfile.mkdtemp()
         inv, si = escribir(tmp, "inv.json", invs)
         a0, sa = escribir(tmp, "a0.json", a0s)
         out = out or Path(tmp) / "out"
         rc = A.main(["--inventario", str(inv), "--a0", str(a0), "--out", str(out),
-                     "--sha-inventario", si, "--sha-a0", sa, *extra], fetch=net, dormir=lambda s: None)
+                     "--sha-inventario", si, "--sha-a0", sa, *extra], fetch=net, dormir=lambda s: None,
+                    entorno={} if entorno is None else entorno)
         p = out / "recuperacion_a2a.json"
         return rc, out, (json.loads(p.read_text(encoding="utf-8")) if p.exists() else None)
 
@@ -276,6 +277,107 @@ class Ejecucion(unittest.TestCase):
     def test_m2_b2_consulta_arxiv_y_guion_bajo(self):
         self.assertEqual(A.texto_busqueda("L_2 and NOT"), "L 2 and NOT")
         self.assertEqual(A.consulta_arxiv("Search AND Rescue: on L_2 Or Not"), "ti:Search AND ti:Rescue")
+
+    # ------------------------------------------------------------ A2a-1.2: claves y continuación
+
+    CLAVE = "CLAVE-DE-PRUEBA-NO-REAL-123"
+
+    def test_v12_encabezados_por_host(self):
+        ent = {A.ENV_OPENALEX: self.CLAVE, A.ENV_S2: "S2-" + self.CLAVE}
+        c = A.Cliente(Path(tempfile.mkdtemp()), 0, 1.0, entorno=ent)
+        self.assertEqual(c.encabezados("https://api.openalex.org/works?x=1")["Authorization"], "Bearer " + self.CLAVE)
+        self.assertNotIn("x-api-key", c.encabezados("https://api.openalex.org/works?x=1"))
+        self.assertEqual(c.encabezados("https://api.semanticscholar.org/graph/v1/paper/x")["x-api-key"], "S2-" + self.CLAVE)
+        for u in ("https://api.crossref.org/works", "https://export.arxiv.org/api/query",
+                  "https://api.openalex.org.evil.example/works", "https://evil.example/?h=api.openalex.org"):
+            h = c.encabezados(u)
+            self.assertNotIn("Authorization", h, u)
+            self.assertNotIn("x-api-key", h, u)
+        c0 = A.Cliente(Path(tempfile.mkdtemp()), 0, 1.0, entorno={})
+        self.assertNotIn("Authorization", c0.encabezados("https://api.openalex.org/works"))
+
+    def test_v12_redireccion_a_otro_host_quita_claves(self):
+        import urllib.request
+        h = A._RedireccionSinClaves()
+        req = urllib.request.Request("https://api.openalex.org/works/doi:x",
+                                     headers={"Authorization": "Bearer " + self.CLAVE, "User-Agent": "u"})
+        fuera = h.redirect_request(req, None, 302, "Found", {}, "https://otro.example/x")
+        self.assertNotIn("Authorization", {k.title() for k in fuera.headers})
+        self.assertIn("User-agent", fuera.headers)
+        dentro = h.redirect_request(req, None, 302, "Found", {}, "https://api.openalex.org/works/W1")
+        self.assertIn("Authorization", {k.title() for k in dentro.headers})
+
+    def test_v12_la_clave_no_se_escribe_en_disco(self):
+        net = FakeNet([("paper/" + PID, ok(dict(S2_ANCLA_SIN_RES, externalIds={}))),
+                       ("openalex.org/works?", ok(oa_busq(oa_work())))])
+        ent = {A.ENV_OPENALEX: self.CLAVE}
+        rc, out, res = self.correr([inv_reg()], [a0_reg()], net, entorno=ent)
+        self.assertEqual(res[0]["estado_propuesto"], "RESUMEN_RECUPERADO")
+        for f in out.rglob("*"):
+            if f.is_file():
+                self.assertNotIn(self.CLAVE.encode(), f.read_bytes(), str(f))
+        for u in net.llamadas:
+            self.assertNotIn(self.CLAVE, u)
+        ident = json.loads((out / "IDENTIDAD.json").read_text(encoding="utf-8"))
+        self.assertEqual(ident["version"], "A2a-1.2")
+        self.assertEqual(ident["claves_api_presentes"], {A.ENV_OPENALEX: True, A.ENV_S2: False})
+
+    def _previa_11(self, tmp):
+        """Salida simulada de A2a-1.1: caché con el ancla final y OpenAlex en 429."""
+        prev = Path(tmp) / "prev"
+        vacio = [("query.bibliographic", ok({"message": {"items": []}})), ("search/match", ok({}, 404)),
+                 ("search_query", ok(b"<feed xmlns='http://www.w3.org/2005/Atom'/>"))]
+        net1 = FakeNet([("paper/" + PID, ok(dict(S2_ANCLA_SIN_RES, externalIds={}))),
+                        ("openalex.org/works?", ok({}, 429))] + vacio)
+        rc, _, res = self.correr([inv_reg()], [a0_reg()], net1, extra=("--reintentos", "0"), out=prev, tmp=tmp)
+        self.assertEqual(res[0]["estado_propuesto"], "ERROR_ACCESO")
+        ident = json.loads((prev / "IDENTIDAD.json").read_text(encoding="utf-8"))
+        ident11 = {"version": A.CONTINUA_VERSION, "script_sha256": A.CONTINUA_SCRIPT_SHA,
+                   "inventario_sha256": ident["inventario_sha256"], "a0_sha256": ident["a0_sha256"]}
+        (prev / "IDENTIDAD.json").write_text(json.dumps(ident11, indent=1), encoding="utf-8")
+        for f in (prev / "raw").rglob("meta.json"):  # como los escribió 1.1, sin marcas de 1.2
+            m = json.loads(f.read_text(encoding="utf-8"))
+            m.pop("heredado_de", None)
+            f.write_text(json.dumps(m, ensure_ascii=False, indent=1), encoding="utf-8")
+        return prev, vacio
+
+    @staticmethod
+    def _huella(d):
+        return {str(f.relative_to(d)): hashlib.sha256(f.read_bytes()).hexdigest() for f in d.rglob("*") if f.is_file()}
+
+    def test_v12_continuar_de_hereda_cache_sin_tocar_la_previa(self):
+        tmp = tempfile.mkdtemp()
+        prev, vacio = self._previa_11(tmp)
+        antes = self._huella(prev)
+        out = Path(tmp) / "nueva"
+        net2 = FakeNet([("openalex.org/works?", ok(oa_busq(oa_work())))] + vacio)
+        rc, _, res = self.correr([inv_reg()], [a0_reg()], net2, extra=("--continuar-de", str(prev)),
+                                 out=out, tmp=tmp, entorno={A.ENV_OPENALEX: self.CLAVE})
+        self.assertEqual(rc, 0)
+        self.assertEqual(res[0]["estado_propuesto"], "RESUMEN_RECUPERADO")
+        self.assertEqual(net2.cuenta("paper/" + PID), 0)  # el ancla final se hereda
+        self.assertEqual(net2.cuenta("query.bibliographic"), 0)
+        self.assertEqual(self._huella(prev), antes)  # la carpeta previa no cambia
+        url_oa = next(u for u in net2.llamadas if "openalex.org/works?" in u)
+        m = json.loads((out / "raw" / A.sha256_bytes(url_oa.encode()) / "meta.json").read_text(encoding="utf-8"))
+        self.assertEqual(m["heredado_de"], "A2a-1.1")
+        self.assertEqual([i["status"] for i in m["intentos"]], [429, 200])  # numeración continúa
+        self.assertEqual([i["n"] for i in m["intentos"]], [1, 2])
+        ident = json.loads((out / "IDENTIDAD.json").read_text(encoding="utf-8"))
+        self.assertEqual(ident["continua_de"]["script_sha256"], A.CONTINUA_SCRIPT_SHA)
+
+    def test_v12_continuar_de_rechaza_otra_identidad_o_la_misma_carpeta(self):
+        tmp = tempfile.mkdtemp()
+        prev, _ = self._previa_11(tmp)
+        rc, _, _ = self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                               out=prev, tmp=tmp)
+        self.assertEqual(rc, 1)
+        ident = json.loads((prev / "IDENTIDAD.json").read_text(encoding="utf-8"))
+        ident["script_sha256"] = "0" * 64
+        (prev / "IDENTIDAD.json").write_text(json.dumps(ident), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            self.correr([inv_reg()], [a0_reg()], FakeNet([]), extra=("--continuar-de", str(prev)),
+                        out=Path(tmp) / "otra", tmp=tmp)
 
     def test_gitattributes_sin_conversion(self):
         ga = AQUI.parents[4] / ".gitattributes"

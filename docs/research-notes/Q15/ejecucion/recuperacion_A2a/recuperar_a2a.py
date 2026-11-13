@@ -17,6 +17,14 @@ Por registro, en este orden y deteniéndose al recuperar un resumen:
      si los candidatos aceptados discrepan en el primer autor, queda CONFLICTO_IDENTIDAD.
 Nunca decide pertinencia ni fechas: registra las fechas candidatas de las fuentes aceptadas.
 Guarda cada respuesta cruda con su SHA-256 y reanuda desde caché. Solo biblioteca estándar.
+
+Cambios de A2a-1.2 (solo acceso; la lógica de identidad y aceptación es la de 1.1):
+  - Claves de API opcionales, leídas de variables de entorno: OPENALEX_API_KEY (encabezado
+    «Authorization: Bearer») y S2_API_KEY (encabezado «x-api-key»). Nunca van en la URL, nunca se
+    escriben en disco ni se imprimen; IDENTIDAD.json solo registra si había clave o no.
+  - --continuar-de: carpeta de salida de A2a-1.1 cuya caché se hereda en solo lectura. Cada
+    consulta que falta en la carpeta nueva se copia de la anterior (respuestas e intentos) antes de
+    decidir si hace falta otra solicitud. La carpeta anterior no se modifica.
 """
 from __future__ import annotations
 
@@ -28,6 +36,7 @@ import io
 import json
 import os
 import re
+import shutil
 import sys
 import time
 import unicodedata
@@ -38,11 +47,16 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "A2a-1.1"
+VERSION = "A2a-1.2"
 INVENTARIO_SHA_ESPERADO = "778424329491191e31c6c669e3504ff2a0e2730966c389226d7a1a73315ef14d"
 A0_SHA_ESPERADO = "1e05f504b39d44e410e43eddfb2e58ed60fce86a71859840d377f5cb4593c2ce"
 USER_AGENT = "Q15-A2a-abstract-recovery/1.0"
 PAUSAS = {"openalex": 0.5, "crossref": 1.0, "s2": 1.1, "arxiv": 3.0}
+# Versión anterior aceptada como origen de --continuar-de (auditada en el PR #150).
+CONTINUA_VERSION = "A2a-1.1"
+CONTINUA_SCRIPT_SHA = "fcd78a0aa13c530bcb84e287e3b92284fcb0bdc04a6026a8009f276f36d837d0"
+ENV_OPENALEX = "OPENALEX_API_KEY"
+ENV_S2 = "S2_API_KEY"
 RECUPERADO = "RESUMEN_RECUPERADO"
 # Niveles de identidad, de más fuerte a más débil.
 ID_ANCLA = "ANCLA_S2"
@@ -152,9 +166,33 @@ def norm_doi(d: str | None) -> str:
 
 # ---------------------------------------------------------------- HTTP con caché (igual que A0 v1.1)
 
+_CLAVES = ("authorization", "x-api-key")
+
+
+class _RedireccionSinClaves(urllib.request.HTTPRedirectHandler):
+    """Si una redirección cambia de host, quita las claves para no enviarlas a un tercero."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        nuevo = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if nuevo is not None and urllib.parse.urlsplit(newurl).hostname != urllib.parse.urlsplit(req.full_url).hostname:
+            for k in list(nuevo.headers):
+                if k.lower() in _CLAVES:
+                    del nuevo.headers[k]
+            for k in list(nuevo.unredirected_hdrs):
+                if k.lower() in _CLAVES:
+                    del nuevo.unredirected_hdrs[k]
+        return nuevo
+
+
+_ABRIDOR = urllib.request.build_opener(_RedireccionSinClaves)
+
 class Cliente:
-    def __init__(self, out: Path, reintentos: int, timeout: float, fetch=None, dormir=time.sleep):
+    def __init__(self, out: Path, reintentos: int, timeout: float, fetch=None, dormir=time.sleep,
+                 previa: Path | None = None, entorno=None):
         self.out = out
+        self.previa = previa
+        self._entorno = os.environ if entorno is None else entorno
+        self.heredadas = 0
         self.reintentos = reintentos
         self.timeout = timeout
         self._fetch = fetch or self._fetch_urllib
@@ -162,10 +200,20 @@ class Cliente:
         self._ultimo: dict[str, float] = {}
         self.solicitudes = 0
 
+    def encabezados(self, url: str) -> dict:
+        """Encabezados por host. Las claves salen solo del entorno y no se registran."""
+        h = {"User-Agent": USER_AGENT, "Accept": "*/*"}
+        host = urllib.parse.urlsplit(url).hostname or ""
+        if host == "api.openalex.org" and self._entorno.get(ENV_OPENALEX):
+            h["Authorization"] = "Bearer " + self._entorno[ENV_OPENALEX]
+        if host == "api.semanticscholar.org" and self._entorno.get(ENV_S2):
+            h["x-api-key"] = self._entorno[ENV_S2]
+        return h
+
     def _fetch_urllib(self, url: str, timeout: float):
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+        req = urllib.request.Request(url, headers=self.encabezados(url))
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
+            with _ABRIDOR.open(req, timeout=timeout) as r:
                 return r.status, dict(r.headers), r.read(), r.geturl()
         except urllib.error.HTTPError as e:
             return e.code, dict(e.headers or {}), e.read() or b"", url
@@ -173,12 +221,22 @@ class Cliente:
     def get(self, fuente: str, url: str) -> dict:
         d = self.out / "raw" / sha256_bytes(url.encode())
         meta_p = d / "meta.json"
+        if not meta_p.exists() and self.previa is not None:
+            d_prev = self.previa / "raw" / d.name
+            if (d_prev / "meta.json").exists():
+                shutil.copytree(d_prev, d, dirs_exist_ok=True)  # copia; la carpeta previa no cambia
+                m = json.loads(meta_p.read_text(encoding="utf-8"))
+                m["heredado_de"] = CONTINUA_VERSION
+                escribir_atomico(meta_p, json.dumps(m, ensure_ascii=False, indent=1).encode("utf-8"))
+                self.heredadas += 1
         if meta_p.exists():
             meta = json.loads(meta_p.read_text(encoding="utf-8"))
             if meta.get("final"):
                 meta["cache"] = True
                 return meta
-        previos = json.loads(meta_p.read_text(encoding="utf-8"))["intentos"] if meta_p.exists() else []
+        meta_previa = json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.exists() else {}
+        previos = meta_previa.get("intentos", [])
+        heredado = meta_previa.get("heredado_de")
         en_disco = [int(p.stem.split("_")[1]) for p in d.glob("intento_*.body")] if d.exists() else []
         base_n = max([len(previos)] + en_disco)
         intentos = list(previos)
@@ -207,6 +265,8 @@ class Cliente:
             meta = {"fuente": fuente, "url": url, "intentos": intentos, "status": status,
                     "cuerpo": intento["cuerpo"], "sha256": intento["sha256"],
                     "final": not transitorio, "cache": False}
+            if heredado:
+                meta["heredado_de"] = heredado
             escribir_atomico(meta_p, json.dumps(meta, ensure_ascii=False, indent=1).encode("utf-8"))
             if not transitorio or n == self.reintentos:
                 break
@@ -480,8 +540,29 @@ def _cerrar(res: dict, fallos: list[dict]) -> dict:
 
 # ---------------------------------------------------------------- identidad y exportación
 
-def identidad(script_sha: str, inv_sha: str, a0_sha: str) -> dict:
-    return {"version": VERSION, "script_sha256": script_sha, "inventario_sha256": inv_sha, "a0_sha256": a0_sha}
+def identidad(script_sha: str, inv_sha: str, a0_sha: str, continua: dict | None = None,
+              claves: dict | None = None) -> dict:
+    ident = {"version": VERSION, "script_sha256": script_sha, "inventario_sha256": inv_sha, "a0_sha256": a0_sha}
+    if continua is not None:
+        ident["continua_de"] = continua
+    if claves is not None:
+        ident["claves_api_presentes"] = claves  # solo presencia, nunca el valor
+    return ident
+
+
+def verificar_previa(previa: Path, inv_sha: str, a0_sha: str) -> dict:
+    """La carpeta previa debe ser una salida de A2a-1.1 con los mismos insumos."""
+    p = previa / "IDENTIDAD.json"
+    if not p.exists():
+        raise SystemExit("ERROR A2a: --continuar-de no tiene IDENTIDAD.json")
+    raw = p.read_bytes()
+    prev = json.loads(raw)
+    esperado = {"version": CONTINUA_VERSION, "script_sha256": CONTINUA_SCRIPT_SHA,
+                "inventario_sha256": inv_sha, "a0_sha256": a0_sha}
+    if prev != esperado:
+        raise SystemExit("ERROR A2a: --continuar-de no es una salida de A2a-1.1 con los mismos insumos")
+    return {"version": CONTINUA_VERSION, "script_sha256": CONTINUA_SCRIPT_SHA,
+            "identidad_sha256": sha256_bytes(raw)}
 
 
 def verificar_identidad(out: Path, ident: dict) -> None:
@@ -521,7 +602,7 @@ def exportar(out: Path, resultados: list[dict]) -> dict:
     return resumen
 
 
-def main(argv=None, fetch=None, dormir=time.sleep) -> int:
+def main(argv=None, fetch=None, dormir=time.sleep, entorno=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--inventario", required=True)
     ap.add_argument("--a0", required=True, help="recuperacion_a0.json de la fase A0")
@@ -531,6 +612,8 @@ def main(argv=None, fetch=None, dormir=time.sleep) -> int:
     ap.add_argument("--limite", type=int, default=0, help="procesar solo los primeros N registros (prueba)")
     ap.add_argument("--sha-inventario", default=INVENTARIO_SHA_ESPERADO)
     ap.add_argument("--sha-a0", default=A0_SHA_ESPERADO)
+    ap.add_argument("--continuar-de", default=None,
+                    help="carpeta de salida de A2a-1.1 cuya caché se hereda (solo lectura)")
     a = ap.parse_args(argv)
     inv_p, a0_p = Path(a.inventario), Path(a.a0)
     inv_sha, a0_sha = sha256_file(inv_p), sha256_file(a0_p)
@@ -541,8 +624,17 @@ def main(argv=None, fetch=None, dormir=time.sleep) -> int:
         print(f"ERROR A2a: SHA de A0 {a0_sha} != esperado {a.sha_a0}", file=sys.stderr)
         return 1
     out = Path(a.out)
+    previa = Path(a.continuar_de) if a.continuar_de else None
+    continua = None
+    if previa is not None:
+        if previa.resolve() == out.resolve():
+            print("ERROR A2a: --continuar-de debe ser otra carpeta que --out", file=sys.stderr)
+            return 1
+        continua = verificar_previa(previa, inv_sha, a0_sha)
+    entorno = os.environ if entorno is None else entorno
+    claves = {ENV_OPENALEX: bool(entorno.get(ENV_OPENALEX)), ENV_S2: bool(entorno.get(ENV_S2))}
     out.mkdir(parents=True, exist_ok=True)
-    verificar_identidad(out, identidad(sha256_file(Path(__file__)), inv_sha, a0_sha))
+    verificar_identidad(out, identidad(sha256_file(Path(__file__)), inv_sha, a0_sha, continua, claves))
     inv = {x["registro_id"]: x for x in json.loads(inv_p.read_text(encoding="utf-8"))}
     a0 = json.loads(a0_p.read_text(encoding="utf-8"))
     faltan = [r["registro_id"] for r in a0 if r["registro_id"] not in inv]
@@ -552,12 +644,13 @@ def main(argv=None, fetch=None, dormir=time.sleep) -> int:
     pendientes = [r for r in a0 if r["estado_propuesto"] != RECUPERADO]
     if a.limite:
         pendientes = pendientes[: a.limite]
-    c = Cliente(out, a.reintentos, a.timeout, fetch=fetch, dormir=dormir)
+    c = Cliente(out, a.reintentos, a.timeout, fetch=fetch, dormir=dormir, previa=previa, entorno=entorno)
     resultados = []
     for i, r in enumerate(pendientes, 1):
         resultados.append(evaluar_registro(c, inv[r["registro_id"]], r))
         if i % 25 == 0:
-            print(f"A2a: {i}/{len(pendientes)} registros, {c.solicitudes} solicitudes nuevas", flush=True)
+            print(f"A2a: {i}/{len(pendientes)} registros, {c.solicitudes} solicitudes nuevas, "
+                  f"{c.heredadas} consultas heredadas", flush=True)
     resumen = exportar(out, resultados)
     print(json.dumps({"conteos": resumen["conteos"], "niveles": resumen["niveles_identidad"]}, ensure_ascii=False))
     return 2 if resumen["conteos"].get("ERROR_ACCESO") else 0
